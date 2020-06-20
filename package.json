@@ -10,7 +10,8 @@
     "packages/*"
   ],
   "scripts": {
-    "barrels": "lerna run generate-barrels --parallel"
+    "barrels": "lerna run generate-barrels --parallel",
+    "storybook": "lerna run storybook"
   },
   "dependencies": {
     "lerna": "^3.22.1"

@@ -10,6 +10,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "jsx": "react",
     "paths": {
       "@wf/*": [
         "packages/*/src"
