@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Darin Cassler",
   "license": "MIT",
+  "scripts": {
+    "generate-barrels": "barrelsby --delete  -d src -l top"
+  },
   "devDependencies": {
     "barrelsby": "^2.1.1",
     "@types/jest": "^24.0.18",
