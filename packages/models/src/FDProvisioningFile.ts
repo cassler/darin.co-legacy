@@ -1,13 +1,6 @@
-import { IFDProvisioningData } from './IFDProvisioningData'
+import { IFDProvisioningData } from "@wf/interfaces"
 
-/**
- * @name FinanceDriverProvisionFile
- * @description Format used to generate CSV files for uploading into
- * Finance Driver for provisioning of account-level settings.
- * @keywords ["csv","finance-driver","provisioning"]
- */
-
-export interface IFDProvisioningFile extends IFDProvisioningData {
+export abstract class FDProvisioningFile implements IFDProvisioningData {
   'Partner ID': string // req
   'Partner Dealer ID': string | number | bigint // req
   'Created Date'?: string // req
