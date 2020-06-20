@@ -9,6 +9,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "barrels": "lerna run generate-barrels --parallel"
+  },
   "dependencies": {
     "lerna": "^3.22.1"
   }
