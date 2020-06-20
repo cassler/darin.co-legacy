@@ -1,0 +1,15 @@
+{
+  "name": "workflower-monorepo",
+  "version": "0.1.0",
+  "description": "A monorepo for Workflower using lerna, typescript, yarn workspaces and typescript",
+  "main": "index.js",
+  "author": "darin@cassler.net",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
