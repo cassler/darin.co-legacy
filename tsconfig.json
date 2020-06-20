@@ -11,7 +11,7 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@mono/*": [
+      "@wf/*": [
         "packages/*/src"
       ]
     },
