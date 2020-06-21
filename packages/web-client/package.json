@@ -1,6 +1,6 @@
 {
   "name": "@wf/web-client",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Default web-client structure for @wf",
   "main": "src/index.ts",
   "author": "Darin Cassler",
