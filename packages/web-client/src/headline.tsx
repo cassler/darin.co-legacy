@@ -1,16 +1,18 @@
 import React from 'react';
 
 type IItemLabel = {
-  title: string,
-  subtitle?: string,
-  index?: number,
+	title: string,
+	subtitle?: string,
+	onClick?: Function,
+	index?: number,
 }
+
 export const Headline: React.FC<IItemLabel> =
-  ({ title, subtitle }) => {
-    return (
-      <div>
-        <h3>{title}</h3>
-        <button>{subtitle ? subtitle : 'default'} 🚀</button>
-      </div>
-    )
-  }
+	({ title, subtitle, onClick }) => {
+		return (
+			<div>
+				<h3>{title}</h3>
+				<button onChange={() => onClick}>{subtitle ? subtitle : 'default'} 🚀</button>
+			</div>
+		)
+	}

@@ -1,5 +1,5 @@
 module.exports = {
-  addons: ['@storybook/preset-typescript'],
+  addons: ['@storybook/preset-typescript', '@storybook/addon-actions/register'],
   stories: ['../stories/*.stories.tsx'],
   webpackFinal: async config => {
     config.module.rules.push({
