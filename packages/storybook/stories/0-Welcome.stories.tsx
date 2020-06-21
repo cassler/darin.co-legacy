@@ -1,19 +1,14 @@
 import React from 'react';
 import { linkTo } from '@storybook/addon-links';
-// import { Welcome } from '@storybook/react/demo';
+import { Headline } from '@wf/web-client'
 
-export const Welcome: React.FC = () => <div>Hello</div>
 
 export default {
-  title: 'Welcome',
-  component: Welcome,
+  title: 'Headline',
+  component: Headline,
 };
 
 
 export const ToStorybook = () => (
-  <Welcome><div>Hell from the Labs</div></Welcome>
+  <Headline title="This title" subtitle="that subtitle" />
 );
-
-ToStorybook.story = {
-  name: 'to Storybook',
-};
