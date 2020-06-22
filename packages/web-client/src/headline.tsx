@@ -9,13 +9,10 @@ export interface IHeadlineProps {
 
 export function Headline(props: IHeadlineProps) {
 	const { label, subtitle, onClick, disabled } = props;
-	const handleClick = (event) => {
-		onClick(event);
-	}
 	return (
 		<div>
 			<h3>{label}</h3>
-			<button onClick={(event) => handleClick(event)}>
+			<button onClick={onClick}>
 				{subtitle}
 			</button>
 			{!disabled && <div>More is enabled</div>}

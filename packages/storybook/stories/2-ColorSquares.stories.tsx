@@ -1,29 +1,27 @@
 import React from 'react';
 // import { linkTo } from '@storybook/addon-links';
-import { actions } from '@storybook/addon-actions';
+import { withKnobs, text } from "@storybook/addon-knobs";
+// import { actions } from '@storybook/addon-actions';
 import { ColorSquare } from '@wf/web-client'
 
 
 export default {
 	title: 'ColorSquare',
 	component: ColorSquare,
+	decorator: [withKnobs]
 };
 
-const eventsFromObject = actions({ onClick: 'clicked', onMouseOver: 'hovered' });
+const EProps = {
+	label: text("Color Label", "Default Label"),
+	color: text("HEX", "#a37299"),
+}
 
 
-export const Example1 = (args: object) => {
-	console.log({ args });
+export const Example1 = () => {
 	return (
 		<ColorSquare
-			{...eventsFromObject}
-			label="My Button Title"
-			color="#a3c182"
+			label={EProps.label}
+			color={EProps.color}
 		/>
 	)
 };
-
-Example1.args = {
-	label: "Hello my title",
-	color: "#d0a172"
-}
