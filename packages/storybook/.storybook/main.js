@@ -2,7 +2,8 @@ module.exports = {
 	addons: [
 		'@storybook/preset-typescript',
 		'@storybook/addon-actions/register',
-		'@storybook/addon-knobs/register'
+		'@storybook/addon-knobs/register',
+		'@storybook/addon-docs',
 	],
   stories: ['../stories/*.stories.tsx'],
   webpackFinal: async config => {
