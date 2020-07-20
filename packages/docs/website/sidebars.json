@@ -1,0 +1,33 @@
+{
+	"docs": {
+		"Overview": [
+			"intro",
+			"method",
+			"example"
+		],
+		"Processing": [
+			"calcstate",
+			"calcchange",
+			"troubleshoot"
+		],
+		"Provisioning": [
+			"prov_ebs",
+			"prov_ps",
+			"prov_fd",
+			"cancel"
+		],
+		"Supported Partners": [
+			"boa",
+			"drw",
+			"cnz",
+			"goo",
+			"das"
+		]
+	},
+	"docs-other": {
+		"First Category": [
+			"doc4",
+			"doc5"
+		]
+	}
+}
