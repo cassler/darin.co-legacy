@@ -1,6 +1,6 @@
 export interface EBSProvisionInput {
 	'Partner ID': 'DRW' | 'BOA' | 'CNZ' | 'GOO' | 'DAS',
-	'Partner Dealer ID': number | string,
+	'Partner Dealer ID': number | string | bigint,
 	'DT Dealer ID': number,
 	'Legal Name': string,
 	'DBA Name': string,
@@ -16,7 +16,7 @@ export interface EBSProvisionInput {
 
 export type EBSProvisionItem = {
 	"Partner ID": "DRW" | "BOA",
-	"Partner Dealer ID": number,
+	"Partner Dealer ID": number | string | bigint,
 	"DT Dealer ID": number,
 	"DNA ID"?: string,
 	"Legal Name": string,
