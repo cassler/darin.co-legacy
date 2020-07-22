@@ -19,6 +19,7 @@
 		"typescript": "^3.5.3"
 	},
 	"dependencies": {
+		"lodash": "^4.17.19",
 		"moment": "^2.27.0",
 		"ts-node-dev": "^1.0.0-pre.52",
 		"tsc-watch": "^4.2.9"

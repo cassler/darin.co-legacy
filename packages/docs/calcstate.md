@@ -44,6 +44,32 @@ Now that we've isolated a list of new setup requests, it's time to validate the 
 
 - Need Enrollment (**NE**) = **ND** - **DTA** | `[7]`
 
+When processing these results, you may be returned a verbose object such as this:
+
+```
+{
+	status: 'FAILED', 
+	title: 'Inelligble Dealertrack ID', 
+	dt: 562890, 
+	partnerId: 'DRW-6060', 
+	message: 'Enrollment phase is "Not Contacted" for 562890. This account is not eligible for product subscription. This may be due to a problem with DT matching process. Check for possible alternate accounts to remap DRW-6060.', 
+	include: false
+} 
+```
+
+OR
+
+```
+{
+	dt: 704033, 
+	partnerId: 'DRW-5723', 
+	status: 'warning', 
+	title: 'Limited Account Access for Dealer', 
+	message: 'The dealer must reactivate their Dealertrack account to restore access to some functionality.', 
+	include: true
+} 
+```
+
 These dealers are not able to subscribe to products for one of several reasons. In most cases you'll need to notify the partner of these issues or find a way to resolve them, for example, by working with ADM to remap partners.
 
 
