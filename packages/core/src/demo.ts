@@ -5,12 +5,20 @@ import {
 	asFinanceDriverPayload,
 	processPartnerSubmissions,
 	getPartnerConfig,
-	PartnerCodes
+	PartnerCodes,
+	partnerConfigInput
 } from '@wf/core'
 
 
-// kik
+/**
+ *
+ * @param partner
+ */
 
+export interface IRunIntakeOptions {
+	partner: PartnerCodes,
+	config: partnerConfigInput
+}
 function run_intake_process(partner: PartnerCodes) {
 	let config = getPartnerConfig(partner);
 	const data = processPartnerSubmissions({

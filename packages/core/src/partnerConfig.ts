@@ -1,11 +1,27 @@
 export type PartnerCodes = "BOA" | "DRW"
+import { EBSProvisionItem, DTReportItem } from '@wf/interfaces'
+
 import {
 	sample_dt_report_drw as dt_report,
 	real_drw_submit as partner_submit,
 	sample_ebs_entries_drw as ebs_entries,
 } from "@wf/sample-data";
 
-export const partnerConfigs = [
+export interface partnerConfigInput {
+	partner: string,
+	crm: string,
+	dealerContact: string,
+	internal_id: string,
+	leads: string,
+	ebiz_dt_dealer_id_field: string,
+	submitted_file: EBSProvisionItem[],
+	dt_report_file: DTReportItem[],
+	live_ids: number[],
+	valid_phases: string[],
+	custom_validation: Function,
+}
+
+export const partnerConfigs: partnerConfigInput[] = [
 	{
 		// identify settings and fill certain fields
 		partner: "BOA",
@@ -45,7 +61,7 @@ export const partnerConfigs = [
 	},
 ]
 
-export function getPartnerConfig(partner: PartnerCodes) {
+export function getPartnerConfig(partner: PartnerCodes): partnerConfigInput {
 	let config = partnerConfigs.find(i => i.partner == partner);
 	return config
 }
