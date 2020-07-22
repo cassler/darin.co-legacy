@@ -3,4 +3,7 @@
  */
 
 export * from "./checkEnrollment";
+export * from "./demo";
+export * from "./partnerConfig";
 export * from "./processPartnerSubmission";
+export * from "./transformers";

@@ -17,5 +17,10 @@
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-plugin-prettier": "^2.0.1",
 		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"moment": "^2.27.0",
+		"ts-node-dev": "^1.0.0-pre.52",
+		"tsc-watch": "^4.2.9"
 	}
 }

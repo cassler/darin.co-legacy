@@ -1,6 +1,6 @@
 import { uniqBy, intersection, difference, differenceBy, intersectionBy } from 'lodash'
 import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-
+import { PartnerCodes } from './partnerConfig'
 /**
  * Iterate over entries in a Dealertrack report and provide feedback on various enrollment issues
  */
@@ -13,7 +13,7 @@ export interface ICheckEnrollmentStatusMessage {
 	include: boolean
 }
 
-export type PartnerCodes = "BOA" | "DRW"
+
 
 export interface ICheckEnrollmentProps {
 	item: DTReportItemSimple | DTReportItem,
