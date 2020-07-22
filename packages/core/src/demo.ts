@@ -1,11 +1,13 @@
-import { checkEnrollmentStatus, asProdSubItem, asEbizItem, asEbizPayload, asProdSubPayload, processPartnerSubmissions, getPartnerConfig } from '@wf/core'
-import { DTReportItem } from '@wf/interfaces'
 import {
-	sample_dt_report_drw as dt_report,
-	real_drw_submit as partner_submit,
-	sample_ebs_entries_drw as ebs_entries
-} from "@wf/sample-data";
-import { PartnerCodes } from './partnerConfig';
+	checkEnrollmentStatus,
+	asEbizPayload,
+	asProdSubPayload,
+	asFinanceDriverPayload,
+	processPartnerSubmissions,
+	getPartnerConfig,
+	PartnerCodes
+} from '@wf/core'
+
 
 // kik
 
@@ -21,21 +23,19 @@ function run_intake_process(partner: PartnerCodes) {
 
 	// @todo create file with loggin messages
 	let infos = data.map(i => i.info)
-
+	// all our DT matches
 	let accounts = data.map(i => i.account)
+	// only those that pass pre-requisites
+	let eligible_accounts = accounts.filter(i => config.valid_phases.includes(i["Enrollment Phase"]))
 
-	/**
-	 * @todo - generate info file, write-out
-	 * @todo - generate product subscription file, write-out
-	 * @todo - generate ebs file, write out
-	 */
-	let ps = accounts.map(i => asProdSubItem(i, "DRW"))
-	let ebs = asEbizPayload(accounts, "DRW")
-
-	console.log(ebs)
-	console.log(ps[0])
-	console.log(infos)
+	return ({
+		info: data.map(i => i.info),
+		prodsub: asProdSubPayload(eligible_accounts, partner),
+		ebs: asEbizPayload(eligible_accounts, partner),
+		fd: asFinanceDriverPayload(eligible_accounts, partner)
+	})
 
 }
 
-run_intake_process("DRW")
+const res = run_intake_process("DRW");
+console.log(res.info);
