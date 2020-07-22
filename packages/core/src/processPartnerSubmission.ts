@@ -1,10 +1,5 @@
 import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage, PartnerCodes } from '@wf/core'
-import {
-	sample_dt_report_drw_2 as dt_report,
-	sample_drw_submit as partner_submit,
-	sample_ebs_entries_drw as ebs_entries
-} from "@wf/sample-data";
-import { uniqBy, intersection, difference, differenceBy, intersectionBy } from 'lodash'
+import { uniqBy, uniq, intersection, difference } from 'lodash'
 import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
 
 /**
@@ -12,61 +7,81 @@ import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfac
 	 * 7123, 7124, 7133, 7175, 7178
 	 * Expect this to be live on EBS but not matched: 3422
 	 */
-export interface IProcessPartnerSubmission {
+export interface ProcessPartnerSubmissionProps {
 	partner: PartnerCodes,
 	submitted: EBSProvisionItem[],
 	matched: DTReportItem[],
-	live: any[],
+	live: number[],
 	generate: ["EBS", "PS", "FD"] | null
 }
 
-export function processPartnerSubmissions({
-	partner,
-	submitted,
-	matched,
-	live,
-	generate
-}: IProcessPartnerSubmission) {
+export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
+	if (!values) return data.map(i => i[key])
+	return data.filter(i => values.includes(i[key]))
+}
+
+export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) {
 	// create arrays to hold data
-	let included: DTReportItem[] = []
-	let messages: ICheckEnrollmentStatusMessage[] = []
-	let excluded: ICheckEnrollmentStatusMessage[] = []
-	let output: any[] = []
+	const { partner, submitted, matched, live, generate } = props;
 
-	// limit our work to matched dealers included on request file. This is all we need to worry about
-	const active_matched = matched.filter(i =>
-		submitted.map(s => s["Partner Dealer ID"]).includes(i["Lender Dealer Id"])
-	)
-
-	// cycle through dealermatch file for enrollments
-	for (const i of active_matched) {
-		const result = { ...checkEnrollmentStatus(i, partner) }
-		result.include ? included.push(i) : excluded.push(result);
-		result.message ? messages.push(result) : null;
+	// 1. Compare submitted items with available match items.
+	const id_sets = {
+		submitted: getValuesByKeyName(submitted, "Partner Dealer ID"), //?
+		matched: getValuesByKeyName(matched, "Lender Dealer Id"),
+		live: live
 	}
 
-	// now we'll isolate the ones not in our live environment
-	const new_entries = active_matched.filter(i =>
-		!live.includes(i["Lender Dealer Id"])
-	)
+	const delta = {
+		added: difference(id_sets.submitted, id_sets.live),
+		removed: difference(id_sets.live, id_sets.submitted)
+	}
 
-	// This is just for some helpful debugging
-	const newIds = new_entries.map(i => i["DealerTrack Id"]);
-	console.log(messages)
-	console.log("Dealers excluded:", excluded.map(i => i.dt))
-	console.log(new_entries.length + " Dealers added. These will be included on your output files:", newIds)
+	console.log('ADDED:', delta.added)
+	console.log('REMOVED:', JSON.stringify(delta.removed))
 
 	/**
-	 * @todo identify all fields needed to generate Prod Sub from output
-	 * @todo identify all fields needed to generate ebs file from output
-	 * @todo identify all fields needed to generate FD provisioning from output
+	 * @todo - new array from request including only 'ADDED' items
+	 * @todo - validate DT match for each of them
 	 */
 
-	if (generate) {
-		generate.includes("EBS") ? console.log('TODO: Generate EBS File', newIds) : null
-		generate.includes("PS") ? console.log('TODO: Generate ProdSub File', newIds) : null
-		generate.includes("FD") ? console.log('TODO: Generate FinanceDriver File', newIds) : null
+	const new_items_validate = submitted.filter(i => delta.added.includes(i["Partner Dealer ID"])) //?
+	// const new_items_validate = submitted
+	// console.log(new_items_validate)
+	for (const item of new_items_validate) {
+		let pid = item["Partner Dealer ID"];
+		// check for a match
+		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
+		// if nothing comes back, throw this away
+		if (!dtMatch) {
+			console.log('Warning, dealer is not matched in DT', item["Partner Dealer ID"])
+		} else {
+			// validate enrollment on this match
+			const result = { ...checkEnrollmentStatus(dtMatch, partner) }
+			console.log(result)
+		}
+
 	}
 
+	// cycle through dealermatch file for enrollments
+	let included: object[] = []
+	let excluded: object[] = []
+	let messages: object[] = []
+	for (const i of delta.added) {
+		if (id_sets.matched.indexOf(i) >= 0) {
+			const result = { ...checkEnrollmentStatus(i, partner) }
+			result.include ? included.push(i) : excluded.push(result);
+			result.message ? messages.push(result) : null;
+		} else {
+			console.warn(`Dealer does not exist as match ${partner} ${i}`)
+		}
+	}
+
+
+
+
+
+	return;
+
 }
+
 

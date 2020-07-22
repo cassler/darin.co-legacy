@@ -15,8 +15,6 @@ export interface ICheckEnrollmentStatusMessage {
 
 export type PartnerCodes = "BOA" | "DRW"
 
-
-
 export interface ICheckEnrollmentProps {
 	item: DTReportItemSimple | DTReportItem,
 	partner: PartnerCodes
@@ -70,8 +68,8 @@ export function checkEnrollmentStatus(
 			status: 'warning',
 			title: 'Not detected',
 			message: `${item["Enrollment Phase"]}`,
-			include: false
+			include: true
 		}
 	}
-	return { dt: item["DealerTrack Id"], partnerId: "DRW", ...output };
+	return { dt: item["DealerTrack Id"], partnerId: pid, ...output };
 }
