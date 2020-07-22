@@ -1,7 +1,6 @@
 import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
 import { PartnerCodes, getPartnerConfig } from '@wf/core'
 import moment from 'moment'
-import { partnerConfigs } from './partnerConfig';
 /**
  * Used as an ORM layer for transforming various payloads into other formats
  */
@@ -35,7 +34,7 @@ export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
 	return {
 		'Partner ID': partnerCode,
 		'Partner Dealer ID': data["Lender Dealer Id"],
-		'DT Dealer ID': data["DealerTrack Id"],
+		'DT Dealer ID': data[config.ebiz_dt_dealer_id_field],
 		'DNA ID': '',
 		LegalName: data["Legal Name"],
 		'DBA Name': data["DBA Name"],
