@@ -15,12 +15,9 @@ import {
  * @param partner
  */
 
-export interface IRunIntakeOptions {
-	partner: PartnerCodes,
-	config: partnerConfigInput
-}
-function run_intake_process(partner: PartnerCodes) {
-	let config = getPartnerConfig(partner);
+
+function run_intake_process(partner: PartnerCodes, options?: partnerConfigInput) {
+	const config = options || getPartnerConfig(partner);
 	const data = processPartnerSubmissions({
 		partner: partner,
 		submitted: config.submitted_file,
