@@ -27,6 +27,7 @@ export function checkEnrollmentStatus(
 	const [dtid, partnerId] = [item["DealerTrack Id"], item["Lender Dealer Id"]]
 	const pid = `${partner}-${partnerId}`
 	let output: ICheckEnrollmentStatusMessage;
+	// console.log(item)
 	switch (phase) {
 		case "Not Contacted": output = {
 			status: 'REJECTED',

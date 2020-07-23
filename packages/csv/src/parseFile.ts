@@ -22,11 +22,12 @@ export const firtSheetJson = (file: string) => {
 }
 
 export function getJSONfromSpreadsheet(file: string) {
+	console.log(file.slice(-3))
 	if (file.slice(-3) === 'csv') {
 		// do CSV stuff
-		console.log('this is a csv')
+		// console.log('this is a csv')
 		let data = fs.readFileSync(file, 'utf8');
-		return Papa.parse(data, { header: true }).data
+		return Papa.parse(data, { header: true, dynamicTyping: true }).data
 	}
 
 	if (file.slice(-4) === 'xslx' || '.xls') {
@@ -42,4 +43,11 @@ export function getJSONfromSpreadsheet(file: string) {
 		// return data;
 		return all_data[0]
 	}
+}
+
+
+export const writeToCsv = (data: object[], name: string = 'GeneratedFile') => {
+	const content = Papa.unparse(data);
+	fs.writeFile(`./tmp/${name}.csv`, content, e => console.error(e));
+	console.log('Appended File Data!');
 }

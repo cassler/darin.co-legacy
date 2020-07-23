@@ -14,8 +14,8 @@ export interface partnerConfigInput {
 	internal_id: string,
 	leads: string,
 	ebiz_dt_dealer_id_field: string,
-	submitted_file: EBSProvisionItem[],
-	dt_report_file: DTReportItem[],
+	submitted_file: string,
+	dt_report_file: string,
 	live_ids: number[],
 	valid_phases: string[],
 	custom_validation: Function,
@@ -36,9 +36,9 @@ export const partnerConfigs: partnerConfigInput[] = [
 		// value used for eBiz profile "DT Dealer ID"
 		ebiz_dt_dealer_id_field: "DealerTrack Id",
 		// JSON of file submission from this partner
-		submitted_file: partner_submit,
+		submitted_file: "Full Inventory Setup Log Friday 7.17.2020.xlsx",
 		// JSON of DT Business Report for partner
-		dt_report_file: dt_report,
+		dt_report_file: "report1594649681795.csv",
 		// list of IDs live with service, any way you want
 		live_ids: ebs_entries,
 		// Enrollment Phases to Accept
@@ -53,8 +53,8 @@ export const partnerConfigs: partnerConfigInput[] = [
 		leads: "NoEmail@darwinautomotive.com",
 		internal_id: "Partner Dealer Id",
 		ebiz_dt_dealer_id_field: "Lender Dealer Id",
-		submitted_file: partner_submit,
-		dt_report_file: dt_report,
+		submitted_file: "Digital_Retail_Suite_Dealer_File-DRW(4).csv",
+		dt_report_file: "93509abd-7783-4274-9d52-a068c52afe98.csv",
 		live_ids: ebs_entries,
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
 		custom_validation: () => { },

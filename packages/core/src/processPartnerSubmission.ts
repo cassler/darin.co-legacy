@@ -10,7 +10,7 @@ export function getValuesByKeyName(data: object[], key: string, values?: any[]) 
 
 export interface ProcessPartnerSubmissionProps {
 	partner: PartnerCodes,
-	submitted: EBSProvisionItem[], // this should be more flexible
+	submitted: object[], // this should be more flexible
 	matched: DTReportItem[],
 	live: number[],
 	generate: ["EBS", "PS", "FD"] | null // deprectated
