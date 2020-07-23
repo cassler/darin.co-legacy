@@ -1,0 +1,89 @@
+import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
+import { uniqBy, uniq, intersection, difference } from 'lodash'
+import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
+import { PartnerCodes } from './partnerConfig'
+
+export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
+	if (!values) return data.map(i => i[key])
+	return data.filter(i => values.includes(i[key]))
+}
+
+export interface ProcessPartnerSubmissionProps {
+	partner: PartnerCodes,
+	submitted: EBSProvisionItem[], // this should be more flexible
+	matched: DTReportItem[],
+	live: number[],
+	generate: ["EBS", "PS", "FD"] | null // deprectated
+}
+
+export type ProcessPartnerSubmissionResult = {
+	info: ICheckEnrollmentStatusMessage,
+	account: DTReportItem,
+	item: object
+}
+
+export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) {
+	// create arrays to hold data
+	const { partner, submitted, matched, live } = props;
+
+	/**
+	 * @yields array of IDs for the respective namespace.
+	 * @description This is repetitive for the sake of cleanliness.
+	 * */
+
+	const id_sets = {
+		submitted: getValuesByKeyName(submitted, "Partner Dealer ID"), //?
+		matched: getValuesByKeyName(matched, "Lender Dealer Id"),
+		live: live
+	}
+
+	/**
+	 * @yields array of 'new' items submitted but not live.
+	 * @description - This is very repetitive code for the sake of readability
+	 * */
+
+	const delta = {
+		added: difference(id_sets.submitted, id_sets.live),
+		removed: difference(id_sets.live, id_sets.submitted)
+	}
+
+	/**
+	 * @name new_items_validate
+	 *
+	 * @type DTReportItem[]
+	 * @yields Remove anything without a match
+	 *
+	 * @todo Refactor this filter into a pure fuctnion
+	 * @todo Apply custom rules from partnerConfig
+	 */
+
+	const new_items_validate = submitted.filter(i => delta.added.includes(i["Partner Dealer ID"])) //?
+
+	/**
+	 * Post Processing & Generating Output
+	 *
+	 * @description Apply additional checks on the working set of new entries by
+	 * looping through the provided array and generating object data for the respective
+	 * dealer in multiple formats.
+	 *
+	 * @todo convert inner loop to pure function that returns values.
+	 * @todo convert to mapped function outputs rather than array pushes.
+	 */
+
+	const output: ProcessPartnerSubmissionResult[] = new Array();
+
+	for (const item of new_items_validate) {
+		// check for a match
+		let pid = item["Partner Dealer ID"];
+		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
+		// validate enrollment on this match
+		output.push({
+			info: { ...checkEnrollmentStatus(dtMatch, partner) },
+			account: dtMatch || null,
+			item: item
+		})
+	}
+
+	return output;
+
+}
