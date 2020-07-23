@@ -1,7 +1,0 @@
-dt,partnerId,status,title,message,include
-106863,DRW-4781,ACCEPTED,Dealer added to provisioning files.,,true
-640580,DRW-4785,ACCEPTED,Dealer added to provisioning files.,,true
-262381,DRW-5349,ACCEPTED,Dealer added to provisioning files.,,true
-704033,DRW-5723,WARNING,Limited Account Access for Dealer,The dealer must reactivate their Dealertrack account to restore access to some functionality.,true
-562890,DRW-6060,REJECTED,Inelligble Dealertrack ID,"Enrollment phase is ""Not Contacted"" for 562890. This account is not eligible for product subscription. This may be due to a problem with DT matching process. ",false
-,DRW-undefined,REJECTED,Not detected,undefined,true

@@ -69,5 +69,5 @@ function run_intake_process(partner: PartnerCodes, generateFiles: boolean) {
 }
 
 const res = run_intake_process("DRW", true);
-console.log(res.info);
+console.log(res);
 

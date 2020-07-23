@@ -61,7 +61,7 @@ export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
 export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
 	let config = getPartnerConfig(partnerCode);
 	return {
-		'Partner ID': 'BOA',
+		'Partner ID': partnerCode,
 		'Partner Dealer ID': data["Lender Dealer Id"], // req
 		'Created Date': moment().format('L'), // req
 		'Modified Date': moment().format('L'),

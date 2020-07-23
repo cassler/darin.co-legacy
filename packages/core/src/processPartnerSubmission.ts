@@ -57,7 +57,7 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 * @todo Apply custom rules from partnerConfig
 	 */
 
-	const new_items_validate = submitted.filter(i => delta.added.includes(i["Partner Dealer ID"])) //?
+	const new_items_validate = submitted.filter(i => delta.added.includes(i[config.internal_id])) //?
 
 	/**
 	 * Post Processing & Generating Output
@@ -74,11 +74,11 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 
 	for (const item of new_items_validate) {
 		// check for a match
-		let pid = item["Partner Dealer ID"];
+		let pid = item[config.internal_id];
 		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
 		// validate enrollment on this match
 		output.push({
-			info: { ...checkEnrollmentStatus(dtMatch, partner) },
+			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch, partner) } : null,
 			account: dtMatch || null,
 			item: item
 		})
