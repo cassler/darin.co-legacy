@@ -51,7 +51,7 @@ export const partnerConfigs: partnerConfigInput[] = [
 		crm: "NoEmail@darwinautomotive.com",
 		dealerContact: "NoEmail@darwinautomotive.com",
 		leads: "NoEmail@darwinautomotive.com",
-		internal_id: "Partner Dealer Id",
+		internal_id: "Partner Dealer ID",
 		ebiz_dt_dealer_id_field: "Lender Dealer Id",
 		submitted_file: "Digital_Retail_Suite_Dealer_File-DRW(4).csv",
 		dt_report_file: "93509abd-7783-4274-9d52-a068c52afe98.csv",

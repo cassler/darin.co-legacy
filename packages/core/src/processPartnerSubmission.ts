@@ -1,7 +1,7 @@
 import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
 import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-import { PartnerCodes } from './partnerConfig'
+import { PartnerCodes, getPartnerConfig } from './partnerConfig'
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
 	if (!values) return data.map(i => i[key])
@@ -25,14 +25,14 @@ export type ProcessPartnerSubmissionResult = {
 export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) {
 	// create arrays to hold data
 	const { partner, submitted, matched, live } = props;
-
+	let config = getPartnerConfig(partner)
 	/**
 	 * @yields array of IDs for the respective namespace.
 	 * @description This is repetitive for the sake of cleanliness.
 	 * */
 
 	const id_sets = {
-		submitted: getValuesByKeyName(submitted, "Partner Dealer ID"), //?
+		submitted: getValuesByKeyName(submitted, config.internal_id), //?
 		matched: getValuesByKeyName(matched, "Lender Dealer Id"),
 		live: live
 	}
