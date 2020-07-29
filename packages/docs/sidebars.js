@@ -1,7 +1,6 @@
 module.exports = {
   someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-		Features: ['mdx'],
+
 		Overview: [
 			"intro",
 			"method",
@@ -18,7 +17,7 @@ module.exports = {
 			"prov_fd",
 			"cancel"
 		],
-		Supported_Partners: [
+		"Partner Support": [
 			"boa",
 			"drw",
 			"cnz",

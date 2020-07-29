@@ -1,7 +1,7 @@
 import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
-import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-import { PartnerCodes } from './partnerConfig'
+import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
+import { getPartnerConfig } from './partnerConfig'
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
 	if (!values) return data.map(i => i[key])
@@ -9,8 +9,8 @@ export function getValuesByKeyName(data: object[], key: string, values?: any[]) 
 }
 
 export interface ProcessPartnerSubmissionProps {
-	partner: PartnerCodes,
-	submitted: EBSProvisionItem[], // this should be more flexible
+	partner: PartnerCode,
+	submitted: object[], // this should be more flexible
 	matched: DTReportItem[],
 	live: number[],
 	generate: ["EBS", "PS", "FD"] | null // deprectated
@@ -25,14 +25,14 @@ export type ProcessPartnerSubmissionResult = {
 export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) {
 	// create arrays to hold data
 	const { partner, submitted, matched, live } = props;
-
+	let config = getPartnerConfig(partner)
 	/**
 	 * @yields array of IDs for the respective namespace.
 	 * @description This is repetitive for the sake of cleanliness.
 	 * */
 
 	const id_sets = {
-		submitted: getValuesByKeyName(submitted, "Partner Dealer ID"), //?
+		submitted: getValuesByKeyName(submitted, config.internal_id), //?
 		matched: getValuesByKeyName(matched, "Lender Dealer Id"),
 		live: live
 	}
@@ -43,7 +43,7 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 * */
 
 	const delta = {
-		added: difference(id_sets.submitted, id_sets.live),
+		added: difference(id_sets.submitted, id_sets.live).filter(Boolean),
 		removed: difference(id_sets.live, id_sets.submitted)
 	}
 
@@ -57,8 +57,10 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 * @todo Apply custom rules from partnerConfig
 	 */
 
-	const new_items_validate = submitted.filter(i => delta.added.includes(i["Partner Dealer ID"])) //?
-
+	const new_items_validate = submitted.filter(i => delta.added.includes(i[config.internal_id])) //?
+	console.log(JSON.stringify(submitted.map(i => i[config.internal_id])))
+	console.log('ADDED:', delta.added)
+	console.log(new_items_validate)
 	/**
 	 * Post Processing & Generating Output
 	 *
@@ -74,11 +76,11 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 
 	for (const item of new_items_validate) {
 		// check for a match
-		let pid = item["Partner Dealer ID"];
+		let pid = item[config.internal_id];
 		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
 		// validate enrollment on this match
 		output.push({
-			info: { ...checkEnrollmentStatus(dtMatch, partner) },
+			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch, partner) } : null,
 			account: dtMatch || null,
 			item: item
 		})

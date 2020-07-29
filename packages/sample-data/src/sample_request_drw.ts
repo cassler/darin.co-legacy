@@ -1,4 +1,4 @@
-import { EBSProvisionItem } from '@wf/interfaces'
+import { EBSProvisionItem } from '@wf/types'
 export const real_drw_submit: EBSProvisionItem[] = [
 	{
 		"Partner ID": "DRW",

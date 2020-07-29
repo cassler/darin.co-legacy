@@ -14,7 +14,7 @@ export interface EBSProvisionInput {
 	'CRM': string,	// crm address
 }
 
-export type EBSProvisionItem = {
+export interface EBSProvisionItem {
 	"Partner ID": "DRW" | "BOA",
 	"Partner Dealer ID": number | string | bigint,
 	"DT Dealer ID": number,
@@ -37,4 +37,10 @@ export type EBSProvisionItem = {
 	"Hide Videos": string,
 	"Dealer Groups": string,
 	"Profile ID": string,
+}
+
+export interface BOAInventorySetupRequest {
+	"Program Active Status": string,
+	"Corporate Services Addendum Status": string,
+	"Dealer Magellan_": bigint,
 }

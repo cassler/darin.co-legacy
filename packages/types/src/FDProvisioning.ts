@@ -1,5 +1,5 @@
 
-import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
+import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/types';
 /**
  * Input fields needed to generate a FinanceDriver entry
  */

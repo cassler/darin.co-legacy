@@ -1,4 +1,4 @@
-import { DTReportItem } from '@wf/interfaces';
+import { DTReportItem } from '@wf/types';
 
 
 export const sample_dt_report_drw: DTReportItem[] = [

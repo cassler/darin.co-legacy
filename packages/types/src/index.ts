@@ -5,3 +5,4 @@
 export * from "./DTReport";
 export * from "./FDProvisioning";
 export * from "./eBizProvisioning";
+export * from "./partners";
