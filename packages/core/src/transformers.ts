@@ -1,4 +1,4 @@
-import { DTReportItem, PartnerCode, ProdSubItem } from '@wf/types';
+import { DTReportItem, EBSProvisionItem, PartnerCode, ProdSubItem } from '@wf/types';
 import { getPartnerConfig } from '@wf/core'
 import moment from 'moment'
 import { partnerConfigs } from './partnerConfig';
@@ -30,7 +30,7 @@ export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode): Pro
 }
 
 
-export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode): EBSProvisionItem => {
 	let config = getPartnerConfig(partnerCode);
 	return {
 		'Partner ID': partnerCode,

@@ -42,3 +42,27 @@ export interface RequestBOA {
 	"Path": string,
 }
 
+export interface RequestDRW {
+	"Partner ID": PartnerCode,
+	"Partner Dealer ID": number | string | bigint,
+	"DT Dealer ID": number,
+	"DNA ID"?: string,
+	"Legal Name": string,
+	"DBA Name": string,
+	"Street": string,
+	"City": string,
+	"State": string,
+	"PostalCode": number | string,
+	"Phone": number | string,
+	"Fax": number | string,
+	"Status": "A" | "I",
+	"CRM": string,
+	"Dealership's Customer Contact Email": string,
+	"Leads": string,
+	"Ford LPS PA Code": string,
+	"Urban Science Vendor Id": string,
+	"Shift Digital Vendor Id": string,
+	"Hide Videos": string,
+	"Dealer Groups": string,
+	"Profile ID": string,
+}
