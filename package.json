@@ -1,15 +1,23 @@
 {
-  "name": "workflower-monorepo",
-  "version": "0.1.0",
-  "description": "A monorepo for Workflower using lerna, typescript, yarn workspaces and typescript",
-  "main": "index.js",
-  "author": "darin@cassler.net",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "lerna": "^3.22.1"
-  }
+	"name": "workflower-monorepo",
+	"version": "0.1.0",
+	"description": "A monorepo for Workflower using lerna, typescript, yarn workspaces and typescript",
+	"main": "index.js",
+	"author": "darin@cassler.net",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"start": "lerna run start --parallel",
+		"start:dev": "lerna run start:dev --parallel",
+		"test": "lerna run test --parallel",
+		"test:e2e": "lerna run test:e2e --parallel",
+		"bootstrap": "lerna bootstrap --use-workspaces",
+		"barrels": "lerna run generate-barrels --parallel"
+	},
+	"dependencies": {
+		"lerna": "^3.22.1"
+	}
 }

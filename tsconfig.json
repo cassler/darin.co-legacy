@@ -10,8 +10,9 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "jsx": "react",
     "paths": {
-      "@mono/*": [
+      "@wf/*": [
         "packages/*/src"
       ]
     },
