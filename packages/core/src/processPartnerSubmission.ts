@@ -1,7 +1,7 @@
 import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
-import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-import { PartnerCodes, getPartnerConfig } from './partnerConfig'
+import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
+import { getPartnerConfig } from './partnerConfig'
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
 	if (!values) return data.map(i => i[key])
@@ -9,7 +9,7 @@ export function getValuesByKeyName(data: object[], key: string, values?: any[]) 
 }
 
 export interface ProcessPartnerSubmissionProps {
-	partner: PartnerCodes,
+	partner: PartnerCode,
 	submitted: object[], // this should be more flexible
 	matched: DTReportItem[],
 	live: number[],
@@ -43,7 +43,7 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 * */
 
 	const delta = {
-		added: difference(id_sets.submitted, id_sets.live),
+		added: difference(id_sets.submitted, id_sets.live).filter(Boolean),
 		removed: difference(id_sets.live, id_sets.submitted)
 	}
 
@@ -58,7 +58,9 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 */
 
 	const new_items_validate = submitted.filter(i => delta.added.includes(i[config.internal_id])) //?
-
+	console.log(JSON.stringify(submitted.map(i => i[config.internal_id])))
+	console.log('ADDED:', delta.added)
+	console.log(new_items_validate)
 	/**
 	 * Post Processing & Generating Output
 	 *

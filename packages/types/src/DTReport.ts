@@ -1,4 +1,4 @@
-export type DTReportItemSimple = {
+export interface DTReportItemSimple {
 	"Legal Name": string,
 	"DBA Name": string,
 	"Street": string,
@@ -21,7 +21,7 @@ export type DTReportItemSimple = {
 	"Status": "A" | "I",
 }
 
-export type DTReportItem = DTReportItemSimple & {
+export interface DTReportItem extends DTReportItemSimple {
 	"Dept": string,
 	"Alternate Street": string,
 	"Independent": string,

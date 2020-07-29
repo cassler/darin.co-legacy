@@ -5,12 +5,11 @@ import {
 	asFinanceDriverPayload,
 	processPartnerSubmissions,
 	getPartnerConfig,
-	PartnerCodes,
 	partnerConfigInput
 } from '@wf/core'
 
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
-import { DTReportItem, DTReportItemSimple } from '@wf/interfaces/src';
+import { DTReportItem, DTReportItemSimple, PartnerCode } from '@wf/types';
 import * as fs from 'fs'
 /**
  *
@@ -18,7 +17,7 @@ import * as fs from 'fs'
  */
 
 
-function run_intake_process(partner: PartnerCodes, generateFiles: boolean) {
+function run_intake_process(partner: PartnerCode, generateFiles: boolean) {
 	const config = getPartnerConfig(partner);
 
 	let filePath = './src/data/';
@@ -69,5 +68,5 @@ function run_intake_process(partner: PartnerCodes, generateFiles: boolean) {
 }
 
 const res = run_intake_process("DRW", true);
-console.log(res);
+// console.log(res);
 

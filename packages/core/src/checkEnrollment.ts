@@ -1,6 +1,5 @@
 import { uniqBy, intersection, difference, differenceBy, intersectionBy } from 'lodash'
-import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-import { PartnerCodes } from './partnerConfig'
+import { DTReportItem, DTReportItemSimple, PartnerCode } from '@wf/types';
 /**
  * Iterate over entries in a Dealertrack report and provide feedback on various enrollment issues
  */
@@ -15,12 +14,12 @@ export interface ICheckEnrollmentStatusMessage {
 
 export interface ICheckEnrollmentProps {
 	item: DTReportItemSimple | DTReportItem,
-	partner: PartnerCodes
+	partner: PartnerCode
 }
 
 export function checkEnrollmentStatus(
 	item: DTReportItemSimple | DTReportItem,
-	partner: PartnerCodes
+	partner: PartnerCode
 ): ICheckEnrollmentStatusMessage {
 
 	const phase = item["Enrollment Phase"]

@@ -1,5 +1,5 @@
-import { DTReportItem, DTReportItemSimple, EBSProvisionItem } from '@wf/interfaces';
-import { PartnerCodes, getPartnerConfig } from '@wf/core'
+import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
+import { getPartnerConfig } from '@wf/core'
 import moment from 'moment'
 import { partnerConfigs } from './partnerConfig';
 /**
@@ -11,7 +11,7 @@ import { partnerConfigs } from './partnerConfig';
  * @param partnerCode - typeof, string representation of PartnerCodes enum type
  * @return Dealer info pre-formatted for Production Subscription
  */
-export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
+export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode) => {
 	return {
 		'Partner ID': partnerCode,
 		'Partner Dealer ID': data["Lender Dealer Id"],
@@ -30,7 +30,7 @@ export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCodes) => 
 }
 
 
-export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
+export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
 	let config = getPartnerConfig(partnerCode);
 	return {
 		'Partner ID': partnerCode,
@@ -58,7 +58,7 @@ export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
 	}
 }
 
-export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCodes) => {
+export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode) => {
 	let config = getPartnerConfig(partnerCode);
 	return {
 		'Partner ID': partnerCode,
@@ -121,14 +121,14 @@ export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode
 	}
 }
 
-export const asEbizPayload = (items: DTReportItem[], partnerCode: PartnerCodes) => {
+export const asEbizPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
 	return items.map(i => asEbizItem(i, partnerCode))
 }
 
-export const asProdSubPayload = (items: DTReportItem[], partnerCode: PartnerCodes) => {
+export const asProdSubPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
 	return items.map(i => asProdSubItem(i, partnerCode))
 }
 
-export const asFinanceDriverPayload = (items: DTReportItem[], partnerCode: PartnerCodes) => {
+export const asFinanceDriverPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
 	return items.map(i => asFinanceDriverItem(i, partnerCode))
 }
