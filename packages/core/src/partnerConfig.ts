@@ -1,10 +1,11 @@
-import { PartnerCode } from '@wf/types';
+import { PartnerCode, RequestBOA, RequestDRW } from '@wf/types';
 import { EBSProvisionItem, DTReportItem, BOAInventorySetupRequest } from '@wf/types'
 
 import {
 	sample_dt_report_drw as dt_report,
 	real_drw_submit as partner_submit,
 	sample_ebs_entries_drw as ebs_entries,
+	sample_ebs_entries_boa as boa_entries,
 } from "@wf/sample-data";
 
 export interface partnerConfigInput {
@@ -32,25 +33,26 @@ export const partnerConfigs: partnerConfigInput[] = [
 		// ebiz profile entry
 		dealerContact: "NoReply@bankofamerica.com",
 		// ebiz profile entry
-		internal_id: "dealer_magellan_",
+		internal_id: "Dealer Magellan #",
 		// name of ID used internally by partner
 		leads: "NoReply@bankofamerica.com",
 		// value used for eBiz profile "DT Dealer ID"
 		ebiz_dt_dealer_id_field: "DealerTrack Id",
 		// JSON of file submission from this partner
-		submitted_file: "Full Inventory Setup Log Friday 7.17.2020.xlsx",
+		submitted_file: "shorter-as-csv-new.csv",
 		// JSON of DT Business Report for partner
-		dt_report_file: "report1594649681795.csv",
+		dt_report_file: "115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: ebs_entries,
+		live_ids: boa_entries,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
 		// extra tests to be performed like checking "Program Active Status"
-		custom_validation: (item: BOAInventorySetupRequest) => {
-			item["Program Active Status"] == "Active" &&
-				item["Corporate Services Addendum Status"].includes("Completed") &&
-				item["Dealer Magellan_"].toString().length == 10
+		custom_validation: (item: RequestBOA) => {
+			return (
+				item["Program Active Status"] === "Active" &&
+				item["Corporate Services Addendum Status"].includes("Completed")
+			)
 		},
 	},
 	{
@@ -65,7 +67,11 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries,
 		ebiz_profile: 7531215,
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
-		custom_validation: () => { },
+		custom_validation: (item: RequestDRW) => {
+			return (
+				item.Status === "A"
+			)
+		},
 	},
 	{
 		partner: "CNZ",
