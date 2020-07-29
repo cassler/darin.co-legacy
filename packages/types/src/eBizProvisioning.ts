@@ -1,5 +1,7 @@
+import { PartnerCode } from '@wf/types';
+
 export interface EBSProvisionInput {
-	'Partner ID': 'DRW' | 'BOA' | 'CNZ' | 'GOO' | 'DAS',
+	'Partner ID': PartnerCode,
 	'Partner Dealer ID': number | string | bigint,
 	'DT Dealer ID': number,
 	'Legal Name': string,
@@ -15,7 +17,7 @@ export interface EBSProvisionInput {
 }
 
 export interface EBSProvisionItem {
-	"Partner ID": "DRW" | "BOA",
+	"Partner ID": PartnerCode,
 	"Partner Dealer ID": number | string | bigint,
 	"DT Dealer ID": number,
 	"DNA ID"?: string,
@@ -24,8 +26,8 @@ export interface EBSProvisionItem {
 	"Street": string,
 	"City": string,
 	"State": string,
-	"PostalCode": string | number,
-	"Phone": string | number,
+	"PostalCode": string,
+	"Phone": string,
 	"Fax": string,
 	"Status": "A" | "I",
 	"CRM": string,
@@ -39,8 +41,3 @@ export interface EBSProvisionItem {
 	"Profile ID": string,
 }
 
-export interface BOAInventorySetupRequest {
-	"Program Active Status": string,
-	"Corporate Services Addendum Status": string,
-	"Dealer Magellan_": bigint,
-}

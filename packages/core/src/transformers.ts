@@ -1,4 +1,4 @@
-import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
+import { DTReportItem, PartnerCode, ProdSubItem } from '@wf/types';
 import { getPartnerConfig } from '@wf/core'
 import moment from 'moment'
 import { partnerConfigs } from './partnerConfig';
@@ -11,7 +11,7 @@ import { partnerConfigs } from './partnerConfig';
  * @param partnerCode - typeof, string representation of PartnerCodes enum type
  * @return Dealer info pre-formatted for Production Subscription
  */
-export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode): ProdSubItem => {
 	return {
 		'Partner ID': partnerCode,
 		'Partner Dealer ID': data["Lender Dealer Id"],
