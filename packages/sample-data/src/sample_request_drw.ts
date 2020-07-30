@@ -1,5 +1,5 @@
-import { EBSProvisionItem } from '@wf/types'
-export const real_drw_submit: EBSProvisionItem[] = [
+import { RequestDRW } from '@wf/types'
+export const real_drw_submit: RequestDRW[] = [
 	{
 		"Partner ID": "DRW",
 		"Partner Dealer ID": 7,
@@ -7845,7 +7845,7 @@ export const real_drw_submit: EBSProvisionItem[] = [
 	}
 ]
 
-export const sample_drw_submit: EBSProvisionItem[] = [
+export const sample_drw_submit: RequestDRW[] = [
 	{
 		"Partner ID": "DRW",
 		"Partner Dealer ID": 7,

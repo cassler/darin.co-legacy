@@ -1,11 +1,11 @@
 module.exports = {
   title: 'Workflower Docs',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  tagline: 'Workflower Mono',
+	url: 'https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/',
+	baseUrl: 'http://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'cassler', // Usually your GitHub org/user name.
+  projectName: 'workflower', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'WF Docs',

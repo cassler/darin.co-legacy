@@ -1,5 +1,5 @@
-import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
-import { getPartnerConfig } from '@wf/core'
+import { DTReportItem, EBSProvisionItem, PartnerCode, ProdSubItem } from '@wf/types';
+import { getPartnerConfig, ImplementPayload } from '@wf/core'
 import moment from 'moment'
 import { partnerConfigs } from './partnerConfig';
 /**
@@ -11,40 +11,40 @@ import { partnerConfigs } from './partnerConfig';
  * @param partnerCode - typeof, string representation of PartnerCodes enum type
  * @return Dealer info pre-formatted for Production Subscription
  */
-export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+export const asProdSubItem = (data: ImplementPayload, partnerCode: PartnerCode): ProdSubItem => {
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"],
-		'DT Dealer ID': data["DealerTrack Id"],
-		LegalName: data["Legal Name"],
-		"DBA Name": data["DBA Name"],
-		Street: data.Street,
-		City: data.City,
-		State: data.State,
-		PostalCode: data.Zip,
-		Phone: data["Phone No"],
-		Fax: data["Fax No"] ? data["Fax No"] : '',
+		'Partner Dealer ID': data.partnerID,
+		'DT Dealer ID': data.dealertrackID,
+		LegalName: data.legalName,
+		"DBA Name": data.dbaName,
+		Street: data.street,
+		City: data.city,
+		State: data.state,
+		PostalCode: data.zip,
+		Phone: data.phone,
+		Fax: data.fax,
 		Status: 'A',
 		'DRS enrolled': `${moment().format('MM-DD-YYYY')}`
 	}
 }
 
 
-export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+export const asEbizItem = (data: ImplementPayload, partnerCode: PartnerCode): EBSProvisionItem => {
 	let config = getPartnerConfig(partnerCode);
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"],
+		'Partner Dealer ID': data.partnerID,
 		'DT Dealer ID': data[config.ebiz_dt_dealer_id_field],
 		'DNA ID': '',
-		LegalName: data["Legal Name"],
-		'DBA Name': data["DBA Name"],
-		Street: data.Street,
-		City: data.City,
-		State: data.State,
-		PostalCode: data.Zip,
-		Phone: data["Phone No"],
-		Fax: data["Fax No"] || '',
+		LegalName: data.legalName,
+		'DBA Name': data.dbaName,
+		Street: data.street,
+		City: data.city,
+		State: data.state,
+		PostalCode: data.zip as string,
+		Phone: data.phone,
+		Fax: data.fax,
 		Status: 'A',
 		CRM: config.crm,
 		"Dealership's Customer Contact Email": config.dealerContact,
@@ -58,11 +58,11 @@ export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
 	}
 }
 
-export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+export const asFinanceDriverItem = (data: ImplementPayload, partnerCode: PartnerCode) => {
 	let config = getPartnerConfig(partnerCode);
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"], // req
+		'Partner Dealer ID': data.partnerID, // req
 		'Created Date': moment().format('L'), // req
 		'Modified Date': moment().format('L'),
 		'FinanceDriver Status': 'A',
@@ -121,14 +121,14 @@ export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode
 	}
 }
 
-export const asEbizPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
+export const asEbizPayload = (items: ImplementPayload[], partnerCode: PartnerCode) => {
 	return items.map(i => asEbizItem(i, partnerCode))
 }
 
-export const asProdSubPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
+export const asProdSubPayload = (items: ImplementPayload[], partnerCode: PartnerCode) => {
 	return items.map(i => asProdSubItem(i, partnerCode))
 }
 
-export const asFinanceDriverPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
+export const asFinanceDriverPayload = (items: ImplementPayload[], partnerCode: PartnerCode) => {
 	return items.map(i => asFinanceDriverItem(i, partnerCode))
 }

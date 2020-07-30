@@ -1,6 +1,6 @@
 import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
-import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
+import { DTReportItem, PartnerCode, Request } from '@wf/types';
 import { getPartnerConfig } from './partnerConfig'
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
@@ -58,9 +58,9 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 	 */
 
 	const new_items_validate = submitted.filter(i => delta.added.includes(i[config.internal_id])) //?
-	console.log(JSON.stringify(submitted.map(i => i[config.internal_id])))
-	console.log('ADDED:', delta.added)
-	console.log(new_items_validate)
+	// console.log(JSON.stringify(submitted.map(i => i[config.internal_id])))
+	// console.log('ADDED:', delta.added)
+	// console.log(new_items_validate)
 	/**
 	 * Post Processing & Generating Output
 	 *
@@ -80,7 +80,7 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
 		// validate enrollment on this match
 		output.push({
-			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch, partner) } : null,
+			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch["DealerTrack Id"], partner, dtMatch["Lender Dealer Id"], dtMatch["Enrollment Phase"]) } : null,
 			account: dtMatch || null,
 			item: item
 		})
