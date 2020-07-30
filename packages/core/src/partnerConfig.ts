@@ -59,8 +59,10 @@ export const partnerConfigs: partnerConfigInput[] = [
 			ps: true,
 			info: true,
 		},
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: RequestBOA) => {
+			// console.log('validating', item)
 			return (
 				item["Program Active Status"] === "Active" &&
 				item["Corporate Services Addendum Status"].includes("Completed")
@@ -79,6 +81,7 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries,
 		ebiz_profile: 7531215,
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
 		generate: {
 			fd: true,
 			ebs: true,
@@ -156,7 +159,9 @@ export const partnerConfigs: partnerConfigInput[] = [
 	},
 ]
 
-export function getPartnerConfig(partner: PartnerCode): partnerConfigInput {
+function getPartnerConfig(partner: PartnerCode): partnerConfigInput {
 	let config = partnerConfigs.find(i => i.partner == partner);
 	return config
 }
+
+export { getPartnerConfig }
