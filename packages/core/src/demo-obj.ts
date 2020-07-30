@@ -7,7 +7,7 @@ import {
 	asProdSubPayload,
 	asFinanceDriverPayload,
 	processPartnerSubmissions,
-	// getPartnerConfig,
+	getPartnerConfig,
 	partnerConfigInput
 } from '@wf/core'
 
@@ -24,10 +24,6 @@ import { partnerConfigs } from './partnerConfig'
 
 
 
-function getPartnerConfig(partner: PartnerCode): partnerConfigInput {
-	let config = partnerConfigs.find(i => i.partner == partner);
-	return config
-}
 
 function notesFromFlags(passPartner: boolean, passEnrollment: boolean, alreadyLive: boolean, phase: string) {
 	let message = '';

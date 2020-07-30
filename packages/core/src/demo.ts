@@ -10,7 +10,6 @@ import {
 
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
 import { DTReportItem, DTReportItemSimple, PartnerCode, RequestDRW, RequestBOA, Request } from '@wf/types';
-import * as fs from 'fs'
 import { partnerConfigs } from './partnerConfig';
 /**
  *
@@ -38,7 +37,7 @@ export interface ImplementPayload extends SimpleAccount {
 }
 
 
-function toIAccount(input: DTReportItem | null, partner?: PartnerCode): SimpleAccount {
+export function toIAccount(input: DTReportItem | null, partner?: PartnerCode): SimpleAccount {
 	return {
 		dealertrackID: input["DealerTrack Id"],
 		partnerID: input["Lender Dealer Id"],
@@ -54,8 +53,8 @@ function toIAccount(input: DTReportItem | null, partner?: PartnerCode): SimpleAc
 	}
 }
 
-function toIRequest(input: any, partner?: PartnerCode): Request | null {
-	let config = getPartnerConfig(partner);
+export function toIRequest(input: any, partner?: PartnerCode): Request | null {
+	let config = partnerConfigs.find(i => i.partner === partner);
 	if (partner) {
 		// check the partner configs to see if this should be active
 		let active = config.custom_validation(input);
@@ -137,7 +136,7 @@ export function resultFromMatches(items: ImplementPayload[], excluded: number[],
 
 
 function run_intake_process(partner: PartnerCode,) {
-	const config = getPartnerConfig(partner);
+	const config = partnerConfigs.find(i => i.partner === partner);
 	const { fd, ebs, ps, info } = config.generate;
 	let filePath = './src/data/';
 
@@ -162,25 +161,25 @@ function run_intake_process(partner: PartnerCode,) {
 
 
 
-	if (fd) {
-		let fileContent = asFinanceDriverPayload(result.implement, partner);
-		writeToCsv(fileContent, `finance-driver-upload-${partner}`)
-	}
-	if (ebs) {
-		// do eBiz stuff
-		let fileContent = asEbizPayload(result.implement, partner);
-		writeToCsv(fileContent, `ebiz-upload-${partner}`)
-	}
-	if (ps) {
-		// do prodsub stuff
-		let fileContent = asProdSubPayload(result.implement, partner);
-		writeToCsv(fileContent, `prodsub-upload-${partner}`)
-	}
-	if (info) {
-		// do logging stuff
-		let fileContent = result.log;
-		writeToCsv(fileContent, `${partner}-intake-result-logging`)
-	}
+	// if (fd) {
+	// 	let fileContent = asFinanceDriverPayload(result.implement, partner, config);
+	// 	writeToCsv(fileContent, `finance-driver-upload-${partner}`)
+	// }
+	// if (ebs) {
+	// 	// do eBiz stuff
+	// 	let fileContent = asEbizPayload(result.implement, partner, config);
+	// 	writeToCsv(fileContent, `ebiz-upload-${partner}`)
+	// }
+	// if (ps) {
+	// 	// do prodsub stuff
+	// 	let fileContent = asProdSubPayload(result.implement, partner, config);
+	// 	writeToCsv(fileContent, `prodsub-upload-${partner}`)
+	// }
+	// if (info) {
+	// 	// do logging stuff
+	// 	let fileContent = result.log;
+	// 	writeToCsv(fileContent, `${partner}-intake-result-logging`)
+	// }
 
 	return `
 		SUCCESS! Parsed ${result.total} items on "${config.submitted_file}" for ${partner}.

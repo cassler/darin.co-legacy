@@ -8,6 +8,11 @@ import {
 	sample_ebs_entries_boa as boa_entries,
 } from "@wf/sample-data";
 
+export const getPartnerConfig = (partner: PartnerCode) => {
+	let config = partnerConfigs.find(i => i.partner == partner);
+	return config
+}
+
 export interface partnerConfigInput {
 	partner: PartnerCode,
 	crm: string,
@@ -65,7 +70,8 @@ export const partnerConfigs: partnerConfigInput[] = [
 			// console.log('validating', item)
 			return (
 				item["Program Active Status"] === "Active" &&
-				item["Corporate Services Addendum Status"].includes("Completed")
+				// item["Corporate Services Addendum Status"].includes("Completed")
+				item["Corporate Services Addendum Status"] === ("Completed")
 			)
 		},
 	},
@@ -159,9 +165,5 @@ export const partnerConfigs: partnerConfigInput[] = [
 	},
 ]
 
-function getPartnerConfig(partner: PartnerCode): partnerConfigInput {
-	let config = partnerConfigs.find(i => i.partner == partner);
-	return config
-}
 
-export { getPartnerConfig }
+

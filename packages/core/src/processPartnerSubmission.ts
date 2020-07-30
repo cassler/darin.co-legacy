@@ -1,7 +1,7 @@
-import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
+import { getPartnerConfig, checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
 import { DTReportItem, PartnerCode, Request } from '@wf/types';
-import { getPartnerConfig } from './partnerConfig'
+
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
 	if (!values) return data.map(i => i[key])

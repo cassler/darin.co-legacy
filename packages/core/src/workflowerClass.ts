@@ -1,4 +1,4 @@
-import { SimpleAccount, isItemLive } from '@wf/core';
+import { SimpleAccount, asEbizPayload, asProdSubPayload, asFinanceDriverPayload, isItemLive } from '@wf/core';
 import { partnerConfigs, partnerConfigInput } from './partnerConfig';
 import { DTReportItem, PartnerCode } from '@wf/types';
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
@@ -35,7 +35,8 @@ export interface ImplementationResult {
 	pid?: any,
 	checks: ImplementionPreChecks,
 	account?: SimpleAccount
-	original?: any
+	original?: any,
+	notes?: string
 }
 
 export interface ImplementationPackage {
@@ -54,6 +55,7 @@ class Workflower {
 	refQuick: SimpleAccount[]
 	excluded: any[]
 	init: any[]
+	implement: ImplementationResult[]
 
 	constructor(partner: PartnerCode) {
 		this.partner = partner;
@@ -63,6 +65,7 @@ class Workflower {
 		this.refQuick = this.simpleAccounts as SimpleAccount[];
 		this.excluded = this.config.live_ids;
 		this.init = this.matchResult;
+		this.implement = this.itemsToImplement.items;
 	}
 
 	// helper function to fill in the matchResult array
@@ -182,6 +185,43 @@ class Workflower {
 		})
 	}
 
+	// same as matchResult, but with reduced data and added notations
+	get notedResults() {
+		return this.matchResult.map(item => ({
+			partnerID: item.pid,
+			...item.checks,
+			notes: this.getResultComment(item),
+			account: item.account
+		}))
+	}
+
+	getResultComment(item: ImplementationResult) {
+		if (!item.account || item.account.dealertrackID === 0) {
+			return 'No Dealertrack account found'
+		}
+		if (item.account && !this.config.valid_phases.includes(item.account.enrollment)) {
+			return `Invalid enrollment for the account (${item.account.enrollment})`
+		}
+		if (!this.config.custom_validation(item.original)) {
+			return `Dealer does not meet partner requirements from config.`
+		}
+		if (this.config.live_ids.includes(item.pid)) {
+			return `Dealer is already live, skipped.`
+		}
+		return `ADDED ${item.pid} - New and OK for implementation`
+	}
+
+	eBizUpload(accounts: any[]) {
+		return asEbizPayload(accounts, this.partner, this.config)
+	}
+
+	financeDriverUpload(accounts: any[]) {
+		return asFinanceDriverPayload(accounts, this.partner, this.config);
+	}
+
+	prodSubRequest(accounts: any[]) {
+		return asProdSubPayload(accounts, this.partner, this.config);
+	}
 
 	get summary() {
 		return {
@@ -191,13 +231,34 @@ class Workflower {
 			reportFile: this.config.dt_report_file,
 			countLive: this.config.live_ids.length,
 			countSubmitted: this.requestData.length,
-			countMeetPartnerReqs: this.matchResult.filter(i => i.checks.partnerStatusOK).length,
-			countValidEnroll: this.matchResult.filter(i => i.checks.enrollmentStatusOK).length,
-			countNoMatch: this.matchResult.filter(i => !i.checks.accountStatusOK).length,
-			countNotImplemented: this.matchResult.filter(i => !i.checks.notImplemented).length,
-			countToImplement: this.matchResult.filter(i => Object.values(i.checks).every(val => val === true))
 		}
 	}
+
+	get explanation() {
+		let detail = this.summary;
+		let str: string;
+		str = `\n\n------------------\n` +
+			`We are comparing information about ${this.matchResult.length} items\n` +
+			`from ${this.partner} found in "${this.config.submitted_file} with\n` +
+			`the Dealertrack report called "${this.config.dt_report_file}.\n` +
+			`-------------\n` +
+			`- ${detail.countLive} items are already live.\n` +
+			`- add results to eBiz Profile: ${this.config.ebiz_profile}\n` +
+			`- Config sample: ${this.config.crm} | ${this.config.leads} \n` +
+			`- Using rules described on SharePoint...\n\n\n -More Info at:\n` +
+			this.config.reference_doc
+
+		return str;
+
+	}
+
+
+	/**
+	 * @method invalidEnrollment
+	 * @method unmatchedRequests
+	 * @method itemsToImplement
+	 * @method itemsToCancel - return a manifest of items that should be cancelled
+	 */
 
 	get invalidEnrollment(): ImplementationPackage {
 		return {
@@ -222,9 +283,6 @@ class Workflower {
 		}
 	}
 
-	/**
-	 * @method itemsToCancel - return a manifest of items that should be cancelled
-	 */
 	get itemsToCancel(): ImplementationPackage {
 		return {
 			title: 'Pending Cancellations',
@@ -233,6 +291,18 @@ class Workflower {
 		}
 	}
 
+	get provisioning() {
+		let accounts = this.implement.map(i => i.account);
+		return {
+			eBizUpload: this.eBizUpload(accounts),
+			financeDriverUpload: this.financeDriverUpload(accounts),
+			prodSubAttachment: this.prodSubRequest(accounts)
+		}
+	}
+
+	get howMany() {
+		return this.implement.length;
+	}
 
 
 }
@@ -252,13 +322,11 @@ export function playgroundForWorkflower() {
 
 	payloads.map(un => {
 		console.log({ title: un.title, msg: un.message, count: un.items.length })
+		console.log(un.items.map(i => i.checks))
 	})
 
-	console.log(boa.requestData.length)
-	console.log(boa.itemsToImplement.items.length)
-
-	console.log(boa.requestData.length)
-	console.log(boa.itemsToImplement.items.length)
+	console.log(boa.provisioning.eBizUpload)
+	console.log(boa.explanation)
 
 }
 playgroundForWorkflower();
