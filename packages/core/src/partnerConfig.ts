@@ -22,6 +22,12 @@ export interface partnerConfigInput {
 	ebiz_profile: number,
 	reference_doc?: string,
 	custom_validation: Function,
+	generate: {
+		fd: boolean,
+		ebs: boolean,
+		ps: boolean,
+		info: boolean,
+	}
 }
 
 export const partnerConfigs: partnerConfigInput[] = [
@@ -47,6 +53,12 @@ export const partnerConfigs: partnerConfigInput[] = [
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: RequestBOA) => {
 			return (
@@ -67,6 +79,12 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries,
 		ebiz_profile: 7531215,
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
 		custom_validation: (item: RequestDRW) => {
 			return (
 				item.Status === "A"
@@ -86,6 +104,12 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries, // 6897540
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
 		custom_validation: () => { },
 	},
 	{
@@ -101,6 +125,12 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries, // 6897540
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B7B6A972E-72BD-433A-A24E-339B2483139D%7D&file=How%20to%20Complete%20a%20Gubagoo%20Lender%20Project.docx&action=default&mobileredirect=true',
+		generate: {
+			fd: true,
+			ebs: false,
+			ps: true,
+			info: true,
+		},
 		custom_validation: () => { },
 	},
 	{
@@ -116,6 +146,12 @@ export const partnerConfigs: partnerConfigInput[] = [
 		live_ids: ebs_entries, // 6897540
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7BDFE66E3B-6406-4B9A-A95D-E1390AD70F25%7D&file=How%20to%20Complete%20a%20Digital%20Airstrike%20(%20DAS%20)%20Project.docx&action=default&mobileredirect=true',
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
 		custom_validation: () => { },
 	},
 ]

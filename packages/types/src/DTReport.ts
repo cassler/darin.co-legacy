@@ -7,7 +7,7 @@ export interface DTReportItemSimple {
 	"Zip": string | number,
 	"Country": string,
 	"Phone No": string | number,
-	"Fax No"?: string | number,
+	"Fax No": string | number,
 	"User Count": number,
 	"DealerTrack Id": number,
 	"Lender Dealer Id": number | bigint | string,

@@ -80,7 +80,7 @@ export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) 
 		let dtMatch = matched.find(i => i["Lender Dealer Id"] == pid)
 		// validate enrollment on this match
 		output.push({
-			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch, partner) } : null,
+			info: dtMatch ? { ...checkEnrollmentStatus(dtMatch["DealerTrack Id"], partner, dtMatch["Lender Dealer Id"], dtMatch["Enrollment Phase"]) } : null,
 			account: dtMatch || null,
 			item: item
 		})

@@ -5,8 +5,8 @@ import { DTReportItem, DTReportItemSimple, PartnerCode } from '@wf/types';
  */
 export interface ICheckEnrollmentStatusMessage {
 	status: 'ACCEPTED' | 'REJECTED' | 'WARNING',
-	dt?: number,
-	partnerId?: number | bigint | string,
+	dealertrackID?: number,
+	partnerID?: number | bigint | string,
 	title: string,
 	message?: string,
 	include: boolean
@@ -18,27 +18,28 @@ export interface ICheckEnrollmentProps {
 }
 
 export function checkEnrollmentStatus(
-	item: DTReportItemSimple | DTReportItem,
-	partner: PartnerCode
+	dealertrackID: number,
+	partner: PartnerCode,
+	partnerID: number | string | bigint,
+	phase: string,
 ): ICheckEnrollmentStatusMessage {
 
-	const phase = item["Enrollment Phase"]
-	const [dtid, partnerId] = [item["DealerTrack Id"], item["Lender Dealer Id"]]
-	const pid = `${partner}-${partnerId}`
+
+	const pid = `${partner}-${partnerID}`
 	let output: ICheckEnrollmentStatusMessage;
 	// console.log(item)
 	switch (phase) {
 		case "Not Contacted": output = {
 			status: 'REJECTED',
 			title: `Inelligble Dealertrack ID`,
-			message: `Enrollment phase is "Not Contacted" for ${dtid}. This account is not eligible for product subscription. This may be due to a problem with DT matching process. `,
+			message: `Enrollment phase is "Not Contacted" for ${dealertrackID}. This account is not eligible for product subscription. This may be due to a problem with DT matching process. `,
 			include: false,
 		}
 			break;
 		case "Prospect": output = {
 			status: 'WARNING',
 			title: `Incomplete Enrollment`,
-			message: `Enrollment phase is "Prospect" for ${dtid}. This will limit access to some functionality until enrollment has been completed.`,
+			message: `Enrollment phase is "Prospect" for ${dealertrackID}. This will limit access to some functionality until enrollment has been completed.`,
 			include: true,
 		}
 			break;
@@ -65,9 +66,9 @@ export function checkEnrollmentStatus(
 		default: output = {
 			status: 'REJECTED',
 			title: 'Not detected',
-			message: `${item["Enrollment Phase"]}`,
+			message: phase,
 			include: true
 		}
 	}
-	return { dt: item["DealerTrack Id"], partnerId: pid, ...output };
+	return { dealertrackID: dealertrackID, partnerID: partnerID, ...output };
 }

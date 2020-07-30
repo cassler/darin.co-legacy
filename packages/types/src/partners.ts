@@ -13,9 +13,10 @@ export interface BOAInventorySetupRequest {
 	"Dealer Magellan_": bigint,
 }
 
-export interface RequestBOA {
+export type RequestBOA = {
 	"Date Entered": string,
 	"Client Manager Addendum Status": string,
+	// Required to be "Completed"
 	"Corporate Services Addendum Status": string,
 	"Dealer Onboarded with DT Status"?: string,
 	"Action needed by B of A"?: string,
@@ -23,7 +24,8 @@ export interface RequestBOA {
 	"Client Manager Email Address": string,
 	"Client Manager Phone Number": string,
 	"Dealership Name": string,
-	"Dealer Magellan #": bigint,
+	// Must be exactly 10 digits
+	"Dealer Magellan #": string,
 	"Dealer City": string,
 	"Dealer State": string,
 	"Dealer Contact First Name": string,
@@ -32,6 +34,7 @@ export interface RequestBOA {
 	"Dealer Contact Telephone": string,
 	"Dealer Inventory Provider": string,
 	"Dealer Email Address for Leads": string,
+	// Must be 'Active'
 	"Program Active Status": string,
 	"Date Magellan Received Correct Addendum"?: string,
 	"Dealer Info sent to DT": string,
@@ -42,7 +45,7 @@ export interface RequestBOA {
 	"Path": string,
 }
 
-export interface RequestDRW {
+export type RequestDRW = {
 	"Partner ID": PartnerCode,
 	"Partner Dealer ID": number | string | bigint,
 	"DT Dealer ID": number,
@@ -65,4 +68,22 @@ export interface RequestDRW {
 	"Hide Videos": string,
 	"Dealer Groups": string,
 	"Profile ID": string,
+}
+
+/**
+ * Sandbox Typings for Standardized "Request" Item
+ */
+
+export interface Request {
+	partner: PartnerCode,
+	partnerID: number | string | bigint,
+	active: boolean,
+	original?: RequestBOA | RequestDRW
+}
+
+export interface Address {
+	street: string,
+	city: string,
+	state: string,
+	zip: string | number
 }
