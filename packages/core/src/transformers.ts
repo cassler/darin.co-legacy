@@ -1,5 +1,5 @@
 import { DTReportItem, EBSProvisionItem, PartnerCode, ProdSubItem } from '@wf/types';
-import { getPartnerConfig, ImplementPayload, SimpleAccount } from '@wf/core'
+import { ImplementPayload, SimpleAccount } from '@wf/core'
 import moment from 'moment'
 import { partnerConfigs, partnerConfigInput } from './partnerConfig';
 /**

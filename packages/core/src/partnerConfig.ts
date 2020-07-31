@@ -6,9 +6,9 @@ import {
 	real_drw_submit as partner_submit,
 	sample_ebs_entries_drw as ebs_entries,
 	sample_ebs_entries_boa as boa_entries,
-} from "@wf/sample-data";
+} from "@wf/examples";
 
-export const getPartnerConfig = (partner: PartnerCode) => {
+export function getPartnerConfig(partner: PartnerCode) {
 	let config = partnerConfigs.find(i => i.partner == partner);
 	return config
 }

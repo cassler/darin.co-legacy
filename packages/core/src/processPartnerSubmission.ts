@@ -1,6 +1,7 @@
-import { getPartnerConfig, checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
+import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
 import { DTReportItem, PartnerCode, Request } from '@wf/types';
+import { partnerConfigs } from './partnerConfig';
 
 
 export function getValuesByKeyName(data: object[], key: string, values?: any[]) {
@@ -25,7 +26,7 @@ export type ProcessPartnerSubmissionResult = {
 export function processPartnerSubmissions(props: ProcessPartnerSubmissionProps) {
 	// create arrays to hold data
 	const { partner, submitted, matched, live } = props;
-	let config = getPartnerConfig(partner)
+	let config = partnerConfigs.find(i => i.partner === partner)
 	/**
 	 * @yields array of IDs for the respective namespace.
 	 * @description This is repetitive for the sake of cleanliness.

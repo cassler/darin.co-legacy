@@ -365,5 +365,4 @@ export function playgroundForWorkflower() {
 	boa.referenceFile = '123132.csv';
 
 }
-playgroundForWorkflower();
 

@@ -7,7 +7,6 @@ import {
 	asProdSubPayload,
 	asFinanceDriverPayload,
 	processPartnerSubmissions,
-	getPartnerConfig,
 	partnerConfigInput
 } from '@wf/core'
 
@@ -100,7 +99,7 @@ function processSubmission(item: any, ref: DTReportItem[], config: partnerConfig
 
 
 function submit_partner_request(partner: PartnerCode, options?: partnerConfigInput) {
-	const config = options || getPartnerConfig(partner);
+	let config = partnerConfigs.find(i => i.partner === partner)
 	let filePath = './src/data/';
 
 	const reference = getJSONfromSpreadsheet(filePath + config.dt_report_file) as DTReportItem[]
