@@ -1,7 +1,7 @@
 {
-	"name": "@wf/sample-data",
-	"version": "0.0.1",
-	"description": "Default package structure for @wf",
+	"name": "@wf/browser",
+	"version": "0.0.2",
+	"description": "Default web-client structure for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",
 	"license": "MIT",
@@ -10,6 +10,7 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^24.0.18",
+		"babel-preset-react-app": "^9.1.2",
 		"barrelsby": "^2.1.1",
 		"jest": "^24.9.0",
 		"prettier": "^1.18.2",
@@ -17,5 +18,9 @@
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-plugin-prettier": "^2.0.1",
 		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"@types/react": "^16.9.38",
+		"react": "^16.13.1"
 	}
 }

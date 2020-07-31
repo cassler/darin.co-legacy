@@ -22,7 +22,7 @@ export interface partnerConfigInput {
 	ebiz_dt_dealer_id_field: string,
 	submitted_file: string,
 	dt_report_file: string,
-	live_ids: number[],
+	live_ids: any[],
 	valid_phases: string[],
 	ebiz_profile: number,
 	reference_doc?: string,

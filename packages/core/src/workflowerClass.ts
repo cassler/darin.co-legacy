@@ -45,7 +45,19 @@ export interface ImplementationPackage {
 	items: any[]
 }
 
-
+/**
+ * Returns implementation data for a given partner
+ *
+ * @remarks
+ * WF is entirely self contained, though we really should be accepting
+ * the entire config object as an argument.
+ *
+ * @todo option to pass config object at runtime
+ * @todo extract file-processing logic
+ *
+ * @beta
+ *
+ */
 class Workflower {
 
 	config: partnerConfigInput
@@ -118,7 +130,11 @@ class Workflower {
 		return result;
 	}
 
-
+	/**
+	 * @param submitted_file - name of file to be used.
+	 *
+	 * @todo Refactor this out, file handling inside the class is unwise
+	 */
 	set submittedFile(submitted_file: string) {
 		let data = getJSONfromSpreadsheet(appConfig.filePath + submitted_file)
 		if (!data) {
@@ -160,9 +176,29 @@ class Workflower {
 		}
 	}
 
+	/**
+	 * Find if a given account ID is part of the exclusion set
+	 *
+	 * @param pid unique ID to be checked for exclusion
+	 * @param account - optional - explicitly define an account object
+	 * @yield boolean
+	 */
+	isExcluded(pid: any, account?: SimpleAccount) {
+		const matched: SimpleAccount = account ? account : this.findAccount(pid, true) as SimpleAccount;
+		return (
+			this.config.live_ids.includes(pid) ||
+			this.config.live_ids.includes(matched?.partnerID) ||
+			this.config.live_ids.includes(matched?.dealertrackID)
+		)
+	}
 
-
-	// Return DT account info if found, or dummy data
+	/**
+	 * Augument each item from request with account information
+	 * where available, as well as compute multiple property flags
+	 * to be used by the application.
+	 *
+	 *
+	 */
 	get matchResult(): ImplementationResult[] {
 		return this.requestData.map(req => {
 			let pid = req[this.config.internal_id];
@@ -172,10 +208,7 @@ class Workflower {
 				pid,
 				checks: {
 					accountStatusOK: account ? true : false,
-					notImplemented: (
-						!this.config.live_ids.includes(pid) &&
-						!this.config.live_ids.includes(accObject.dealertrackID)
-					),
+					notImplemented: !this.isExcluded(pid, accObject),
 					enrollmentStatusOK: account ? this.config.valid_phases.includes(account.enrollment) : false,
 					partnerStatusOK: this.config.custom_validation(req),
 				},
@@ -241,6 +274,8 @@ class Workflower {
 			`We are comparing information about ${this.matchResult.length} items\n` +
 			`from ${this.partner} found in "${this.config.submitted_file} with\n` +
 			`the Dealertrack report called "${this.config.dt_report_file}.\n` +
+			`-------------\n` +
+			`These items can be configured in partnerSetting.json\n` +
 			`-------------\n` +
 			`- ${detail.countLive} items are already live.\n` +
 			`- add results to eBiz Profile: ${this.config.ebiz_profile}\n` +
@@ -326,7 +361,8 @@ export function playgroundForWorkflower() {
 	})
 
 	console.log(boa.provisioning.eBizUpload)
-	console.log(boa.explanation)
+	console.log(boa.isExcluded(107150))
+	boa.referenceFile = '123132.csv';
 
 }
 playgroundForWorkflower();
