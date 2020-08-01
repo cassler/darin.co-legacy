@@ -1,11 +1,11 @@
-import { SimpleAccount, asEbizPayload, asProdSubPayload, asFinanceDriverPayload, isItemLive } from '@wf/core';
+import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, isItemLive } from '@wf/core';
 import { partnerConfigs, partnerConfigInput } from './partnerConfig';
-import { DTReportItem, PartnerCode } from '@wf/types';
+import { DTReportItem, SimpleAccount, PartnerCode } from '@wf/types';
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
 
 
 const appConfig = {
-	filePath: './src/data/'
+	filePath: ''
 }
 
 export function toDTSimple(input: DTReportItem): SimpleAccount {
@@ -58,7 +58,7 @@ export interface ImplementationPackage {
  * @beta
  *
  */
-class Workflower {
+export class Workflower {
 
 	config: partnerConfigInput
 	partner: PartnerCode
@@ -339,30 +339,6 @@ class Workflower {
 		return this.implement.length;
 	}
 
-
 }
 
-
-
-
-
-export function playgroundForWorkflower() {
-	const boa = new Workflower("DRW");
-	let payloads = [
-		boa.invalidEnrollment,
-		boa.unmatchedRequests,
-		boa.itemsToCancel,
-		boa.itemsToImplement,
-	]
-
-	payloads.map(un => {
-		console.log({ title: un.title, msg: un.message, count: un.items.length })
-		console.log(un.items.map(i => i.checks))
-	})
-
-	console.log(boa.provisioning.eBizUpload)
-	console.log(boa.isExcluded(107150))
-	boa.referenceFile = '123132.csv';
-
-}
 

@@ -1,4 +1,5 @@
 import { PartnerCode, RequestBOA, RequestDRW } from '@wf/types';
+import { partnerConfigInput } from '@wf/core';
 
 import {
 	sample_dt_report_drw as dt_report,
@@ -8,29 +9,7 @@ import {
 } from "@wf/examples";
 
 
-export interface partnerConfigInput {
-	partner: PartnerCode,
-	crm: string,
-	dealerContact: string,
-	internal_id: string,
-	leads: string,
-	ebiz_dt_dealer_id_field: string,
-	submitted_file: string,
-	dt_report_file: string,
-	live_ids: any[],
-	valid_phases: string[],
-	ebiz_profile: number,
-	reference_doc?: string,
-	custom_validation: Function,
-	generate: {
-		fd: boolean,
-		ebs: boolean,
-		ps: boolean,
-		info: boolean,
-	}
-}
-
-export const partnerConfigs: partnerConfigInput[] = [
+export const partner_settings: partnerConfigInput[] = [
 	{
 		// identify settings and fill certain fields
 		partner: "BOA",
@@ -159,6 +138,3 @@ export const partnerConfigs: partnerConfigInput[] = [
 		custom_validation: () => { },
 	},
 ]
-
-
-

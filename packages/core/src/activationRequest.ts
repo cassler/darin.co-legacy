@@ -1,6 +1,6 @@
 import { getJSONfromSpreadsheet } from '@wf/csv';
 import { DTReportItem, PartnerCode } from '@wf/types';
-import { partnerConfigInput, partnerConfigs, getPartnerConfig } from './partnerConfig';
+import { partnerConfigInput, partnerConfigs } from './partnerConfig';
 
 
 /**
@@ -8,9 +8,7 @@ import { partnerConfigInput, partnerConfigs, getPartnerConfig } from './partnerC
  * @param partner
  */
 
-export const getConfig = (partner: PartnerCode) => {
-	return partnerConfigs.find(i => i.partner === partner)
-}
+
 
 export const getPartnerData = (config: partnerConfigInput, path: string = './src/data/') => {
 	return {
@@ -49,24 +47,6 @@ export function singleActivationRequest({ partner, config, reference, item }: IA
 
 
 
-
-
-
-//
-//
-//
-let config = getConfig("BOA");
-///
-let data = getPartnerData(config)
-
-for (const item of data.submitted) {
-	singleActivationRequest({
-		partner: "BOA",
-		config,
-		reference: data.reference,
-		item
-	})
-}
 
 
 

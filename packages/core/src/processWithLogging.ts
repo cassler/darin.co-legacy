@@ -1,29 +1,15 @@
 import {
-	checkEnrollmentStatus,
+	checkEnrollmentStatus, partnerConfigInput,
 } from '@wf/core'
 
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
-import { DTReportItem, DTReportItemSimple, PartnerCode, RequestDRW, RequestBOA, Request } from '@wf/types';
-import { partnerConfigs } from './partnerConfig';
+import { DTReportItem, SimpleAccount, PartnerCode, RequestDRW, RequestBOA, Request } from '@wf/types';
+// import { partnerConfigs } from './partnerConfig';
 /**
  *
  * @param partner
  */
 
-
-export interface SimpleAccount {
-	dealertrackID: number,
-	partnerID: number | string | bigint,
-	enrollment: string,
-	dbaName: string,
-	legalName: string,
-	street?: string,
-	city?: string,
-	state?: string,
-	zip?: string,
-	phone?: string | number,
-	fax?: string | number,
-}
 
 export interface ImplementPayload extends SimpleAccount {
 	active: boolean,
@@ -47,8 +33,8 @@ export function toIAccount(input: DTReportItem | null, partner?: PartnerCode): S
 	}
 }
 
-export function toIRequest(input: any, partner?: PartnerCode): Request | null {
-	let config = partnerConfigs.find(i => i.partner === partner);
+export function toIRequest(input: any, partner?: PartnerCode, config?: partnerConfigInput): Request | null {
+
 	if (partner) {
 		// check the partner configs to see if this should be active
 		let active = config.custom_validation(input);
@@ -129,8 +115,8 @@ export function resultFromMatches(items: ImplementPayload[], excluded: number[],
 }
 
 
-function run_intake_process(partner: PartnerCode,) {
-	const config = partnerConfigs.find(i => i.partner === partner);
+function run_intake_process(partner: PartnerCode, config: partnerConfigInput) {
+
 	const { fd, ebs, ps, info } = config.generate;
 	let filePath = './src/data/';
 
@@ -186,6 +172,6 @@ function run_intake_process(partner: PartnerCode,) {
 	`
 }
 
-console.log(run_intake_process("BOA"))
+// console.log(run_intake_process("BOA"))
 // console.log(res);
 

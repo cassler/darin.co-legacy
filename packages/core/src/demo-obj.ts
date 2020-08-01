@@ -123,31 +123,6 @@ function submit_partner_request(partner: PartnerCode, options?: partnerConfigInp
 
 }
 
-/**
- * Actually run it, this is a sanbox
- */
-let i = submit_partner_request("BOA");
-let { all, pending, source } = i;
-let { config } = source;
 
-let briefing = all.map(item => ({
-	dt: item.dealertrackID,
-	pid: item.partnerID,
-	note: item.note,
-	live: item.live,
-	...item
-}))
-
-console.log(briefing.filter(i => (!i.live)))
-
-let msg = chalk.bold.whiteBright(config.partner + ' - ' + config.submitted_file + '\n')
-	+ '----------------------------------\n'
-	+ chalk.blue('DT Accounts on File:' + chalk.bold(source.reference.length)) + '\n'
-	+ chalk.blue('Live Accounts:' + chalk.bold(config.live_ids.length)) + '\n'
-	+ chalk.blue('Submitted:' + chalk.bold(all.length)) + '\n'
-	+ chalk.red('Unmatched:' + chalk.bold(all.filter(i => i.dealertrackID === 0).length)) + '\n'
-	+ chalk.green('Pending Items', chalk.bold(pending.length))
-let box = boxen(msg, { padding: 1, margin: 1 });
-console.log(box);
 
 

@@ -3,5 +3,7 @@
  */
 
 export * from "./eBizEntries";
+export * from "./example_wf_class";
+export * from "./partner_settings";
 export * from "./sample_dt";
 export * from "./sample_request_drw";
