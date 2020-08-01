@@ -44,4 +44,4 @@ export function wf_examples(partner, options) {
 
 }
 
-wf_examples("BOA", partner_settings)
+wf_examples("DRW", partner_settings)
