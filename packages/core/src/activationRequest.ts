@@ -1,6 +1,6 @@
 import { getJSONfromSpreadsheet } from '@wf/csv';
 import { DTReportItem, PartnerCode } from '@wf/types';
-import { partnerConfigInput, partnerConfigs } from './partnerConfig';
+import { partnerConfigInput } from '@wf/core';
 
 
 /**

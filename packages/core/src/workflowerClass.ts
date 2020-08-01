@@ -9,14 +9,14 @@ const appConfig = {
 
 
 
-export type ImplementionPreChecks {
+export interface ImplementionPreChecks {
 	accountStatusOK: boolean,
 	notImplemented: boolean,
 	enrollmentStatusOK: boolean,
 	partnerStatusOK: boolean,
 }
 
-export type ImplementationResult {
+export interface ImplementationResult {
 	pid?: any,
 	checks: ImplementionPreChecks,
 	account?: SimpleAccount
@@ -24,7 +24,7 @@ export type ImplementationResult {
 	notes?: string
 }
 
-export type ImplementationPackage {
+export interface ImplementationPackage {
 	title: string,
 	message: string,
 	items: any[]

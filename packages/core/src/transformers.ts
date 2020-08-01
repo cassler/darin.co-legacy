@@ -1,7 +1,7 @@
 import { DTReportItem, SimpleAccount, EBSProvisionItem, PartnerCode, ProdSubItem } from '@wf/types';
 import { ImplementPayload } from '@wf/core'
 import moment from 'moment'
-import { partnerConfigs, partnerConfigInput } from './partnerConfig';
+import { partnerConfigInput } from './partnerConfig';
 /**
  * Used as an ORM layer for transforming various payloads into other formats
  */

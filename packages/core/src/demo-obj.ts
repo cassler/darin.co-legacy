@@ -14,7 +14,7 @@ import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
 import { DTReportItem, PartnerCode, RequestDRW, RequestBOA } from '@wf/types';
 import * as fs from 'fs'
 
-import { partnerConfigs } from './partnerConfig'
+// import { partnerConfigs } from './partnerConfig'
 /**
  *
  * @param partner
@@ -99,7 +99,7 @@ function processSubmission(item: any, ref: DTReportItem[], config: partnerConfig
 
 
 function submit_partner_request(partner: PartnerCode, options?: partnerConfigInput) {
-	let config = partnerConfigs.find(i => i.partner === partner)
+	let config = options;
 	let filePath = './src/data/';
 
 	const reference = getJSONfromSpreadsheet(filePath + config.dt_report_file) as DTReportItem[]
