@@ -9,7 +9,7 @@ import {
 } from "@wf/examples";
 
 
-export const partner_settings = [
+module.exports = [
 	{
 		// identify settings and fill certain fields
 		partner: "BOA",
