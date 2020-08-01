@@ -1,5 +1,4 @@
-import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, isItemLive } from '@wf/core';
-import { partnerConfigs, partnerConfigInput } from './partnerConfig';
+import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple, partnerConfigInput } from '@wf/core';
 import { DTReportItem, SimpleAccount, PartnerCode } from '@wf/types';
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
 
@@ -8,30 +7,16 @@ const appConfig = {
 	filePath: ''
 }
 
-export function toDTSimple(input: DTReportItem): SimpleAccount {
-	return {
-		dealertrackID: input["DealerTrack Id"],
-		partnerID: input["Lender Dealer Id"],
-		enrollment: input["Enrollment Phase"],
-		dbaName: input["DBA Name"],
-		legalName: input["Legal Name"],
-		street: input.Street,
-		city: input.City,
-		state: input.State,
-		zip: input.Zip as string,
-		phone: input["Phone No"],
-		fax: input["Fax No"]
-	}
-}
 
-export interface ImplementionPreChecks {
+
+export type ImplementionPreChecks {
 	accountStatusOK: boolean,
 	notImplemented: boolean,
 	enrollmentStatusOK: boolean,
 	partnerStatusOK: boolean,
 }
 
-export interface ImplementationResult {
+export type ImplementationResult {
 	pid?: any,
 	checks: ImplementionPreChecks,
 	account?: SimpleAccount
@@ -39,7 +24,7 @@ export interface ImplementationResult {
 	notes?: string
 }
 
-export interface ImplementationPackage {
+export type ImplementationPackage {
 	title: string,
 	message: string,
 	items: any[]
@@ -69,11 +54,11 @@ export class Workflower {
 	init: any[]
 	implement: ImplementationResult[]
 
-	constructor(partner: PartnerCode) {
+	constructor(partner: PartnerCode, config: partnerConfigInput, requested: any[], reference: any[]) {
 		this.partner = partner;
-		this.config = partnerConfigs.find(i => i.partner === this.partner);
-		this.requestData = this.partnerData.requestData;
-		this.refData = this.partnerData.refData as DTReportItem[];
+		this.config = config;
+		this.requestData = requested;
+		this.refData = reference as DTReportItem[];
 		this.refQuick = this.simpleAccounts as SimpleAccount[];
 		this.excluded = this.config.live_ids;
 		this.init = this.matchResult;
@@ -112,7 +97,7 @@ export class Workflower {
 		if (fast) {
 			return this.refQuick.find(i => i.partnerID === partnerID)
 		}
-		return this.partnerData.refData.find(i => i["Lender Dealer Id"] === partnerID)
+		return this.refData.find(i => i["Lender Dealer Id"] === partnerID)
 	}
 
 	/**
@@ -164,17 +149,6 @@ export class Workflower {
 	}
 
 
-	// compile JSON of data from files in config
-	get partnerData(): { requestData: any[], refData: DTReportItem[] } {
-		return {
-			requestData: getJSONfromSpreadsheet(
-				appConfig.filePath + this.config.submitted_file
-			),
-			refData: getJSONfromSpreadsheet(
-				appConfig.filePath + this.config.dt_report_file
-			) as DTReportItem[]
-		}
-	}
 
 	/**
 	 * Find if a given account ID is part of the exclusion set

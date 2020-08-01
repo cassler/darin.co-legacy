@@ -9,7 +9,7 @@ import {
 } from "@wf/examples";
 
 
-export const partner_settings: partnerConfigInput[] = [
+export const partner_settings = [
 	{
 		// identify settings and fill certain fields
 		partner: "BOA",
@@ -40,7 +40,7 @@ export const partner_settings: partnerConfigInput[] = [
 		},
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
 		// extra tests to be performed like checking "Program Active Status"
-		custom_validation: (item: RequestBOA) => {
+		custom_validation: (item) => {
 			// console.log('validating', item)
 			return (
 				item["Program Active Status"] === "Active" &&
@@ -68,7 +68,7 @@ export const partner_settings: partnerConfigInput[] = [
 			ps: true,
 			info: true,
 		},
-		custom_validation: (item: RequestDRW) => {
+		custom_validation: (item) => {
 			return (
 				item.Status === "A"
 			)

@@ -11,6 +11,23 @@ import { partnerConfigs, partnerConfigInput } from './partnerConfig';
  * @param partnerCode - typeof, string representation of PartnerCodes enum type
  * @return Dealer info pre-formatted for Production Subscription
  */
+
+export function toDTSimple(input: DTReportItem): SimpleAccount {
+	return {
+		dealertrackID: input["DealerTrack Id"],
+		partnerID: input["Lender Dealer Id"],
+		enrollment: input["Enrollment Phase"],
+		dbaName: input["DBA Name"],
+		legalName: input["Legal Name"],
+		street: input.Street,
+		city: input.City,
+		state: input.State,
+		zip: input.Zip as string,
+		phone: input["Phone No"],
+		fax: input["Fax No"]
+	}
+}
+
 export const asProdSubItem = (
 	data: ImplementPayload | SimpleAccount,
 	partnerCode: PartnerCode,
