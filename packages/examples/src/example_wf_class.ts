@@ -30,7 +30,7 @@ export function wf_examples(partner, options) {
 	let wf = new Workflower(props);
 
 	// Show off some of the goods.
-	console.log(wf.notedResults)
+	console.log(wf.query(3422))
 
 	// Provide some top-level insights
 	console.dir({
@@ -48,8 +48,10 @@ export function wf_examples(partner, options) {
 	})
 
 	// console.log(wf.explanation)
+	console.log(wf.query(3406))
 
-	console.log(wf.query(3406).map(i => i.checks))
+	// find some matches this way
+	console.log(wf.query('Volvo'))
 
 }
 
