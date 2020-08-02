@@ -1,6 +1,7 @@
 
 import { Workflower, partnerConfigInput } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv/src'; // Utility for easy file handling
+import { PartnerCode } from '@wf/types/src';
 /**
  * @name Example_1
  *
@@ -14,19 +15,19 @@ export function wf_examples(partner, options) {
 
 
 	// Read through the array of partners to find that matching entry
-	// let opts = options as partnerConfigInput[]
 	let config = options.find(i => i.partner === partner);
+	// let opts = options as partnerConfigInput[]
 
-	// Open the files from the config and get JSON
-	let reference = getJSONfromSpreadsheet(config.dt_report_file);
-	let requests = getJSONfromSpreadsheet(config.submitted_file);
-
-	// @todo - these should be an optional constructor for WF.
-	let excluded = config.live_ids;
+	let props = {
+		partner,
+		config,
+		requested: getJSONfromSpreadsheet(config.submitted_file),
+		reference: getJSONfromSpreadsheet(config.dt_report_file)
+	}
 
 	// Create a new instance of a Workflower
 	// @ref core/workflower
-	let wf = new Workflower("BOA", config, requests, reference);
+	let wf = new Workflower(props);
 
 	// Show off some of the goods.
 	console.log(wf.notedResults)
@@ -45,6 +46,10 @@ export function wf_examples(partner, options) {
 			product_subscription: wf.provisioning.prodSubAttachment.length,
 		}
 	})
+
+	// console.log(wf.explanation)
+
+	console.log(wf.query(3406).map(i => i.checks))
 
 }
 

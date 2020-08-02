@@ -43,6 +43,12 @@ export interface ImplementationPackage {
  * @beta
  *
  */
+type Props = {
+	partner: PartnerCode,
+	config: partnerConfigInput,
+	requested: any[],
+	reference: any[]
+}
 export class Workflower {
 
 	config: partnerConfigInput
@@ -54,11 +60,11 @@ export class Workflower {
 	init: any[]
 	implement: ImplementationResult[]
 
-	constructor(partner: PartnerCode, config: partnerConfigInput, requested: any[], reference: any[]) {
-		this.partner = partner;
-		this.config = config;
-		this.requestData = requested;
-		this.refData = reference as DTReportItem[];
+	constructor(props: Props) {
+		this.partner = props.partner;
+		this.config = props.config;
+		this.requestData = props.requested;
+		this.refData = props.reference as DTReportItem[];
 		this.refQuick = this.simpleAccounts as SimpleAccount[];
 		this.excluded = this.config.live_ids;
 		this.init = this.matchResult;
@@ -113,6 +119,18 @@ export class Workflower {
 			checks: result.checks
 		}
 		return result;
+	}
+
+
+	query(terms: string | number) {
+		if (typeof terms === 'string') {
+			let search = this.matchResult.filter(item => item.account.dbaName?.includes(terms))
+			return search;
+		}
+		if (typeof terms === 'number') {
+			let search = this.matchResult.filter(item => item.pid === terms || item.account.dealertrackID === terms)
+			return search;
+		}
 	}
 
 	/**
