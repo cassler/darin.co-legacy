@@ -1,7 +1,7 @@
 {
-	"name": "@wf/sample-data",
+	"name": "@wf/examples",
 	"version": "0.0.1",
-	"description": "Default package structure for @wf",
+	"description": "Examples and demos for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",
 	"license": "MIT",
