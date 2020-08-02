@@ -1,7 +1,11 @@
 
 import { Workflower, partnerConfigInput } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv/src'; // Utility for easy file handling
-
+/**
+ * @name Example_1
+ *
+ *
+ */
 // This is our configurations file where aspects of the implementations are described
 const partner_settings = require('./partner_settings');
 
@@ -10,8 +14,8 @@ export function wf_examples(partner, options) {
 
 
 	// Read through the array of partners to find that matching entry
-	let opts = options as partnerConfigInput[]
-	let config = opts.find(i => i.partner === partner);
+	// let opts = options as partnerConfigInput[]
+	let config = options.find(i => i.partner === partner);
 
 	// Open the files from the config and get JSON
 	let reference = getJSONfromSpreadsheet(config.dt_report_file);

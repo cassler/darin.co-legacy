@@ -1,32 +1,33 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "jsx": "react",
-    "paths": {
-      "@wf/*": [
-        "packages/*/src"
-      ]
-    },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "lib": [
-      "es2015",
-      "es6",
-      "es7"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"target": "es2017",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"incremental": true,
+		"jsx": "react",
+		"paths": {
+			"@wf/*": [
+				"packages/*/src"
+			]
+		},
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"lib": [
+			"es2015",
+			"es6",
+			"es7",
+			"dom"
+		]
+	},
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
 }
