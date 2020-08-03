@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import * as fs from 'fs';
 import * as XLSX from 'xlsx';
 
-export const getJsonFromXLSX = (file: string) => {
+export function getJsonFromXLSX(file: string) {
 	// check filetype
 	const workbook = XLSX.readFile(file, { cellDates: true });
 	const data: any = {}

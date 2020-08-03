@@ -4,9 +4,8 @@ import './App.css';
 
 import { Workflower, partnerConfigInput } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
-import { PartnerCode } from '@wf/types';
 
-const config = {
+const settings = {
 	partner: "DRW",
 	crm: "NoEmail@darwinautomotive.com",
 	dealerContact: "NoEmail@darwinautomotive.com",
@@ -33,8 +32,9 @@ const config = {
 const AppProps = {
 	partner: "BOA", // "BOA"
 	config: settings, // see partner_settings.ts
-	requested: getJSONfromSpreadsheet(config.submitted_file), // JSON of local file indicated
-	reference: getJSONfromSpreadsheet(config.dt_report_file) // JSON of local file indicated
+	submitted: settings.submitted_file,
+	// requested: getJSONfromSpreadsheet(settings.submitted_file), // JSON of local file indicated
+	// reference: getJSONfromSpreadsheet(settings.dt_report_file) // JSON of local file indicated
 }
 
 function App() {
