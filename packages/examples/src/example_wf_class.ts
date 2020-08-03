@@ -2,35 +2,43 @@
 import { Workflower, partnerConfigInput } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv/src'; // Utility for easy file handling
 import { PartnerCode } from '@wf/types/src';
-/**
- * @name Example_1
- *
- *
- */
 // This is our configurations file where aspects of the implementations are described
 const partner_settings = require('./partner_settings');
 
-
+/**
+ * Example usage of Workflower
+ *
+ * Read through the array of partners to find that matching entry
+ * */
 export function wf_examples(partner, options) {
 
-
-	// Read through the array of partners to find that matching entry
+	// Allow entire sdt of partner configs to be passed,
+	// but narrow down that set to the one we want.
 	let config = options.find(i => i.partner === partner);
-	// let opts = options as partnerConfigInput[]
 
+	// To be passed into our new Workflower instance.
 	let props = {
-		partner,
-		config,
-		requested: getJSONfromSpreadsheet(config.submitted_file),
-		reference: getJSONfromSpreadsheet(config.dt_report_file)
+		partner, // "BOA"
+		config, // see partner_settings.ts
+		requested: getJSONfromSpreadsheet(config.submitted_file), // JSON of local file indicated
+		reference: getJSONfromSpreadsheet(config.dt_report_file) // JSON of local file indicated
 	}
 
 	// Create a new instance of a Workflower
 	// @ref core/workflower
 	let wf = new Workflower(props);
 
-	// Show off some of the goods.
+	// Show off some of the goods - find account with partner ID of 3422
 	console.log(wf.query(3422))
+
+	// console.log(wf.explanation)
+	console.log(wf.query(3406))
+
+	// find some matches this way
+	console.log(wf.query('Volvo'))
+
+	// what are the settings?
+	console.log(wf.config.reference_doc)
 
 	// Provide some top-level insights
 	console.dir({
@@ -46,12 +54,6 @@ export function wf_examples(partner, options) {
 			product_subscription: wf.provisioning.prodSubAttachment.length,
 		}
 	})
-
-	// console.log(wf.explanation)
-	console.log(wf.query(3406))
-
-	// find some matches this way
-	console.log(wf.query('Volvo'))
 
 }
 
