@@ -1,9 +1,8 @@
 
-import { Workflower, partnerConfigInput } from '@wf/core';
+import { Workflower } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
-import { PartnerCode } from '@wf/types';
+import { partner_settings } from '@wf/examples';
 // This is our configurations file where aspects of the implementations are described
-const partner_settings = require('./partner_settings');
 
 /**
  * Example usage of Workflower

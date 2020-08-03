@@ -3,41 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import Papa from 'papaparse';
 
-import { Workflower, partnerConfigInput } from '@wf/core';
+import { Workflower } from '@wf/core';
 
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
-
-const settings = {
-	partner: "DRW",
-	crm: "NoEmail@darwinautomotive.com",
-	dealerContact: "NoEmail@darwinautomotive.com",
-	leads: "NoEmail@darwinautomotive.com",
-	internal_id: "Partner Dealer ID",
-	ebiz_dt_dealer_id_field: "Lender Dealer Id",
-	submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/Digital_Retail_Suite_Dealer_File-DRW(4).csv",
-	dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
-	live_ids: [1, 2, 3, 4],
-	ebiz_profile: 7531215,
-	valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
-	reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
-	generate: {
-		fd: true,
-		ebs: true,
-		ps: true,
-		info: true,
-	},
-	custom_validation: (item: any) => {
-		return item.hasOwnProperty('Status') && item.Status === "A"
-	},
-}
+import { settings } from './data/settings';
 
 const AppProps = {
 	partner: "BOA", // "BOA"
-	config: settings, // see partner_settings.ts
-	submitted: settings.submitted_file,
+	config: settings.boa, // see partner_settings.ts
 	requested: drwRequestData,
-	reference: drwRefData,
+	reference: drwRefData
 }
 
 
@@ -50,9 +26,10 @@ export interface IParseResult {
 function App() {
 	const [requested, setReq] = useState<IParseResult | undefined>(AppProps.requested)
 	const [reference, setRef] = useState<IParseResult | undefined>(AppProps.reference)
-	const [partner, setPartner] = useState("BOA")
-	const [config, setConfig] = useState(AppProps.config);
+	const [partner, setPartner] = useState("DRW")
+	const [config, setConfig] = useState(settings.drw);
 	const [result, setResult] = useState<any>({})
+	const [log, setLog] = useState<any>({})
 
 	const handleSubmit = (event: any, label: string) => {
 		if (label === "req") {
@@ -94,6 +71,7 @@ function App() {
 			})
 			if (res.init) {
 				setResult(res.init);
+				setLog(res.itemsToImplement);
 				return;
 			}
 		}
@@ -107,7 +85,11 @@ function App() {
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
+					Using settings for {partner}.
+					<li>{config.live_ids?.length} dealers live</li>
+					<li>Looking at internal ID: {JSON.stringify(config.internal_id)}</li>
+					<li><b>CRM:</b> {JSON.stringify(config.crm)}</li>
+					<li><b>Reference: </b><a href={config.reference_doc}>Sharepoint Doc</a></li>
 				</p>
 
 				<div style={styles.twoUp}>
@@ -132,9 +114,12 @@ function App() {
 
 			</header>
 			<div className="App-list">
+				{log && (
+					<div>{JSON.stringify(log)}</div>
+				)}
 				<pre><code>{JSON.stringify(result, null, 2)}</code></pre>
 			</div>
-		</div>
+		</div >
 	);
 }
 
