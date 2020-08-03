@@ -4,7 +4,9 @@ import './App.css';
 import Papa from 'papaparse';
 
 import { Workflower, partnerConfigInput } from '@wf/core';
-import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
+
+import { data as drwRequestData } from './data/drwRequest';
+import { data as drwRefData } from './data/refData';
 
 const settings = {
 	partner: "DRW",
@@ -34,8 +36,8 @@ const AppProps = {
 	partner: "BOA", // "BOA"
 	config: settings, // see partner_settings.ts
 	submitted: settings.submitted_file,
-	// requested: getJSONfromSpreadsheet(settings.submitted_file), // JSON of local file indicated
-	// reference: getJSONfromSpreadsheet(settings.dt_report_file) // JSON of local file indicated
+	requested: drwRequestData,
+	reference: drwRefData,
 }
 
 
@@ -46,42 +48,59 @@ export interface IParseResult {
 }
 
 function App() {
-	const [requested, setReq] = useState<IParseResult | null>(null)
-	const [reference, setRef] = useState<IParseResult | null>(null)
-	const [prefs, setPrefs] = useState<any | null>(null)
+	const [requested, setReq] = useState<IParseResult | undefined>(AppProps.requested)
+	const [reference, setRef] = useState<IParseResult | undefined>(AppProps.reference)
+	const [partner, setPartner] = useState("BOA")
+	const [config, setConfig] = useState(AppProps.config);
+	const [result, setResult] = useState<any>({})
 
-	const [result, submitWF] = useState<any | null>(null)
+	const handleSubmit = (event: any, label: string) => {
+		if (label === "req") {
+			/// set requestdata
+			for (const file of event.target.files) {
+				Papa.parse(file, {
+					header: true,
+					dynamicTyping: true,
+					complete: (res) => {
+						setReq(res)
+					}
+				})
+				createResult()
+			}
 
-	const handleSubmit = (event: any, target: string) => {
-		let files = event.target.files;
-		for (const file of files) {
-			Papa.parse(file, {
-				dynamicTyping: true,
-				header: true,
-				complete: function (res) {
-					if (target === "req") setReq(res);
-					if (target === "ref") setRef(res)
-				}
-			})
+		};
+		if (label === "ref") {
+			/// set reference data
+			for (const file of event.target.files) {
+				Papa.parse(file, {
+					header: true,
+					dynamicTyping: true,
+					complete: (res) => {
+						setRef(res)
+					}
+				})
+				createResult()
+			}
 		}
-		console.log(files)
 	}
 
-	const createWF = () => {
-		let wf = new Workflower(prefs);
-		submitWF(wf.matchResult())
+	const createResult = () => {
+		if (requested?.data && reference?.data && partner && config) {
+			let res = new Workflower({
+				partner,
+				config,
+				requested: requested.data,
+				reference: reference.data
+			})
+			if (res.init) {
+				setResult(res.init);
+				return;
+			}
+		}
 	}
 
-	useEffect(() => {
-		if (requested && reference) {
-			setPrefs({
-				partner: "BOA",
-				config: settings,
-				requested,
-				reference
-			})
-		}
-	}, [requested, reference, prefs])
+
+
 
 	return (
 		<div className="App">
@@ -90,36 +109,52 @@ function App() {
 				<p>
 					Edit <code>src/App.tsx</code> and save to reload.
 				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-        </a>
-				<label>Select Reference Data</label>
-				<input onChange={(e) => handleSubmit(e, "ref")} type="file" />
-				<hr />
-				<label>Select Request Data</label>
-				<input onChange={(e) => handleSubmit(e, "req")} type="file" />
 
-
-				{prefs && (
-					<div>
-						<button onClick={(e) => createWF()}>
-							Generate
-							</button>
-						{/* <pre>{JSON.stringify(prefs, null, 2)}</pre> */}
-						<code><pre>
-							{JSON.stringify(result, null, 2)}
-						</pre></code>
+				<div style={styles.twoUp}>
+					<div style={styles.inner}>
+						<label>Select Reference Data</label><br />
+						<input onChange={(e) => handleSubmit(e, "ref")} type="file" />
 					</div>
-
+					<div style={styles.inner}>
+						<label>Select Request Data</label><br />
+						<input onChange={(e) => handleSubmit(e, "req")} type="file" />
+					</div>
+				</div>
+				{requested && requested?.data && reference?.data && (
+					<>
+						<h4>Requested Count: {requested.data.length}</h4>
+						<h4>Reference Count: {reference.data.length}</h4>
+						<button onClick={() => createResult()}>
+							Generate!
+						</button>
+					</>
 				)}
+
 			</header>
+			<div className="App-list">
+				<pre><code>{JSON.stringify(result, null, 2)}</code></pre>
+			</div>
 		</div>
 	);
 }
 
 export default App;
+
+const styles = {
+	twoUp: {
+		display: "flex",
+		gridGap: "10px"
+	},
+	middle: {
+		maxWidth: "600px",
+		marginLeft: "auto",
+		marginRight: "auto",
+		fontSize: "12px",
+		align: "left",
+	},
+	inner: {
+		padding: "15px",
+		border: "1px solid #ccc",
+		margin: "10px"
+	}
+}
