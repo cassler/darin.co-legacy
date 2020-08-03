@@ -1,8 +1,9 @@
 {
-  "packages": [
-    "packages/*"
-  ],
-  "version": "0.0.1",
-  "npmClient": "yarn",
-  "useWorkspaces": true
+	"packages": [
+		"packages/*",
+		"packages/react-ts"
+	],
+	"version": "0.0.1",
+	"npmClient": "yarn",
+	"useWorkspaces": true
 }
