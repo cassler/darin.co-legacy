@@ -1,7 +1,7 @@
 
 import { Workflower, partnerConfigInput } from '@wf/core';
-import { getJSONfromSpreadsheet } from '@wf/csv/src'; // Utility for easy file handling
-import { PartnerCode } from '@wf/types/src';
+import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
+import { PartnerCode } from '@wf/types';
 // This is our configurations file where aspects of the implementations are described
 const partner_settings = require('./partner_settings');
 
