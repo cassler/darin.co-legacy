@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Papa from 'papaparse';
 
 import { Workflower, partnerConfigInput } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
@@ -37,14 +38,57 @@ const AppProps = {
 	// reference: getJSONfromSpreadsheet(settings.dt_report_file) // JSON of local file indicated
 }
 
+
+export interface IParseResult {
+	data: any[];
+	errors: any;
+	meta: any;
+}
+
 function App() {
+	const [requested, setReq] = useState<IParseResult | null>(null)
+	const [reference, setRef] = useState<IParseResult | null>(null)
+	const [prefs, setPrefs] = useState<any | null>(null)
+
+	const [result, submitWF] = useState<any | null>(null)
+
+	const handleSubmit = (event: any, target: string) => {
+		let files = event.target.files;
+		for (const file of files) {
+			Papa.parse(file, {
+				dynamicTyping: true,
+				header: true,
+				complete: function (res) {
+					if (target === "req") setReq(res);
+					if (target === "ref") setRef(res)
+				}
+			})
+		}
+		console.log(files)
+	}
+
+	const createWF = () => {
+		let wf = new Workflower(prefs);
+		submitWF(wf.matchResult())
+	}
+
+	useEffect(() => {
+		if (requested && reference) {
+			setPrefs({
+				partner: "BOA",
+				config: settings,
+				requested,
+				reference
+			})
+		}
+	}, [requested, reference, prefs])
+
 	return (
 		<div className="App">
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 				<p>
 					Edit <code>src/App.tsx</code> and save to reload.
-					{JSON.stringify(AppProps)}
 				</p>
 				<a
 					className="App-link"
@@ -54,6 +98,25 @@ function App() {
 				>
 					Learn React
         </a>
+				<label>Select Reference Data</label>
+				<input onChange={(e) => handleSubmit(e, "ref")} type="file" />
+				<hr />
+				<label>Select Request Data</label>
+				<input onChange={(e) => handleSubmit(e, "req")} type="file" />
+
+
+				{prefs && (
+					<div>
+						<button onClick={(e) => createWF()}>
+							Generate
+							</button>
+						{/* <pre>{JSON.stringify(prefs, null, 2)}</pre> */}
+						<code><pre>
+							{JSON.stringify(result, null, 2)}
+						</pre></code>
+					</div>
+
+				)}
 			</header>
 		</div>
 	);

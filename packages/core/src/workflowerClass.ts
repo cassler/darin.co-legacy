@@ -53,8 +53,8 @@ export class Workflower {
 
 	config: partnerConfigInput
 	partner: PartnerCode
-	requestData: any[]
-	refData: any[]
+	requestData: unknown[]
+	refData: DTReportItem[]
 	refQuick: SimpleAccount[]
 	excluded: any[]
 	init: any[]
@@ -64,10 +64,10 @@ export class Workflower {
 		this.partner = props.partner;
 		this.config = props.config;
 		this.requestData = props.requested;
-		this.refData = props.reference as DTReportItem[];
-		this.refQuick = this.simpleAccounts as SimpleAccount[];
+		this.refData = props.reference;
+		this.refQuick = this.simpleAccounts(this.refData);
 		this.excluded = this.config.live_ids;
-		this.init = this.matchResult;
+		this.init = this.matchResult();
 		this.implement = this.itemsToImplement.items;
 	}
 
@@ -88,8 +88,13 @@ export class Workflower {
 	}
 
 	// create a smaller version of references
-	get simpleAccounts(): SimpleAccount[] {
-		return this.refData.map(i => toDTSimple(i))
+	simpleAccounts(data: DTReportItem[]): SimpleAccount[] {
+		let out = [];
+		for (const d of data) {
+			out.push(toDTSimple(d))
+		}
+		return out;
+		// return data.map(i => toDTSimple(i))
 	}
 
 	/**
@@ -113,7 +118,7 @@ export class Workflower {
 	 */
 
 	findResult(partnerID: any, showOriginal: boolean = false) {
-		let result = this.matchResult.find(i => i.pid === partnerID);
+		let result = this.matchResult().find(i => i.pid === partnerID);
 		if (!showOriginal) return {
 			pid: result.pid,
 			checks: result.checks
@@ -124,48 +129,14 @@ export class Workflower {
 
 	query(terms: string | number) {
 		if (typeof terms === 'string') {
-			let search = this.matchResult.filter(item => item.account.dbaName?.includes(terms))
+			let search = this.matchResult().filter(item => item.account.dbaName?.includes(terms))
 			return search;
 		}
 		if (typeof terms === 'number') {
-			let search = this.matchResult.filter(item => item.pid === terms || item.account.dealertrackID === terms)
+			let search = this.matchResult().filter(item => item.pid === terms || item.account.dealertrackID === terms)
 			return search;
 		}
 	}
-
-	/**
-	 * @param submitted_file - name of file to be used.
-	 *
-	 * @todo Refactor this out, file handling inside the class is unwise
-	 */
-	set submittedFile(submitted_file: string) {
-		let data = getJSONfromSpreadsheet(appConfig.filePath + submitted_file)
-		if (!data) {
-			throw new Error("No request data found from provided file name")
-		}
-		if (data.length < 1) {
-			throw new Error("Insufficient data, no rows")
-		}
-		if (!data.filter(i => i[this.config.internal_id]).filter(Boolean)) {
-			throw new Error("Unable to find interal ID in data set")
-		}
-		this.requestData = data;
-	}
-
-	set referenceFile(reference_file: string) {
-		let data = getJSONfromSpreadsheet(appConfig.filePath + reference_file)
-		if (!data) {
-			throw new Error("No request data found from provided file name")
-		}
-		if (data.length < 1) {
-			throw new Error("Insufficient data, no rows")
-		}
-		if (!data.filter(i => i[this.config.internal_id]).filter(Boolean)) {
-			throw new Error("Unable to find interal ID in data set")
-		}
-		this.refData = data;
-	}
-
 
 
 	/**
@@ -191,12 +162,13 @@ export class Workflower {
 	 *
 	 *
 	 */
-	get matchResult(): ImplementationResult[] {
-		return this.requestData.map(req => {
+	matchResult(): ImplementationResult[] {
+		let result = [];
+		for (const req of this.requestData) {
 			let pid = req[this.config.internal_id];
 			let account = this.findAccount(pid, true) as SimpleAccount;
 			let accObject = account ? account : this.emptySimpleAccount(pid);
-			return {
+			result.push({
 				pid,
 				checks: {
 					accountStatusOK: account ? true : false,
@@ -206,13 +178,14 @@ export class Workflower {
 				},
 				account: accObject,
 				original: req,
-			}
-		})
+			})
+		}
+		return result;
 	}
 
 	// same as matchResult, but with reduced data and added notations
 	get notedResults() {
-		return this.matchResult.map(item => ({
+		return this.matchResult().map(item => ({
 			partnerID: item.pid,
 			...item.checks,
 			notes: this.getResultComment(item),
@@ -263,7 +236,7 @@ export class Workflower {
 		let detail = this.summary;
 		let str: string;
 		str = `\n\n------------------\n` +
-			`We are comparing information about ${this.matchResult.length} items\n` +
+			`We are comparing information about ${this.matchResult().length} items\n` +
 			`from ${this.partner} found in "${this.config.submitted_file} with\n` +
 			`the Dealertrack report called "${this.config.dt_report_file}.\n` +
 			`-------------\n` +
@@ -291,14 +264,14 @@ export class Workflower {
 		return {
 			title: "Bad DT Enrollment",
 			message: "There is a problem with this enrollment",
-			items: this.matchResult.filter(i => !i.checks.enrollmentStatusOK)
+			items: this.matchResult().filter(i => !i.checks.enrollmentStatusOK)
 		}
 	}
 	get unmatchedRequests(): ImplementationPackage {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
-			items: this.matchResult.filter(i => i.account.dealertrackID < 1)
+			items: this.matchResult().filter(i => i.account.dealertrackID < 1)
 		}
 	}
 
@@ -306,7 +279,7 @@ export class Workflower {
 		return {
 			title: 'Pending Implementation',
 			message: 'These items are new and have passed pre-qualifications',
-			items: this.matchResult.filter(i => Object.values(i.checks).every(v => v === true))
+			items: this.matchResult().filter(i => Object.values(i.checks).every(v => v === true))
 		}
 	}
 
@@ -314,7 +287,7 @@ export class Workflower {
 		return {
 			title: 'Pending Cancellations',
 			message: 'These items are listed as inactive by partner by are live.',
-			items: this.matchResult.filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
+			items: this.matchResult().filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
 		}
 	}
 
