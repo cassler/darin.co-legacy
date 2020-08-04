@@ -1,8 +1,7 @@
 import React from 'react';
 import { ImplementationPackage } from '@wf/core';
 import DownloadButton from './DownloadButton';
-import { Statistic, Alert, Badge, Layout, Menu, Breadcrumb, Card, Divider, Button, Collapse } from 'antd';
-const { Panel } = Collapse;
+import { Alert, Badge, Collapse } from 'antd';
 
 interface ImpPackageI {
 	item: ImplementationPackage,
@@ -38,34 +37,30 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description }) => {
 				<div>
 					{payload && (
 						<>
+							{/**@todo make this its own component ----- start */}
 							<h4>Get Provisioning Files</h4>
 							<DownloadButton label="eBiz Suite" data={payload.eBizUpload} />
 							<DownloadButton label="Finance Driver" data={payload.financeDriverUpload} />
 							<DownloadButton label="Product Subscript" data={payload.prodSubAttachment} />
+							{/**@todo ----------------------------------- end */}
 						</>
 					)}
 				</div>
 			</div>
 			{hasItems && (
 				<Collapse onChange={callback}>
-					<Panel header={(
-						<>
-							View Dealers
-						<Badge
-								count={item.items.length}
-								offset={[10, -2]}
-							/>
-						</>
+					<Collapse.Panel header={(
+						<h4>View Dealers <Badge count={item.items.length} /></h4>
 					)} key={item.title}>
-						{/** @todo - make this its own component */}
 						{item.items.map(i => (
 							<div>
+								{/** @todo - make this its own component */}
 								<b>{i.pid} - {i.account.dbaName}</b>
 								<p>{i.notes}</p>
+								{/**@todo ----------------------------------- end */}
 							</div>
 						))}
-
-					</Panel>
+					</Collapse.Panel>
 				</Collapse>
 			)}
 		</div>

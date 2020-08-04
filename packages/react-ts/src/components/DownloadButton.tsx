@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Tag } from 'antd';
+import { Button } from 'antd';
 
 
 type Props = {

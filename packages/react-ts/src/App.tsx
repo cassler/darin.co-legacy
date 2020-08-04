@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
 
-import ListView from './components/ListView'
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
 import ImpPackage from './components/ImpPackage';
@@ -48,10 +47,10 @@ function App() {
 
 	// If we have enough data, do a new calculation immediately
 	useEffect(() => {
-		if (`${partner}` !== config.partner) {
-			if (partner === "BOA") setConfig(settings.boa);
-			if (partner === "DRW") setConfig(settings.drw);
-		}
+		// if (`${partner}` !== config.partner) {
+		// if (partner === "BOA") setConfig(settings.boa);
+		// if (partner === "DRW") setConfig(settings.drw);
+		// }
 		/**
 		 * This would create a new WF instance every time a change occured.
 		if (!result) {

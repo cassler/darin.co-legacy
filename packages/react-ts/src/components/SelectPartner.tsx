@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
-import { Menu, Dropdown, Button, message, Tooltip } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons'
+import { Menu, Dropdown, Button, message } from 'antd';
+import { DownOutlined } from '@ant-design/icons'
 
 import { PartnerCode } from '../App';
 
@@ -13,12 +13,11 @@ type Props = {
 
 
 const SelectPartner: React.FC<Props> = ({ partners, callback, defaultPartner }) => {
-	const [selected, selectPartner] = useState<PartnerCode>(defaultPartner)
+
 	const handleClick = (e: any) => {
-		message.info(`Changed partners to ${e.key}`);
 		console.log('click', e);
-		selectPartner(e.key)
 		callback(e.key)
+		message.info(`Changed partners to ${e.key}`);
 	}
 	return (
 		<Dropdown overlay={(
