@@ -17,8 +17,8 @@ export function wf_examples(partner, options) {
 
 	// To be passed into our new Workflower instance.
 	let props = {
-		partner, // "BOA"
-		config, // see partner_settings.ts
+		partnerCode: partner, // "BOA"
+		options: config, // see partner_settings.ts
 		requested: getJSONfromSpreadsheet(config.submitted_file), // JSON of local file indicated
 		reference: getJSONfromSpreadsheet(config.dt_report_file) // JSON of local file indicated
 	}

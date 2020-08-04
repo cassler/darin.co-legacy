@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Workflower, ImplementationResult } from '@wf/core';
+
 import ListView from './components/ListView'
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
@@ -23,16 +24,18 @@ export interface IParseResult {
 	meta: any;
 }
 
+type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
+
 
 function App() {
 	const [requested, setReq] = useState<IParseResult | undefined>(AppProps.requested)
 	const [reference, setRef] = useState<IParseResult | undefined>(AppProps.reference)
-	const [partner, setPartner] = useState("BOA")
+	const [partner, setPartner] = useState<PartnerCode>("BOA")
 	const [config, setConfig] = useState(settings.boa);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
 	const [log, setLog] = useState<any>(null)
 
-	const handlePartnerSelect = (partner: string) => {
+	const handlePartnerSelect = (partner: PartnerCode) => {
 		setPartner(partner);
 		if (partner === "BOA") setConfig(settings.boa);
 		if (partner === "DRW") setConfig(settings.drw);
@@ -42,8 +45,8 @@ function App() {
 		if (!result) {
 			if (requested && reference && partner && config) {
 				const wf = new Workflower({
-					partner,
-					config,
+					partnerCode: partner,
+					options: config,
 					requested: requested.data,
 					reference: reference.data
 				});
@@ -55,8 +58,8 @@ function App() {
 	const createResult = () => {
 		if (requested?.data && reference?.data && partner && config) {
 			let res = new Workflower({
-				partner,
-				config,
+				partnerCode: partner,
+				options: config,
 				requested: requested.data,
 				reference: reference.data
 			})
@@ -76,7 +79,7 @@ function App() {
 			<div className="App-control">
 				<h2>Create Workflower for &nbsp;
 					<SelectPartner
-						partners={["BOA", "DRW", "CNZ", "GOO"]}
+						partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
 						callback={handlePartnerSelect}
 					/>
 				</h2>

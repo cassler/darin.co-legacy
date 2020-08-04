@@ -1,11 +1,6 @@
 import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple, partnerConfigInput } from '@wf/core';
 import { DTReportItem, SimpleAccount, PartnerCode } from '@wf/types';
-import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
 
-
-const appConfig = {
-	filePath: ''
-}
 
 
 
@@ -43,14 +38,14 @@ export interface ImplementationPackage {
  * @beta
  *
  */
-type Props = {
-	partner: PartnerCode,
-	config: partnerConfigInput,
-	requested: any[],
-	reference: any[]
-}
 export class Workflower {
 
+	props: {
+		partnerCode: PartnerCode,
+		options: partnerConfigInput,
+		requested: any[],
+		reference: any[]
+	}
 	config: partnerConfigInput
 	partner: PartnerCode
 	requestData: unknown[]
@@ -60,13 +55,14 @@ export class Workflower {
 	init: any[]
 	implement: ImplementationResult[]
 
-	constructor(props: Props) {
-		this.partner = props.partner;
-		this.config = props.config;
+	constructor(props) {
+		this.props = props;
+		this.partner = props.partnerCode;
+		this.config = props.options;
 		this.requestData = props.requested;
 		this.refData = props.reference;
 		this.refQuick = this.simpleAccounts(this.refData);
-		this.excluded = this.config.live_ids;
+		this.excluded = props.options.live_ids;
 		this.init = this.matchResult();
 		this.implement = this.itemsToImplement.items;
 	}
