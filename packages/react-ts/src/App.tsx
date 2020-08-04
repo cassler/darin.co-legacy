@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Papa from 'papaparse';
 
-import { Workflower, ImplementationResult, ImplementionPreChecks } from '@wf/core';
+import { Workflower, ImplementationResult } from '@wf/core';
 
 
 import { data as drwRequestData } from './data/drwRequest';
@@ -128,10 +128,17 @@ function App() {
 			<div className="App-list">
 				{result ? (
 					<div>
-						<h4>Results</h4>
-						{result && result.length > 1 ? result.map(i => (
-							<div>{i.pid} - {i.account?.dealertrackID} - {JSON.stringify(i.checks.accountStatusOK)}</div>
-						)) : null}
+						<h2>Results</h2>
+						<ul>
+							{result && result.length > 1 ? result.map(i => (
+								<li>
+									<h3>
+										<small>Partner: {i.pid} / DT: {i.account?.dealertrackID} - {i.account?.enrollment}</small><br />
+										{i.account?.dbaName}</h3>
+
+								</li>
+							)) : null}
+						</ul>
 					</div>
 				) : (
 						<div>...calculating</div>
