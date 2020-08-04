@@ -12,8 +12,8 @@ import { settings } from './data/settings';
 import { Statistic } from 'antd';
 
 const AppProps = {
-	partner: "BOA", // "BOA"
-	config: settings.boa, // see partner_settings.ts
+	partner: "DRW" as PartnerCode, // "BOA"
+	config: settings.drw, // see partner_settings.ts
 	requested: drwRequestData,
 	reference: drwRefData
 }
@@ -24,23 +24,27 @@ export interface IParseResult {
 	meta: any;
 }
 
-type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
+export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
 
 
 function App() {
+
+	// Define our initial state and types
 	const [requested, setReq] = useState<IParseResult | undefined>(AppProps.requested)
 	const [reference, setRef] = useState<IParseResult | undefined>(AppProps.reference)
-	const [partner, setPartner] = useState<PartnerCode>("BOA")
-	const [config, setConfig] = useState(settings.boa);
+	const [partner, setPartner] = useState<PartnerCode>(AppProps.partner)
+	const [config, setConfig] = useState(AppProps.config);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
 	const [log, setLog] = useState<ImpPayload | null>(null)
 
+	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
 		setPartner(partner);
 		if (partner === "BOA") setConfig(settings.boa);
 		if (partner === "DRW") setConfig(settings.drw);
 	}
 
+	// If we have enough data, do a new calculation immediately
 	useEffect(() => {
 		if (!result) {
 			if (requested && reference && partner && config) {
@@ -51,10 +55,12 @@ function App() {
 					reference: reference.data
 				});
 				setResult(wf.init);
+				setLog(wf.fullPayload);
 			}
 		}
 	}, [result, requested, reference, partner, config])
 
+	// Manually run a new calculation and put results into state
 	const createResult = () => {
 		if (requested?.data && reference?.data && partner && config) {
 			let res = new Workflower({
@@ -71,6 +77,7 @@ function App() {
 		}
 	}
 
+	// Return our app
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -80,6 +87,7 @@ function App() {
 				<h2>Create Workflower for &nbsp;
 					<SelectPartner
 						partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
+						defaultPartner={partner}
 						callback={handlePartnerSelect}
 					/>
 				</h2>
