@@ -1,7 +1,7 @@
-import { DTReportItem, PartnerCode, EBSProvisionItem } from '@wf/types';
-import { getPartnerConfig } from '@wf/core'
+import { DTReportItem, SimpleAccount, EBSProvisionItem, PartnerCode, ProdSubItem } from '@wf/types';
+import { ImplementPayload } from '@wf/core'
 import moment from 'moment'
-import { partnerConfigs } from './partnerConfig';
+import { partnerConfigInput } from './partnerConfig';
 /**
  * Used as an ORM layer for transforming various payloads into other formats
  */
@@ -11,40 +11,64 @@ import { partnerConfigs } from './partnerConfig';
  * @param partnerCode - typeof, string representation of PartnerCodes enum type
  * @return Dealer info pre-formatted for Production Subscription
  */
-export const asProdSubItem = (data: DTReportItem, partnerCode: PartnerCode) => {
+
+export function toDTSimple(input: DTReportItem): SimpleAccount {
+	return {
+		dealertrackID: input["DealerTrack Id"],
+		partnerID: input["Lender Dealer Id"],
+		enrollment: input["Enrollment Phase"],
+		dbaName: input["DBA Name"],
+		legalName: input["Legal Name"],
+		street: input.Street,
+		city: input.City,
+		state: input.State,
+		zip: input.Zip as string,
+		phone: input["Phone No"],
+		fax: input["Fax No"]
+	}
+}
+
+export const asProdSubItem = (
+	data: ImplementPayload | SimpleAccount,
+	partnerCode: PartnerCode,
+	config: partnerConfigInput
+): ProdSubItem => {
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"],
-		'DT Dealer ID': data["DealerTrack Id"],
-		LegalName: data["Legal Name"],
-		"DBA Name": data["DBA Name"],
-		Street: data.Street,
-		City: data.City,
-		State: data.State,
-		PostalCode: data.Zip,
-		Phone: data["Phone No"],
-		Fax: data["Fax No"] ? data["Fax No"] : '',
+		'Partner Dealer ID': data.partnerID,
+		'DT Dealer ID': data.dealertrackID,
+		LegalName: data.legalName,
+		"DBA Name": data.dbaName,
+		Street: data.street,
+		City: data.city,
+		State: data.state,
+		PostalCode: data.zip,
+		Phone: data.phone,
+		Fax: data.fax,
 		Status: 'A',
 		'DRS enrolled': `${moment().format('MM-DD-YYYY')}`
 	}
 }
 
 
-export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
-	let config = getPartnerConfig(partnerCode);
+export const asEbizItem = (
+	data: ImplementPayload | SimpleAccount,
+	partnerCode: PartnerCode,
+	config?: partnerConfigInput
+): EBSProvisionItem => {
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"],
-		'DT Dealer ID': data[config.ebiz_dt_dealer_id_field],
+		'Partner Dealer ID': data.partnerID,
+		'DT Dealer ID': data[config.ebiz_dt_dealer_id_field] || data.dealertrackID,
 		'DNA ID': '',
-		LegalName: data["Legal Name"],
-		'DBA Name': data["DBA Name"],
-		Street: data.Street,
-		City: data.City,
-		State: data.State,
-		PostalCode: data.Zip,
-		Phone: data["Phone No"],
-		Fax: data["Fax No"] || '',
+		LegalName: data.legalName,
+		'DBA Name': data.dbaName,
+		Street: data.street,
+		City: data.city,
+		State: data.state,
+		PostalCode: data.zip as string,
+		Phone: data.phone,
+		Fax: data.fax,
 		Status: 'A',
 		CRM: config.crm,
 		"Dealership's Customer Contact Email": config.dealerContact,
@@ -58,11 +82,14 @@ export const asEbizItem = (data: DTReportItem, partnerCode: PartnerCode) => {
 	}
 }
 
-export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode) => {
-	let config = getPartnerConfig(partnerCode);
+export const asFinanceDriverItem = (
+	data: ImplementPayload | SimpleAccount,
+	partnerCode: PartnerCode,
+	config: partnerConfigInput
+) => {
 	return {
 		'Partner ID': partnerCode,
-		'Partner Dealer ID': data["Lender Dealer Id"], // req
+		'Partner Dealer ID': data.partnerID, // req
 		'Created Date': moment().format('L'), // req
 		'Modified Date': moment().format('L'),
 		'FinanceDriver Status': 'A',
@@ -121,14 +148,26 @@ export const asFinanceDriverItem = (data: DTReportItem, partnerCode: PartnerCode
 	}
 }
 
-export const asEbizPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
-	return items.map(i => asEbizItem(i, partnerCode))
+export const asEbizPayload = (
+	items: SimpleAccount[],
+	partnerCode: PartnerCode,
+	config: partnerConfigInput
+) => {
+	return items.map(i => asEbizItem(i, partnerCode, config))
 }
 
-export const asProdSubPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
-	return items.map(i => asProdSubItem(i, partnerCode))
+export const asProdSubPayload = (
+	items: SimpleAccount[],
+	partnerCode: PartnerCode,
+	config: partnerConfigInput
+) => {
+	return items.map(i => asProdSubItem(i, partnerCode, config))
 }
 
-export const asFinanceDriverPayload = (items: DTReportItem[], partnerCode: PartnerCode) => {
-	return items.map(i => asFinanceDriverItem(i, partnerCode))
+export const asFinanceDriverPayload = (
+	items: SimpleAccount[],
+	partnerCode: PartnerCode,
+	config: partnerConfigInput
+) => {
+	return items.map(i => asFinanceDriverItem(i, partnerCode, config))
 }

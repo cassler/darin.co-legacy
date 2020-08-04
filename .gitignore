@@ -4,6 +4,8 @@
 node_modules
 packages/core/node_modules
 packages/*/node_modules
+tmp
+/tmp
 
 # Logs
 logs

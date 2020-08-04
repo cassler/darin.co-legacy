@@ -4,5 +4,7 @@
 
 export * from "./DTReport";
 export * from "./FDProvisioning";
+export * from "./SimpleAccount";
 export * from "./eBizProvisioning";
 export * from "./partners";
+export * from "./prodSubItem";

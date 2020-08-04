@@ -1,6 +1,6 @@
 {
 	"name": "@wf/core",
-	"version": "0.0.1",
+	"version": "0.1.2",
 	"description": "Default package structure for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",
@@ -19,6 +19,10 @@
 		"typescript": "^3.9.7"
 	},
 	"dependencies": {
+		"@types/boxen": "^3.0.1",
+		"@types/chalk": "^2.2.0",
+		"boxen": "^4.2.0",
+		"chalk": "^4.1.0",
 		"lodash": "^4.17.19",
 		"moment": "^2.27.0",
 		"ts-node-dev": "^1.0.0-pre.52",

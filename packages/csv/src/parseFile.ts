@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import * as fs from 'fs';
 import * as XLSX from 'xlsx';
 
-export const getJsonFromXLSX = (file: string) => {
+export function getJsonFromXLSX(file: string) {
 	// check filetype
 	const workbook = XLSX.readFile(file, { cellDates: true });
 	const data: any = {}
@@ -22,7 +22,7 @@ export const firtSheetJson = (file: string) => {
 }
 
 export function getJSONfromSpreadsheet(file: string) {
-	console.log(file.slice(-3))
+	// console.log(file.slice(-3))
 	if (file.slice(-3) === 'csv') {
 		// do CSV stuff
 		// console.log('this is a csv')
@@ -48,6 +48,9 @@ export function getJSONfromSpreadsheet(file: string) {
 
 export const writeToCsv = (data: object[], name: string = 'GeneratedFile') => {
 	const content = Papa.unparse(data);
-	fs.writeFile(`./tmp/${name}.csv`, content, e => console.error(e));
-	console.log('Appended File Data!');
+	fs.writeFile(`./tmp/${name}.csv`, content, e => {
+		e ? console.error(e) : null
+	});
+	console.log(`File created: ${name}.csv with ${data.length} entries`);
+	return;
 }
