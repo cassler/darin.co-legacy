@@ -23,10 +23,10 @@ const FileSelect: React.FC<Props> = ({ label, count, callback }) => {
 		}
 	}
 	return (
-		<Card title={label}>
+		<div>
+			<h4>{label} - {count}</h4>
 			<input onChange={(e) => getJSON(e)} type="file" />
-			<h4>Reference Count: {count}</h4>
-		</Card>
+		</div>
 	)
 }
 

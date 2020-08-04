@@ -22,7 +22,10 @@ export type ImplementationResult = {
 export interface ImplementationPackage {
 	title: string,
 	message: string,
-	items: any[]
+	items: any[],
+	type?: "info" | "success" | "warning" | "error" | undefined,
+	status?: "success" | "processing" | "default" | "error" | "warning"
+
 }
 
 export type ImpPayload = {
@@ -272,14 +275,18 @@ export class Workflower {
 		return {
 			title: "Bad DT Enrollment",
 			message: "There is a problem with this enrollment",
-			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK)
+			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK),
+			type: "warning",
+			status: "warning",
 		}
 	}
 	get unmatchedRequests(): ImplementationPackage {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
-			items: this.notedResults.filter(i => i.account.dealertrackID < 1)
+			items: this.notedResults.filter(i => i.account.dealertrackID < 1),
+			type: "error",
+			status: "error"
 		}
 	}
 
@@ -287,7 +294,9 @@ export class Workflower {
 		return {
 			title: 'Pending Implementation',
 			message: 'These items are new and have passed pre-qualifications',
-			items: this.notedResults.filter(i => Object.values(i.checks).every(v => v === true))
+			items: this.notedResults.filter(i => Object.values(i.checks).every(v => v === true)),
+			type: "success",
+			status: "success",
 		}
 	}
 
@@ -296,6 +305,8 @@ export class Workflower {
 			title: 'Pending Cancellations',
 			message: 'These items are listed as inactive by partner by are live.',
 			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
+			type: "info",
+			status: "processing",
 		}
 	}
 

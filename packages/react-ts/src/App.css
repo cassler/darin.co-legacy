@@ -59,6 +59,15 @@
 	margin: 5px;
 }
 
+.GridFour {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: max-content max-content;
+	gap: 20px;
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
