@@ -109,6 +109,9 @@ function App() {
 					</button>
 				)
 			}
+			{log && (
+				<pre>{JSON.stringify(log, null, 2)}</pre>
+			)}
 			{
 				result && result !== null && (
 					<ListView result={result} />
