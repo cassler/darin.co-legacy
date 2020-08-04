@@ -16,7 +16,7 @@ export interface ImplementionPreChecks {
 	partnerStatusOK: boolean,
 }
 
-export interface ImplementationResult {
+export type ImplementationResult = {
 	pid?: any,
 	checks: ImplementionPreChecks,
 	account?: SimpleAccount

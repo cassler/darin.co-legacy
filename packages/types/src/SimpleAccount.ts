@@ -1,6 +1,6 @@
 import { DTReportItem } from '@wf/types';
 
-export interface SimpleAccount {
+export type SimpleAccount = {
 	dealertrackID: number,
 	partnerID: number | string | bigint,
 	enrollment: string,
