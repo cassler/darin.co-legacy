@@ -15,7 +15,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
 	partner: "DRW" as PartnerCode, // "BOA"
-	config: settings.drw, // see partner_settings.ts
+	config: settings.boa, // see partner_settings.ts
 	requested: drwRequestData,
 	reference: drwRefData
 }
@@ -48,20 +48,42 @@ function App() {
 
 	// If we have enough data, do a new calculation immediately
 	useEffect(() => {
-		// if (!result) {
-		// 	if (requested && reference && partner && config) {
-		// 		const wf = new Workflower({
-		// 			partnerCode: partner,
-		// 			options: config,
-		// 			requested: requested.data,
-		// 			reference: reference.data
-		// 		});
-		// 		setResult(wf.init);
-		// 		setLog(wf.fullPayload);
-		// 	}
-		// }
+		if (`${partner}` !== config.partner) {
+			if (partner === "BOA") setConfig(settings.boa);
+			if (partner === "DRW") setConfig(settings.drw);
+		}
+		/**
+		 * This would create a new WF instance every time a change occured.
+		if (!result) {
+			if (requested && reference && partner && config) {
+				const wf = new Workflower({
+					partnerCode: partner,
+					options: config,
+					requested: requested.data,
+					reference: reference.data
+				});
+				setResult(wf.init);
+				setLog(wf.fullPayload);
+			}
+		}
+		 */
 	}, [result, requested, reference, partner, config])
 
+	const setDemoMode = () => {
+		setRef(AppProps.reference);
+		setReq(AppProps.requested);
+		setResult(null)
+		setLog(null)
+		handlePartnerSelect(AppProps.partner)
+	}
+
+	const resetFormData = () => {
+		setRef(undefined)
+		setReq(undefined)
+		setResult(null)
+		setLog(null)
+		handlePartnerSelect("DRW")
+	}
 	// Manually run a new calculation and put results into state
 	const createResult = () => {
 		if (requested?.data && reference?.data && partner && config) {
@@ -126,6 +148,12 @@ function App() {
 							/> &nbsp;
 							<Button onClick={() => createResult()} disabled={!requested || !reference} type="primary">
 								Generate!
+							</Button><br /><br />
+							<Button size="small" onClick={() => setDemoMode()} type="link">
+								Use demo data
+							</Button>
+							<Button size="small" onClick={() => resetFormData()} type="link">
+								Reset Data
 							</Button>
 
 						</Card>
@@ -162,7 +190,7 @@ function App() {
 					</Content>
 				</Layout>
 			</Content>
-			<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+			<Footer style={{ textAlign: 'center' }}>Darin Cassler & Cox Auto ©2020</Footer>
 		</Layout>
 
 
