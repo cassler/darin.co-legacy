@@ -13,7 +13,8 @@
 		"jsx": "react",
 		"paths": {
 			"@wf/*": [
-				"packages/*/src"
+				"packages/*/src",
+				"packages/react-ts/src"
 			]
 		},
 		"allowSyntheticDefaultImports": true,
