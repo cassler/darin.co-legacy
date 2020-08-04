@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Tag } from 'antd';
+// import { Card, Tag } from 'antd';
 import 'antd/dist/antd.css';
 import Papa from 'papaparse';
 
@@ -23,10 +23,10 @@ const FileSelect: React.FC<Props> = ({ label, count, callback }) => {
 		}
 	}
 	return (
-		<Card title={label}>
+		<div>
+			<h4>{label} - {count}</h4>
 			<input onChange={(e) => getJSON(e)} type="file" />
-			<h4>Reference Count: {count}</h4>
-		</Card>
+		</div>
 	)
 }
 

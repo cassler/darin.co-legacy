@@ -22,7 +22,22 @@ export type ImplementationResult = {
 export interface ImplementationPackage {
 	title: string,
 	message: string,
-	items: any[]
+	items: any[],
+	type?: "info" | "success" | "warning" | "error" | undefined,
+	status?: "success" | "processing" | "default" | "error" | "warning"
+
+}
+
+export type ImpPayload = {
+	cancel: ImplementationPackage,
+	implement: ImplementationPackage,
+	unmatched: ImplementationPackage,
+	invalid: ImplementationPackage,
+	provisioning: {
+		eBizUpload: any[],
+		financeDriverUpload: any[],
+		prodSubAttachment: any[]
+	}
 }
 
 /**
@@ -182,8 +197,8 @@ export class Workflower {
 	// same as matchResult, but with reduced data and added notations
 	get notedResults() {
 		return this.matchResult().map(item => ({
-			partnerID: item.pid,
-			...item.checks,
+			pid: item.pid,
+			checks: item.checks,
 			notes: this.getResultComment(item),
 			account: item.account
 		}))
@@ -260,14 +275,18 @@ export class Workflower {
 		return {
 			title: "Bad DT Enrollment",
 			message: "There is a problem with this enrollment",
-			items: this.matchResult().filter(i => !i.checks.enrollmentStatusOK)
+			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK),
+			type: "warning",
+			status: "warning",
 		}
 	}
 	get unmatchedRequests(): ImplementationPackage {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
-			items: this.matchResult().filter(i => i.account.dealertrackID < 1)
+			items: this.notedResults.filter(i => i.account.dealertrackID < 1),
+			type: "error",
+			status: "error"
 		}
 	}
 
@@ -275,7 +294,9 @@ export class Workflower {
 		return {
 			title: 'Pending Implementation',
 			message: 'These items are new and have passed pre-qualifications',
-			items: this.matchResult().filter(i => Object.values(i.checks).every(v => v === true))
+			items: this.notedResults.filter(i => Object.values(i.checks).every(v => v === true)),
+			type: "success",
+			status: "success",
 		}
 	}
 
@@ -283,7 +304,9 @@ export class Workflower {
 		return {
 			title: 'Pending Cancellations',
 			message: 'These items are listed as inactive by partner by are live.',
-			items: this.matchResult().filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
+			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
+			type: "info",
+			status: "processing",
 		}
 	}
 
@@ -296,10 +319,22 @@ export class Workflower {
 		}
 	}
 
+	get fullPayload(): ImpPayload {
+		return {
+			cancel: this.itemsToCancel,
+			implement: this.itemsToImplement,
+			unmatched: this.unmatchedRequests,
+			invalid: this.invalidEnrollment,
+			provisioning: this.provisioning,
+		}
+	}
+
 	get howMany() {
 		return this.implement.length;
 	}
 
 }
+
+
 
 
