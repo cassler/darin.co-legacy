@@ -66,6 +66,22 @@
 	gap: 20px;
 }
 
+.main-output {
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;;
+}
+
+.remark {
+	padding: 12px 24px;
+	border-radius: 8px;
+	margin: 10px 0;
+	line-height: 16px;
+	background-color: rgba(100, 100, 110, 0.066);
+	border: 1px solid rgba(100, 100, 110, 0.099);
+	color: #667;
+}
+
 
 
 @keyframes App-logo-spin {

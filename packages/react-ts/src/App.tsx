@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Workflower, ImplementationResult, ImplementationPackage, ImpPayload } from '@wf/core';
+import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
 
 import ListView from './components/ListView'
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
+import ImpPackage from './components/ImpPackage';
+
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Statistic, Alert, Badge, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
-const { SubMenu } = Menu;
+import { Statistic, Space, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -80,6 +79,11 @@ function App() {
 		}
 	}
 
+	const actionItemText = "These are the dealers that are ready to implement for the partner according" +
+		"to the provided data and selected partner settings. Check the results to make sure" +
+		"they correspond to what's expected. You can then download pre-formatted files for" +
+		"provisioning the dealer for billing, finance forms and lead routing. "
+
 	// Return our app
 	return (
 		<Layout>
@@ -133,20 +137,21 @@ function App() {
 						</Card>
 					</Sider>
 					<Content style={{ padding: '0 24px', minHeight: 280 }}>
-
 						{log && (
-							<div className="GridFour">
+							<>
+								<h2>Action Items</h2>
+								<p>{actionItemText}</p>
+								<ImpPackage item={log.implement} payload={log.provisioning} description={actionItemText} />
+								<Divider dashed />
+								<h2>Follow Up Items</h2>
+								<div className="GridFour">
+									<ImpPackage item={log.unmatched} />
+									<ImpPackage item={log.invalid} />
+								</div>
+								<h2>Housekeeping</h2>
 								<ImpPackage item={log.cancel} />
-								<ImpPackage item={log.implement} />
-								<ImpPackage item={log.unmatched} />
-								<ImpPackage item={log.invalid} />
-							</div>
+							</>
 						)}
-						{
-							result && result !== null && (
-								<ListView result={result} />
-							)
-						}
 					</Content>
 				</Layout>
 			</Content>
@@ -157,33 +162,7 @@ function App() {
 	);
 }
 
-interface ImpPackageI {
-	item: ImplementationPackage
-}
-const ImpPackage: React.FC<ImpPackageI> = ({ item }) => {
-	const type = item.type ? item.type : "info";
-	const status = item.status ? item.status : "default";
-	return (
-		<div>
 
-			<Alert
-				message={(
-					<h4>
-						{item.title}
-						<Badge
-							count={item.items.length}
-							offset={[10, -2]}
-						// status={status}
-						/>
-					</h4>
-				)}
-				description={item.message}
-				type={type}
-				showIcon
-			/>
-		</div>
-	)
-}
 
 export default App;
 
