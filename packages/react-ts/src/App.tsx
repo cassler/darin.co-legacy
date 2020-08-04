@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Papa from 'papaparse';
 import { Workflower, ImplementationResult } from '@wf/core';
 import ListView from './components/ListView'
 import SelectPartner from './components/SelectPartner';
@@ -9,7 +8,7 @@ import FileSelect from './components/FileSelect';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { Statistic, Descriptions } from 'antd';
+import { Statistic } from 'antd';
 
 const AppProps = {
 	partner: "BOA", // "BOA"
