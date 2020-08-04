@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import { ImplementationResult } from '@wf/core';
 import { Menu, Dropdown, Button, message, Tooltip } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons'
 

@@ -9,6 +9,7 @@ import FileSelect from './components/FileSelect';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
+import { Statistic, Descriptions } from 'antd';
 
 const AppProps = {
 	partner: "BOA", // "BOA"
@@ -73,18 +74,15 @@ function App() {
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 			</header>
-			<p>
-				Using settings for {partner}.
-					<li>{config.live_ids?.length} dealers live</li>
-				<li>Looking at internal ID: {JSON.stringify(config.internal_id)}</li>
-				<li><b>CRM:</b> {JSON.stringify(config.crm)}</li>
-				<li><b>Reference: </b><a href={config.reference_doc}>Sharepoint Doc</a></li>
-			</p>
-			<SelectPartner
-				partners={["BOA", "DRW", "CNZ", "GOO"]}
-				callback={handlePartnerSelect}
-			/>
-			<div>
+			<div className="App-control">
+				<h2>Create Workflower for &nbsp;
+					<SelectPartner
+						partners={["BOA", "DRW", "CNZ", "GOO"]}
+						callback={handlePartnerSelect}
+					/>
+				</h2>
+			</div>
+			<div className="Uploaders">
 				<FileSelect
 					label="Reference Data"
 					slug="ref"
@@ -98,15 +96,24 @@ function App() {
 					count={requested?.data.length || 0}
 				/>
 			</div>
+			<div className="Statline">
+				<Statistic title="Live with Partner" value={config.live_ids.length} />
+				<Statistic title="DT Accounts" value={reference?.data.length} />
+				<Statistic title="Items on Request" value={requested?.data.length} />
+			</div>
 
-			{requested?.data && reference?.data && (
-				<button onClick={() => createResult()}>
-					Generate!
-				</button>
-			)}
-			{result && result !== null && (
-				<ListView result={result} />
-			)}
+			{
+				requested?.data && reference?.data && (
+					<button onClick={() => createResult()}>
+						Generate!
+					</button>
+				)
+			}
+			{
+				result && result !== null && (
+					<ListView result={result} />
+				)
+			}
 
 		</div >
 	);
