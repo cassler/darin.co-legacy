@@ -10,7 +10,7 @@ import ImpPackage from './components/ImpPackage';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { Statistic, Space, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
+import { Statistic, Result, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -32,8 +32,8 @@ export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
 function App() {
 
 	// Define our initial state and types
-	const [requested, setReq] = useState<IParseResult | undefined>(AppProps.requested)
-	const [reference, setRef] = useState<IParseResult | undefined>(AppProps.reference)
+	const [requested, setReq] = useState<IParseResult | undefined>()
+	const [reference, setRef] = useState<IParseResult | undefined>()
 	const [partner, setPartner] = useState<PartnerCode>(AppProps.partner)
 	const [config, setConfig] = useState(AppProps.config);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
@@ -48,18 +48,18 @@ function App() {
 
 	// If we have enough data, do a new calculation immediately
 	useEffect(() => {
-		if (!result) {
-			if (requested && reference && partner && config) {
-				const wf = new Workflower({
-					partnerCode: partner,
-					options: config,
-					requested: requested.data,
-					reference: reference.data
-				});
-				setResult(wf.init);
-				setLog(wf.fullPayload);
-			}
-		}
+		// if (!result) {
+		// 	if (requested && reference && partner && config) {
+		// 		const wf = new Workflower({
+		// 			partnerCode: partner,
+		// 			options: config,
+		// 			requested: requested.data,
+		// 			reference: reference.data
+		// 		});
+		// 		setResult(wf.init);
+		// 		setLog(wf.fullPayload);
+		// 	}
+		// }
 	}, [result, requested, reference, partner, config])
 
 	// Manually run a new calculation and put results into state
@@ -89,20 +89,20 @@ function App() {
 		<Layout>
 			<Header className="header">
 				<div className="logo" />
-				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-					<Menu.Item key="1">nav 1</Menu.Item>
-					<Menu.Item key="2">nav 2</Menu.Item>
-					<Menu.Item key="3">nav 3</Menu.Item>
+				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+					<Menu.Item key="1">Workflower</Menu.Item>
+					<Menu.Item key="2">Docs</Menu.Item>
+					<Menu.Item key="3">Github</Menu.Item>
 				</Menu>
 			</Header>
 			<Content style={{ padding: '0 50px' }}>
 				<Breadcrumb style={{ margin: '16px 0' }}>
-					<Breadcrumb.Item>Home</Breadcrumb.Item>
-					<Breadcrumb.Item>List</Breadcrumb.Item>
-					<Breadcrumb.Item>App</Breadcrumb.Item>
+					<Breadcrumb.Item>Tools</Breadcrumb.Item>
+					<Breadcrumb.Item>Select Data</Breadcrumb.Item>
+					{requested && reference && (<Breadcrumb.Item>Review</Breadcrumb.Item>)}
 				</Breadcrumb>
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-					<Sider theme="light" className="site-layout-background" width={300}>
+					<Sider theme="light" className="site-layout-background" width={400}>
 						<Card title="Create Workflower">
 							<FileSelect
 								label="Reference Data"
@@ -124,7 +124,7 @@ function App() {
 								defaultPartner={partner}
 								callback={handlePartnerSelect}
 							/> &nbsp;
-							<Button onClick={() => createResult()} disabled={requested?.data.length === 0 || reference?.data.length === 0} type="primary">
+							<Button onClick={() => createResult()} disabled={!requested || !reference} type="primary">
 								Generate!
 							</Button>
 
@@ -137,7 +137,7 @@ function App() {
 						</Card>
 					</Sider>
 					<Content style={{ padding: '0 24px', minHeight: 280 }}>
-						{log && (
+						{log ? (
 							<>
 								<h2>Action Items</h2>
 								<p>{actionItemText}</p>
@@ -151,7 +151,14 @@ function App() {
 								<h2>Housekeeping</h2>
 								<ImpPackage item={log.cancel} />
 							</>
-						)}
+						) : (
+								<Result
+									status="404"
+									title="Ready"
+									subTitle="Provide a DT report and a request file."
+									extra={<Button type="primary" disabled={!reference || !requested} onClick={() => createResult()}>I did!</Button>}
+								/>
+							)}
 					</Content>
 				</Layout>
 			</Content>
