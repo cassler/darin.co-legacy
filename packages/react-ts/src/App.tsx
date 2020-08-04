@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Workflower, ImplementationResult } from '@wf/core';
+import { Workflower, ImplementationResult, ImplementationPackage, ImpPayload } from '@wf/core';
 
 import ListView from './components/ListView'
 import SelectPartner from './components/SelectPartner';
@@ -33,7 +33,7 @@ function App() {
 	const [partner, setPartner] = useState<PartnerCode>("BOA")
 	const [config, setConfig] = useState(settings.boa);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
-	const [log, setLog] = useState<any>(null)
+	const [log, setLog] = useState<ImpPayload | null>(null)
 
 	const handlePartnerSelect = (partner: PartnerCode) => {
 		setPartner(partner);
@@ -65,7 +65,7 @@ function App() {
 			})
 			if (res.init) {
 				setResult(res.init);
-				setLog(res.itemsToImplement);
+				setLog(res.fullPayload);
 				return;
 			}
 		}
@@ -112,7 +112,12 @@ function App() {
 				)
 			}
 			{log && (
-				<pre>{JSON.stringify(log, null, 2)}</pre>
+				<div>
+					<ImpPackage item={log.cancel} />
+					<ImpPackage item={log.implement} />
+					<ImpPackage item={log.unmatched} />
+					<ImpPackage item={log.invalid} />
+				</div>
 			)}
 			{
 				result && result !== null && (
@@ -122,6 +127,18 @@ function App() {
 
 		</div >
 	);
+}
+
+interface ImpPackageI {
+	item: ImplementationPackage
+}
+const ImpPackage: React.FC<ImpPackageI> = ({ item }) => {
+	return (
+		<div>
+			<h3>{item.title} - {item.items.length}</h3>
+			<p>{item.message}</p>
+		</div>
+	)
 }
 
 export default App;
