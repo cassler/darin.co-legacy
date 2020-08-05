@@ -60,8 +60,13 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 						{item.items.map(i => (
 							<div>
 								{/** @todo - make this its own component */}
-								<b>{i.pid} - {i.account.dbaName}</b>
+								<b>{i.pid} - {i.account.dealertrackID} - {i.account.dbaName}</b>
+								<p>{i.account.enrollment}</p>
 								<p>{i.notes}</p>
+								<p>{i.original["Date Entered"] || null}</p>
+								<p>corp serv: {i.original["Corporate Services Addendum Status"] || null}</p>
+								<p>prog_act: {i.original["Program Active Status"] || null}</p>
+								<code><pre>{JSON.stringify(i.original)}</pre></code>
 								{/**@todo ----------------------------------- end */}
 							</div>
 						))}
