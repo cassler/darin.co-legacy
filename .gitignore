@@ -6,6 +6,8 @@ packages/core/node_modules
 packages/*/node_modules
 tmp
 /tmp
+dist
+packages/*/dist
 
 # Logs
 logs

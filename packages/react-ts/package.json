@@ -1,6 +1,7 @@
 {
 	"name": "@wf/react-ts",
 	"version": "0.1.0",
+	"homepage": "./",
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
 		"@babel/core": "7.9.0",
@@ -59,6 +60,8 @@
 		"postcss-safe-parser": "4.0.1",
 		"react": "^16.13.1",
 		"react-app-polyfill": "^1.0.6",
+		"react-csv": "^2.0.3",
+		"react-csv-downloader": "^2.0.2",
 		"react-dev-utils": "^10.2.1",
 		"react-dom": "^16.13.1",
 		"resolve": "1.15.0",

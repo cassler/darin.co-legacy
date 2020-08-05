@@ -13,8 +13,8 @@ const ListView: React.FC<Props> = ({ result }) => {
 				<List.Item>
 					<Tag>{item.pid} / {item.account?.dealertrackID}</Tag>
 					<List.Item.Meta
-						title={<a href="/">{item.account.dbaName}</a>}
-						description={item.account.enrollment}
+						title={<a href="/">{item.account?.dbaName}</a>}
+						description={item.account?.enrollment}
 					/>
 				</List.Item>)}
 			/>
