@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
 
@@ -9,7 +9,7 @@ import ImpPackage from './components/ImpPackage';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { Statistic, Result, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
+import { Statistic, Result, Layout, Menu, Breadcrumb, Card, Divider, Button, Badge, Collapse } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -163,6 +163,26 @@ function App() {
 								<Divider dashed />
 								<h2>Housekeeping</h2>
 								<ImpPackage partner={partner} item={log.cancel} />
+								{result && (
+									<>
+										<Divider dashed />
+										<h2>Review Data</h2>
+										<Collapse>
+											<Collapse.Panel header={(
+												<>
+													<h4>Full Report <Badge count={result.length} /></h4>
+												</>
+											)} key={"1"}>
+												{result.map(i => (
+													<>
+														<b>{i.pid} - {i.account.dbaName}</b>
+														<p>{i.notes}</p>
+													</>
+												))}
+											</Collapse.Panel>
+										</Collapse>
+									</>
+								)}
 							</>
 						) : (
 								<Result
@@ -183,7 +203,7 @@ function App() {
 				</Layout>
 			</Content>
 			<Footer style={{ textAlign: 'center' }}>Darin Cassler & Cox Auto ©2020</Footer>
-		</Layout>
+		</Layout >
 
 
 	);
