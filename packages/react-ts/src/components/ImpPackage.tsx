@@ -1,9 +1,8 @@
 import React from 'react';
-import { ImplementationPackage } from '@wf/core';
+import { ImplementationPackage, ImplementationResult } from '@wf/core';
 import DownloadButton from './DownloadButton';
 import ProvisioningButtons from './ProvisioningButtons';
-import { Alert, Badge, Collapse } from 'antd';
-import CsvDownloader from 'react-csv-downloader';
+import { Tag, Alert, Divider, Badge, Collapse } from 'antd';
 import { PartnerCode } from '../App';
 
 export interface ImpPayloadI {
@@ -32,7 +31,12 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 					message={(
 						<h4>
 							{item.title}
-
+							{item.items.length > 0 && (
+								<>
+									<Divider type="vertical" />
+									{item.items.length}
+								</>
+							)}
 						</h4>
 					)}
 					description={item.message}
@@ -50,29 +54,45 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 				</div>
 			</div>
 			{hasItems && (
-				<Collapse onChange={callback}>
+				<Collapse onChange={callback} >
 					<Collapse.Panel header={(
 						<h4>
 							View Dealers
 							<DownloadButton label="Download as CSV" data={item.items} partner={partner} />
 						</h4>
 					)} key={item.title}>
-						{item.items.map(i => (
-							<div>
-								{/** @todo - make this its own component */}
-								<b>{i.pid} - {i.account.dealertrackID} - {i.account.dbaName}</b>
-								<p>{i.account.enrollment}</p>
-								<p>{i.notes}</p>
-								<p>{i.original["Date Entered"] || null}</p>
-								<p>corp serv: {i.original["Corporate Services Addendum Status"] || null}</p>
-								<p>prog_act: {i.original["Program Active Status"] || null}</p>
-								<code><pre>{JSON.stringify(i.original)}</pre></code>
-								{/**@todo ----------------------------------- end */}
-							</div>
-						))}
+						{item.items.map(i => <ResultItem item={i} partner={partner} />)}
 					</Collapse.Panel>
 				</Collapse>
 			)}
+		</div>
+	)
+}
+
+interface ResultItemI {
+	item: ImplementationResult,
+	partner: PartnerCode
+}
+export const ResultItem: React.FC<ResultItemI> = ({ item, partner }) => {
+	const keypairs = Object.keys(item.original).map((col, index) => ({
+		name: col,
+		val: Object.values(item.original)[index]
+	})).filter(i => i.val !== null)
+	return (
+		<div>
+			<h4>
+				{partner} <code>{item.pid}</code> / DT <code>{item.account.dealertrackID}</code>
+				<Divider type="vertical" />
+				<small>{item.notes}</small>
+			</h4>
+			<div style={{ display: "flex", overflow: "scroll", maxWidth: '60vw', }}>
+				{keypairs.map(i => (
+
+					<div style={{ display: "inline-block", flexShrink: 0 }}>{i.val}
+						<Divider type="vertical" /></div>
+				))}
+			</div>
+			<Divider dashed />
 		</div>
 	)
 }

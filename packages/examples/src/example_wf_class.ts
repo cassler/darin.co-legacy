@@ -1,7 +1,7 @@
 
 import { Workflower } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
-import { partner_settings } from '@wf/examples';
+import { settings } from '@wf/react-ts';
 // This is our configurations file where aspects of the implementations are described
 
 /**
@@ -13,7 +13,7 @@ export function wf_examples(partner, options) {
 
 	// Allow entire sdt of partner configs to be passed,
 	// but narrow down that set to the one we want.
-	let config = options.find(i => i.partner === partner);
+	let config = options;
 
 	// To be passed into our new Workflower instance.
 	let props = {
@@ -56,4 +56,4 @@ export function wf_examples(partner, options) {
 
 }
 
-wf_examples("DRW", partner_settings)
+wf_examples("BOA", settings.boa)

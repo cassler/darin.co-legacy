@@ -42,7 +42,7 @@ export const settings = {
 		// JSON of DT Business Report for partner
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: boa_sf_aug5,
+		live_ids: boa_ebs_aug5,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
