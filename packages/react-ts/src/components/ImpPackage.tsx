@@ -1,19 +1,24 @@
 import React from 'react';
 import { ImplementationPackage } from '@wf/core';
 import DownloadButton from './DownloadButton';
+import ProvisioningButtons from './ProvisioningButtons';
 import { Alert, Badge, Collapse } from 'antd';
+import CsvDownloader from 'react-csv-downloader';
+import { PartnerCode } from '../App';
 
-interface ImpPackageI {
+export interface ImpPayloadI {
+	eBizUpload: any[],
+	financeDriverUpload: any[],
+	prodSubAttachment: any[]
+}
+export interface ImpPackageI {
 	item: ImplementationPackage,
 	description?: string,
-	payload?: {
-		eBizUpload: any[],
-		financeDriverUpload?: any[],
-		prodSubAttachment?: any[]
-	}
+	partner: PartnerCode,
+	payload?: ImpPayloadI
 }
 
-const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description }) => {
+const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner }) => {
 	const callback = (key: string | string[]): void => {
 		console.log(key)
 	}
@@ -36,21 +41,21 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description }) => {
 				/>
 				<div>
 					{payload && (
-						<>
-							{/**@todo make this its own component ----- start */}
-							<h4>Get Provisioning Files</h4>
-							<DownloadButton label="eBiz Suite" data={payload.eBizUpload} />
-							<DownloadButton label="Finance Driver" data={payload.financeDriverUpload} />
-							<DownloadButton label="Product Subscript" data={payload.prodSubAttachment} />
-							{/**@todo ----------------------------------- end */}
-						</>
+						<ProvisioningButtons
+							payload={payload}
+							partner={partner}
+							title="Get Provisioning Files"
+						/>
 					)}
 				</div>
 			</div>
 			{hasItems && (
 				<Collapse onChange={callback}>
 					<Collapse.Panel header={(
-						<h4>View Dealers <Badge count={item.items.length} /></h4>
+						<h4>
+							View Dealers
+							<DownloadButton label="Download as CSV" data={item.items} partner={partner} />
+						</h4>
 					)} key={item.title}>
 						{item.items.map(i => (
 							<div>
@@ -66,5 +71,7 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description }) => {
 		</div>
 	)
 }
+
+
 
 export default ImpPackage;

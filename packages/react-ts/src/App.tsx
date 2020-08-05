@@ -14,7 +14,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
 	partner: "DRW" as PartnerCode, // "BOA"
-	config: settings.boa, // see partner_settings.ts
+	config: settings.drw, // see partner_settings.ts
 	requested: drwRequestData,
 	reference: drwRefData
 }
@@ -29,14 +29,20 @@ export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
 
 
 function App() {
-
+	//
+	// Most of this could be accomplished with a reducer
+	//
 	// Define our initial state and types
-	const [requested, setReq] = useState<IParseResult | undefined>()
-	const [reference, setRef] = useState<IParseResult | undefined>()
+	//
+	const [requested, setReq] =
+		useState<IParseResult | undefined>(AppProps.requested)
+	const [reference, setRef] =
+		useState<IParseResult | undefined>(AppProps.reference)
 	const [partner, setPartner] = useState<PartnerCode>(AppProps.partner)
 	const [config, setConfig] = useState(AppProps.config);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
 	const [log, setLog] = useState<ImpPayload | null>(null)
+
 
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
@@ -45,43 +51,22 @@ function App() {
 		if (partner === "DRW") setConfig(settings.drw);
 	}
 
-	// If we have enough data, do a new calculation immediately
-	useEffect(() => {
-		// if (`${partner}` !== config.partner) {
-		// if (partner === "BOA") setConfig(settings.boa);
-		// if (partner === "DRW") setConfig(settings.drw);
-		// }
-		/**
-		 * This would create a new WF instance every time a change occured.
-		if (!result) {
-			if (requested && reference && partner && config) {
-				const wf = new Workflower({
-					partnerCode: partner,
-					options: config,
-					requested: requested.data,
-					reference: reference.data
-				});
-				setResult(wf.init);
-				setLog(wf.fullPayload);
-			}
-		}
-		 */
-	}, [result, requested, reference, partner, config])
-
-	const setDemoMode = () => {
+	// fill data with pre-populated values
+	const setDemoMode = (hot?: boolean | undefined) => {
 		setRef(AppProps.reference);
 		setReq(AppProps.requested);
-		setResult(null)
-		setLog(null)
-		handlePartnerSelect(AppProps.partner)
+		setPartner(AppProps.partner);
+		setConfig(AppProps.config);
+		createResult()
 	}
-
+	// simple state reset utility
 	const resetFormData = () => {
 		setRef(undefined)
 		setReq(undefined)
 		setResult(null)
 		setLog(null)
-		handlePartnerSelect("DRW")
+		handlePartnerSelect("BOA")
+		setConfig(settings.boa)
 	}
 	// Manually run a new calculation and put results into state
 	const createResult = () => {
@@ -100,6 +85,9 @@ function App() {
 		}
 	}
 
+
+
+	// define some text for the body
 	const actionItemText = "These are the dealers that are ready to implement for the partner according" +
 		"to the provided data and selected partner settings. Check the results to make sure" +
 		"they correspond to what's expected. You can then download pre-formatted files for" +
@@ -137,7 +125,6 @@ function App() {
 								callback={setReq}
 								count={requested?.data.length || 0}
 							/>
-
 							<Divider />
 							<h4>Using settings for</h4>
 							<SelectPartner
@@ -148,15 +135,13 @@ function App() {
 							<Button onClick={() => createResult()} disabled={!requested || !reference} type="primary">
 								Generate!
 							</Button><br /><br />
-							<Button size="small" onClick={() => setDemoMode()} type="link">
+							<Button size="small" onClick={() => setDemoMode(true)} type="link">
 								Use demo data
 							</Button>
 							<Button size="small" onClick={() => resetFormData()} type="link">
 								Reset Data
 							</Button>
-
 						</Card>
-
 						<Card title="Snapshot">
 							<Statistic title="Live with Partner" value={config.live_ids.length} />
 							<Statistic title="DT Accounts" value={reference?.data.length} />
@@ -168,22 +153,30 @@ function App() {
 							<>
 								<h2>Action Items</h2>
 								<p>{actionItemText}</p>
-								<ImpPackage item={log.implement} payload={log.provisioning} description={actionItemText} />
+								<ImpPackage partner={partner} item={log.implement} payload={log.provisioning} description={actionItemText} />
 								<Divider dashed />
 								<h2>Follow Up Items</h2>
 								<div className="GridFour">
-									<ImpPackage item={log.unmatched} />
-									<ImpPackage item={log.invalid} />
+									<ImpPackage partner={partner} item={log.unmatched} />
+									<ImpPackage partner={partner} item={log.invalid} />
 								</div>
+								<Divider dashed />
 								<h2>Housekeeping</h2>
-								<ImpPackage item={log.cancel} />
+								<ImpPackage partner={partner} item={log.cancel} />
 							</>
 						) : (
 								<Result
 									status="404"
 									title="Ready"
 									subTitle="Provide a DT report and a request file."
-									extra={<Button type="primary" disabled={!reference || !requested} onClick={() => createResult()}>I did!</Button>}
+									extra={(
+										<Button
+											type="primary"
+											disabled={!reference || !requested}
+											onClick={() => createResult()}>
+											I did!
+										</Button>
+									)}
 								/>
 							)}
 					</Content>

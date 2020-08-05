@@ -59,6 +59,10 @@
 	margin: 5px;
 }
 
+.button-group-wf a {
+	margin-right: 5px;
+}
+
 .GridFour {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
