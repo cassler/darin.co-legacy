@@ -1,4 +1,4 @@
-import { sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { boa_ebs_aug5, boa_sf_aug5, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
 
 export const settings = {
 	drw: {
@@ -42,7 +42,7 @@ export const settings = {
 		// JSON of DT Business Report for partner
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: sample_ebs_entries_boa,
+		live_ids: boa_ebs_aug5,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
@@ -56,11 +56,16 @@ export const settings = {
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: any) => {
 			// console.log('validating', item)
-			return (
-				item["Program Active Status"] === "Active" &&
-				// item["Corporate Services Addendum Status"].includes("Completed")
-				item["Corporate Services Addendum Status"] === ("Completed")
-			)
+			if (item["Corporate Services Addendum Status"] === null) {
+				return false;
+			}
+			if (item["Program Active Status"] !== "Active") {
+				return false
+			}
+			if (item["Corporate Services Addendum Status"] === "Completed") {
+				return true;
+			}
+			return false;
 		},
 	}
 }

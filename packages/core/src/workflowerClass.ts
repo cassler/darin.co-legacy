@@ -175,7 +175,13 @@ export class Workflower {
 	 */
 	matchResult(): ImplementationResult[] {
 		let result = [];
-		for (const req of this.requestData) {
+
+		// Filter out our results immediately
+		let validRequests = this.requestData.filter(i => {
+			return this.config.custom_validation(i)
+		})
+
+		for (const req of validRequests) {
 			let pid = req[this.config.internal_id];
 			let account = this.findAccount(pid, true) as SimpleAccount;
 			let accObject = account ? account : this.emptySimpleAccount(pid);
@@ -190,6 +196,7 @@ export class Workflower {
 				account: accObject,
 				original: req,
 			})
+
 		}
 		return result;
 	}
@@ -200,7 +207,8 @@ export class Workflower {
 			pid: item.pid,
 			checks: item.checks,
 			notes: this.getResultComment(item),
-			account: item.account
+			account: item.account,
+			original: item.original,
 		}))
 	}
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
 
@@ -9,7 +9,7 @@ import ImpPackage from './components/ImpPackage';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { Statistic, Result, Layout, Menu, Breadcrumb, Card, Divider, Button } from 'antd';
+import { Statistic, Result, Layout, Menu, Breadcrumb, Card, Divider, Button, Badge, Collapse } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -42,7 +42,10 @@ function App() {
 	const [config, setConfig] = useState(AppProps.config);
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
 	const [log, setLog] = useState<ImpPayload | null>(null)
+	const [busy, toggleBusy] = useState<boolean>(false)
 
+	// this will initialize the app with sample data + results
+	const demoMode = false;
 
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
@@ -69,8 +72,9 @@ function App() {
 		setConfig(settings.boa)
 	}
 	// Manually run a new calculation and put results into state
-	const createResult = () => {
+	const createResult = useCallback(() => {
 		if (requested?.data && reference?.data && partner && config) {
+
 			let res = new Workflower({
 				partnerCode: partner,
 				options: config,
@@ -80,11 +84,16 @@ function App() {
 			if (res.init) {
 				setResult(res.init);
 				setLog(res.fullPayload);
-				return;
 			}
 		}
-	}
+	}, [requested, reference, partner, config])
 
+	useEffect(() => {
+		if (!log && demoMode) createResult()
+		// return () => {
+		// 	cleanup
+		// }
+	}, [log, createResult, demoMode])
 
 
 	// define some text for the body
@@ -157,33 +166,55 @@ function App() {
 								<Divider dashed />
 								<h2>Follow Up Items</h2>
 								<div className="GridFour">
-									<ImpPackage partner={partner} item={log.unmatched} />
 									<ImpPackage partner={partner} item={log.invalid} />
+									<ImpPackage partner={partner} item={log.unmatched} />
 								</div>
 								<Divider dashed />
 								<h2>Housekeeping</h2>
 								<ImpPackage partner={partner} item={log.cancel} />
+								{result && (
+									<>
+										<Divider dashed />
+										<h2>Review Data</h2>
+										<Collapse>
+											<Collapse.Panel header={(
+												<>
+													<h4>Full Report <Badge count={result.length} /></h4>
+												</>
+											)} key={"1"}>
+												{result.map(i => (
+													<>
+														<b>{i.pid} - {i.account.dbaName}</b>
+														<p>{i.notes}</p>
+													</>
+												))}
+											</Collapse.Panel>
+										</Collapse>
+									</>
+								)}
 							</>
+						) : busy ? (
+							<div>Waiting...</div>
 						) : (
-								<Result
-									status="404"
-									title="Ready"
-									subTitle="Provide a DT report and a request file."
-									extra={(
-										<Button
-											type="primary"
-											disabled={!reference || !requested}
-											onClick={() => createResult()}>
-											I did!
-										</Button>
-									)}
-								/>
-							)}
+									<Result
+										status="404"
+										title="Ready"
+										subTitle="Provide a DT report and a request file."
+										extra={(
+											<Button
+												type="primary"
+												disabled={!reference || !requested}
+												onClick={() => createResult()}>
+												I did!
+											</Button>
+										)}
+									/>
+								)}
 					</Content>
 				</Layout>
 			</Content>
 			<Footer style={{ textAlign: 'center' }}>Darin Cassler & Cox Auto ©2020</Footer>
-		</Layout>
+		</Layout >
 
 
 	);

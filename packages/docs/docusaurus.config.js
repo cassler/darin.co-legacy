@@ -2,7 +2,7 @@ module.exports = {
   title: 'Workflower Docs',
   tagline: 'Workflower Mono',
 	url: 'https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/',
-	baseUrl: 'http://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo',
+	baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'cassler', // Usually your GitHub org/user name.
   projectName: 'workflower', // Usually your repo name.
@@ -13,7 +13,7 @@ module.exports = {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
       },
-      links: [
+      items: [
         {
           to: 'docs/intro',
           activeBasePath: 'intro',
