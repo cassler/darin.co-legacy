@@ -1,6 +1,15 @@
-import { sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { boa_ebs_aug5, boa_sf_aug5, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { partnerConfigInput } from '@wf/core';
 
-export const settings = {
+interface partnerSettingsList {
+	drw: partnerConfigInput,
+	boa: partnerConfigInput,
+	cnz?: partnerConfigInput,
+	goo?: partnerConfigInput
+}
+
+
+export const settings: partnerSettingsList = {
 	drw: {
 		partner: "DRW",
 		crm: "NoEmail@darwinautomotive.com",
@@ -13,7 +22,7 @@ export const settings = {
 		live_ids: sample_ebs_entries_drw,
 		ebiz_profile: 7531215,
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
-		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B9BE357C4-0649-4363-82E8-AA5BA03308FF%7D&file=How%20to%20Complete%20a%20Darwin%20Lender%20Project.docx&action=default&mobileredirect=true',
 		generate: {
 			fd: true,
 			ebs: true,
@@ -42,7 +51,7 @@ export const settings = {
 		// JSON of DT Business Report for partner
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: sample_ebs_entries_boa,
+		live_ids: boa_ebs_aug5,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],
@@ -52,15 +61,20 @@ export const settings = {
 			ps: true,
 			info: true,
 		},
-		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B5B2EA0D8-9785-440F-92CA-EA5818FDB0A6%7D&file=How%20to%20Complete%20a%20Bank%20of%20America%20Lender%20Project.docx&action=default&mobileredirect=true',
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: any) => {
 			// console.log('validating', item)
-			return (
-				item["Program Active Status"] === "Active" &&
-				// item["Corporate Services Addendum Status"].includes("Completed")
-				item["Corporate Services Addendum Status"] === ("Completed")
-			)
+			if (item["Corporate Services Addendum Status"] === null) {
+				return false;
+			}
+			if (item["Program Active Status"] !== "Active") {
+				return false
+			}
+			if (item["Corporate Services Addendum Status"] === "Completed") {
+				return true;
+			}
+			return false;
 		},
 	}
 }

@@ -4,26 +4,40 @@ title: Introduction
 sidebar_label: Introduction
 ---
 
-Check the [documentation](https://docusaurus.io) for how to use Docusaurus.
+### Quick Install (Non-Developer)
+Workflower is designed to be incredibly portable.
 
-## Lorem
+1. [Temporary] Request a ZIP file of the latest build from the developer.
+2. Unzip the contents to your Desktop (or anywhere convenient on your computer).
+3. Open the newly created folder.
+4. Double click `index.html` to open Workflower in your default browser.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum massa eget nulla aliquet sagittis. Proin odio tortor, vulputate ut odio in, ultrices ultricies augue. Cras ornare ultrices lorem malesuada iaculis. Etiam sit amet libero tempor, pulvinar mauris sed, sollicitudin sapien.
+![Detail: Click index.html](/img/start-index-01.png)
 
-## Mauris In Code
+### First Launch
+When we first launch Workflower, we're presented with an empty state that's ready for our input.
 
-```
-Mauris vestibulum ullamcorper nibh, ut semper purus pulvinar ut. Donec volutpat orci sit amet mauris malesuada, non pulvinar augue aliquam. Vestibulum ultricies at urna ut suscipit. Morbi iaculis, erat at imperdiet semper, ipsum nulla sodales erat, eget tincidunt justo dui quis justo. Pellentesque dictum bibendum diam at aliquet. Sed pulvinar, dolor quis finibus ornare, eros odio facilisis erat, eu rhoncus nunc dui sed ex. Nunc gravida dui massa, sed ornare arcu tincidunt sit amet. Maecenas efficitur sapien neque, a laoreet libero feugiat ut.
-```
+![Initial Stated](/img/demo-01.png)
 
-## Nulla
+### Choosing a Partner
+Select the appropriate code from the dropdown for whichever partner you're processing requests. Only partners listed here are currently supported.
 
-Nulla facilisi. Maecenas sodales nec purus eget posuere. Sed sapien quam, pretium a risus in, porttitor dapibus erat. Sed sit amet fringilla ipsum, eget iaculis augue. Integer sollicitudin tortor quis ultricies aliquam. Suspendisse fringilla nunc in tellus cursus, at placerat tellus scelerisque. Sed tempus elit a sollicitudin rhoncus. Nulla facilisi. Morbi nec dolor dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras et aliquet lectus. Pellentesque sit amet eros nisi. Quisque ac sapien in sapien congue accumsan. Nullam in posuere ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin lacinia leo a nibh fringilla pharetra.
+![Detail: Choose partner](/img/detail-01.png)
+<!-- ![Docusaurus with Keytar](/img/demo-03.png) -->
+<!-- ![Docusaurus with Keytar](/img/demo-04.png) -->
+### Loading Data Files
+Now that we've selected a partner, we need to provide Workflower with two specific files.
 
-## Orci
+1. **Reference Data** is a Dealertrack Business report for this partner.
+2. **Request Data** is a CSV representing orders for this dealer that meets certain criteria.
 
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin venenatis lectus dui, vel ultrices ante bibendum hendrerit. Aenean egestas feugiat dui id hendrerit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur in tellus laoreet, eleifend nunc id, viverra leo. Proin vulputate non dolor vel vulputate. Curabitur pretium lobortis felis, sit amet finibus lorem suscipit ut. Sed non mollis risus. Duis sagittis, mi in euismod tincidunt, nunc mauris vestibulum urna, at euismod est elit quis erat. Phasellus accumsan vitae neque eu placerat. In elementum arcu nec tellus imperdiet, eget maximus nulla sodales. Curabitur eu sapien eget nisl sodales fermentum.
+<!-- ![Not Ready, need both files](/img/demo-06.png) -->
+![Detail: both files succesfully loaded](/img/detail-02.png)
 
-## Phasellus
+If everything looks right, the "Generate" button should now be enabled. Click it!
 
-Phasellus pulvinar ex id commodo imperdiet. Praesent odio nibh, sollicitudin sit amet faucibus id, placerat at metus. Donec vitae eros vitae tortor hendrerit finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque vitae purus dolor. Duis suscipit ac nulla et finibus. Phasellus ac sem sed dui dictum gravida. Phasellus eleifend vestibulum facilisis. Integer pharetra nec enim vitae mattis. Duis auctor, lectus quis condimentum bibendum, nunc dolor aliquam massa, id bibendum orci velit quis magna. Ut volutpat nulla nunc, sed interdum magna condimentum non. Sed urna metus, scelerisque vitae consectetur a, feugiat quis magna. Donec dignissim ornare nisl, eget tempor risus malesuada quis.
+<!-- ![Docusaurus with Keytar](/img/demo-07.png) -->
+### See Results!
+![Docusaurus with Keytar](/img/demo-08.png)
+![Docusaurus with Keytar](/img/demo-09.png)
+

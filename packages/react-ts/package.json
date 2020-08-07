@@ -1,6 +1,7 @@
 {
 	"name": "@wf/react-ts",
 	"version": "0.1.0",
+	"homepage": "./",
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
 		"@babel/core": "7.9.0",
@@ -11,9 +12,11 @@
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
+		"@types/antd": "^1.0.0",
 		"@types/jest": "^24.0.0",
 		"@types/node": "^12.0.0",
 		"@types/react": "^16.9.0",
+		"@types/react-csv": "^1.1.1",
 		"@types/react-dom": "^16.9.0",
 		"@typescript-eslint/eslint-plugin": "^2.10.0",
 		"@typescript-eslint/parser": "^2.10.0",
@@ -58,6 +61,8 @@
 		"postcss-safe-parser": "4.0.1",
 		"react": "^16.13.1",
 		"react-app-polyfill": "^1.0.6",
+		"react-csv": "^2.0.3",
+		"react-csv-downloader": "^2.0.2",
 		"react-dev-utils": "^10.2.1",
 		"react-dom": "^16.13.1",
 		"resolve": "1.15.0",

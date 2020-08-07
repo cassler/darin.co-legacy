@@ -50,6 +50,10 @@ export const asProdSubItem = (
 	}
 }
 
+function formatzip(num) {
+	var s = "00000" + num;
+	return s.substr(s.length - 5);
+}
 
 export const asEbizItem = (
 	data: ImplementPayload | SimpleAccount,
@@ -66,9 +70,9 @@ export const asEbizItem = (
 		Street: data.street,
 		City: data.city,
 		State: data.state,
-		PostalCode: data.zip as string,
+		PostalCode: formatzip(data.zip) as string,
 		Phone: data.phone,
-		Fax: data.fax,
+		Fax: data.fax || "",
 		Status: 'A',
 		CRM: config.crm,
 		"Dealership's Customer Contact Email": config.dealerContact,

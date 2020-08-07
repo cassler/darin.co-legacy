@@ -1,3 +1,7 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
 .App {
   text-align: center;
 }
@@ -41,15 +45,19 @@
 	margin-right:auto;
 }
 
-.Uploaders {
-	width: 640px;
-	margin-left:auto;
-	margin-right:auto;
+.upload-ui {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
+	grid-template-columns: 100px 1fr 1fr 100px;
+	gap: 48px;
+	/* > * {max-width: 50%} */
 }
 
+.Stat-Group {
+	display: grid;
+	grid-template-columns: max-content max-content max-content;
+	gap: 48px;
+	justify-content: center;
+}
 .Statline {
 	display: flex;
 	justify-content: space-around;
@@ -58,6 +66,35 @@
 .Statline > div {
 	margin: 5px;
 }
+
+.button-group-wf a {
+	margin-right: 5px;
+}
+
+.GridFour {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: max-content max-content;
+	gap: 20px;
+}
+
+.main-output {
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;;
+}
+
+.remark {
+	padding: 12px 24px;
+	border-radius: 8px;
+	margin: 10px 0;
+	line-height: 16px;
+	background-color: rgba(100, 100, 110, 0.066);
+	border: 1px solid rgba(100, 100, 110, 0.099);
+	color: #667;
+}
+
+
 
 @keyframes App-logo-spin {
   from {

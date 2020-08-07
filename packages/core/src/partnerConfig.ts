@@ -1,7 +1,13 @@
 import { PartnerCode, RequestBOA, RequestDRW } from '@wf/types';
 
+export type EnrollmentPhase =
+	"Password Issued" |
+	"Prospect" |
+	"Reactivate" |
+	"Access Agreement Received" |
+	"Not Contacted"
 
-export interface partnerConfigInput {
+export type partnerConfigInput = {
 	partner: PartnerCode,
 	crm: string,
 	dealerContact: string,
@@ -11,7 +17,7 @@ export interface partnerConfigInput {
 	submitted_file: string,
 	dt_report_file: string,
 	live_ids: any[],
-	valid_phases: string[],
+	valid_phases: EnrollmentPhase[],
 	ebiz_profile: number,
 	reference_doc?: string,
 	custom_validation: Function,
