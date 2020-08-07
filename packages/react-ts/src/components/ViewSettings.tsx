@@ -3,7 +3,7 @@ import {
 	Button, Divider, Tag, PageHeader, Card
 } from 'antd';
 import 'antd/dist/antd.css';
-import { FormGroup, InputGroup, Switch, Label, Checkbox } from '@blueprintjs/core';
+import { FormGroup, InputGroup, Switch, Label, Callout } from '@blueprintjs/core';
 import { ImplementationResult, partnerConfigInput, EnrollmentPhase } from '@wf/core';
 import { PartnerCode } from '@wf/types'
 
@@ -26,6 +26,10 @@ const ViewSettings: React.FC<Props> = ({ config }) => {
 				)}
 			/>
 			<Card>
+				<Callout>
+					Partner settings management will be avilable in a future relase of Workflower.
+				</Callout>
+				<Divider />
 				<div className="Partner-Settings-Panel">
 					<div>
 						<FormGroup
