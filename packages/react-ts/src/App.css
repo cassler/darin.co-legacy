@@ -45,13 +45,11 @@
 	margin-right:auto;
 }
 
-.Uploaders {
-	width: 640px;
-	margin-left:auto;
-	margin-right:auto;
+.upload-ui {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
+	grid-template-columns: 100px 1fr 1fr 100px;
+	gap: 48px;
+	/* > * {max-width: 50%} */
 }
 
 .Statline {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import Papa from 'papaparse';
 import { message } from 'antd'
-import { InputGroup, FormGroup, Button, Label, FileInput } from '@blueprintjs/core'
+import { FormGroup, FileInput } from '@blueprintjs/core'
 
 type Props = {
 	label: string,
@@ -45,15 +45,13 @@ const FileSelect: React.FC<Props> = ({
 		}
 	}
 	return (
-		<FormGroup
-			helperText={helper}
-		>
-			<h4>{label} - {count && (
-				<span className="bp3-text-muted">{count} items</span>
-			)}
+		<FormGroup helperText={helper} >
+			<h4>
+				{label} - {count && (<span className="bp3-text-muted">{count} items</span>
+				)}
 			</h4>
 			<FileInput
-				// large
+				large
 				fill
 				id={label}
 				disabled={false}
