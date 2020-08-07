@@ -52,6 +52,12 @@
 	/* > * {max-width: 50%} */
 }
 
+.Stat-Group {
+	display: grid;
+	grid-template-columns: max-content max-content max-content;
+	gap: 48px;
+	justify-content: center;
+}
 .Statline {
 	display: flex;
 	justify-content: space-around;

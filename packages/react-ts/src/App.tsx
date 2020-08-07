@@ -114,18 +114,9 @@ function App() {
 					<Menu.Item key="3">Github</Menu.Item>
 				</Menu>
 			</Header>
-			<Content style={{ padding: '0 24px' }}>
-				<PageHeader
-					title={partner}
-					subTitle="Edit Preferences"
-					tags={(
-						<Tag color="green">{config.live_ids.length} live</Tag>
-					)}
-				/>
-			</Content>
 			<Content style={{ padding: '0 50px' }}>
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-					<Tabs defaultActiveKey="1">
+					<Tabs defaultActiveKey="2">
 						<Tabs.TabPane tab="Setup" key="1">
 							<Result
 								status="404"
@@ -140,7 +131,7 @@ function App() {
 												slug="ref"
 												callback={setRef}
 												count={reference?.data.length || 0}
-												helper="CSV from Dealertrack > Reports > Partner"
+												helper={`CSV from Dealertrack > Reports > Partner (${partner})`}
 												internal_id={config.internal_id}
 											/>
 											<FileSelect
@@ -148,7 +139,7 @@ function App() {
 												slug="req"
 												callback={setReq}
 												count={requested?.data.length || 0}
-												helper="CSV of requests from partner"
+												helper={`CSV of requests from ${partner}`}
 												internal_id={config.internal_id}
 											/>
 										</div>
@@ -165,28 +156,20 @@ function App() {
 												type="primary">
 												Generate!
 											</Button>
-
 											<Divider />
-
 										</div>
-										<div style={{ display: "grid", gridTemplateColumns: "max-content max-content max-content", gap: "48px", justifyContent: "center" }}>
+										<div className="Stat-Group">
 											<Statistic title="Live with Partner" value={config.live_ids.length} />
 											<Statistic title="DT Accounts" value={reference?.data.length} />
 											<Statistic title="Items on Request" value={requested?.data.length} />
-
 										</div>
 										<Divider />
-										<Button
-											size="small"
-											onClick={() => setDemoMode(true)} type="link">
+										<Button onClick={() => setDemoMode(true)} type="link">
 											Use demo data
-											</Button>
-										<Button
-											size="small"
-											onClick={() => resetFormData()}
-											type="link">
+										</Button>
+										<Button onClick={() => resetFormData()} type="link">
 											Reset Data
-											</Button>
+										</Button>
 									</div>
 								)}
 							/>

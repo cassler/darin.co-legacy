@@ -7,6 +7,8 @@ interface partnerSettingsList {
 	cnz?: partnerConfigInput,
 	goo?: partnerConfigInput
 }
+
+
 export const settings: partnerSettingsList = {
 	drw: {
 		partner: "DRW",
