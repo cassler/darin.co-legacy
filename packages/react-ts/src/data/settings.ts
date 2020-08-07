@@ -1,6 +1,13 @@
 import { boa_ebs_aug5, boa_sf_aug5, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { partnerConfigInput } from '@wf/core';
 
-export const settings = {
+interface partnerSettingsList {
+	drw: partnerConfigInput,
+	boa: partnerConfigInput,
+	cnz?: partnerConfigInput,
+	goo?: partnerConfigInput
+}
+export const settings: partnerSettingsList = {
 	drw: {
 		partner: "DRW",
 		crm: "NoEmail@darwinautomotive.com",

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
+import { Workflower, ImplementationResult, ImpPayload, partnerConfigInput } from '@wf/core';
 
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
 import ImpPackage from './components/ImpPackage';
+import ViewSettings from './components/ViewSettings';
 
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
@@ -14,7 +15,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
 	partner: "DRW" as PartnerCode, // "BOA"
-	config: settings.drw, // see partner_settings.ts
+	config: settings.drw as partnerConfigInput, // see partner_settings.ts
 	requested: drwRequestData,
 	reference: drwRefData
 }
@@ -113,12 +114,14 @@ function App() {
 					<Menu.Item key="3">Github</Menu.Item>
 				</Menu>
 			</Header>
+
 			<Content style={{ padding: '0 50px' }}>
 				<Breadcrumb style={{ margin: '16px 0' }}>
 					<Breadcrumb.Item>Tools</Breadcrumb.Item>
 					<Breadcrumb.Item>Select Data</Breadcrumb.Item>
 					{requested && reference && (<Breadcrumb.Item>Review</Breadcrumb.Item>)}
 				</Breadcrumb>
+
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
 					<Sider theme="light" className="site-layout-background" width={400}>
 						<Card title="Create Workflower">
@@ -127,12 +130,16 @@ function App() {
 								slug="ref"
 								callback={setRef}
 								count={reference?.data.length || 0}
+								helper="CSV from Dealertrack > Reports > Partner"
+								internal_id={config.internal_id}
 							/>
 							<FileSelect
 								label="Request Data"
 								slug="req"
 								callback={setReq}
 								count={requested?.data.length || 0}
+								helper="CSV of requests from partner"
+								internal_id={config.internal_id}
 							/>
 							<Divider />
 							<h4>Using settings for</h4>
@@ -157,6 +164,7 @@ function App() {
 							<Statistic title="Items on Request" value={requested?.data.length} />
 						</Card>
 					</Sider>
+
 					<Content style={{ padding: '0 24px', minHeight: 280 }}>
 						{log ? (
 							<>
