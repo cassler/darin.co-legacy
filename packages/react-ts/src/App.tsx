@@ -7,11 +7,14 @@ import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
 import ImpPackage from './components/ImpPackage';
 import ViewSettings from './components/ViewSettings';
+import ExclusionSet from './components/ExclusionSet';
 
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-import { Statistic, Result, Layout, Menu, Breadcrumb, Tag, Card, Divider, Button, Badge, Collapse, Tabs, PageHeader } from 'antd';
+import { Statistic, Result, Layout, Menu, Popover, Tag, Card, Divider, Button, Badge, Collapse, Tabs, PageHeader } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -55,6 +58,14 @@ function App() {
 		setPartner(partner);
 		if (partner === "BOA") setConfig(settings.boa);
 		if (partner === "DRW") setConfig(settings.drw);
+	}
+
+	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
+		const newConfig = {
+			...config,
+			live_ids: items
+		}
+		setConfig(newConfig);
 	}
 
 	// fill data with pre-populated values
@@ -123,6 +134,7 @@ function App() {
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
 					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
 						<Tabs.TabPane tab="Setup" key="1">
+
 							<Result
 								status="404"
 								title="Ready"
@@ -167,7 +179,15 @@ function App() {
 										</div>
 										{/** --- make this a standalone components */}
 										<div className="Stat-Group">
-											<Statistic title="Live with Partner" value={config.live_ids.length} />
+
+											<Popover content={<ExclusionSet currentIds={config.live_ids} callback={updateLiveIDs} />}>
+												<div>
+													<Statistic title="Live with Partner" value={config.live_ids.length} />
+													<FormOutlined />
+												</div>
+											</Popover>
+
+
 											<Statistic title="DT Accounts" value={reference?.data.length} />
 											<Statistic title="Items on Request" value={requested?.data.length} />
 										</div>
