@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import { Workflower, ImplementationResult, ImpPayload, partnerConfigInput } from '@wf/core';
+import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
+import { partnerConfigInput } from '@wf/types';
 
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
@@ -128,6 +129,7 @@ function App() {
 								subTitle="Provide a DT report and a request file."
 								extra={(
 									<div>
+										{/** --- make this a standalone components */}
 										<div className="upload-ui">
 											<div></div>
 											<FileSelect
@@ -147,6 +149,7 @@ function App() {
 												internal_id={config.internal_id}
 											/>
 										</div>
+										{/** --- make this a standalone components */}
 										<div>
 											<h4>Using settings for</h4>
 											<SelectPartner
@@ -162,6 +165,7 @@ function App() {
 											</Button>
 											<Divider />
 										</div>
+										{/** --- make this a standalone components */}
 										<div className="Stat-Group">
 											<Statistic title="Live with Partner" value={config.live_ids.length} />
 											<Statistic title="DT Accounts" value={reference?.data.length} />
@@ -202,13 +206,12 @@ function App() {
 										<ImpPackage partner={partner} item={log.cancel} />
 										{result && (
 											<>
+												{/** --- make this a standalone components */}
 												<Divider dashed />
 												<h2>Review Data</h2>
 												<Collapse>
 													<Collapse.Panel header={(
-														<>
-															<h4>Full Report <Badge count={result.length} /></h4>
-														</>
+														<h4>Full Report <Badge count={result.length} /></h4>
 													)} key={"1"}>
 														{result.map(i => (
 															<>

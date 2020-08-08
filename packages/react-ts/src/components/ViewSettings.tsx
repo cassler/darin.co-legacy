@@ -4,8 +4,8 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import { FormGroup, InputGroup, Switch, Label, Callout } from '@blueprintjs/core';
-import { ImplementationResult, partnerConfigInput, EnrollmentPhase } from '@wf/core';
-import { PartnerCode } from '@wf/types'
+import { ImplementationResult } from '@wf/core';
+import { PartnerCode, partnerConfigInput, EnrollmentPhase } from '@wf/types'
 
 type Props = {
 	config: partnerConfigInput
