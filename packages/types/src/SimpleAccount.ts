@@ -1,5 +1,5 @@
 import { DTReportItem } from '@wf/types';
-import { EnrollmentPhase } from './partners';
+import { EnrollmentPhase } from '@wf/types';
 
 export type SimpleAccount = {
 	dealertrackID: number,

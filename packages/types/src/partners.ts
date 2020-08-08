@@ -1,15 +1,12 @@
+import { EnrollmentPhase } from '@wf/types';
+
 export declare type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
 
 export declare interface PartnerCodes {
 	code: PartnerCode
 }
 
-export type EnrollmentPhase =
-	"Password Issued" |
-	"Prospect" |
-	"Reactivate" |
-	"Access Agreement Received" |
-	"Not Contacted" | undefined | null
+
 
 
 export type partnerConfigInput = {
