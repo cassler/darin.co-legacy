@@ -1,4 +1,4 @@
-export interface DTReportItemSimple {
+export declare interface DTReportItemSimple {
 	"Legal Name": string,
 	"DBA Name": string,
 	"Street": string,
@@ -21,7 +21,7 @@ export interface DTReportItemSimple {
 	"Status": "A" | "I",
 }
 
-export interface DTReportItem extends DTReportItemSimple {
+export declare interface DTReportItem extends DTReportItemSimple {
 	"Dept": string,
 	"Alternate Street": string,
 	"Independent": string,
@@ -80,3 +80,10 @@ export interface DTReportItem extends DTReportItemSimple {
 	"Notes": string,
 	"uniFI Indicator": string,
 }
+
+export declare type EnrollmentPhase =
+	"Password Issued" |
+	"Prospect" |
+	"Reactivate" |
+	"Access Agreement Received" |
+	"Not Contacted" | undefined | null

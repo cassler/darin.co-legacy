@@ -1,5 +1,4 @@
-import { PartnerCode, RequestBOA, RequestDRW } from '@wf/types';
-import { partnerConfigInput } from '@wf/core';
+import { PartnerCode, RequestBOA, RequestDRW, partnerConfigInput } from '@wf/types';
 
 import {
 	sample_dt_report_drw as dt_report,

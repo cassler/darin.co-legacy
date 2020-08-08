@@ -1,9 +1,10 @@
 import { DTReportItem } from '@wf/types';
+import { EnrollmentPhase } from '@wf/types';
 
 export type SimpleAccount = {
 	dealertrackID: number,
 	partnerID: number | string | bigint,
-	enrollment: string,
+	enrollment: EnrollmentPhase | string,
 	dbaName: string,
 	legalName: string,
 	street?: string,

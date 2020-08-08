@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import { Workflower, ImplementationResult, ImpPayload, partnerConfigInput } from '@wf/core';
+import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
+import { partnerConfigInput } from '@wf/types';
 
 import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
@@ -44,6 +45,7 @@ function App() {
 	const [result, setResult] = useState<ImplementationResult[] | null>(null)
 	const [log, setLog] = useState<ImpPayload | null>(null)
 	const [busy, toggleBusy] = useState<boolean>(false)
+	const [currentTab, setTab] = useState<string>("1");
 
 	// this will initialize the app with sample data + results
 	const demoMode = false;
@@ -74,6 +76,7 @@ function App() {
 	}
 	// Manually run a new calculation and put results into state
 	const createResult = useCallback(() => {
+		toggleBusy(true)
 		if (requested?.data && reference?.data && partner && config) {
 
 			let res = new Workflower({
@@ -85,8 +88,10 @@ function App() {
 			if (res.init) {
 				setResult(res.init);
 				setLog(res.fullPayload);
+				setTab("3")
 			}
 		}
+		toggleBusy(false)
 	}, [requested, reference, partner, config])
 
 	useEffect(() => {
@@ -116,7 +121,7 @@ function App() {
 			</Header>
 			<Content style={{ padding: '0 50px' }}>
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-					<Tabs defaultActiveKey="2">
+					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
 						<Tabs.TabPane tab="Setup" key="1">
 							<Result
 								status="404"
@@ -124,6 +129,7 @@ function App() {
 								subTitle="Provide a DT report and a request file."
 								extra={(
 									<div>
+										{/** --- make this a standalone components */}
 										<div className="upload-ui">
 											<div></div>
 											<FileSelect
@@ -143,6 +149,7 @@ function App() {
 												internal_id={config.internal_id}
 											/>
 										</div>
+										{/** --- make this a standalone components */}
 										<div>
 											<h4>Using settings for</h4>
 											<SelectPartner
@@ -152,12 +159,13 @@ function App() {
 											/> &nbsp;
 											<Button
 												onClick={() => createResult()}
-												disabled={!requested || !reference}
+												disabled={!requested || !reference || busy}
 												type="primary">
-												Generate!
+												{busy ? "Working..." : "Generate"}
 											</Button>
 											<Divider />
 										</div>
+										{/** --- make this a standalone components */}
 										<div className="Stat-Group">
 											<Statistic title="Live with Partner" value={config.live_ids.length} />
 											<Statistic title="DT Accounts" value={reference?.data.length} />
@@ -198,13 +206,12 @@ function App() {
 										<ImpPackage partner={partner} item={log.cancel} />
 										{result && (
 											<>
+												{/** --- make this a standalone components */}
 												<Divider dashed />
 												<h2>Review Data</h2>
 												<Collapse>
 													<Collapse.Panel header={(
-														<>
-															<h4>Full Report <Badge count={result.length} /></h4>
-														</>
+														<h4>Full Report <Badge count={result.length} /></h4>
 													)} key={"1"}>
 														{result.map(i => (
 															<>
