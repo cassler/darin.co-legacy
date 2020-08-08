@@ -13,6 +13,8 @@ import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
 import { Statistic, Result, Layout, Menu, Popover, Tag, Card, Divider, Button, Badge, Collapse, Tabs, PageHeader } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppProps = {
@@ -177,11 +179,15 @@ function App() {
 										</div>
 										{/** --- make this a standalone components */}
 										<div className="Stat-Group">
-											<div>
-												<Popover content={<ExclusionSet currentIds={config.live_ids} callback={updateLiveIDs} />}>
+
+											<Popover content={<ExclusionSet currentIds={config.live_ids} callback={updateLiveIDs} />}>
+												<div>
 													<Statistic title="Live with Partner" value={config.live_ids.length} />
-												</Popover>
-											</div>
+													<FormOutlined />
+												</div>
+											</Popover>
+
+
 											<Statistic title="DT Accounts" value={reference?.data.length} />
 											<Statistic title="Items on Request" value={requested?.data.length} />
 										</div>
