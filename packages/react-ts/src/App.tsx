@@ -7,6 +7,7 @@ import SelectPartner from './components/SelectPartner';
 import FileSelect from './components/FileSelect';
 import ImpPackage from './components/ImpPackage';
 import ViewSettings from './components/ViewSettings';
+import ExclusionSet from './components/ExclusionSet';
 
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
@@ -55,6 +56,14 @@ function App() {
 		setPartner(partner);
 		if (partner === "BOA") setConfig(settings.boa);
 		if (partner === "DRW") setConfig(settings.drw);
+	}
+
+	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
+		const newConfig = {
+			...config,
+			live_ids: items
+		}
+		setConfig(newConfig);
 	}
 
 	// fill data with pre-populated values
@@ -123,6 +132,7 @@ function App() {
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
 					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
 						<Tabs.TabPane tab="Setup" key="1">
+							<ExclusionSet currentIds={config.live_ids} callback={updateLiveIDs} />
 							<Result
 								status="404"
 								title="Ready"
