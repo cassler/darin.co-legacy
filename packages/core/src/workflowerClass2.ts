@@ -1,8 +1,8 @@
-import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple, partnerConfigInput } from '@wf/core';
-import { DTReportItem, SimpleAccount, PartnerCode, DTReportItemSimple, EBSProvisionItem } from '@wf/types';
+import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple } from '@wf/core';
+import { DTReportItem, SimpleAccount, PartnerCode, DTReportItemSimple, EBSProvisionItem, EnrollmentPhase, partnerConfigInput } from '@wf/types';
 
 
-
+type MaybeAccount = DTReportItemSimple | DTReportItem | SimpleAccount | undefined;
 
 export class Workflower2 {
 	props: {
@@ -28,39 +28,48 @@ export class Workflower2 {
 	}
 
 
-	private findAccount(original: any, full: boolean = true) {
+	private findAccount(original: any, full: boolean = true): SimpleAccount {
 		let pid = original[this.props.options.internal_id]
 		let acc = this.props.reference.find(i => i["Lender Dealer Id"] === pid)
 		if (acc) {
-			return full ?
-				acc as DTReportItem :
-				toDTSimple(acc) as SimpleAccount
+			return toDTSimple(acc) as SimpleAccount
 		}
 		return;
-
 	}
 
 	private runPartnerValidation(original: any) {
 		return this.props.options.custom_validation(original)
 	}
-	private isValidEnrollment(object: DTReportItemSimple | DTReportItem | SimpleAccount) {
+	private isValidEnrollment(object: MaybeAccount) {
+		if (typeof object === "undefined") return false;
 		if ("enrollment" in object) {
 			console.log('This is a simple account')
-			return this.props.options.valid_phases.includes(object.enrollment)
+			return this.props.options.valid_phases.includes(object.enrollment as EnrollmentPhase)
 		}
-		return this.props.options.valid_phases.includes(object["Enrollment Phase"])
+		return this.props.options.valid_phases.includes(object["Enrollment Phase"] as EnrollmentPhase)
+	}
+	private isExcludedByInput(pid: number, dt?: number) {
+		let excluded = this.props.options.live_ids;
+		return excluded.includes(pid) || excluded.includes(dt)
 	}
 
 	reconcile() {
 		let state = []
 		this.working = true;
 		for (const req of this.props.requested) {
-			// Shorthand the PID, we'll need this a few times
+			/* 1. - Shorthand the Partner ID */
 			let pid = req[this.props.options.internal_id]
-			// Run partner validations
+			/* 2. - Run partner validations */
 			let isPartnerVali = this.runPartnerValidation(req)
 			// Look for a matching account
 			let acc = this.findAccount(req, false);
+			if (acc) {
+				let isEnrollmentValid = this.isValidEnrollment(acc);
+				let isExcludedByInput = this.isExcludedByInput(pid, acc.dealertrackID)
+				console.log('valid enrollment', isEnrollmentValid)
+				console.log('excluded', isExcludedByInput)
+				console.log('dt id', acc.dealertrackID)
+			}
 
 			if (!isPartnerVali) return;
 			// Announce start of work
