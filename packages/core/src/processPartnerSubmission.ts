@@ -1,6 +1,6 @@
-import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage, partnerConfigInput } from '@wf/core'
+import { checkEnrollmentStatus, ICheckEnrollmentStatusMessage } from '@wf/core'
 import { uniqBy, uniq, intersection, difference } from 'lodash'
-import { DTReportItem, PartnerCode, Request } from '@wf/types';
+import { DTReportItem, PartnerCode, partnerConfigInput } from '@wf/types';
 // import { partnerConfigs } from './partnerConfig';
 
 

@@ -1,6 +1,6 @@
 {
 	"name": "@wf/react-ts",
-	"version": "0.1.0",
+	"version": "0.2.2",
 	"homepage": "./",
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
@@ -20,9 +20,9 @@
 		"@types/react-dom": "^16.9.0",
 		"@typescript-eslint/eslint-plugin": "^2.10.0",
 		"@typescript-eslint/parser": "^2.10.0",
-		"@wf/core": "^0.1.0",
-		"@wf/csv": "^0.1.0",
-		"@wf/types": "^0.0.1",
+		"@wf/core": "*",
+		"@wf/csv": "*",
+		"@wf/types": "*",
 		"antd": "^4.5.2",
 		"babel-eslint": "10.1.0",
 		"babel-jest": "^24.9.0",

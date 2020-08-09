@@ -1,10 +1,7 @@
-import {
-	checkEnrollmentStatus, partnerConfigInput,
-} from '@wf/core'
-
 import { getJSONfromSpreadsheet, writeToCsv } from '@wf/csv';
-import { DTReportItem, SimpleAccount, PartnerCode, RequestDRW, RequestBOA, Request } from '@wf/types';
-// import { partnerConfigs } from './partnerConfig';
+import { DTReportItem, SimpleAccount, PartnerCode, RequestDRW, partnerConfigInput, Request } from '@wf/types';
+import { checkEnrollmentStatus } from '@wf/core';
+
 /**
  *
  * @param partner

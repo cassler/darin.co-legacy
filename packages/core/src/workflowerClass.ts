@@ -1,5 +1,5 @@
-import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple, partnerConfigInput } from '@wf/core';
-import { DTReportItem, SimpleAccount, PartnerCode } from '@wf/types';
+import { asEbizPayload, asProdSubPayload, asFinanceDriverPayload, toDTSimple } from '@wf/core';
+import { DTReportItem, SimpleAccount, PartnerCode, partnerConfigInput, EnrollmentPhase } from '@wf/types';
 
 
 
@@ -87,7 +87,7 @@ export class Workflower {
 		return {
 			partnerID: partnerID,
 			dealertrackID: 0,
-			enrollment: 'N/A',
+			enrollment: null,
 			dbaName: null,
 			legalName: null,
 			city: null,
@@ -190,7 +190,7 @@ export class Workflower {
 				checks: {
 					accountStatusOK: account ? true : false,
 					notImplemented: !this.isExcluded(pid, accObject),
-					enrollmentStatusOK: account ? this.config.valid_phases.includes(account.enrollment) : false,
+					enrollmentStatusOK: account ? this.config.valid_phases.includes(account.enrollment as EnrollmentPhase) : false,
 					partnerStatusOK: this.config.custom_validation(req),
 				},
 				account: accObject,
@@ -216,7 +216,7 @@ export class Workflower {
 		if (!item.account || item.account.dealertrackID === 0) {
 			return 'No Dealertrack account found'
 		}
-		if (item.account && !this.config.valid_phases.includes(item.account.enrollment)) {
+		if (item.account && !this.config.valid_phases.includes(item.account.enrollment as EnrollmentPhase)) {
 			return `Invalid enrollment for the account (${item.account.enrollment})`
 		}
 		if (!this.config.custom_validation(item.original)) {
