@@ -122,19 +122,12 @@ function App() {
 	// Return our app
 	return (
 		<Layout>
-			<Header className="header">
-				<div className="logo" />
-				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-					<Menu.Item key="1">Workflower</Menu.Item>
-					<Menu.Item key="2">Docs</Menu.Item>
-					<Menu.Item key="3">Github</Menu.Item>
-				</Menu>
-			</Header>
 			<Content style={{ padding: '0 50px' }}>
 				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
-						<Tabs.TabPane tab="Setup" key="1">
 
+					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
+						<Tabs.TabPane tab="Workflower" key="0"></Tabs.TabPane>
+						<Tabs.TabPane tab="Setup" key="1">
 							<Result
 								status="404"
 								title="Ready"

@@ -3,26 +3,21 @@ module.exports = {
 
 		Overview: [
 			"intro",
-			"method",
-			"example"
+			"methodology"
 		],
 		Processing: [
-			"calcstate",
-			"calcchange",
-			"troubleshoot"
+			"process_state",
+			"calculate_changes",
 		],
 		Provisioning: [
-			"prov_ebs",
-			"prov_ps",
-			"prov_fd",
-			"cancel"
+			"product_subscription_emails",
 		],
-		"Partner Support": [
-			"boa",
-			"drw",
-			"cnz",
-			"goo",
-			"das"
-		]
+		// "Partner Support": [
+		// 	"boa",
+		// 	"drw",
+		// 	"cnz",
+		// 	"goo",
+		// 	"das"
+		// ]
   },
 };

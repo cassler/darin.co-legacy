@@ -17,6 +17,10 @@
   }
 }
 
+#rc-tabs-0-tab-0 {
+	font-weight: bold;
+	font-size: 20px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
