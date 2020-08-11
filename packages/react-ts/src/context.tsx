@@ -24,9 +24,14 @@ interface WFContextI {
 }
 
 interface WFContextVal extends WFContextI {
-	setReq?: Function,
-	setRef?: Function,
-	setPartner?: Function
+	setPartner: Function
+	setConfig: Function
+	setDemo: Function
+	setClear: Function
+	setResult: Function
+	setReference: Function
+	setRequested: Function
+	setTab: Function
 }
 
 interface WFContextsI {
