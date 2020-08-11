@@ -5,7 +5,6 @@ import { WFContext } from '../context';
 
 export const ResultsContainer = () => {
 	const { ctx } = useContext(WFContext);
-
 	return (
 		<div>
 			{ctx.log && (

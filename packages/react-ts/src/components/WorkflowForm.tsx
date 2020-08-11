@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { PartnerCode } from '@wf/types';
 import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
@@ -14,6 +14,7 @@ import { FormOutlined } from '@ant-design/icons';
 export const WorkflowForm: React.FC = () => {
 
 	const { ctx } = useContext(WFContext);
+	const step = ctx.step;
 	const [busy, toggleBusy] = useState<boolean>(false)
 
 	// When choosing a new partner, also apply their configs
@@ -40,7 +41,7 @@ export const WorkflowForm: React.FC = () => {
 		ctx.setClear()
 	}
 	// Manually run a new calculation and put results into state
-	const createResult = () => {
+	const createResult = useCallback(() => {
 		toggleBusy(true)
 		if (ctx.requested?.data && ctx.reference?.data && ctx.partner && ctx.config) {
 			let res = new Workflower({
@@ -54,64 +55,66 @@ export const WorkflowForm: React.FC = () => {
 			}
 		}
 		toggleBusy(false)
-	}
+	}, [ctx, toggleBusy])
+
+	useEffect(() => {
+		if (ctx.demo && !ctx.log && ctx.requested && ctx.reference) {
+			createResult()
+		}
+	}, [createResult, ctx])
 
 
 	return (
 		<div>
-			<>
-				<div className="upload-ui">
-					<div></div>
-					<FileSelect
-						label="Reference Data"
-						slug="ref"
-						callback={ctx.setReference}
-						count={ctx.reference?.data.length || 0}
-						helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
-						internal_id={ctx.config.internal_id}
-					/>
-					<FileSelect
-						label="Request Data"
-						slug="req"
-						callback={ctx.setRequested}
-						count={ctx.requested?.data.length || 0}
-						helper={`CSV of requests from ${ctx.partner}`}
-						internal_id={ctx.config.internal_id}
-					/>
-				</div>
+			{(step === 0 || step === 3) && (
 				<div>
 					<h4>Using settings for</h4>
 					<SelectPartner
 						partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
 						defaultPartner={ctx.partner}
 						callback={handlePartnerSelect}
-					/> &nbsp;
-							<Button
+					/>
+					<Button
 						onClick={() => createResult()}
-						disabled={!ctx.requested || !ctx.reference || busy}
+						disabled={!ctx.requested || !ctx.reference || busy && step == 3}
 						type="primary">
 						{busy ? "Working..." : "Generate"}
 					</Button>
-					<Divider />
-					<div className="Stat-Group">
-						<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
-							<div>
-								<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
-								<FormOutlined />
-							</div>
-						</Popover>
-						<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
-						<Statistic title="Items on Request" value={ctx.requested?.data.length} />
-					</div>
-					<Divider />
-					<Button onClick={() => setDemoMode(true)} type="link">
-						Use demo data
-							</Button>
-					<Button onClick={() => resetFormData()} type="link">
-						Reset Data
-							</Button>
 				</div>
-			</>
+			)}
+			{step == 1 && (
+				<FileSelect
+					label="Reference Data"
+					slug="ref"
+					callback={ctx.setReference}
+					count={ctx.reference?.data.length || 0}
+					helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
+					internal_id={ctx.config.internal_id}
+				/>
+			)}
+			{step == 2 && (
+				<FileSelect
+					label="Request Data"
+					slug="req"
+					callback={ctx.setRequested}
+					count={ctx.requested?.data.length || 0}
+					helper={`CSV of requests from ${ctx.partner}`}
+					internal_id={ctx.config.internal_id}
+				/>
+			)}
+
+
+			<Divider />
+			<div className="Stat-Group">
+				<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
+					<div>
+						<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
+						<FormOutlined />
+					</div>
+				</Popover>
+				<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
+				<Statistic title="Items on Request" value={ctx.requested?.data.length} />
+			</div>
 		</div>
 	)
 }
