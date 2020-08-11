@@ -216,7 +216,7 @@ function App() {
 										<Divider dashed />
 										<h2>Follow Up Items</h2>
 										<div className="GridFour">
-											<ImpPackage partner={partner} item={log.invalid} />
+											<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
 											<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
 										</div>
 										<Divider dashed />
