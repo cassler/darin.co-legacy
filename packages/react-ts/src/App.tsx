@@ -1,28 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import './App.css';
-import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
-import { partnerConfigInput } from '@wf/types';
 
-import SelectPartner from './components/SelectPartner';
-import FileSelect from './components/FileSelect';
 import ImpPackage from './components/ImpPackage';
 import ViewSettings from './components/ViewSettings';
-import ExclusionSet from './components/ExclusionSet';
 
-import { data as drwRequestData } from './data/drwRequest';
-import { data as drwRefData } from './data/refData';
-import { settings } from './data/settings';
-import { Statistic, Result, Layout, Menu, Popover, Tag, Card, Divider, Button, Badge, Collapse, Tabs, PageHeader } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
 
-const { Header, Content, Footer, Sider } = Layout;
+import { Result, Layout, Divider, Button, Badge, Collapse, Tabs } from 'antd';
+import WorkflowForm from './components/WorkflowForm';
+import { WFProvider, WFContext } from './context';
 
-const AppProps = {
-	partner: "DRW" as PartnerCode, // "BOA"
-	config: settings.drw as partnerConfigInput, // see partner_settings.ts
-	requested: drwRequestData,
-	reference: drwRefData
-}
+const { Content, Footer } = Layout;
+
 
 export interface IParseResult {
 	data: any[];
@@ -34,84 +22,8 @@ export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
 
 
 function App() {
-	//
-	// Most of this could be accomplished with a reducer
-	//
-	// Define our initial state and types
-	//
-	const [requested, setReq] =
-		useState<IParseResult | undefined>(AppProps.requested)
-	const [reference, setRef] =
-		useState<IParseResult | undefined>(AppProps.reference)
-	const [partner, setPartner] = useState<PartnerCode>(AppProps.partner)
-	const [config, setConfig] = useState(AppProps.config);
-	const [result, setResult] = useState<ImplementationResult[] | null>(null)
-	const [log, setLog] = useState<ImpPayload | null>(null)
-	const [busy, toggleBusy] = useState<boolean>(false)
+
 	const [currentTab, setTab] = useState<string>("1");
-
-	// this will initialize the app with sample data + results
-	const demoMode = true;
-
-	// When choosing a new partner, also apply their configs
-	const handlePartnerSelect = (partner: PartnerCode) => {
-		setPartner(partner);
-		if (partner === "BOA") setConfig(settings.boa);
-		if (partner === "DRW") setConfig(settings.drw);
-	}
-
-	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
-		const newConfig = {
-			...config,
-			live_ids: items
-		}
-		setConfig(newConfig);
-	}
-
-	// fill data with pre-populated values
-	const setDemoMode = (hot?: boolean | undefined) => {
-		setRef(AppProps.reference);
-		setReq(AppProps.requested);
-		setPartner(AppProps.partner);
-		setConfig(AppProps.config);
-		createResult()
-	}
-	// simple state reset utility
-	const resetFormData = () => {
-		setRef(undefined)
-		setReq(undefined)
-		setResult(null)
-		setLog(null)
-		handlePartnerSelect("BOA")
-		setConfig(settings.boa)
-	}
-	// Manually run a new calculation and put results into state
-	const createResult = useCallback(() => {
-		toggleBusy(true)
-		if (requested?.data && reference?.data && partner && config) {
-
-			let res = new Workflower({
-				partnerCode: partner,
-				options: config,
-				requested: requested.data,
-				reference: reference.data
-			})
-			if (res.init) {
-				setResult(res.init);
-				setLog(res.fullPayload);
-				setTab("3")
-			}
-		}
-		toggleBusy(false)
-	}, [requested, reference, partner, config])
-
-	useEffect(() => {
-		if (!log && demoMode) createResult()
-		// return () => {
-		// 	cleanup
-		// }
-	}, [log, createResult, demoMode])
-
 
 	// define some text for the body
 	interface actionTexts {
@@ -128,143 +40,92 @@ function App() {
 	return (
 		<Layout>
 			<Content style={{ padding: '0 50px' }}>
-				<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+				<WFProvider>
 
-					<Tabs defaultActiveKey="1" activeKey={currentTab} onTabClick={(key) => setTab(key)}>
-						<Tabs.TabPane tab="Workflower" key="0"></Tabs.TabPane>
-						<Tabs.TabPane tab="Setup" key="1">
-							<Result
-								status="404"
-								title="Ready"
-								subTitle="Provide a DT report and a request file."
-								extra={(
-									<div>
-										{/** --- make this a standalone components */}
-										<div className="upload-ui">
-											<div></div>
-											<FileSelect
-												label="Reference Data"
-												slug="ref"
-												callback={setRef}
-												count={reference?.data.length || 0}
-												helper={`CSV from Dealertrack > Reports > Partner (${partner})`}
-												internal_id={config.internal_id}
-											/>
-											<FileSelect
-												label="Request Data"
-												slug="req"
-												callback={setReq}
-												count={requested?.data.length || 0}
-												helper={`CSV of requests from ${partner}`}
-												internal_id={config.internal_id}
-											/>
-										</div>
-										{/** --- make this a standalone components */}
-										<div>
-											<h4>Using settings for</h4>
-											<SelectPartner
-												partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
-												defaultPartner={partner}
-												callback={handlePartnerSelect}
-											/> &nbsp;
-											<Button
-												onClick={() => createResult()}
-												disabled={!requested || !reference || busy}
-												type="primary">
-												{busy ? "Working..." : "Generate"}
-											</Button>
-											<Divider />
-										</div>
-										{/** --- make this a standalone components */}
-										<div className="Stat-Group">
-
-											<Popover content={<ExclusionSet currentIds={config.live_ids} callback={updateLiveIDs} />}>
-												<div>
-													<Statistic title="Live with Partner" value={config.live_ids.length} />
-													<FormOutlined />
-												</div>
-											</Popover>
+					<Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+						<WFContext.Consumer>
+							{({ ctx }) => (
 
 
-											<Statistic title="DT Accounts" value={reference?.data.length} />
-											<Statistic title="Items on Request" value={requested?.data.length} />
-										</div>
-										<Divider />
-										<Button onClick={() => setDemoMode(true)} type="link">
-											Use demo data
-										</Button>
-										<Button onClick={() => resetFormData()} type="link">
-											Reset Data
-										</Button>
-									</div>
-								)}
-							/>
-
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Partner Settings" key="2">
-							<Content style={{ padding: '0', minHeight: 280 }}>
-								<ViewSettings config={config} />
-							</Content>
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Results" key="3">
-							<Content style={{ padding: '0 24px', minHeight: 280 }}>
-								{log ? (
-									<>
-										<h2>Action Items</h2>
-										{/* <p>{actionItemText}</p> */}
-										<ImpPackage partner={partner} item={log.implement} payload={log.provisioning} description={actionItemText.ready} />
-										<Divider dashed />
-										<h2>Follow Up Items</h2>
-										<div className="GridFour">
-											<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
-											<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
-										</div>
-										<Divider dashed />
-										<h2>Housekeeping</h2>
-										<ImpPackage partner={partner} item={log.cancel} description={actionItemText.cancel} />
-										{result && (
-											<>
-												{/** --- make this a standalone components */}
-												<Divider dashed />
-												<h2>Review Data</h2>
-												<Collapse>
-													<Collapse.Panel header={(
-														<h4>Full Report <Badge count={result.length} /></h4>
-													)} key={"1"}>
-														{result.map(i => (
+								<Tabs defaultActiveKey="1" activeKey={ctx.currentTab} onTabClick={(key) => ctx.setTab(key)}>
+									<Tabs.TabPane tab="Workflower" key="0"></Tabs.TabPane>
+									<Tabs.TabPane tab="Setup" key="1">
+										<Result
+											status="404"
+											title="Ready"
+											subTitle="Provide a DT report and a request file."
+										/>
+										<WorkflowForm />
+									</Tabs.TabPane>
+									<Tabs.TabPane tab="Partner Settings" key="2">
+										<Content style={{ padding: '0', minHeight: 280 }}>
+											<WFContext.Consumer>
+												{({ ctx }) => <ViewSettings config={ctx.config} />}
+											</WFContext.Consumer>
+										</Content>
+									</Tabs.TabPane>
+									<Tabs.TabPane tab="Results" key="3">
+										<Content style={{ padding: '0 24px', minHeight: 280 }}>
+											<WFContext.Consumer>
+												{({ ctx }) => ctx.log ? (
+													<>
+														<h2>Action Items</h2>
+														{/* <p>{actionItemText}</p> */}
+														<ImpPackage partner={ctx.partner} item={ctx.log.implement} payload={ctx.log.provisioning} description={actionItemText.ready} />
+														<Divider dashed />
+														<h2>Follow Up Items</h2>
+														<div className="GridFour">
+															<ImpPackage partner={ctx.artner} item={ctx.log.invalid} description={actionItemText.notContacted} />
+															<ImpPackage partner={ctx.partner} item={ctx.log.unmatched} description={actionItemText.notFound} />
+														</div>
+														<Divider dashed />
+														<h2>Housekeeping</h2>
+														<ImpPackage partner={ctx.partner} item={ctx.log.cancel} description={actionItemText.cancel} />
+														{ctx.result && (
 															<>
-																<b>{i.pid} - {i.account.dbaName}</b>
-																<p>{i.notes}</p>
+																{/** --- make this a standalone components */}
+																<Divider dashed />
+																<h2>Review Data</h2>
+																<Collapse>
+																	<Collapse.Panel header={(
+																		<h4>Full Report <Badge count={ctx.result.length} /></h4>
+																	)} key={"1"}>
+																		{ctx.result.map(i => (
+																			<>
+																				<b>{i.pid} - {i.account.dbaName}</b>
+																				<p>{i.notes}</p>
+																			</>
+																		))}
+																	</Collapse.Panel>
+																</Collapse>
 															</>
-														))}
-													</Collapse.Panel>
-												</Collapse>
-											</>
-										)}
-									</>
-								) : busy ? (
-									<div>Waiting...</div>
-								) : (
-											<Result
-												status="404"
-												title="Ready"
-												subTitle="Provide a DT report and a request file."
-												extra={(
-													<Button
-														type="primary"
-														disabled={!reference || !requested}
-														onClick={() => createResult()}>
-														I did!
-													</Button>
-												)}
-											/>
-										)}
-							</Content>
-						</Tabs.TabPane>
-					</Tabs>
-				</Layout>
+														)}
+													</>
+												) : (
+														<Result
+															status="404"
+															title="Ready"
+															subTitle="Provide a DT report and a request file."
+															extra={(
+																<Button
+																	type="primary"
+																	disabled={true}
+																	onClick={() => console.log('hah')}>
+																	I did!
+																</Button>
+															)}
+														/>
+													)}
+											</WFContext.Consumer>
+										</Content>
+									</Tabs.TabPane>
+								</Tabs>
+							)}
+						</WFContext.Consumer>
+					</Layout>
+				</WFProvider>
 			</Content>
-			<Footer style={{ textAlign: 'center' }}>Darin Cassler & Cox Auto ©2020</Footer>
+			<Footer style={{ textAlign: 'center' }}>Darin Cassler &amp; Cox Auto ©2020</Footer>
 		</Layout >
 
 
