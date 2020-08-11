@@ -2,8 +2,8 @@ import React from 'react';
 import { ImplementationPackage, ImplementationResult } from '@wf/core';
 import DownloadButton from './DownloadButton';
 import ProvisioningButtons from './ProvisioningButtons';
-import { Tag, Alert, Divider, Badge, Collapse } from 'antd';
-import { PartnerCode } from '../App';
+import { Alert, Divider, Collapse } from 'antd';
+import { PartnerCode } from '@wf/types';
 
 export interface ImpPayloadI {
 	eBizUpload: any[],
@@ -39,7 +39,7 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 							)}
 						</h4>
 					)}
-					description={item.message}
+					description={description}
 					type={type}
 					showIcon
 				/>
