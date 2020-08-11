@@ -1,5 +1,5 @@
 import React from 'react';
-import { PartnerCode } from '../App';
+import { PartnerCode } from '@wf/types';
 import { ImpPayloadI } from './ImpPackage';
 import DownloadButton from './DownloadButton';
 

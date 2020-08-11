@@ -1,12 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { PartnerCode } from './App';
-import { partnerConfigInput } from '@wf/types';
+import React from 'react';
+import { PartnerCode, partnerConfigInput } from '@wf/types';
 import { ImplementationResult, ImpPayload } from '@wf/core';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-
-
 
 
 export interface IParseResult {
@@ -14,7 +11,6 @@ export interface IParseResult {
 	errors: any;
 	meta: any;
 }
-
 
 interface WFContextI {
 	requested: IParseResult | undefined,

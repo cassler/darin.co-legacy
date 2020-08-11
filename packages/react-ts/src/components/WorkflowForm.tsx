@@ -1,15 +1,14 @@
-import React, { useCallback, useState, useEffect, useContext } from 'react';
-import { partnerConfigInput, PartnerCode } from '@wf/types';
-import { Workflower, ImplementationResult, ImpPayload } from '@wf/core';
+import React, { useState, useContext } from 'react';
+import { PartnerCode } from '@wf/types';
+import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
 import ExclusionSet from './ExclusionSet';
 import FileSelect from './FileSelect';
-import { data as drwRequestData } from '../data/drwRequest';
-import { data as drwRefData } from '../data/refData';
 import { settings } from '../data/settings';
-import { WFContext, IParseResult } from '../context';
+import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
+
 
 
 export const WorkflowForm: React.FC = () => {

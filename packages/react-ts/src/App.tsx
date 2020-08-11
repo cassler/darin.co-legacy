@@ -1,29 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import './App.css';
-
 import ImpPackage from './components/ImpPackage';
 import ViewSettings from './components/ViewSettings';
-
-
 import { Result, Layout, Divider, Button, Badge, Collapse, Tabs } from 'antd';
 import WorkflowForm from './components/WorkflowForm';
 import { WFProvider, WFContext } from './context';
-
 const { Content, Footer } = Layout;
 
 
-export interface IParseResult {
-	data: any[];
-	errors: any;
-	meta: any;
-}
-
-export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
-
-
 function App() {
-
-	const [currentTab, setTab] = useState<string>("1");
 
 	// define some text for the body
 	interface actionTexts {
