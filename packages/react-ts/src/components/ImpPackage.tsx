@@ -39,7 +39,7 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 							)}
 						</h4>
 					)}
-					description={item.message}
+					description={description}
 					type={type}
 					showIcon
 				/>
