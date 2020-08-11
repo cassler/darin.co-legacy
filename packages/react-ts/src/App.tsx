@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import ViewSettings from './components/ViewSettings';
-import { Steps, Layout, Tabs, Button } from 'antd';
+import { Divider, Steps, Layout, Card, Tabs, Button } from 'antd';
 import WorkflowForm from './components/WorkflowForm';
 import { WFProvider, WFContext } from './context';
 import ResultsContainer from './components/ResultsContainer'
@@ -35,11 +35,7 @@ function App() {
 													<Step title="Generate Results" description="This is a description." />
 													<Step title="Review" description="This is a description." />
 												</Steps>
-												{ctx.step > 0 && (
-													<Button onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}>
-														Go Back
-													</Button>
-												)}
+
 												<div>
 													<Button onClick={() => ctx.setClear()} type="link">
 														Reset Workflow
@@ -49,10 +45,25 @@ function App() {
 													</Button>
 												</div>
 											</div>
-											<div>
-												<WorkflowForm />
-												<ResultsContainer />
+											<div style={{ padding: '0 24px' }}>
+												<Card className='result-card'>
+													<WorkflowForm />
+													{ctx.step > 3 && (
+														<ResultsContainer />
+													)}
+												</Card>
+
+												{ctx.step > 0 && (
+													<>
+														<Divider />
+														<Button onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}>
+															Go Back
+													</Button>
+													</>
+												)}
 											</div>
+											<br />
+											<br />
 										</div>
 									</Tabs.TabPane>
 

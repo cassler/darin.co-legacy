@@ -32,6 +32,12 @@
   color: white;
 }
 
+.result-card {
+
+	box-shadow: 3px 5px 24px rgba(100, 100, 100, 0.1),
+		1px 10px 12px rgba(50,50,50,0.2)
+}
+
 .App-link {
   color: #61dafb;
 }
