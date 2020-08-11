@@ -5,8 +5,8 @@ import ResultsView from './components/ResultsView';
 import { Result, Layout, Tabs } from 'antd';
 import WorkflowForm from './components/WorkflowForm';
 import { WFProvider, WFContext } from './context';
+import ResultsContainer from './components/ResultsContainer'
 const { Content } = Layout;
-
 
 function App() {
 
@@ -42,15 +42,7 @@ function App() {
 									</Tabs.TabPane>
 									<Tabs.TabPane tab="Results" key="3">
 										<Content style={padSmall}>
-											{ctx.log ? (
-												<ResultsView partner={ctx.partner} log={ctx.log} result={ctx.result} />
-											) : (
-													<Result
-														status="404"
-														title="Ready"
-														subTitle="Provide a DT report and a request file."
-													/>
-												)}
+											<ResultsContainer partner={ctx.partner} config={ctx.config} requested={ctx.requested} reference={ctx.reference} />
 										</Content>
 									</Tabs.TabPane>
 								</Tabs>

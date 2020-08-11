@@ -19,8 +19,8 @@ export const WorkflowForm: React.FC = () => {
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
 		ctx.setPartner(partner);
-		if (ctx.partner === "BOA") ctx.setConfig(settings.boa);
-		if (ctx.partner === "DRW") ctx.setConfig(settings.drw);
+		if (partner === "BOA") ctx.setConfig(settings.boa);
+		if (partner === "DRW") ctx.setConfig(settings.drw);
 	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {

@@ -110,7 +110,7 @@ export class WFProvider extends React.Component {
 				result: result,
 				log: log,
 			}))
-			this.setTab("3")
+			// this.setTab("3")
 		}
 		this.setReference = (obj: IParseResult) => {
 			this.setState(state => ({
