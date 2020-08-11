@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import ViewSettings from './components/ViewSettings';
-import ResultsView from './components/ResultsView';
 import { Result, Layout, Tabs } from 'antd';
 import WorkflowForm from './components/WorkflowForm';
 import { WFProvider, WFContext } from './context';
@@ -42,7 +41,7 @@ function App() {
 									</Tabs.TabPane>
 									<Tabs.TabPane tab="Results" key="3">
 										<Content style={padSmall}>
-											<ResultsContainer partner={ctx.partner} config={ctx.config} requested={ctx.requested} reference={ctx.reference} />
+											<ResultsContainer />
 										</Content>
 									</Tabs.TabPane>
 								</Tabs>

@@ -1,35 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { Workflower } from '@wf/core';
-import { PartnerCode, partnerConfigInput } from '@wf/types';
-import { IParseResult } from '../context';
+import React, { useContext } from 'react';
 import ResultsView from './ResultsView';
 import { Result } from 'antd';
 import { WFContext } from '../context';
 
-type Props = {
-	partner: PartnerCode,
-	config: partnerConfigInput,
-	requested: IParseResult,
-	reference: IParseResult
-}
-export const ResultsContainer = (props: Props) => {
+export const ResultsContainer = () => {
 	const { ctx } = useContext(WFContext);
-
-	const [ready, setReady] = useState(false)
-	const [working, setWorking] = useState(false)
-
-	const generateResult = () => {
-		setWorking(true);
-		let res = new Workflower({
-			partnerCode: ctx.partner,
-			options: ctx.config,
-			requested: ctx.requested.data,
-			reference: ctx.reference.data
-		})
-		ctx.setResult(res.init, res.fullPayload);
-		setReady(true);
-		setWorking(false);
-	}
 
 	return (
 		<div>
