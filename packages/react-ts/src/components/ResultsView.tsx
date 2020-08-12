@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ImpPackage from './ImpPackage';
-import { Divider, Collapse, Badge, Tabs } from 'antd';
+import { Divider, Collapse, Badge, PageHeader } from 'antd';
 import ResultChart from './ResultChart';
+import StackedBar from './StackedBar';
 import ProvisioningButtons from './ProvisioningButtons'
 
 interface actionTexts {
@@ -23,25 +24,41 @@ export const ResultsView = (props) => {
 		{ label: "Pending Cancel", count: log.cancel.items.length },
 		{ label: 'Already Live', count: result.filter(i => !i.checks.notImplemented && i.checks.partnerStatusOK).length }
 	]
+
+
+	const barStats = {
+		total: result.length,
+		stats: [
+			{ label: "Ready to Implement", type: "green", count: log.implement.length },
+			{ label: "Pending Cancel", type: "blue", count: log.cancel.length },
+			{ label: "Enrollment Problem", type: "yellow", count: log.invalid.length },
+			{ label: "No Match", type: "warn", count: log.unmatched.length },
+		]
+	}
+
 	return (
 		<>
-			<div style={{ display: "grid", gridTemplateColumns: "1fr 2fr" }}>
-				<div><ResultChart input={counts} /></div>
-				<div>
-					<ImpPackage partner={partner} item={log.implement} description={actionItemText.ready} />
-					<br />
-					{log.provisioning && (
-						<ProvisioningButtons
-							payload={log.provisioning}
-							partner={partner}
-							title="Get Provisioning Files"
-						/>
-					)}
-				</div>
-			</div>
+			<PageHeader
+				title={`Results for ${partner}`}
+				subTitle={`Showing info for ${result.length} dealers.`}
+			// extra={(<ProvisioningButtons
+			// 	payload={log.provisioning}
+			// 	partner={partner}
+			// 	title="Get Provisioning Files"
+			// />)}
+			// footer={(
+			// 	<StackedBar stats={barStats.stats} total={barStats.total} />
+			// )}
+			/>
+			<ImpPackage partner={partner} item={log.implement} description={actionItemText.ready} payload={log.provisioning} />
+			{/* <ProvisioningButtons
+				payload={log.provisioning}
+				partner={partner}
+				title="Get Provisioning Files"
+			/> */}
+			<Divider />
 			<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
 			<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
-			{JSON.stringify(result.map(i => i.original)).slice(0, 1000)}
 			<ImpPackage partner={partner} item={log.cancel} description={actionItemText.cancel} />
 
 			{result && (

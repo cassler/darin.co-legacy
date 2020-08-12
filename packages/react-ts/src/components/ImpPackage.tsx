@@ -23,10 +23,10 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 	}
 	const type = item.type ? item.type : "info";
 	const hasItems = item.items && item.items.length > 1;
-	const className = payload ? "main-output" : "default-output";
+	// const className = payload ? "main-output" : "default-output";
 	return (
 		<div>
-			<div className={className}>
+			<div>
 				<Alert
 					message={(
 						<h4>
@@ -45,11 +45,22 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 				/>
 			</div>
 			{hasItems && (
-				<Collapse onChange={callback} >
+				<Collapse onChange={callback} ghost>
 					<Collapse.Panel header={(
 						<h4>
-							View Dealers
-							<DownloadButton label="Download as CSV" data={item.items} partner={partner} />
+							Preview Dealers
+							{payload ? (
+								<>
+									<Divider type="vertical" />
+									<ProvisioningButtons
+										payload={payload}
+										partner={partner}
+										title="Get Provisioning Files"
+									/>
+								</>
+							) : (
+									<DownloadButton label="Download raw CSV" data={item.items} partner={partner} />
+								)}
 						</h4>
 					)} key={item.title}>
 						{item.items.map(i => <ResultItem item={i} partner={partner} />)}

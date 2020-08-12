@@ -48,9 +48,6 @@ function App() {
 											</div>
 											<div style={{ padding: '0 24px' }}>
 
-
-
-												<Divider />
 												<Card className='result-card'>
 													<WorkflowForm />
 													{ctx.step > 3 && (
