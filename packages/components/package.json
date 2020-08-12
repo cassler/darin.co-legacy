@@ -1,6 +1,6 @@
 {
 	"name": "@cassler/components",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "dist/index",
 	"types": "dist/index",
 	"scripts": {
@@ -14,7 +14,7 @@
 		"react": "~16.13.1"
 	},
 	"dependencies": {
-		"@cassler/foo": "*"
+		"@cassler/foo": "^1.0.1"
 	},
 	"devDependencies": {
 		"@types/react": "~16.9.43"

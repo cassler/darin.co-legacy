@@ -2,13 +2,13 @@
 	"name": "@cassler/webpack-example",
 	"description": "Example of using webpack in a TS monorepo",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"scripts": {
 		"build": "webpack",
 		"test": "yarn run build"
 	},
 	"dependencies": {
-		"@cassler/bar": "*"
+		"@cassler/bar": "^1.0.1"
 	},
 	"devDependencies": {
 		"ts-loader": "~8.0.0",
