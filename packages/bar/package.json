@@ -1,6 +1,6 @@
 {
 	"name": "@cassler/bar",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "dist/index",
 	"types": "dist/index",
 	"files": [
@@ -14,7 +14,7 @@
 		"test": "yarn run build"
 	},
 	"dependencies": {
-		"@cassler/foo": "^1.0.1"
+		"@cassler/foo": "^1.0.2"
 	},
 	"devDependencies": {
 		"rimraf": "~3.0.2",
