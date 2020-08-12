@@ -1,7 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "esModuleInterop": true
-  }
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"jsx": "react",
+		"moduleResolution": "node",
+		"module": "esnext",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+	}
 }

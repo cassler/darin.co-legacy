@@ -1,13 +1,26 @@
 {
-  "extends": "./tsconfig.build.json",
-
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@nighttrax/*": ["packages/*/src"]
-    },
-    "jsx": "react",
-    "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+	"extends": "./tsconfig.build.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@cassler/*": [
+				"packages/*/src",
+				"examples/*/src",
+			]
+		},
+		"jsx": "react",
+		"noEmit": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"allowSyntheticDefaultImports": true,
+		"importHelpers": true,
+		"lib": [
+			"es2015",
+			"es6",
+			"es7",
+			"dom"
+		]
+	}
 }

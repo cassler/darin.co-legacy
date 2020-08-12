@@ -381,7 +381,7 @@ module.exports = function(webpackEnv) {
                   ],
                   [require.resolve("babel-plugin-module-resolver"), {
                     "alias": {
-                      "^@nighttrax/(.+)": "../../packages/\\1/src"
+                      "^@cassler/(.+)": "../../packages/\\1/src"
                     }
                   }]
                 ],
