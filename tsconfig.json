@@ -9,7 +9,6 @@
 			]
 		},
 		"jsx": "react",
-		"noEmit": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
