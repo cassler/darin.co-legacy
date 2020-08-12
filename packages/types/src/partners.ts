@@ -1,6 +1,6 @@
 import { EnrollmentPhase } from '@wf/types';
 
-export declare type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS"
+export declare type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS" | null
 
 export declare interface PartnerCodes {
 	code: PartnerCode

@@ -74,7 +74,7 @@ export const settings: partnerSettingsList = {
 			if (item["Program Active Status"] !== "Active") {
 				return false
 			}
-			if (item["Corporate Services Addendum Status"] === "Completed") {
+			if (item["Corporate Services Addendum Status"] === "Completed" || "Completed - RT1") {
 				return true;
 			}
 			return false;

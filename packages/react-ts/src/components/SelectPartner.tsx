@@ -27,7 +27,7 @@ const SelectPartner: React.FC<Props> = ({ partners, callback, defaultPartner }) 
 			</Menu>
 		)}>
 			<Button>
-				{defaultPartner} <DownOutlined />
+				{defaultPartner ? defaultPartner : 'Partners'} <DownOutlined />
 			</Button>
 		</Dropdown>
 	)
