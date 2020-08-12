@@ -5,6 +5,7 @@
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
 		"@babel/core": "7.9.0",
+		"@babel/plugin-proposal-class-properties": "^7.10.4",
 		"@babel/preset-env": "^7.11.0",
 		"@blueprintjs/core": "^3.30.1",
 		"@blueprintjs/table": "^3.8.12",
@@ -153,6 +154,9 @@
 		]
 	},
 	"babel": {
+		"plugins": [
+			"@babel/plugin-proposal-class-properties"
+		],
 		"presets": [
 			"react-app",
 			"@babel/env"
