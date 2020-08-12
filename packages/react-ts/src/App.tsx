@@ -5,8 +5,10 @@ import { Divider, Steps, Layout, Card, Tabs, Button } from 'antd';
 import WorkflowForm from './components/WorkflowForm';
 import { WFProvider, WFContext } from './context';
 import ResultsContainer from './components/ResultsContainer'
+import { motion, AnimatePresence } from "framer-motion"
 const { Step } = Steps;
 const { Content } = Layout;
+
 
 function App() {
 
@@ -23,11 +25,15 @@ function App() {
 									defaultActiveKey="1"
 									activeKey={ctx.currentTab}
 									onTabClick={(key) => ctx.setTab(key)}
+									tabBarExtraContent={(
+										<Button disabled={ctx.step === 0} onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}>
+											Go Back
+										</Button>
+									)}
 								>
-									<Tabs.TabPane tab="Workflower" key="0"></Tabs.TabPane>
-									<Tabs.TabPane tab="Intake Requests" key="1">
+									<Tabs.TabPane tab="Workflower" key="1">
 										<div style={{ display: "grid", gridTemplateColumns: "280px 1fr", alignItems: "start" }}>
-											<div style={{ paddingRight: '24px' }}>
+											<div style={{ padding: '24px' }}>
 												<Steps direction="vertical" current={ctx.step}>
 													<Step title="Select Partner" description={`Which partner are we working with? ${ctx.partner}`} />
 													<Step title="Provide DT Data" description="This is a description." />
@@ -37,15 +43,14 @@ function App() {
 												</Steps>
 
 												<div>
-													<Button onClick={() => ctx.setClear()} type="link">
-														Reset Workflow
-													</Button>
-													<Button onClick={() => ctx.setDemo()} type="link">
-														Use Example Data
-													</Button>
+
 												</div>
 											</div>
 											<div style={{ padding: '0 24px' }}>
+
+
+
+												<Divider />
 												<Card className='result-card'>
 													<WorkflowForm />
 													{ctx.step > 3 && (
@@ -53,14 +58,7 @@ function App() {
 													)}
 												</Card>
 
-												{ctx.step > 0 && (
-													<>
-														<Divider />
-														<Button onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}>
-															Go Back
-													</Button>
-													</>
-												)}
+
 											</div>
 											<br />
 											<br />

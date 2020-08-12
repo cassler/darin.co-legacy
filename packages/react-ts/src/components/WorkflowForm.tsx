@@ -8,6 +8,7 @@ import { settings } from '../data/settings';
 import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button, Result } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
+import { motion, AnimatePresence } from "framer-motion"
 
 
 
@@ -58,98 +59,131 @@ export const WorkflowForm: React.FC = () => {
 
 	return (
 		<div>
-			{(step === 0) && (
-				<div>
-					<Result
-						status="403"
-						title="Select a partner"
-						subTitle="Which DR partner are we working with today?"
-						extra={(
-							<>
-								<SelectPartner
-									partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
-									defaultPartner={ctx.partner}
-									callback={handlePartnerSelect}
+			<AnimatePresence exitBeforeEnter>
+
+
+				{(step === 0) && (
+					<motion.div
+						key={"0"}
+						transition={{ ease: "easeInOut", duration: 0.3 }}
+						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						animate={{ x: 0, opacity: 1, scale: 1 }}
+						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+					>
+						<Result
+							status="403"
+							title="Select a partner"
+							subTitle="Which DR partner are we working with today?"
+							extra={(
+								<>
+									<SelectPartner
+										partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
+										defaultPartner={ctx.partner}
+										callback={handlePartnerSelect}
+									/>
+									<Divider />
+									<Button onClick={() => ctx.setClear()} type="link">
+										Reset Workflow
+													</Button>
+									<Button onClick={() => ctx.setDemo()} type="link">
+										Use Example Data
+													</Button>
+								</>
+							)}
+						/>
+					</motion.div>
+				)}
+				{step === 1 && (
+					<motion.div
+						key="1"
+						transition={{ ease: "easeInOut", duration: 0.3 }}
+						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						animate={{ x: 0, opacity: 1, scale: 1 }}
+						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+					>
+						<Result
+							status="404"
+							title="Add a Dealertrack Report"
+							subTitle="Provide a reference file from Dealertrack > Business Reports"
+							extra={(
+								<><FileSelect
+									label="Reference Data"
+									slug="ref"
+									callback={ctx.setReference}
+									count={ctx.reference?.data.length || 0}
+									helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
+									internal_id={ctx.config.internal_id}
 								/>
-								<Divider />
-								<Button onClick={() => ctx.setClear()} type="link">
-									Reset Workflow
-													</Button>
-								<Button onClick={() => ctx.setDemo()} type="link">
-									Use Example Data
-													</Button>
-							</>
-						)}
-					/>
-				</div>
-			)}
-			{step === 1 && (
-				<Result
-					status="404"
-					title="Add a Dealertrack Report"
-					subTitle="Provide a reference file from Dealertrack > Business Reports"
-					extra={(
-						<FileSelect
-							label="Reference Data"
-							slug="ref"
-							callback={ctx.setReference}
-							count={ctx.reference?.data.length || 0}
-							helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
-							internal_id={ctx.config.internal_id}
+								</>
+							)}
 						/>
-					)}
-				/>
+					</motion.div>
 
-			)}
-			{step === 2 && (
-				<Result
-					status="500"
-					title="And the partner requests..."
-					subTitle="Add a file that includes requests from the partner."
-					extra={(
-						<FileSelect
-							label="Request Data"
-							slug="req"
-							callback={ctx.setRequested}
-							count={ctx.requested?.data.length || 0}
-							helper={`CSV of requests from ${ctx.partner}`}
-							internal_id={ctx.config.internal_id}
+				)}
+				{step === 2 && (
+					<motion.div
+						key="2"
+						transition={{ ease: "easeInOut", duration: 0.3 }}
+						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						animate={{ x: 0, opacity: 1, scale: 1 }}
+						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+					>
+						<Result
+							status="500"
+							title="And the partner requests..."
+							subTitle="Add a file that includes requests from the partner."
+							extra={(
+								<>
+									<FileSelect
+										label="Request Data"
+										slug="req"
+										callback={ctx.setRequested}
+										count={ctx.requested?.data.length || 0}
+										helper={`CSV of requests from ${ctx.partner}`}
+										internal_id={ctx.config.internal_id}
+									/>
+								</>
+							)}
 						/>
-					)}
-				/>
+					</motion.div>
+				)}
+				{step === 3 && (
+					<motion.div
+						key="3"
+						transition={{ ease: "easeInOut", duration: 0.3 }}
+						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						animate={{ x: 0, opacity: 1, scale: 1 }}
+						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+					>
+						<Result
+							status="success"
+							title="Looks good!"
+							subTitle="We have everything we need to process these."
+							extra={(
+								<Button
+									onClick={() => createResult()}
+									disabled={!ctx.requested || !ctx.reference || busy}
+									type="primary">
+									{busy ? "Working..." : `Generate for ${ctx.partner}`}
+								</Button>
+							)}
+						/>
 
-			)}
-			{step === 3 && (
-				<>
-					<Result
-						status="success"
-						title="Looks good!"
-						subTitle="We have everything we need to process these."
-						extra={(
-							<Button
-								onClick={() => createResult()}
-								disabled={!ctx.requested || !ctx.reference || busy}
-								type="primary">
-								{busy ? "Working..." : `Generate for ${ctx.partner}`}
-							</Button>
-						)}
-					/>
 
 
-
-					<div className="Stat-Group">
-						<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
-							<div>
-								<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
-								<FormOutlined />
-							</div>
-						</Popover>
-						<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
-						<Statistic title="Items on Request" value={ctx.requested?.data.length} />
-					</div>
-				</>
-			)}
-
+						<div className="Stat-Group">
+							<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
+								<div>
+									<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
+									<FormOutlined />
+								</div>
+							</Popover>
+							<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
+							<Statistic title="Items on Request" value={ctx.requested?.data.length} />
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	)
 }
