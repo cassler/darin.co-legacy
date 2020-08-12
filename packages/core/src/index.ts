@@ -7,3 +7,4 @@ export * from "./processPartnerSubmission";
 export * from "./processWithLogging";
 export * from "./transformers";
 export * from "./workflowerClass";
+export * from "./workflowerClass2";

@@ -1,5 +1,5 @@
 
-import { Workflower } from '@wf/core';
+import { Workflower, Workflower2 } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
 import { partner_settings } from './partner_settings';
 // This is our configurations file where aspects of the implementations are described
@@ -26,7 +26,7 @@ export function wf_examples(partner, options) {
 	// Create a new instance of a Workflower
 	// @ref core/workflower
 	let wf = new Workflower(props);
-
+	let wf2 = new Workflower2(props)
 	// Show off some of the goods - find account with partner ID of 3422
 	console.log(wf.query(3422))
 
@@ -53,6 +53,8 @@ export function wf_examples(partner, options) {
 			product_subscription: wf.provisioning.prodSubAttachment.length,
 		}
 	})
+
+	console.log(wf2.reconcile())
 
 }
 

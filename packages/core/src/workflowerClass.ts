@@ -181,7 +181,7 @@ export class Workflower {
 			return this.config.custom_validation(i)
 		})
 
-		for (const req of validRequests) {
+		for (const req of this.requestData) {
 			let pid = req[this.config.internal_id];
 			let account = this.findAccount(pid, true) as SimpleAccount;
 			let accObject = account ? account : this.emptySimpleAccount(pid);
@@ -283,7 +283,7 @@ export class Workflower {
 		return {
 			title: "Bad DT Enrollment",
 			message: "There is a problem with this enrollment",
-			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK),
+			items: this.notedResults.filter(i => i.checks.partnerStatusOK && !i.checks.enrollmentStatusOK),
 			type: "warning",
 			status: "warning",
 		}
@@ -292,7 +292,7 @@ export class Workflower {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
-			items: this.notedResults.filter(i => i.account.dealertrackID < 1),
+			items: this.notedResults.filter(i => i.checks.partnerStatusOK && i.account.dealertrackID < 1),
 			type: "error",
 			status: "error"
 		}
@@ -312,7 +312,7 @@ export class Workflower {
 		return {
 			title: 'Pending Cancellations',
 			message: 'These items are listed as inactive by partner by are live.',
-			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK).filter(i => i.pid),
+			items: this.notedResults.filter(i => !i.checks.partnerStatusOK && !i.checks.notImplemented),
 			type: "info",
 			status: "processing",
 		}

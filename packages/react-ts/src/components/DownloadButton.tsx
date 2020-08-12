@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { CSVLink } from 'react-csv';
 import moment from 'moment';
-import { PartnerCode } from '../App';
+import { PartnerCode } from '@wf/types';
 
 type Props = {
 	label: string,
@@ -19,7 +19,7 @@ const DownloadButton: React.FC<Props> = ({ label, data, partner, type }) => {
 			data={data}
 			filename={filename}
 		>
-			<Button type={type || "link"}>
+			<Button type={type || "link"} >
 				{label}
 			</Button>
 		</CSVLink>

@@ -2,8 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Menu, Dropdown, Button, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons'
-
-import { PartnerCode } from '../App';
+import { PartnerCode } from '@wf/types';
 
 type Props = {
 	partners: string[],
@@ -28,7 +27,7 @@ const SelectPartner: React.FC<Props> = ({ partners, callback, defaultPartner }) 
 			</Menu>
 		)}>
 			<Button>
-				{defaultPartner} <DownOutlined />
+				{defaultPartner ? defaultPartner : 'Partners'} <DownOutlined />
 			</Button>
 		</Dropdown>
 	)

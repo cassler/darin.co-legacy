@@ -2,8 +2,8 @@ import React from 'react';
 import { ImplementationPackage, ImplementationResult } from '@wf/core';
 import DownloadButton from './DownloadButton';
 import ProvisioningButtons from './ProvisioningButtons';
-import { Tag, Alert, Divider, Badge, Collapse } from 'antd';
-import { PartnerCode } from '../App';
+import { Alert, Divider, Collapse } from 'antd';
+import { PartnerCode } from '@wf/types';
 
 export interface ImpPayloadI {
 	eBizUpload: any[],
@@ -23,10 +23,10 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 	}
 	const type = item.type ? item.type : "info";
 	const hasItems = item.items && item.items.length > 1;
-	const className = payload ? "main-output" : "default-output";
+	// const className = payload ? "main-output" : "default-output";
 	return (
 		<div>
-			<div className={className}>
+			<div>
 				<Alert
 					message={(
 						<h4>
@@ -39,26 +39,28 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 							)}
 						</h4>
 					)}
-					description={item.message}
+					description={description}
 					type={type}
 					showIcon
 				/>
-				<div>
-					{payload && (
-						<ProvisioningButtons
-							payload={payload}
-							partner={partner}
-							title="Get Provisioning Files"
-						/>
-					)}
-				</div>
 			</div>
 			{hasItems && (
-				<Collapse onChange={callback} >
+				<Collapse onChange={callback} ghost>
 					<Collapse.Panel header={(
 						<h4>
-							View Dealers
-							<DownloadButton label="Download as CSV" data={item.items} partner={partner} />
+							Preview Dealers
+							{payload ? (
+								<>
+									<Divider type="vertical" />
+									<ProvisioningButtons
+										payload={payload}
+										partner={partner}
+										title="Get Provisioning Files"
+									/>
+								</>
+							) : (
+									<DownloadButton label="Download raw CSV" data={item.items} partner={partner} />
+								)}
 						</h4>
 					)} key={item.title}>
 						{item.items.map(i => <ResultItem item={i} partner={partner} />)}
