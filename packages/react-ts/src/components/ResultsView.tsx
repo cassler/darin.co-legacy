@@ -41,6 +41,7 @@ export const ResultsView = (props) => {
 			</div>
 			<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
 			<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
+			{JSON.stringify(result.map(i => i.original)).slice(0, 1000)}
 			<ImpPackage partner={partner} item={log.cancel} description={actionItemText.cancel} />
 
 			{result && (

@@ -13,7 +13,7 @@ const { Content } = Layout;
 function App() {
 
 	const padSmall = { padding: '0', minHeight: 280 };
-	const padBig = { padding: '24px 50px' };
+	const padBig = { padding: '24px 48px' };
 	return (
 		<Layout>
 			<Content style={padBig}>

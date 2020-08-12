@@ -30,7 +30,10 @@ export const settings: partnerSettingsList = {
 			info: true,
 		},
 		custom_validation: (item: any) => {
-			return item.hasOwnProperty('Status') && item.Status === "A"
+			console.log('dealer is', item.Status);
+			const pass = item.hasOwnProperty('Status') && item.Status === "A";
+			console.log('does it pass?', pass)
+			return pass
 		},
 	},
 	boa: {
