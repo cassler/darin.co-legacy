@@ -3,6 +3,7 @@
 	"description": "Example of using create-react-app + babel in a TS monorepo",
 	"private": true,
 	"version": "1.0.0",
+	"homepage": "./",
 	"dependencies": {
 		"@babel/core": "7.9.0",
 		"@cassler/components": "*",
