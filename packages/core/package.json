@@ -1,6 +1,6 @@
 {
 	"name": "@wf/core",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"description": "Default package structure for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",
