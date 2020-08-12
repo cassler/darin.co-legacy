@@ -19,7 +19,7 @@ const DownloadButton: React.FC<Props> = ({ label, data, partner, type }) => {
 			data={data}
 			filename={filename}
 		>
-			<Button type={type || "link"}>
+			<Button type={type || "link"} >
 				{label}
 			</Button>
 		</CSVLink>

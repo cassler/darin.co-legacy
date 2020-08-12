@@ -12,20 +12,18 @@ interface ProvisioningButtonsProps {
 export const ProvisioningButtons: React.FC<ProvisioningButtonsProps> =
 	({ payload, partner, title }) => (
 		<>
-			{title && (<h4>{title}</h4>)}
-			<div className="button-group-wf" style={{ display: "flex" }}>
-				<DownloadButton
-					label="eBiz Suite" type="primary" partner={partner}
-					data={payload.eBizUpload} />
-				<DownloadButton
-					label="Finance Driver" type="primary" partner={partner}
-					data={payload.financeDriverUpload} />
-				<DownloadButton
-					label="Product Subscript"
-					type="primary" partner={partner}
-					data={payload.prodSubAttachment}
-				/>
-			</div>
+
+			<DownloadButton
+				label="eBiz Suite" type="default" partner={partner}
+				data={payload.eBizUpload} />
+			<DownloadButton
+				label="Finance Driver" type="default" partner={partner}
+				data={payload.financeDriverUpload} />
+			<DownloadButton
+				label="Product Subscript"
+				type="default" partner={partner}
+				data={payload.prodSubAttachment}
+			/>
 		</>
 	)
 

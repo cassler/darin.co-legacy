@@ -49,6 +49,7 @@ export const ResultChart: React.FC<ResultChartProps> = ({ input }) => {
 			<Doughnut data={data} legend={{ position: "right" }} height={12} width={12} options={{
 				fontSize: 15
 			}} />
+
 			<Button onClick={() => toggleData()}>
 				Toggle Me! {showAll ? "all" : "pending only"}</Button>
 		</>

@@ -56,7 +56,7 @@ export const initialContext: WFContextsI = {
 	default: {
 		requested: undefined,
 		reference: undefined,
-		partner: "BOA" as PartnerCode,
+		partner: null,
 		config: settings.boa,
 		result: null,
 		log: null,
@@ -158,7 +158,7 @@ export class WFProvider extends React.Component {
 			}))
 		}
 		this.state = {
-			...initialContext.demo,
+			...initialContext.default,
 			setPartner: this.setPartner,
 			setConfig: this.setConfig,
 			setDemo: this.setDemo,

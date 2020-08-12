@@ -283,7 +283,7 @@ export class Workflower {
 		return {
 			title: "Bad DT Enrollment",
 			message: "There is a problem with this enrollment",
-			items: this.notedResults.filter(i => !i.checks.enrollmentStatusOK),
+			items: this.notedResults.filter(i => i.checks.partnerStatusOK && !i.checks.enrollmentStatusOK),
 			type: "warning",
 			status: "warning",
 		}
@@ -292,7 +292,7 @@ export class Workflower {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
-			items: this.notedResults.filter(i => i.account.dealertrackID < 1),
+			items: this.notedResults.filter(i => i.checks.partnerStatusOK && i.account.dealertrackID < 1),
 			type: "error",
 			status: "error"
 		}
