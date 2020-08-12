@@ -1,0 +1,13 @@
+button {
+	padding: 24px 48px;
+	background-color: #222;
+	color: #ccc;
+	text-shadow: 1px 1px 2px #111;
+	font-size: 24px;
+	border: none;
+	box-shadow: inset 2px 5px 22px #444,
+		inset 1px 2px 4px #666,
+		2px 2px 16px #333,
+		2px 4px 4px #111;
+	border-radius: 8px;
+}
