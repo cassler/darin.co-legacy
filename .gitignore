@@ -3,3 +3,7 @@ dist
 results
 .nyc_output
 *.tsbuildinfo
+.DS_Store
+.next
+.vercel
+**/.DS_store

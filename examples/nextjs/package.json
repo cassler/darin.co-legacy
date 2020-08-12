@@ -7,6 +7,10 @@
 		"build": "next build",
 		"test": "yarn run build"
 	},
+	"workspaces": [
+		"../packages/*",
+		"../examples/*"
+	],
 	"dependencies": {
 		"next": "~9.4.4",
 		"react": "~16.13.1",
