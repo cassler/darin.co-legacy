@@ -43,15 +43,6 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 					type={type}
 					showIcon
 				/>
-				<div>
-					{payload && (
-						<ProvisioningButtons
-							payload={payload}
-							partner={partner}
-							title="Get Provisioning Files"
-						/>
-					)}
-				</div>
 			</div>
 			{hasItems && (
 				<Collapse onChange={callback} >

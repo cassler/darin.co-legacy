@@ -20,7 +20,9 @@ interface WFContextI {
 	result: ImplementationResult[] | null,
 	log: ImpPayload | null,
 	busy: boolean,
-	currentTab: string
+	currentTab: string,
+	demo: boolean
+	step: number,
 }
 
 interface WFContextVal extends WFContextI {
@@ -47,7 +49,9 @@ export const initialContext: WFContextsI = {
 		result: null,
 		log: null,
 		busy: false,
-		currentTab: "1"
+		currentTab: "1",
+		demo: true,
+		step: 0,
 	},
 	default: {
 		requested: undefined,
@@ -57,7 +61,9 @@ export const initialContext: WFContextsI = {
 		result: null,
 		log: null,
 		busy: false,
-		currentTab: "1"
+		currentTab: "1",
+		demo: false,
+		step: 0,
 	}
 }
 
@@ -78,30 +84,38 @@ export class WFProvider extends React.Component {
 	setReference: Function
 	setRequested: Function
 	setTab: Function
+	setStep: Function
 	constructor(props) {
 		super(props)
 		this.setPartner = (sel: PartnerCode) => {
 			this.setState(state => ({
 				...state,
-				partner: sel
+				partner: sel,
+				result: null,
+				log: null,
+				step: 1,
 			}))
 		};
 		this.setConfig = (obj: partnerConfigInput) => {
 			this.setState(state => ({
 				...state,
-				config: obj
+				config: obj,
+				result: null,
+				log: null
 			}))
 		}
 		this.setClear = () => {
 			this.setState(state => ({
 				...state,
 				...initialContext.default,
+				step: 0
 			}))
 		}
 		this.setDemo = () => {
 			this.setState(state => ({
 				...state,
 				...initialContext.demo,
+				step: 0
 			}))
 		}
 		this.setResult = (result, log) => {
@@ -109,19 +123,26 @@ export class WFProvider extends React.Component {
 				...state,
 				result: result,
 				log: log,
+				step: 4,
 			}))
-			this.setTab("3")
+			// this.setTab("3")
 		}
 		this.setReference = (obj: IParseResult) => {
 			this.setState(state => ({
 				...state,
-				reference: obj
+				reference: obj,
+				result: null,
+				log: null,
+				step: 2,
 			}))
 		}
 		this.setRequested = (obj: IParseResult) => {
 			this.setState(state => ({
 				...state,
-				requested: obj
+				requested: obj,
+				result: null,
+				log: null,
+				step: 3,
 			}))
 		}
 		this.setTab = (key: string) => {
@@ -130,6 +151,12 @@ export class WFProvider extends React.Component {
 				currentTab: key
 			}))
 		};
+		this.setStep = (i: number) => {
+			this.setState(state => ({
+				...state,
+				step: i
+			}))
+		}
 		this.state = {
 			...initialContext.demo,
 			setPartner: this.setPartner,
@@ -140,6 +167,7 @@ export class WFProvider extends React.Component {
 			setReference: this.setReference,
 			setRequested: this.setRequested,
 			setTab: this.setTab,
+			setStep: this.setStep
 		}
 	}
 

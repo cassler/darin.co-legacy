@@ -47,10 +47,6 @@ const FileSelect: React.FC<Props> = ({
 	}
 	return (
 		<FormGroup helperText={helper} >
-			<h4>
-				{label} - {count && (<span className="bp3-text-muted">{count} items</span>
-				)}
-			</h4>
 			<FileInput
 				large
 				fill

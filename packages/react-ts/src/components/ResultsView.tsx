@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ImpPackage from './ImpPackage';
-import { Divider, Collapse, Badge } from 'antd';
+import { Divider, Collapse, Badge, Tabs } from 'antd';
+import ResultChart from './ResultChart';
+import ProvisioningButtons from './ProvisioningButtons'
 
 interface actionTexts {
 	[key: string]: string
@@ -14,20 +16,34 @@ const actionItemText: actionTexts = {
 
 export const ResultsView = (props) => {
 	const { partner, log, result } = props;
+	const counts = [
+		{ label: 'Pending Implementation', count: result.filter(i => Object.values(i.checks).every(val => val === true)).length },
+		{ label: 'Bad Enrollments', count: result.filter(i => !i.checks.enrollmentStatusOK && i.checks.partnerStatusOK).length },
+		{ label: 'No Matched Account', count: result.filter(i => i.account.dealertrackID === 0).length },
+		{ label: "Pending Cancel", count: log.cancel.items.length },
+		{ label: 'Already Live', count: result.filter(i => !i.checks.notImplemented && i.checks.partnerStatusOK).length }
+	]
 	return (
 		<>
-			<h2>Action Items</h2>
-			{/* <p>{actionItemText}</p> */}
-			<ImpPackage partner={partner} item={log.implement} payload={log.provisioning} description={actionItemText.ready} />
-			<Divider dashed />
-			<h2>Follow Up Items</h2>
-			<div className="GridFour">
-				<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
-				<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
+			<div style={{ display: "grid", gridTemplateColumns: "1fr 2fr" }}>
+				<div><ResultChart input={counts} /></div>
+				<div>
+					<ImpPackage partner={partner} item={log.implement} description={actionItemText.ready} />
+					<br />
+					{log.provisioning && (
+						<ProvisioningButtons
+							payload={log.provisioning}
+							partner={partner}
+							title="Get Provisioning Files"
+						/>
+					)}
+				</div>
 			</div>
-			<Divider dashed />
-			<h2>Housekeeping</h2>
+			<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
+			<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
+			{JSON.stringify(result.map(i => i.original)).slice(0, 1000)}
 			<ImpPackage partner={partner} item={log.cancel} description={actionItemText.cancel} />
+
 			{result && (
 				<>
 					{/** --- make this a standalone components */}
