@@ -4,7 +4,7 @@
 		"jsx": "react",
 		"moduleResolution": "node",
 		"module": "esnext",
-		"noEmit": true,
+		"incremental": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"lib": [

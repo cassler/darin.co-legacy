@@ -3,10 +3,10 @@ import { meaningOfLife } from "@cassler/foo";
 import React from "react";
 
 export const Button = () => (
-  <button
-    type="button"
-    onClick={() => alert(`the meaning if life is ${meaningOfLife}`)}
-  >
-    Click me
-  </button>
+	<button
+		type="button"
+		onClick={() => alert(`the meaning if life is ${meaningOfLife}`)}
+	>
+		Click me
+	</button>
 );
