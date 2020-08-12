@@ -63,12 +63,13 @@ export class Workflower {
 	}
 	config: partnerConfigInput
 	partner: PartnerCode
-	requestData: unknown[]
+	requestData: object[]
 	refData: DTReportItem[]
 	refQuick: SimpleAccount[]
 	excluded: any[]
 	init: any[]
 	implement: ImplementationResult[]
+	stream: object[]
 
 	constructor(props) {
 		this.props = props;
@@ -78,8 +79,9 @@ export class Workflower {
 		this.refData = props.reference;
 		this.refQuick = this.simpleAccounts(this.refData);
 		this.excluded = props.options.live_ids;
-		this.init = this.matchResult();
+		// this.init = this.matchResult();
 		this.implement = this.itemsToImplement.items;
+		this.stream = [{}];
 	}
 
 	// helper function to fill in the matchResult array
@@ -158,7 +160,7 @@ export class Workflower {
 	 * @yield boolean
 	 */
 	isExcluded(pid: any, account?: SimpleAccount) {
-		const matched: SimpleAccount = account ? account : this.findAccount(pid, true) as SimpleAccount;
+		const matched: SimpleAccount = account ? account : this.findAccount(pid, false) as SimpleAccount;
 		return (
 			this.config.live_ids.includes(pid) ||
 			this.config.live_ids.includes(matched?.partnerID) ||
@@ -199,6 +201,39 @@ export class Workflower {
 
 		}
 		return result;
+	}
+
+	randomStr(len: number = 8, chars: string = '1234567890abcdef'): string {
+		var ans = '';
+		for (var i = len; i > 0; i--) {
+			ans +=
+				chars[Math.floor(Math.random() * chars.length)];
+		}
+		return ans;
+	}
+
+	streamData(callback?: Function): void {
+		for (const req of this.requestData) {
+			let pid = req[this.config.internal_id];
+			let account = this.findAccount(pid, true) as SimpleAccount;
+			let accObject = account ? account : this.emptySimpleAccount(pid);
+			this.stream = [
+				...this.stream,
+				{
+					pid,
+					checks: {
+						accountStatusOK: account ? true : false,
+						notImplemented: !this.isExcluded(pid, accObject),
+						enrollmentStatusOK: account ? this.config.valid_phases.includes(account.enrollment as EnrollmentPhase) : false,
+						partnerStatusOK: this.config.custom_validation(req),
+					},
+					account: accObject,
+					original: req,
+				},
+			];
+			// console.log(this.stream)
+			callback && callback(this.stream);
+		}
 	}
 
 	// same as matchResult, but with reduced data and added notations
