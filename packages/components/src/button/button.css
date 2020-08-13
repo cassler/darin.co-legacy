@@ -1,25 +1,25 @@
 .dButton {
 	padding: 18px 36px;
-	background-color: #222;
-	color: #ccc;
-	text-shadow: 1px 1px 2px #111;
-	font-size: 24px;
+	background-color: rgba(255,255,255,0.1);
+	color: #667;
+	font-weight: 500;
+	text-shadow: -1px -1px 2px #FFF;
+	font-size: 15px;
 	border: none;
-	box-shadow: inset 2px 5px 22px #444,
-		inset 1px 2px 4px #666,
-		2px 2px 16px #333,
-		2px 4px 4px #111;
+	box-shadow: inset -8px -16px 32px rgba(190,190,190,0.2),
+		inset -2px -2px 3px rgba(100,100,100,0.1),
+		2px 2px 12px rgba(200,200,200,0.3);
 	border-radius: 8px;
 }
 
 .dButton.primary {
-	font-weight: bold;
-	background-color: #346;
+	box-shadow: 2px 2px 12px rgba(200,200,200,0.3),
+	inset -2px -2px 3px rgba(100,100,100,0.1);
 }
 
 .dButton-small {
 	padding: 12px 24px;
-	font-size: 16px;
+	font-size: 12px;
 }
 
 .dButton-large {
