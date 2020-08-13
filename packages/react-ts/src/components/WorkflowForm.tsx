@@ -38,7 +38,6 @@ export const WorkflowForm: React.FC = () => {
 	const createResult = async () => {
 		toggleBusy(true)
 		if (ctx.requested?.data && ctx.reference?.data && ctx.partner && ctx.config) {
-			// await toggleBusy(true)
 			setTimeout(async () => {
 
 				let res = await new Workflower({
@@ -53,16 +52,9 @@ export const WorkflowForm: React.FC = () => {
 				console.log(set);
 				toggleBusy(false)
 
-			}, 2000)
-			// toggleBusy(false)
+			}, 5)
 		}
 	}
-
-	// useEffect(() => {
-	// 	if (ctx.demo && !ctx.log && ctx.requested && ctx.reference) {
-	// 		createResult()
-	// 	}
-	// }, [createResult, ctx])
 
 	const defaultMotion = {
 		transition: { ease: "easeInOut", duration: 0.3 },
