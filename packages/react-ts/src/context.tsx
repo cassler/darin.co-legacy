@@ -169,7 +169,7 @@ export class WFProvider extends React.Component {
 		}
 
 		this.state = {
-			...initialContext.default,
+			...initialContext.demo,
 			setPartner: this.setPartner,
 			setConfig: this.setConfig,
 			setDemo: this.setDemo,
