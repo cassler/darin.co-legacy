@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: Input;
     font-weight: 500;
     src: url("../../../media/InputMonoRegular.woff2") format("woff2"), url("../../../media/InputMonoRegular.woff") format("woff");
@@ -28,7 +28,7 @@
     font-family: Colfax;
     font-weight: 600;
     src: url("../../../media/ColfaxWebBold.woff2") format("woff2"), url("../../../media/ColfaxWebBold.woff") format("woff");
-}
+} */
 
 body {
 	font-family: Colfax, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

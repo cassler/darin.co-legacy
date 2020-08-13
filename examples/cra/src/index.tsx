@@ -15,7 +15,7 @@ ReactDOM.render(
 			<p className="sub">
 				Now let's use React's test renderer and Jest's snapshot feature to interact with the component and capture the rendered output and create a snapshot file:
 		</p>
-			<Button />
+			<Button label="Get some" size="large" onClick={() => { }} primary={false} backgroundColor="#111" />
 		</div>
 	</React.StrictMode>,
 	document.getElementById("root")
