@@ -1,4 +1,4 @@
-import React, { useState, useContext, } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { PartnerCode } from '@wf/types';
 import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
@@ -10,6 +10,7 @@ import { Statistic, Popover, Divider, Button, Result } from 'antd';
 import { FormOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { Spinner } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
+import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 
 
 
@@ -55,6 +56,14 @@ export const WorkflowForm: React.FC = () => {
 			}, 250)
 		}
 	}
+
+	useEffect(() => {
+		// const { demo, requested, reference, result, log } = ctx;
+		if (ctx.demo && !ctx.log) {
+			createResult();
+			ctx.setStep(4)
+		}
+	})
 
 	const defaultMotion = {
 		transition: { ease: "easeInOut", duration: 0.3 },

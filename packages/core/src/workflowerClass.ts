@@ -22,7 +22,7 @@ export type ImplementationResult = {
 export interface ImplementationPackage {
 	title: string,
 	message: string,
-	items: any[],
+	items: ImplementationResult[],
 	type?: "info" | "success" | "warning" | "error" | undefined,
 	status?: "success" | "processing" | "default" | "error" | "warning"
 

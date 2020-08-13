@@ -24,7 +24,7 @@ function App() {
 	const sideBarStyle = {
 		padding: '24px 24px 0',
 		display: "grid",
-		gridTemplateRows: "min-content 1fr min-content"
+		gridTemplateRows: "1fr min-content"
 	}
 
 	const motionPrefs = {

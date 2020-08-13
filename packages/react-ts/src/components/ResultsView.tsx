@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ImpPackage from './ImpPackage';
-import { Divider, Collapse, Badge, PageHeader } from 'antd';
-import ResultChart from './ResultChart';
-import StackedBar from './StackedBar';
-import ProvisioningButtons from './ProvisioningButtons'
+import { Card, Divider, Collapse, Badge, PageHeader, Typography, Space } from 'antd';
+import { ImplementationResult } from '@wf/core'
+const { Text, Link } = Typography;
 
 interface actionTexts {
 	[key: string]: string
@@ -15,6 +14,60 @@ const actionItemText: actionTexts = {
 	notFound: `The partner may not have added these dealers to their DT partner file yet. Wait 24 hours to see if a match takes place. If you continue to receive this error, reach out to the partner to confirm they have properly added the dealer to their DT partner file.`
 }
 
+type Props = {
+	item: ImplementationResult
+}
+
+
+export function toPhone(str: string | number) {
+	let text = str.toString()
+	let [areaCode, exchange, num] = [
+		text.slice(0, 3),
+		text.slice(3, 6),
+		text.slice(6, 10)
+	]
+	return `(${areaCode}) ${exchange}-${num}`
+}
+export const DealerListItem: React.FC<Props> = ({ item }) => {
+	const { street, city, state, zip } = item.account;
+	const { enrollmentStatusOK, notImplemented, accountStatusOK, partnerStatusOK } = item.checks;
+	return (
+		// <div style={{ display: "grid", gridTemplateColumns: '80px 90px 4fr 300px 120px 3fr', gap: '24px', width: '100%', alignItems: 'center' }}>
+		<Card>
+			<Space>
+				<div><Text disabled><small>Partner</small><br /> </Text><Text strong>{item.pid}</Text></div>
+				<div><Text disabled><small>DealerTrack</small></Text><br /><Text strong>{item.account.dealertrackID}</Text></div>
+			</Space>
+
+			<div>
+				<h2>{item.account.legalName}</h2>
+			</div>
+			<div style={{ fontSize: '10px' }}>
+				<Space>
+					<div><Badge status={accountStatusOK ? "success" : "warning"} title="Account" />Account</div>
+					<div><Badge status={enrollmentStatusOK ? "success" : "warning"} title="Enrollment" />Enrollment</div>
+					<div><Badge status={partnerStatusOK ? "success" : "warning"} title="Partner" />Partner</div>
+					<div><Badge status={notImplemented ? "default" : "warning"} title="Live" />Live</div>
+				</Space>
+			</div>
+			<Divider />
+			<div>
+				<Text type="secondary">
+					{street}<br /> {city}, {state} {zip}
+				</Text><br />
+				<Text disabled>{toPhone(item.account.phone)}</Text>
+			</div>
+
+
+
+
+
+
+		</Card>
+	)
+}
+
+
 export const ResultsView = (props) => {
 	const { partner, log, result } = props;
 
@@ -24,7 +77,13 @@ export const ResultsView = (props) => {
 				title={`Results for ${partner}`}
 				subTitle={`Showing info for ${result.length} dealers.`}
 			/>
+
 			<ImpPackage partner={partner} item={log.implement} description={actionItemText.ready} payload={log.provisioning} />
+			<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: '24px' }}>
+				{log.implement.items.map(item => (
+					<DealerListItem item={item} />
+				))}
+			</div>
 			<Divider />
 			<ImpPackage partner={partner} item={log.invalid} description={actionItemText.notContacted} />
 			<ImpPackage partner={partner} item={log.unmatched} description={actionItemText.notFound} />
