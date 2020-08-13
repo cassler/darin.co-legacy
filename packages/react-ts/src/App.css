@@ -10,14 +10,42 @@
 	box-sizing: border-box;
 }
 
+body {
+	background-color: rgb(240, 242, 245) !important;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	align-items: center;
+}
+
 .App-logo {
-  height: 15vmin;
-  pointer-events: none;
+	font-weight: 800;
+	color: #333;
+	letter-spacing: -0.05em;
+	padding: 0 48px 24px;
+	text-align: left;
+	font-size: 26px;
+	line-height: 26px;
+	margin: 0 0 24px;
+	text-align: center;
+	/* border-bottom: 1px solid #ddd; */
+	position: fixed;
+	top: 24px;
+	left: 24px;
+  /* height: 15vmin; */
+  /* pointer-events: none; */
+}
+
+.App-logo small {
+	font-weight: 300;
+	letter-spacing: 0;
+	color: #666;
+	text-transform: uppercase;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    /* animation: App-logo-spin infinite 20s linear; */
   }
 }
 
