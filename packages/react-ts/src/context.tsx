@@ -23,6 +23,7 @@ interface WFContextI {
 	currentTab: string,
 	demo: boolean
 	step: number,
+	showPartnerSettings: boolean
 }
 
 interface WFContextVal extends WFContextI {
@@ -34,6 +35,7 @@ interface WFContextVal extends WFContextI {
 	setReference: Function
 	setRequested: Function
 	setTab: Function
+	togglePartnerSettings: Function
 }
 
 interface WFContextsI {
@@ -52,6 +54,7 @@ export const initialContext: WFContextsI = {
 		currentTab: "1",
 		demo: true,
 		step: 0,
+		showPartnerSettings: false
 	},
 	default: {
 		requested: undefined,
@@ -64,6 +67,7 @@ export const initialContext: WFContextsI = {
 		currentTab: "1",
 		demo: false,
 		step: 0,
+		showPartnerSettings: false
 	}
 }
 
@@ -85,6 +89,7 @@ export class WFProvider extends React.Component {
 	setRequested: Function
 	setTab: Function
 	setStep: Function
+	togglePartnerSettings: Function
 	constructor(props) {
 		super(props)
 		this.setPartner = (sel: PartnerCode) => {
@@ -157,6 +162,12 @@ export class WFProvider extends React.Component {
 				step: i
 			}))
 		}
+		this.togglePartnerSettings = (newVis: boolean) => {
+			this.setState(prevState => ({
+				showPartnerSettings: newVis
+			}))
+		}
+
 		this.state = {
 			...initialContext.default,
 			setPartner: this.setPartner,
@@ -167,7 +178,8 @@ export class WFProvider extends React.Component {
 			setReference: this.setReference,
 			setRequested: this.setRequested,
 			setTab: this.setTab,
-			setStep: this.setStep
+			setStep: this.setStep,
+			togglePartnerSettings: this.togglePartnerSettings
 		}
 	}
 
