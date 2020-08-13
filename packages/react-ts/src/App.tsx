@@ -16,7 +16,7 @@ function App() {
 		console.log('click', e);
 	}
 	const padSmall = { padding: '0', minHeight: 280 };
-	const padBig = { padding: '24px 48px' };
+	const padBig = { padding: '72px 24px 48px' };
 	const layoutStyle = {
 		display: "grid",
 		gridTemplateColumns: "280px 1fr"
@@ -24,7 +24,7 @@ function App() {
 	const sideBarStyle = {
 		padding: '24px 24px 0',
 		display: "grid",
-		gridTemplateRows: "1fr min-content"
+		gridTemplateRows: "min-content 1fr min-content"
 	}
 
 	const motionPrefs = {
@@ -39,6 +39,8 @@ function App() {
 	}
 	return (
 		<Layout>
+
+			<h1 className='App-logo'>Workflower <small>Core</small></h1>
 			<Content style={padBig}>
 				<WFProvider>
 					<Layout style={padSmall}>

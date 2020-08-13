@@ -3,7 +3,7 @@ import ResultsView from './ResultsView';
 import { Result, Button } from 'antd';
 import { WFContext } from '../context';
 import { ImplementationResult } from '@wf/core';
-import { Doughnut } from 'react-chartjs-2';
+import { ArrowLeftOutlined } from '@ant-design/icons'
 
 
 export const ResultsContainer = () => {
@@ -17,6 +17,14 @@ export const ResultsContainer = () => {
 
 	return (
 		<div>
+			<Button
+				style={{ position: "fixed", top: '24px', right: '24px' }}
+				disabled={ctx.step === 0}
+				type="link"
+				onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}
+			>
+				<ArrowLeftOutlined /> Go Back
+				</Button>
 			{ctx.log && (
 				<div>
 

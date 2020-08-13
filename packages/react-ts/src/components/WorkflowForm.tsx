@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, } from 'react';
 import { PartnerCode } from '@wf/types';
 import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
@@ -8,6 +8,7 @@ import { settings } from '../data/settings';
 import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button, Result } from 'antd';
 import { FormOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Spinner } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
 
 
@@ -15,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion"
 export const WorkflowForm: React.FC = () => {
 
 	const { ctx } = useContext(WFContext);
-	const step = ctx.step;
+	const { step } = ctx;
 	const [busy, toggleBusy] = useState<boolean>(false)
 
 	// When choosing a new partner, also apply their configs
@@ -34,27 +35,26 @@ export const WorkflowForm: React.FC = () => {
 	}
 
 	// Manually run a new calculation and put results into state
-	const createResult = useCallback(() => {
+	const createResult = async () => {
 		toggleBusy(true)
 		if (ctx.requested?.data && ctx.reference?.data && ctx.partner && ctx.config) {
-			let res = new Workflower({
-				partnerCode: ctx.partner,
-				options: ctx.config,
-				requested: ctx.requested.data,
-				reference: ctx.reference.data
-			})
-			if (res.init) {
-				ctx.setResult(res.init, res.fullPayload);
-			}
-		}
-		toggleBusy(false)
-	}, [ctx, toggleBusy])
+			setTimeout(async () => {
 
-	useEffect(() => {
-		if (ctx.demo && !ctx.log && ctx.requested && ctx.reference) {
-			createResult()
+				let res = await new Workflower({
+					partnerCode: ctx.partner,
+					options: ctx.config,
+					requested: ctx.requested.data,
+					reference: ctx.reference.data
+				})
+				let result = await res.init;
+				let payload = await res.fullPayload;
+				const set = await ctx.setResult(result, payload);
+				console.log(set);
+				toggleBusy(false)
+
+			}, 5)
 		}
-	}, [createResult, ctx])
+	}
 
 	const defaultMotion = {
 		transition: { ease: "easeInOut", duration: 0.3 },
@@ -142,29 +142,46 @@ export const WorkflowForm: React.FC = () => {
 				{step === 3 && (
 					<motion.div key="3" {...defaultMotion}>
 						<Result
-							status="success"
-							title="Looks good!"
+							status={ctx.log ? "success" : "info"}
+							title={ctx.log ? "Looks good!" : "Ready to analyze"}
 							subTitle="We have everything we need to process these."
 							extra={(
-								<Button
-									style={{ position: "absolute", bottom: '0', right: '0' }}
-									onClick={() => createResult()}
-									disabled={!ctx.requested || !ctx.reference || busy}
-									type="primary">
-									{busy ? "Working..." : `Generate for ${ctx.partner}`}
-								</Button>
+								<>
+									<div className="Stat-Group" style={{ minHeight: '240px' }}>
+										<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
+											<div>
+												<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
+												<FormOutlined />
+											</div>
+										</Popover>
+										<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
+										<Statistic title="Items on Request" value={ctx.requested?.data.length} />
+									</div>
+									{busy ? (
+										<Spinner size={60} />
+									) : (
+											!ctx.log ? (
+												<Button
+													onClick={() => createResult()}
+													disabled={!ctx.requested || !ctx.reference || busy}
+													type="primary">
+													{busy ? "Working..." : `Generate for ${ctx.partner}`}
+												</Button>
+											) : (
+													<div style={{ position: "absolute", bottom: '0', right: '0' }}>
+														<Button
+															onClick={() => ctx.setStep(ctx.step + 1)}
+															disabled={!ctx.log || busy}
+															type="primary">
+															{busy ? "Working..." : `See results!`}
+														</Button>
+													</div>
+												)
+										)}
+								</>
 							)}
 						/>
-						<div className="Stat-Group" style={{ minHeight: '240px' }}>
-							<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
-								<div>
-									<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
-									<FormOutlined />
-								</div>
-							</Popover>
-							<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
-							<Statistic title="Items on Request" value={ctx.requested?.data.length} />
-						</div>
+
 					</motion.div>
 				)}
 
