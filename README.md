@@ -21,15 +21,15 @@ This start our React client at `http://localhost:3333` and a documentation serve
 
 - `yarn run build`
 
-### Package Version Notice - August 12th 2020
+### Package Version Notice - August 13th 2020
 
 ```
-@wf/documentation v0.1.0 docs
-@wf/core          v0.2.0 packages/core
-@wf/csv           v0.1.0 packages/csv
+@wf/documentation v0.2.0 docs
+@wf/core          v0.5.0 packages/core
+@wf/csv           v0.5.0 packages/csv
 @wf/examples      v0.1.0 packages/examples
-@wf/react-ts      v0.3.1 packages/react-ts
+@wf/react-ts      v0.5.0 packages/react-ts
 @wf/template      v0.1.0 packages/template
-@wf/types         v0.0.1 packages/types
+@wf/types         v0.5.0 packages/types
 ```
 
