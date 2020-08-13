@@ -65,8 +65,8 @@ export const WorkflowForm: React.FC = () => {
 				{(step === 0) && (
 					<motion.div
 						key={"0"}
-						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 1 }}
+						transition={{ ease: "easeInOut", duration: 0.4, delay: 0.3 }}
+						initial={{ x: 0, opacity: 0, scale: 0.8 }}
 						animate={{ x: 0, opacity: 1, scale: 1 }}
 						exit={{ x: -300, opacity: 0, scale: 1 }}
 					>

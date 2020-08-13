@@ -22,12 +22,14 @@ export const PreferenceMenu: React.FC<IPreferenceMenu> = ({ title, partner, hand
 			<Menu.Item
 				key="m1"
 				icon={<MailOutlined />}
+				onClick={() => ctx.setClear()}
 				title="Reset">
 				Reset Workflower
 			</Menu.Item>
 			<Menu.Item
 				key="m2"
 				icon={<AppstoreOutlined />}
+				onClick={() => ctx.setDemo()}
 				title="Use Example Data">
 				Use Example Data
 			</Menu.Item>

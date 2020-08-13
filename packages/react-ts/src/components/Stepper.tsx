@@ -61,14 +61,16 @@ export const Stepper: React.FC<IStepperProps> = ({
 	]
 
 	return (
-		<Steps direction="vertical" current={index} >
-			{defaultSteps.map(item => (
-				<Steps.Step
-					title={item.title}
-					description={item.isReady ? item.readyDescription : item.description}
-				/>
-			))}
-		</Steps>
+		<div>
+			<Steps direction="vertical" current={index} >
+				{defaultSteps.map(item => (
+					<Steps.Step
+						title={item.title}
+						description={item.isReady ? item.readyDescription : item.description}
+					/>
+				))}
+			</Steps>
+		</div>
 	)
 }
 

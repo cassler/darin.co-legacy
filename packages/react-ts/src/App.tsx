@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import ViewSettings from './components/ViewSettings';
 import { Divider, Modal, Layout, Card, Tabs, Button, Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { motion, AnimatePresence } from "framer-motion"
 import WorkflowForm from './components/WorkflowForm';
 import Stepper from './components/Stepper';
 import PreferenceMenu from './components/PreferenceMenu';
@@ -17,7 +17,26 @@ function App() {
 	}
 	const padSmall = { padding: '0', minHeight: 280 };
 	const padBig = { padding: '24px 48px' };
+	const layoutStyle = {
+		display: "grid",
+		gridTemplateColumns: "280px 1fr"
+	}
+	const sideBarStyle = {
+		padding: '24px 24px 0',
+		display: "grid",
+		gridTemplateRows: "1fr min-content"
+	}
 
+	const motionPrefs = {
+		transition: {
+			ease: "easeInOut",
+			duration: 0.3,
+			delay: 0
+		},
+		initial: { y: -100, opacity: 0, scale: 0.7 },
+		animate: { y: 0, opacity: 1, scale: 1 },
+		exit: { y: 100, opacity: 0, scale: 3.7 }
+	}
 	return (
 		<Layout>
 			<Content style={padBig}>
@@ -25,32 +44,32 @@ function App() {
 					<Layout style={padSmall}>
 						<WFContext.Consumer>
 							{({ ctx }) => (
-								<div style={{ display: "grid", gridTemplateColumns: "280px 1fr" }}>
-									<div style={{
-										padding: '24px 24px 0',
-										display: "grid",
-										gridTemplateRows: "1fr min-content"
-									}}>
-										<div>
-											<Stepper
-												partner={ctx.partner}
-												refSize={ctx.reference?.data.length}
-												reqSize={ctx.requested?.data.length}
-												index={ctx.step} />
-										</div>
+								<div style={layoutStyle}>
+									<div style={sideBarStyle}>
+										<Stepper
+											partner={ctx.partner}
+											refSize={ctx.reference?.data.length}
+											reqSize={ctx.requested?.data.length}
+											index={ctx.step} />
 										<div>
 											<Divider />
 											<PreferenceMenu handleClick={handleClick} partner={ctx.partner} />
 										</div>
-
 									</div>
-									<Card className='result-card'>
-										<WorkflowForm />
-										{ctx.step > 3 && (
-											<ResultsContainer />
-										)}
+									<AnimatePresence exitBeforeEnter>
+										{ctx.step <= 3 ? (
+											<motion.div {...motionPrefs} key="0">
+												<Card className='result-card'>
+													<WorkflowForm />
+												</Card>
+											</motion.div>
+										) : (
+												<motion.div {...motionPrefs} key="1">
+													<ResultsContainer />
+												</motion.div>
+											)}
+									</AnimatePresence>
 
-									</Card>
 									<Modal
 										title={`Partner Settings - ${ctx.partner}`}
 										width={800}
