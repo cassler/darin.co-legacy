@@ -52,7 +52,7 @@ export const WorkflowForm: React.FC = () => {
 				console.log(set);
 				toggleBusy(false)
 
-			}, 5)
+			}, 250)
 		}
 	}
 
