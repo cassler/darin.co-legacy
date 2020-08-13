@@ -56,6 +56,12 @@ export const WorkflowForm: React.FC = () => {
 		}
 	}, [createResult, ctx])
 
+	const defaultMotion = {
+		transition: { ease: "easeInOut", duration: 0.3 },
+		initial: { x: 300, opacity: 0, scale: 0.1 },
+		animate: { x: 0, opacity: 1, scale: 1 },
+		exit: { x: -300, opacity: 0, scale: 0.1 }
+	}
 
 	return (
 		<div style={{ position: "relative", minHeight: '640px' }}>
@@ -65,10 +71,8 @@ export const WorkflowForm: React.FC = () => {
 				{(step === 0) && (
 					<motion.div
 						key={"0"}
+						{...defaultMotion}
 						transition={{ ease: "easeInOut", duration: 0.4, delay: 0.3 }}
-						initial={{ x: 0, opacity: 0, scale: 0.8 }}
-						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 1 }}
 					>
 						<Result
 							status="403"
@@ -94,13 +98,7 @@ export const WorkflowForm: React.FC = () => {
 					</motion.div>
 				)}
 				{step === 1 && (
-					<motion.div
-						key="1"
-						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.1 }}
-						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 1 }}
-					>
+					<motion.div key="1" {...defaultMotion}>
 						<Result
 							status="404"
 							title="Add a Dealertrack Report"
@@ -121,13 +119,7 @@ export const WorkflowForm: React.FC = () => {
 
 				)}
 				{step === 2 && (
-					<motion.div
-						key="2"
-						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.1 }}
-						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 1.0 }}
-					>
+					<motion.div key="2" {...defaultMotion}>
 						<Result
 							status="500"
 							title="And the partner requests..."
@@ -148,13 +140,7 @@ export const WorkflowForm: React.FC = () => {
 					</motion.div>
 				)}
 				{step === 3 && (
-					<motion.div
-						key="3"
-						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.1 }}
-						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 1.0 }}
-					>
+					<motion.div key="3" {...defaultMotion}>
 						<Result
 							status="success"
 							title="Looks good!"
