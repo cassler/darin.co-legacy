@@ -5,6 +5,7 @@ import Papa from 'papaparse';
 import { message, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
 import { motion, AnimatePresence } from "framer-motion"
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 type Props = {
 	label: string,
@@ -67,6 +68,7 @@ const FileSelect: React.FC<Props> = ({
 				<FileInput
 					large
 					fill
+					style={{ maxWidth: '540px' }}
 					id={label}
 					disabled={false}
 					inputProps={{
@@ -77,9 +79,8 @@ const FileSelect: React.FC<Props> = ({
 					onInputChange={(event) => console.log(event.target)}
 				/>
 			</FormGroup>
-			<AnimatePresence>
-				{ready ? (
-
+			<div style={{ minHeight: '75px' }}>
+				{ready && (
 					<motion.div
 						key="2"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
@@ -87,21 +88,16 @@ const FileSelect: React.FC<Props> = ({
 						animate={{ x: 0, opacity: 1, scale: 1 }}
 						exit={{ x: 0, opacity: 0, scale: 1 }}
 					>
-						<Button disabled={!ready} type="primary" onClick={() => callback(data)}>Continue</Button>
+						<Button
+							style={{ position: "absolute", bottom: '0', right: '0' }}
+							disabled={!ready} type="primary" onClick={() => callback(data)}>
+							Continue
+							<ArrowRightOutlined />
+						</Button>
 					</motion.div>
-				) : (
-						<motion.div
-							key="1"
-							transition={{ ease: "easeInOut", duration: 0.3 }}
-							initial={{ x: 0, opacity: 0, scale: 1 }}
-							animate={{ x: 0, opacity: 0, scale: 1 }}
-							exit={{ x: 0, opacity: 0, scale: 1 }}
-						>
-							<Button type="link">&nbps;</Button>
-						</motion.div>
-					)}
+				)}
+			</div>
 
-			</AnimatePresence>
 		</>
 	)
 }

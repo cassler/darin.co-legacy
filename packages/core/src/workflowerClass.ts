@@ -79,7 +79,7 @@ export class Workflower {
 		this.refData = props.reference;
 		this.refQuick = this.simpleAccounts(this.refData);
 		this.excluded = props.options.live_ids;
-		// this.init = this.matchResult();
+		this.init = this.matchResult();
 		this.implement = this.itemsToImplement.items;
 		this.stream = [{}];
 	}

@@ -7,7 +7,7 @@ import FileSelect from './FileSelect';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button, Result } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
+import { FormOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { motion, AnimatePresence } from "framer-motion"
 
 
@@ -58,7 +58,7 @@ export const WorkflowForm: React.FC = () => {
 
 
 	return (
-		<div>
+		<div style={{ position: "relative", minHeight: '640px' }}>
 			<AnimatePresence exitBeforeEnter>
 
 
@@ -66,9 +66,9 @@ export const WorkflowForm: React.FC = () => {
 					<motion.div
 						key={"0"}
 						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						initial={{ x: 300, opacity: 0, scale: 1 }}
 						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+						exit={{ x: -300, opacity: 0, scale: 1 }}
 					>
 						<Result
 							status="403"
@@ -97,9 +97,9 @@ export const WorkflowForm: React.FC = () => {
 					<motion.div
 						key="1"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						initial={{ x: 300, opacity: 0, scale: 0.1 }}
 						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+						exit={{ x: -300, opacity: 0, scale: 1 }}
 					>
 						<Result
 							status="404"
@@ -124,9 +124,9 @@ export const WorkflowForm: React.FC = () => {
 					<motion.div
 						key="2"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						initial={{ x: 300, opacity: 0, scale: 0.1 }}
 						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+						exit={{ x: -300, opacity: 0, scale: 1.0 }}
 					>
 						<Result
 							status="500"
@@ -151,9 +151,9 @@ export const WorkflowForm: React.FC = () => {
 					<motion.div
 						key="3"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
-						initial={{ x: 300, opacity: 0, scale: 0.8 }}
+						initial={{ x: 300, opacity: 0, scale: 0.1 }}
 						animate={{ x: 0, opacity: 1, scale: 1 }}
-						exit={{ x: -300, opacity: 0, scale: 0.8 }}
+						exit={{ x: -300, opacity: 0, scale: 1.0 }}
 					>
 						<Result
 							status="success"
@@ -161,6 +161,7 @@ export const WorkflowForm: React.FC = () => {
 							subTitle="We have everything we need to process these."
 							extra={(
 								<Button
+									style={{ position: "absolute", bottom: '0', right: '0' }}
 									onClick={() => createResult()}
 									disabled={!ctx.requested || !ctx.reference || busy}
 									type="primary">
@@ -168,10 +169,7 @@ export const WorkflowForm: React.FC = () => {
 								</Button>
 							)}
 						/>
-
-
-
-						<div className="Stat-Group">
+						<div className="Stat-Group" style={{ minHeight: '240px' }}>
 							<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
 								<div>
 									<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
@@ -183,7 +181,16 @@ export const WorkflowForm: React.FC = () => {
 						</div>
 					</motion.div>
 				)}
+
 			</AnimatePresence>
+			<Button
+				style={{ position: "absolute", bottom: '0', left: '0' }}
+				disabled={ctx.step === 0}
+				type="link"
+				onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}
+			>
+				<ArrowLeftOutlined /> Go Back
+				</Button>
 		</div>
 	)
 }

@@ -10,6 +10,14 @@
 	box-sizing: border-box;
 }
 
+body {
+	background-color: rgb(240, 242, 245) !important;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	align-items: center;
+}
+
 .App-logo {
   height: 15vmin;
   pointer-events: none;
