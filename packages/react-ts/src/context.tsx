@@ -53,7 +53,7 @@ export const initialContext: WFContextsI = {
 		busy: false,
 		currentTab: "1",
 		demo: true,
-		step: 0,
+		step: 3,
 		showPartnerSettings: false
 	},
 	default: {
@@ -128,7 +128,7 @@ export class WFProvider extends React.Component {
 				...state,
 				result: result,
 				log: log,
-				step: 4,
+				// step: 4,
 			}))
 			// this.setTab("3")
 		}
@@ -169,7 +169,7 @@ export class WFProvider extends React.Component {
 		}
 
 		this.state = {
-			...initialContext.default,
+			...initialContext.demo,
 			setPartner: this.setPartner,
 			setConfig: this.setConfig,
 			setDemo: this.setDemo,
