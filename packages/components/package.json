@@ -1,23 +1,36 @@
 {
-	"name": "@cassler/components",
-	"version": "1.0.2",
-	"main": "dist/index",
-	"types": "dist/index",
-	"scripts": {
-		"build": "yarn run clean && yarn run compile",
-		"clean": "rimraf -rf ./dist",
-		"compile": "tsc -p tsconfig.build.json",
-		"prepublishOnly": "yarn run build",
-		"test": "yarn run build"
-	},
-	"peerDependencies": {
-		"react": "~16.13.1"
-	},
-	"dependencies": {
-		"@cassler/foo": "^1.0.2"
-	},
-	"devDependencies": {
-		"@types/react": "~16.9.43"
-	},
-	"gitHead": "5ce6e1af2504c7c3d09c1e2b8a6c7ead9c2c4724"
+  "name": "@cassler/components",
+  "version": "1.0.2",
+  "main": "dist/index",
+  "types": "dist/index",
+  "scripts": {
+    "build": "yarn run clean && yarn run compile",
+    "clean": "rimraf -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "yarn run build",
+    "test": "yarn run build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": "~16.13.1"
+  },
+  "dependencies": {
+    "@cassler/foo": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-actions": "^6.0.5",
+    "@storybook/addon-docs": "^6.0.5",
+    "@storybook/addon-essentials": "^6.0.5",
+    "@storybook/addon-links": "^6.0.5",
+    "@storybook/react": "^6.0.5",
+    "@types/react": "~16.9.43",
+    "@types/storybook__react": "^5.2.1",
+    "add": "^2.0.6",
+    "babel-loader": "^8.1.0",
+    "react-is": "^16.13.1",
+    "typescript": "^3.9.7"
+  },
+  "gitHead": "5ce6e1af2504c7c3d09c1e2b8a6c7ead9c2c4724"
 }
