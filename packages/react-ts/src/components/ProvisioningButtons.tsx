@@ -15,15 +15,19 @@ export const ProvisioningButtons: React.FC<ProvisioningButtonsProps> =
 
 			<DownloadButton
 				label="eBiz Suite" type="primary" partner={partner}
-				data={payload.eBizUpload} /> &nbsp;
+				data={payload.eBizUpload}
+				tip="Use to add dealers to partner eBiz profile"
+			/> &nbsp;
 			<DownloadButton
 				label="Finance Driver" type="primary" partner={partner}
-				data={payload.financeDriverUpload} />
+				data={payload.financeDriverUpload}
+				tip="File for provisioning partner's FD for dealers" />
 				&nbsp;
 			<DownloadButton
-				label="Product Subscript"
+				label="Product Subscription"
 				type="primary" partner={partner}
 				data={payload.prodSubAttachment}
+				tip="Send to production.subscription@coxautoinc.com for billing assets"
 			/>
 		</>
 	)
