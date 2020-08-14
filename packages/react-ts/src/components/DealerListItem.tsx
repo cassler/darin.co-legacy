@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImplementationResult, toPhone } from '@wf/core';
-import { Card, Badge, Typography, Space, Divider } from 'antd';
+import { Card, Badge, Tooltip, Typography, Space, Divider } from 'antd';
 import { BadgeProps } from 'antd/lib/badge'
 const { Text } = Typography;
 
@@ -66,7 +66,9 @@ export const DealerListItem: React.FC<Props> = ({ item }) => {
 			</h2>
 			<Space style={{ fontSize: '10px' }}>
 				{badges.map(b => (
-					<div><Badge status={b.status} title={b.title} />{b.title}</div>
+					<Tooltip title={b.desc}>
+						<div><Badge status={b.status} title={b.title} />{b.title}</div>
+					</Tooltip>
 				))}
 			</Space>
 			<Divider />

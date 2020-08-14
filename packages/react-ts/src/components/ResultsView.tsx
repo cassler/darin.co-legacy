@@ -30,8 +30,8 @@ export const ResultsView = (props) => {
 					<div style={{
 						display: "grid",
 						justifyContent: 'center',
-						gridTemplateColumns: '180px 180px 180px 180px',
-						gap: '24px'
+						gridTemplateColumns: '190px 190px 190px 190px',
+						gap: '12px'
 					}}>
 						{Object.keys(log).map((i, index) => {
 							const obj = log[i] as ImplementationPackage;
@@ -43,6 +43,7 @@ export const ResultsView = (props) => {
 											<h3 style={{ position: 'relative', left: '-5px' }}>
 												<Badge status={obj.status} count={count} />
 												{obj.title}
+
 											</h3>
 											<h1 style={{
 												fontSize: '72px',
@@ -50,19 +51,22 @@ export const ResultsView = (props) => {
 												color: '#444',
 												paddingBottom: 0,
 												marginBottom: 5,
+												paddingLeft: '8px'
 											}}>
 												{count}
-											</h1>
-											<QuestionCircleOutlined
-												size={24}
-												style={{
-													color: '#ccc',
-													position: 'relative',
-													top: '-48px',
-													right: '-40px'
-												}}
+												<QuestionCircleOutlined
+													size={24}
+													style={{
+														color: '#ccc',
+														fontSize: '18px',
+														position: 'relative',
+														// top: '-4px',
+														right: '-8px'
+													}}
 
-											/>
+												/>
+											</h1>
+
 										</div>
 									</Popover>
 									<Divider type="vertical" />
