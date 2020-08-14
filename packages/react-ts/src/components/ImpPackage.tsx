@@ -2,7 +2,7 @@ import React from 'react';
 import { ImplementationPackage, ImplementationResult } from '@wf/core';
 import DownloadButton from './DownloadButton';
 import ProvisioningButtons from './ProvisioningButtons';
-import { Alert, Divider, Collapse } from 'antd';
+import { Alert, Divider, Collapse, Popover } from 'antd';
 import { PartnerCode } from '@wf/types';
 
 export interface ImpPayloadI {
@@ -23,10 +23,10 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 	}
 	const type = item.type ? item.type : "info";
 	const hasItems = item.items && item.items.length > 1;
-	// const className = payload ? "main-output" : "default-output";
+	const useItems = false
 	return (
-		<div>
-			<div>
+		<>
+			<Popover content={description} title={item.title} style={{ maxWidth: 400 }}>
 				<Alert
 					message={(
 						<h4>
@@ -39,12 +39,12 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 							)}
 						</h4>
 					)}
-					description={description}
 					type={type}
+					description={description}
 					showIcon
 				/>
-			</div>
-			{hasItems && (
+			</Popover>
+			{hasItems && useItems && (
 				<Collapse onChange={callback} ghost>
 					<Collapse.Panel header={(
 						<h4>
@@ -67,7 +67,7 @@ const ImpPackage: React.FC<ImpPackageI> = ({ item, payload, description, partner
 					</Collapse.Panel>
 				</Collapse>
 			)}
-		</div>
+		</>
 	)
 }
 

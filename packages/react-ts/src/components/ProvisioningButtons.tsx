@@ -14,14 +14,14 @@ export const ProvisioningButtons: React.FC<ProvisioningButtonsProps> =
 		<>
 
 			<DownloadButton
-				label="eBiz Suite" type="default" partner={partner}
+				label="eBiz Suite" type="primary" partner={partner}
 				data={payload.eBizUpload} />
 			<DownloadButton
-				label="Finance Driver" type="default" partner={partner}
+				label="Finance Driver" type="primary" partner={partner}
 				data={payload.financeDriverUpload} />
 			<DownloadButton
 				label="Product Subscript"
-				type="default" partner={partner}
+				type="primary" partner={partner}
 				data={payload.prodSubAttachment}
 			/>
 		</>

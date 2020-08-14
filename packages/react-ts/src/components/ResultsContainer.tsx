@@ -28,7 +28,7 @@ export const ResultsContainer = () => {
 			{ctx.log && (
 				<div>
 
-					<ResultsView partner={ctx.partner} log={ctx.log} result={ctx.result} />
+					<ResultsView partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids.length} />
 
 				</div>
 			)}
