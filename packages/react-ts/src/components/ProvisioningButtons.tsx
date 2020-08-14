@@ -15,10 +15,11 @@ export const ProvisioningButtons: React.FC<ProvisioningButtonsProps> =
 
 			<DownloadButton
 				label="eBiz Suite" type="primary" partner={partner}
-				data={payload.eBizUpload} />
+				data={payload.eBizUpload} /> &nbsp;
 			<DownloadButton
 				label="Finance Driver" type="primary" partner={partner}
 				data={payload.financeDriverUpload} />
+				&nbsp;
 			<DownloadButton
 				label="Product Subscript"
 				type="primary" partner={partner}

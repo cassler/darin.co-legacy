@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { CSVLink } from 'react-csv';
 import moment from 'moment';
 import { PartnerCode } from '@wf/types';
-
+import { CloudDownloadOutlined } from '@ant-design/icons'
 type Props = {
 	label: string,
 	data: any[],
@@ -20,6 +20,7 @@ const DownloadButton: React.FC<Props> = ({ label, data, partner, type }) => {
 			filename={filename}
 		>
 			<Button type={type || "link"} >
+				<CloudDownloadOutlined />
 				{label}
 			</Button>
 		</CSVLink>
