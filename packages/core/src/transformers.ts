@@ -175,3 +175,13 @@ export const asFinanceDriverPayload = (
 ) => {
 	return items.map(i => asFinanceDriverItem(i, partnerCode, config))
 }
+
+export function toPhone(str: string | number) {
+	let text = str.toString()
+	let [areaCode, exchange, num] = [
+		text.slice(0, 3),
+		text.slice(3, 6),
+		text.slice(6, 10)
+	]
+	return `(${areaCode}) ${exchange}-${num}`
+}

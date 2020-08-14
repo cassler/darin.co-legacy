@@ -18,6 +18,17 @@ body {
 	align-items: center;
 }
 
+h2 {
+	font-weight: 800;
+}
+
+.ant-popover-inner-content {
+	max-width: 400px
+}
+.ant-alert-description {
+	font-size: 13px !important;
+	line-height: 17px !important;
+}
 .App-logo {
 	font-weight: 800;
 	color: #333;

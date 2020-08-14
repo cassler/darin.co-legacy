@@ -50,6 +50,7 @@ function App() {
 									<div style={sideBarStyle}>
 										<Stepper
 											partner={ctx.partner}
+											setStep={ctx.setStep}
 											refSize={ctx.reference?.data.length}
 											reqSize={ctx.requested?.data.length}
 											index={ctx.step} />
