@@ -76,7 +76,7 @@ export const DealerListItem: React.FC<Props> = ({ item }) => {
 				<Text type="secondary">
 					{street}<br /> {city}, {state} {zip}
 				</Text><br />
-				<Text disabled>{toPhone(item.account.phone)}</Text>
+				<Text disabled>{item.account.phone > 0 && toPhone(item.account.phone)}</Text>
 			</div>
 		</Card>
 	)
