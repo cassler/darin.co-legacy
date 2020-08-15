@@ -7,6 +7,7 @@
 	"dependencies": {
 		"@cassler/components": "^1.0.1",
 		"@cassler/foo": "^1.0.1",
+		"framer-motion": "^2.4.1",
 		"react": "~16.13.1",
 		"react-dom": "~16.13.1"
 	},

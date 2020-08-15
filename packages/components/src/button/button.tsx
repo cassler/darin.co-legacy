@@ -1,8 +1,7 @@
 /* eslint-disable no-alert */
-import { meaningOfLife } from "@cassler/foo";
+import { typography } from '@cassler/typography';
 import React from "react";
-import "./button.css";
-
+import "./button.scss";
 
 export interface IButtonProps {
 	primary?: boolean,
@@ -11,6 +10,7 @@ export interface IButtonProps {
 	backgroundColor: string,
 	onClick?: () => void
 }
+
 export const Button: React.FC<IButtonProps> = ({
 	primary = false,
 	size = 'medium',
@@ -19,13 +19,18 @@ export const Button: React.FC<IButtonProps> = ({
 	onClick = () => { }
 }) => {
 	const styles = backgroundColor ? { backgroundColor } : {}
+
+
+	const btnProps = {
+		className: `dButton dButton-${size} ${primary && 'primary'}`,
+		style: backgroundColor ? { backgroundColor } : {},
+		type: "button",
+		label,
+		onClick: () => onClick && onClick()
+	}
 	return (
-		<button
-			className={`dButton dButton-${size} ${primary && 'primary'}`}
-			style={styles}
-			type="button"
-			onClick={() => onclick && onClick()}
-		>
+		<button {...btnProps as unknown}>
+			{typography}
 			{label} {size} {primary ? 'primary' : 'nope'}
 		</button>
 	)
