@@ -1,4 +1,4 @@
-import { boa_ebs_aug5, boa_sf_aug5, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { boa_ebs_aug5, boa_sf_aug17, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
 import { partnerConfigInput } from '@wf/types';
 
 interface partnerSettingsList {
@@ -54,7 +54,7 @@ export const settings: partnerSettingsList = {
 		// JSON of DT Business Report for partner
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: boa_ebs_aug5,
+		live_ids: boa_sf_aug17,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],

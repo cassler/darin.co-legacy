@@ -62,7 +62,7 @@ export const DealerListItem: React.FC<Props> = ({ item }) => {
 			</Space>
 			<Divider />
 			<h2 style={{ fontWeight: 700, lineHeight: '1.1em' }}>
-				{item.account.legalName}
+				{item.account.dbaName}
 			</h2>
 			<Space style={{ fontSize: '10px' }}>
 				{badges.map(b => (
