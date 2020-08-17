@@ -25,6 +25,7 @@ export const WorkflowForm: React.FC = () => {
 		ctx.setPartner(partner);
 		if (partner === "BOA") ctx.setConfig(settings.boa);
 		if (partner === "DRW") ctx.setConfig(settings.drw);
+		if (partner === "HAZ") ctx.setConfig(settings.haz);
 	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
@@ -90,7 +91,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<SelectPartner
-										partners={["BOA", "DRW", "CNZ", "GOO"] as PartnerCode[]}
+										partners={["BOA", "DRW", "CNZ", "GOO", "HAZ"] as PartnerCode[]}
 										defaultPartner={ctx.partner}
 										callback={handlePartnerSelect}
 									/>

@@ -16,6 +16,7 @@ interface WFContextI {
 	requested: IParseResult | undefined,
 	reference: IParseResult | undefined,
 	partner: PartnerCode,
+	partner_name: string,
 	config: partnerConfigInput | undefined,
 	result: ImplementationResult[] | null,
 	log: ImpPayload | null,
@@ -47,6 +48,7 @@ export const initialContext: WFContextsI = {
 		requested: drwRequestData,
 		reference: drwRefData,
 		partner: "DRW" as PartnerCode, // "BOA"
+		partner_name: "Darwin Automotive",
 		config: settings.drw as partnerConfigInput, // see partner_settings.ts
 		result: null,
 		log: null,
@@ -60,6 +62,7 @@ export const initialContext: WFContextsI = {
 		requested: undefined,
 		reference: undefined,
 		partner: null,
+		partner_name: null,
 		config: settings.boa,
 		result: null,
 		log: null,

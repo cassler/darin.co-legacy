@@ -20,7 +20,7 @@ const scorecardStyle = {
 }
 
 export const ResultsView = (props) => {
-	const { partner, log, result, liveCount } = props;
+	const { partner, partner_name, log, result, liveCount } = props;
 	const [currentTabTitle, setTab] = useState(log.implement.title)
 	const [currentView, setView] = useState('implement')
 	useEffect(() => {
@@ -42,7 +42,7 @@ export const ResultsView = (props) => {
 	return (
 		<>
 			<div>
-				<h1 style={{ textAlign: 'center' }}>Today at {partner}</h1>
+				<h1 style={{ textAlign: 'center' }}>Today at {partner_name || partner}</h1>
 				<Tabs defaultActiveKey={log.implement.title} centered onChange={(key) => setTab(key)}>
 					{Object.keys(log).map((i, index) => {
 						const obj = log[i] as ImplementationPackage;
