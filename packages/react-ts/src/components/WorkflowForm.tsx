@@ -4,13 +4,14 @@ import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
 import ExclusionSet from './ExclusionSet';
 import FileSelect from './FileSelect';
+import AutoCompleter from './AutoCompleter';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
-import { Statistic, Popover, Divider, Button, Result } from 'antd';
+import { Statistic, Popover, Divider, Button, Result, Input, AutoComplete } from 'antd';
 import { FormOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { Spinner } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
+
 
 
 
@@ -59,11 +60,11 @@ export const WorkflowForm: React.FC = () => {
 	}
 
 	useEffect(() => {
-		// const { demo, requested, reference, result, log } = ctx;
-		if (ctx.demo && !ctx.log) {
-			createResult();
-			ctx.setStep(4)
-		}
+
+		// if (ctx.demo && !ctx.log) {
+		// 	createResult();
+		// 	ctx.setStep(4)
+		// }
 	})
 
 	const defaultMotion = {
@@ -76,8 +77,6 @@ export const WorkflowForm: React.FC = () => {
 	return (
 		<div style={{ position: "relative", minHeight: '640px' }}>
 			<AnimatePresence exitBeforeEnter>
-
-
 				{(step === 0) && (
 					<motion.div
 						key={"0"}
@@ -144,6 +143,8 @@ export const WorkflowForm: React.FC = () => {
 										helper={`CSV of requests from ${ctx.partner}`}
 										internal_id={ctx.config.internal_id}
 									/>
+									<h3>Or enter IDs manually</h3>
+									<AutoCompleter />
 								</>
 							)}
 						/>

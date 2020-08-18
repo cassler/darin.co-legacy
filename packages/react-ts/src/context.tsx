@@ -55,7 +55,7 @@ export const initialContext: WFContextsI = {
 		busy: false,
 		currentTab: "1",
 		demo: true,
-		step: 3,
+		step: 2,
 		showPartnerSettings: false
 	},
 	default: {
