@@ -26,6 +26,7 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "BOA") ctx.setConfig(settings.boa);
 		if (partner === "DRW") ctx.setConfig(settings.drw);
 		if (partner === "HAZ") ctx.setConfig(settings.haz);
+		if (partner === "CNZ") ctx.setConfig(settings.cnz);
 	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
@@ -89,7 +90,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<SelectPartner
-										partners={["BOA", "DRW", "CNZ", "GOO", "HAZ"] as PartnerCode[]}
+										partners={["BOA", "DRW", "CNZ", "HAZ"] as PartnerCode[]}
 										defaultPartner={ctx.partner}
 										callback={handlePartnerSelect}
 									/>
@@ -135,7 +136,6 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									{useRequestFile ? (
-
 										<FileSelect
 											label="Request Data"
 											slug="req"
@@ -148,11 +148,13 @@ export const WorkflowForm: React.FC = () => {
 											<AutoCompleter />
 										)}
 									<Divider />
-									<Switch
-										onChange={() => toggleRequestFile(!useRequestFile)}
-										unCheckedChildren={<><FileExcelOutlined /> File</>}
-										checkedChildren={<><OrderedListOutlined /> Manual</>}
-									/>
+									<FormGroup helperText="Hint: Don't have a file? Switch to manual mode!">
+										<Switch
+											onChange={() => toggleRequestFile(!useRequestFile)}
+											unCheckedChildren={<><FileExcelOutlined /> File</>}
+											checkedChildren={<><OrderedListOutlined /> Manual</>}
+										/>
+									</FormGroup>
 
 								</>
 							)}

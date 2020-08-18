@@ -72,13 +72,10 @@ export const AutoCompleter: React.FC = () => {
 				onChange={onChange}
 			>
 				<Input.Search size="large" placeholder="Select dealers" />
-				{/*
-				<Input onClick={() => setSelection([])}>Reset Selection</Input> */}
 			</AutoComplete>
 
 			<AnimatePresence exitBeforeEnter>
 				{selected.length > 0 && (
-
 					<motion.div
 						key="2"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
@@ -87,19 +84,20 @@ export const AutoCompleter: React.FC = () => {
 						exit={{ x: 0, opacity: 0, scale: 1 }}
 					>
 						<h3>Request IDs: {selected.map(i => `${i} `)}</h3>
-						<div
-							style={{ position: "absolute", bottom: '0', right: '0' }}
-						>
-							<Button onClick={() => setSelection([])}>Reset Selection</Button>&nbsp;
+						<div style={{ position: "absolute", bottom: '0', right: '0' }}>
 							<Button
-								disabled={selected.length < 1} type="primary" onClick={() => onConfirm(selected)}>
+								onClick={() => setSelection([])}>
+								Reset Selection
+							</Button>&nbsp;
+							<Button
+								disabled={selected.length < 1}
+								type="primary"
+								onClick={() => onConfirm(selected)}>
 								Continue
-							<ArrowRightOutlined />
+								<ArrowRightOutlined />
 							</Button>
 						</div>
 					</motion.div>
-
-
 				)}
 			</AnimatePresence>
 		</>
