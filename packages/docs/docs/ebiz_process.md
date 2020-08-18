@@ -1,3 +1,8 @@
+---
+id: ebiz
+title: eBiz Suite
+sidebar_label: eBiz Suite
+---
 Login to https://suiteadmin.dtdrs.dealertrack.com/
 Click Accounts
 Enter in the PartnerID then click Search
