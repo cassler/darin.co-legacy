@@ -26,6 +26,7 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "BOA") ctx.setConfig(settings.boa);
 		if (partner === "DRW") ctx.setConfig(settings.drw);
 		if (partner === "HAZ") ctx.setConfig(settings.haz);
+		if (partner === "CNZ") ctx.setConfig(settings.cnz);
 	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
@@ -34,6 +35,7 @@ export const WorkflowForm: React.FC = () => {
 			live_ids: items
 		}
 		ctx.setConfig(newConfig);
+		ctx.setStep(ctx.step + 1)
 	}
 
 	// Manually run a new calculation and put results into state
@@ -89,7 +91,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<SelectPartner
-										partners={["BOA", "DRW", "CNZ", "GOO", "HAZ"] as PartnerCode[]}
+										partners={["BOA", "DRW", "CNZ", "HAZ"] as PartnerCode[]}
 										defaultPartner={ctx.partner}
 										callback={handlePartnerSelect}
 									/>
@@ -135,7 +137,6 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									{useRequestFile ? (
-
 										<FileSelect
 											label="Request Data"
 											slug="req"
@@ -148,11 +149,13 @@ export const WorkflowForm: React.FC = () => {
 											<AutoCompleter />
 										)}
 									<Divider />
-									<Switch
-										onChange={() => toggleRequestFile(!useRequestFile)}
-										unCheckedChildren={<><FileExcelOutlined /> File</>}
-										checkedChildren={<><OrderedListOutlined /> Manual</>}
-									/>
+									<FormGroup helperText="Hint: Don't have a file? Switch to manual mode!">
+										<Switch
+											onChange={() => toggleRequestFile(!useRequestFile)}
+											unCheckedChildren={<><FileExcelOutlined /> File</>}
+											checkedChildren={<><OrderedListOutlined /> Manual</>}
+										/>
+									</FormGroup>
 
 								</>
 							)}
@@ -160,6 +163,22 @@ export const WorkflowForm: React.FC = () => {
 					</motion.div>
 				)}
 				{step === 3 && (
+					<Result
+						status={ctx.log ? "success" : "info"}
+						title={ctx.log ? "Looks good!" : "Identify excluded dealers"}
+						subTitle="Provide a file that lists dealers already implemented. You can select the column after uploading."
+						extra={(
+							<FileSelect
+								label="IDs to Exclude"
+								slug="exclude"
+								callback={updateLiveIDs}
+								count={ctx.requested?.data.length || 0}
+								helper={`Indicate what to ignore for ${ctx.partner}`}
+								internal_id={ctx.config.internal_id}
+							/>
+						)} />
+				)}
+				{step === 4 && (
 					<motion.div key="3" {...defaultMotion}>
 						<Result
 							status={ctx.log ? "success" : "info"}

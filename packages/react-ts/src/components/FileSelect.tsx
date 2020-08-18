@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 // import { Card, Tag } from 'antd';
 import 'antd/dist/antd.css';
 import Papa from 'papaparse';
-import { message, Button } from 'antd'
+import { message, Select, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { IParseResult } from '../context';
+const { Option } = Select;
 
 type Props = {
 	label: string,
@@ -24,10 +26,18 @@ const FileSelect: React.FC<Props> = ({
 	internal_id
 }) => {
 	const [filename, setFilename] = useState<string>(`Choose ${label} CSV`)
-	const [data, setData] = useState({});
+	const [data, setData] = useState<IParseResult | undefined>();
 	const [ready, setReady] = useState(false);
 	const [hasError, setError] = useState(false);
+	const [fields, setFields] = useState([])
+	const [ids, setIds] = useState([])
 
+	const handleChange = (value) => {
+		console.log('change', value);
+		const ids = data.data.map(i => i[value])
+		setIds(ids)
+		setReady(true)
+	}
 	const getJSON = (event: any) => {
 		setError(false)
 		for (const file of event.target.files) {
@@ -38,6 +48,11 @@ const FileSelect: React.FC<Props> = ({
 				complete: (res) => {
 					let cols = res.meta.fields;
 					let prefix: string = ""
+					if (slug === "exclude") {
+						message.info("Nothing was done with this data.");
+						setFields(res.meta.fields);
+						setData(res)
+					}
 					if (slug === "ref") {
 						if (cols.includes("Enrollment Phase")) {
 							message.success("This looks like a DT Report! Setting ");
@@ -65,20 +80,40 @@ const FileSelect: React.FC<Props> = ({
 	return (
 		<>
 			<FormGroup helperText={helper} className={hasError ? 'validation-error' : 'default'}>
-				<FileInput
-					large
-					fill
-					style={{ maxWidth: '540px' }}
-					id={label}
-					disabled={false}
-					inputProps={{
-						accept: "csv",
-						onChange: (e) => getJSON(e),
-					}}
-					text={filename}
-					onInputChange={(event) => console.log(event.target)}
-				/>
+				{!data && slug === 'exclude' && (
+
+					<FileInput
+						large
+						fill
+						style={{ maxWidth: '540px' }}
+						id={label}
+						disabled={false}
+						inputProps={{
+							accept: "csv",
+							onChange: (e) => getJSON(e),
+						}}
+						text={filename}
+						onInputChange={(event) => console.log(event.target)}
+					/>
+				)}
+				{fields.length > 0 && (
+					<div>
+						<h4>Select column where IDs are listed</h4>
+						<Select
+							defaultValue={fields[0]}
+							style={{ width: 240 }}
+							onChange={handleChange}>
+							{fields.map(f => <Option key={f} value={f}>{f}</Option>)}
+						</Select>
+					</div>
+				)}
 			</FormGroup>
+			{ids.length > 0 && (
+				<>
+					<h5>Preview</h5>
+					<code>{JSON.stringify(ids.slice(0, 10))}</code>
+				</>
+			)}
 			<div style={{ minHeight: '75px' }}>
 				{ready && (
 					<motion.div
@@ -90,7 +125,13 @@ const FileSelect: React.FC<Props> = ({
 					>
 						<Button
 							style={{ position: "absolute", bottom: '0', right: '0' }}
-							disabled={!ready} type="primary" onClick={() => callback(data)}>
+							disabled={!ready}
+							type="primary"
+							onClick={() => {
+								slug === 'exclude' ?
+									callback(ids) :
+									callback(data)
+							}}>
 							Continue
 							<ArrowRightOutlined />
 						</Button>
