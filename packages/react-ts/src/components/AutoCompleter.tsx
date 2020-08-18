@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { WFContext } from '../context';
 import { Button, Input, AutoComplete } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons'
+import { motion, AnimatePresence } from 'framer-motion';
 
 const mockVal = (str, repeat = 1) => ({
 	value: str.repeat(repeat),
@@ -69,17 +71,37 @@ export const AutoCompleter: React.FC = () => {
 				onSearch={onSearch}
 				onChange={onChange}
 			>
-				<Input.Search size="large" placeholder="input here" />
+				<Input.Search size="large" placeholder="Select dealers" />
+				{/*
+				<Input onClick={() => setSelection([])}>Reset Selection</Input> */}
 			</AutoComplete>
-			{selected.length > 0 && (
-				<div>
-					<h3>{JSON.stringify(selected)}</h3>
-					<Button onClick={() => setSelection([])}>Reset Selection</Button>
-					<Button onClick={() => onConfirm(selected)}>Continue with These IDs</Button>
-					{ctx.requested.data.length}
-				</div>
-			)}
 
+			<AnimatePresence exitBeforeEnter>
+				{selected.length > 0 && (
+
+					<motion.div
+						key="2"
+						transition={{ ease: "easeInOut", duration: 0.3 }}
+						initial={{ x: 0, opacity: 0, scale: 1 }}
+						animate={{ x: 0, opacity: 1, scale: 1 }}
+						exit={{ x: 0, opacity: 0, scale: 1 }}
+					>
+						<h3>Request IDs: {selected.map(i => `${i} `)}</h3>
+						<div
+							style={{ position: "absolute", bottom: '0', right: '0' }}
+						>
+							<Button onClick={() => setSelection([])}>Reset Selection</Button>&nbsp;
+							<Button
+								disabled={selected.length < 1} type="primary" onClick={() => onConfirm(selected)}>
+								Continue
+							<ArrowRightOutlined />
+							</Button>
+						</div>
+					</motion.div>
+
+
+				)}
+			</AnimatePresence>
 		</>
 	);
 };

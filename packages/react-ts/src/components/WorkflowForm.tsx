@@ -7,11 +7,10 @@ import FileSelect from './FileSelect';
 import AutoCompleter from './AutoCompleter';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
-import { Statistic, Popover, Divider, Button, Result, Input, AutoComplete } from 'antd';
-import { FormOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Spinner } from '@blueprintjs/core';
+import { Statistic, Popover, Divider, Button, Result, Input, Switch } from 'antd';
+import { FormOutlined, ArrowLeftOutlined, FileExcelOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { Spinner, FormGroup } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
-
 
 
 
@@ -20,7 +19,7 @@ export const WorkflowForm: React.FC = () => {
 	const { ctx } = useContext(WFContext);
 	const { step } = ctx;
 	const [busy, toggleBusy] = useState<boolean>(false)
-
+	const [useRequestFile, toggleRequestFile] = useState<boolean>(true)
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
 		ctx.setPartner(partner);
@@ -135,16 +134,26 @@ export const WorkflowForm: React.FC = () => {
 							subTitle="Add a file that includes requests from the partner."
 							extra={(
 								<>
-									<FileSelect
-										label="Request Data"
-										slug="req"
-										callback={ctx.setRequested}
-										count={ctx.requested?.data.length || 0}
-										helper={`CSV of requests from ${ctx.partner}`}
-										internal_id={ctx.config.internal_id}
+									{useRequestFile ? (
+
+										<FileSelect
+											label="Request Data"
+											slug="req"
+											callback={ctx.setRequested}
+											count={ctx.requested?.data.length || 0}
+											helper={`CSV of requests from ${ctx.partner}`}
+											internal_id={ctx.config.internal_id}
+										/>
+									) : (
+											<AutoCompleter />
+										)}
+									<Divider />
+									<Switch
+										onChange={() => toggleRequestFile(!useRequestFile)}
+										unCheckedChildren={<><FileExcelOutlined /> File</>}
+										checkedChildren={<><OrderedListOutlined /> Manual</>}
 									/>
-									<h3>Or enter IDs manually</h3>
-									<AutoCompleter />
+
 								</>
 							)}
 						/>
