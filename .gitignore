@@ -8,7 +8,8 @@ tmp
 /tmp
 dist
 packages/*/dist
-
+/build
+docs/build
 # Logs
 logs
 *.log
