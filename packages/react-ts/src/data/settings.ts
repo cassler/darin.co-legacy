@@ -1,17 +1,63 @@
-import { boa_ebs_aug5, boa_sf_aug5, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { boa_ebs_aug5, boa_sf_aug17, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
 import { partnerConfigInput } from '@wf/types';
 
 interface partnerSettingsList {
-	drw: partnerConfigInput,
-	boa: partnerConfigInput,
-	cnz?: partnerConfigInput,
-	goo?: partnerConfigInput
+	[key: string]: partnerConfigInput,
 }
 
 
 export const settings: partnerSettingsList = {
+	cnz: {
+		partner: "CNZ",
+		partner_name: "CarNow",
+		crm: "noreply@carnow.com ",
+		dealerContact: "noreply@carnow.com",
+		leads: "corinne@carnow.com",
+		internal_id: "PID",
+		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
+		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
+		live_ids: sample_ebs_entries_drw,
+		ebiz_profile: 6897540,
+		valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B1CE6D145-6232-4183-9658-F98696769E5A%7D&file=How%20to%20Complete%20a%20CarNow%20Lender%20Project.docx&action=default&mobileredirect=true',
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
+		custom_validation: (item: any) => {
+			return true
+		},
+	},
+	haz: {
+		partner: "HAZ",
+		partner_name: "FCA / Carzato",
+		crm: "noreply@carzato.com ",
+		dealerContact: "noreply@carzato.com",
+		leads: "noreply@carzato.com",
+		internal_id: "PID",
+		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
+		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
+		live_ids: sample_ebs_entries_drw,
+		ebiz_profile: 7838514,
+		valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7BDDAB5CCB-8392-4B8C-9ADF-F156603A4D22%7D&file=Instructions%20for%20Completing%20FCA%20(Carzato).docx&action=default&mobileredirect=true',
+		generate: {
+			fd: false,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
+		custom_validation: (item: any) => {
+			return true
+		},
+	},
 	drw: {
 		partner: "DRW",
+		partner_name: "Darwin Automotive",
 		crm: "NoEmail@darwinautomotive.com",
 		dealerContact: "NoEmail@darwinautomotive.com",
 		leads: "NoEmail@darwinautomotive.com",
@@ -30,15 +76,14 @@ export const settings: partnerSettingsList = {
 			info: true,
 		},
 		custom_validation: (item: any) => {
-			console.log('dealer is', item.Status);
-			const pass = item.hasOwnProperty('Status') && item.Status === "A";
-			console.log('does it pass?', pass)
-			return pass
+			// return item && item.hasOwnProperty('Status') && item.Status === "A";
+			return true
 		},
 	},
 	boa: {
 		// identify settings and fill certain fields
 		partner: "BOA",
+		partner_name: "Bank of America",
 		// ebiz profile entry
 		crm: "NoReply@bankofamerica.com",
 		// ebiz profile entry
@@ -54,7 +99,7 @@ export const settings: partnerSettingsList = {
 		// JSON of DT Business Report for partner
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/115b4b53-2907-4d9b-b917-9134ff44eed3.csv",
 		// list of IDs live with service, any way you want
-		live_ids: boa_ebs_aug5,
+		live_ids: boa_sf_aug17,
 		ebiz_profile: 5860435,
 		// Enrollment Phases to Accept
 		valid_phases: ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received"],

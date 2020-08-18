@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import ViewSettings from './components/ViewSettings';
-import { Divider, Modal, Layout, Card, Tabs, Button, Menu } from 'antd';
+import { Divider, Modal, Layout, Card } from 'antd';
 import { motion, AnimatePresence } from "framer-motion"
 import WorkflowForm from './components/WorkflowForm';
 import Stepper from './components/Stepper';
@@ -50,6 +50,7 @@ function App() {
 									<div style={sideBarStyle}>
 										<Stepper
 											partner={ctx.partner}
+											setStep={ctx.setStep}
 											refSize={ctx.reference?.data.length}
 											reqSize={ctx.requested?.data.length}
 											index={ctx.step} />
@@ -59,7 +60,7 @@ function App() {
 										</div>
 									</div>
 									<AnimatePresence exitBeforeEnter>
-										{ctx.step <= 3 ? (
+										{ctx.step <= 4 ? (
 											<motion.div {...motionPrefs} key="0">
 												<Card className='result-card'>
 													<WorkflowForm />

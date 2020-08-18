@@ -1,6 +1,6 @@
 {
 	"name": "@wf/examples",
-	"version": "0.1.0",
+	"version": "0.3.0",
 	"description": "Examples and demos for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",

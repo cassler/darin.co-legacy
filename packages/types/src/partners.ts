@@ -1,6 +1,6 @@
 import { EnrollmentPhase } from '@wf/types';
 
-export declare type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS" | null
+export type PartnerCode = "BOA" | "DRW" | "CNZ" | "GOO" | "DAS" | "HAZ" | null
 
 export declare interface PartnerCodes {
 	code: PartnerCode
@@ -11,6 +11,7 @@ export declare interface PartnerCodes {
 
 export type partnerConfigInput = {
 	partner: PartnerCode,
+	partner_name: string,
 	crm: string,
 	dealerContact: string,
 	internal_id: string,

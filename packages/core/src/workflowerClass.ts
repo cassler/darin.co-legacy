@@ -22,6 +22,7 @@ export type ImplementationResult = {
 export interface ImplementationPackage {
 	title: string,
 	message: string,
+	desc?: string,
 	items: ImplementationResult[],
 	type?: "info" | "success" | "warning" | "error" | undefined,
 	status?: "success" | "processing" | "default" | "error" | "warning"
@@ -317,7 +318,8 @@ export class Workflower {
 	get invalidEnrollment(): ImplementationPackage {
 		return {
 			title: "Bad DT Enrollment",
-			message: "There is a problem with this enrollment",
+			message: "These items do not have valid Dealertrack enrollment.",
+			desc: "This account does not meet partner requirements for DT Enrollment. Confirm the DT account is not mis-matched. If the account is properly matched then reach out to ADM (admrequestes@dealertrack.com) and ask that they set the account to 'Prospect'.",
 			items: this.notedResults.filter(i => i.checks.partnerStatusOK && !i.checks.enrollmentStatusOK),
 			type: "warning",
 			status: "warning",
@@ -327,6 +329,7 @@ export class Workflower {
 		return {
 			title: "No Matched Account",
 			message: "These items were requested but do not exist in DT",
+			desc: `The partner may not have added these dealers to their DT partner file yet. Wait 24 hours to see if a match takes place. If you continue to receive this error, reach out to the partner to confirm they have properly added the dealer to their DT partner file.`,
 			items: this.notedResults.filter(i => i.checks.partnerStatusOK && i.account.dealertrackID < 1),
 			type: "error",
 			status: "error"
@@ -335,8 +338,9 @@ export class Workflower {
 
 	get itemsToImplement(): ImplementationPackage {
 		return {
-			title: 'Pending Implementation',
+			title: 'Ready!',
 			message: 'These items are new and have passed pre-qualifications',
+			desc: `These are the dealers that are ready to implement for the partner according to the provided data and selected partner settings. Check the results to make sure they correspond to what's expected. You can then download pre-formatted files for provisioning the dealer for billing, finance forms and lead routing.`,
 			items: this.notedResults.filter(i => Object.values(i.checks).every(v => v === true)),
 			type: "success",
 			status: "success",
@@ -347,6 +351,7 @@ export class Workflower {
 		return {
 			title: 'Pending Cancellations',
 			message: 'These items are listed as inactive by partner by are live.',
+			desc: `These dealers are listed as being live do not meet partner requirements. Do NOT process cancellations for dealers who are listed as 'Not Contacted' or 'No DT account found'. Follow the steps above for dealers in these buckets.`,
 			items: this.notedResults.filter(i => !i.checks.partnerStatusOK && !i.checks.notImplemented),
 			type: "info",
 			status: "processing",
@@ -364,10 +369,10 @@ export class Workflower {
 
 	get fullPayload(): ImpPayload {
 		return {
-			cancel: this.itemsToCancel,
 			implement: this.itemsToImplement,
 			unmatched: this.unmatchedRequests,
 			invalid: this.invalidEnrollment,
+			cancel: this.itemsToCancel,
 			provisioning: this.provisioning,
 		}
 	}

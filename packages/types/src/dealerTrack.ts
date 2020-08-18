@@ -81,7 +81,7 @@ export declare interface DTReportItem extends DTReportItemSimple {
 	"uniFI Indicator": string,
 }
 
-export declare type EnrollmentPhase =
+export type EnrollmentPhase =
 	"Password Issued" |
 	"Prospect" |
 	"Reactivate" |

@@ -1,6 +1,6 @@
 {
 	"name": "@wf/react-ts",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"homepage": "./",
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
@@ -8,6 +8,7 @@
 		"@babel/plugin-proposal-class-properties": "^7.10.4",
 		"@babel/preset-env": "^7.11.0",
 		"@blueprintjs/core": "^3.30.1",
+		"@blueprintjs/select": "^3.13.7",
 		"@blueprintjs/table": "^3.8.12",
 		"@svgr/webpack": "4.3.3",
 		"@testing-library/jest-dom": "^4.2.4",
