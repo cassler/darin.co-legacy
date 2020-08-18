@@ -79,7 +79,7 @@ const FileSelect: React.FC<Props> = ({
 	return (
 		<>
 			<FormGroup helperText={helper} className={hasError ? 'validation-error' : 'default'}>
-				{!data && slug === 'exclude' && (
+				{(!data || slug !== 'exclude') && (
 
 					<FileInput
 						large
