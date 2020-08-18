@@ -53,18 +53,25 @@ export const Stepper: React.FC<IStepperProps> = ({
 			onClick: () => index > 2 && setStep(2)
 		},
 		{
-			title: "Generate Results",
-			description: "Needs more data",
+			title: "Set Exclusions",
+			description: "What do we ignore?",
 			readyDescription: `Success!`,
 			isReady: index > 3,
 			onClick: () => index > 3 && setStep(3)
 		},
 		{
+			title: "Generate Results",
+			description: "Needs more data",
+			readyDescription: `Success!`,
+			isReady: index > 4,
+			onClick: () => index > 4 && setStep(4)
+		},
+		{
 			title: "Review",
 			description: "See the results",
 			readyDescription: `See the results`,
-			isReady: index > 3,
-			onClick: () => index > 4 && setStep(4)
+			isReady: index > 5,
+			onClick: () => index > 5 && setStep(5)
 		},
 	]
 

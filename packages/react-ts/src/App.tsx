@@ -60,7 +60,7 @@ function App() {
 										</div>
 									</div>
 									<AnimatePresence exitBeforeEnter>
-										{ctx.step <= 3 ? (
+										{ctx.step <= 4 ? (
 											<motion.div {...motionPrefs} key="0">
 												<Card className='result-card'>
 													<WorkflowForm />
