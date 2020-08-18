@@ -47,7 +47,6 @@ const FileSelect: React.FC<Props> = ({
 				dynamicTyping: true,
 				complete: (res) => {
 					let cols = res.meta.fields;
-					let prefix: string = ""
 					if (slug === "exclude") {
 						message.info("Nothing was done with this data.");
 						setFields(res.meta.fields);
