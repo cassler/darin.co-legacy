@@ -1,11 +1,12 @@
 module.exports = {
   title: 'Workflower Docs',
   tagline: 'Workflower Mono',
-	url: 'https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/',
+	url: 'https://pages.ghe.coxautoinc.com',
 	baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'cassler', // Usually your GitHub org/user name.
-  projectName: 'workflower', // Usually your repo name.
+  organizationName: 'Darin-Cassler', // Usually your GitHub org/user name.
+	projectName: 'workflower-monorepo', // Usually your repo name.
+	githubHost: 'ghe.coxautoinc.com',
   themeConfig: {
     navbar: {
       title: 'WF Docs',
@@ -35,11 +36,11 @@ module.exports = {
           items: [
             {
               label: 'Style Guide',
-              to: 'docs/',
+              to: '/docs/intro',
             },
             {
               label: 'Second Doc',
-              to: 'docs/doc2/',
+							to: '/docs/intro',
             },
           ],
         },

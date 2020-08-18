@@ -163,23 +163,25 @@ export const WorkflowForm: React.FC = () => {
 					</motion.div>
 				)}
 				{step === 3 && (
-					<Result
-						status={ctx.log ? "success" : "info"}
-						title={ctx.log ? "Looks good!" : "Identify excluded dealers"}
-						subTitle="Provide a file that lists dealers already implemented. You can select the column after uploading."
-						extra={(
-							<FileSelect
-								label="IDs to Exclude"
-								slug="exclude"
-								callback={updateLiveIDs}
-								count={ctx.requested?.data.length || 0}
-								helper={`Indicate what to ignore for ${ctx.partner}`}
-								internal_id={ctx.config.internal_id}
-							/>
-						)} />
+					<motion.div key="3" {...defaultMotion}>
+						<Result
+							status={ctx.log ? "success" : "info"}
+							title={ctx.log ? "Looks good!" : "Identify excluded dealers"}
+							subTitle="Provide a file that lists dealers already implemented. You can select the column after uploading."
+							extra={(
+								<FileSelect
+									label="IDs to Exclude"
+									slug="exclude"
+									callback={updateLiveIDs}
+									count={ctx.requested?.data.length || 0}
+									helper={`Indicate what to ignore for ${ctx.partner}`}
+									internal_id={ctx.config.internal_id}
+								/>
+							)} />
+					</motion.div>
 				)}
 				{step === 4 && (
-					<motion.div key="3" {...defaultMotion}>
+					<motion.div key="4" {...defaultMotion}>
 						<Result
 							status={ctx.log ? "success" : "info"}
 							title={ctx.log ? "Looks good!" : "Ready to analyze"}
