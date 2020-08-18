@@ -1,5 +1,5 @@
 
-import { Workflower, Workflower2 } from '@wf/core';
+import { Workflower, Workflower2, Workflower3 } from '@wf/core';
 import { getJSONfromSpreadsheet } from '@wf/csv'; // Utility for easy file handling
 import { partner_settings } from './partner_settings';
 import { settings } from '../../react-ts/src/data/settings';
@@ -26,13 +26,14 @@ export function wf_examples(partner, options) {
 
 	// Create a new instance of a Workflower
 	// @ref core/workflower
-	let wf = new Workflower(props);
-	let wf2 = new Workflower2(props);
+	// let wf = new Workflower(props);
+	// let wf2 = new Workflower2(props);
+	let wf3 = new Workflower3(props);
 	// Show off some of the goods - find account with partner ID of 3422
-	console.log(wf.query(3422))
 
-	wf.streamData((obj) => console.log(obj[obj.length - 1], `Item #${obj.length - 1}`))
+	let raw = wf3.processBatch(props.requested)
+	console.log(raw)
 
 }
 
-wf_examples("HAZ", settings.haz)
+wf_examples("DRW", settings.drw)
