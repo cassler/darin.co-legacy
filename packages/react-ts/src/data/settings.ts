@@ -1,4 +1,4 @@
-import { boa_ebs_aug5, boa_sf_aug17, sample_ebs_entries_boa, sample_ebs_entries_drw } from './exclude_sample';
+import { boa_sf_aug17, sample_ebs_entries_drw } from './exclude_sample';
 import { partnerConfigInput } from '@wf/types';
 
 interface partnerSettingsList {
