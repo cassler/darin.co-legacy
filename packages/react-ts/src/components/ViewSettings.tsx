@@ -1,20 +1,15 @@
-import React, { HTMLProps } from 'react';
-import {
-	Button, Divider, Tag, PageHeader, Card
-} from 'antd';
+import React from 'react';
 import 'antd/dist/antd.css';
-import { FormGroup, InputGroup, Switch, Label, Callout } from '@blueprintjs/core';
-import { ImplementationResult } from '@wf/core';
-import { PartnerCode, partnerConfigInput, EnrollmentPhase } from '@wf/types'
+import { Button } from 'antd';
+import { FormGroup, InputGroup, Switch } from '@blueprintjs/core';
+import { partnerConfigInput, EnrollmentPhase } from '@wf/types'
 
 type Props = {
 	config: partnerConfigInput
 }
 const ViewSettings: React.FC<Props> = ({ config }) => {
-	const { internal_id, partner, leads, crm, dealerContact, valid_phases, ebiz_dt_dealer_id_field, ebiz_profile, generate } = config;
-	const handleChange = (e: any) => {
-		console.log(e)
-	}
+	const { internal_id, leads, crm, dealerContact, valid_phases, ebiz_profile, generate } = config;
+
 	const phases: EnrollmentPhase[] = ["Password Issued", "Prospect", "Reactivate", "Access Agreement Received", "Not Contacted"]
 	return (
 		<>

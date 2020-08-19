@@ -8,7 +8,7 @@ export interface IStepperProps {
 	reqSize: number | undefined,
 	index: number,
 	items?: IStepperStep[]
-	setStep?: (any) => void
+	setStep?: (string) => void
 }
 
 export interface IStepperStep {
