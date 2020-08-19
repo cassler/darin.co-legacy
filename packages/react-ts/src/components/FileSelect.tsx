@@ -99,7 +99,7 @@ const FileSelect: React.FC<Props> = ({
 					<div>
 						<h4>Select column where IDs are listed</h4>
 						<Select
-							defaultValue={fields[0]}
+							defaultValue='--'
 							style={{ width: 240 }}
 							onChange={handleChange}>
 							{fields.map(f => <Option key={f} value={f}>{f}</Option>)}
