@@ -17,7 +17,8 @@
 		"test:e2e": "lerna run test:e2e --parallel",
 		"bootstrap": "lerna bootstrap --use-workspaces",
 		"barrels": "lerna run generate-barrels --parallel",
-		"webserver": "yarn workspace @wf/react-ts light-server -s . -p 7000"
+		"webserver": "yarn workspace @wf/react-ts light-server -s . -p 7000",
+		"docs": "yarn workspace @wf/docs run start"
 	},
 	"dependencies": {
 		"lerna": "^3.22.1"
