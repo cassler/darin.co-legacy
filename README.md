@@ -15,7 +15,7 @@ After identifying the appropriate course for items, Workflower allows you to gen
 
 ### For end-users
 
-1. Download the [latest release (0.6)](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.6/workflower-portable-0.6-dist.zip)
+1. Download the [latest release (0.7)](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.7/workflower-portable-0.7-dist.zip)
 2. Unzip the contents and open `index.html`
 3. Head over to the [official documentation site](https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/) for a complete walkthrough and full documentation.
 
@@ -41,13 +41,12 @@ This will launch the React client at `http://localhost:3333` and documentation w
 ## Package Version Notice - August 20th 2020
 
 ```
-@wf/docs     v0.5.0 docs
-@wf/core     v0.6.0 packages/core
-@wf/csv      v0.5.0 packages/csv
-@wf/dex      v0.1.0 packages/dex
+@wf/docs     v0.7.0 docs
+@wf/core     v0.7.0 packages/core
+@wf/csv      v0.7.0 packages/csv
 @wf/examples v0.3.0 packages/examples
-@wf/react-ts v0.6.0 packages/react-ts
+@wf/react-ts v0.7.0 packages/react-ts
 @wf/template v0.1.0 packages/template
-@wf/types    v0.6.0 packages/types
+@wf/types    v0.7.0 packages/types
 ```
 
