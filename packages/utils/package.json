@@ -1,5 +1,5 @@
 {
-	"name": "@cassler/foo",
+	"name": "@cassler/utils",
 	"version": "1.0.2",
 	"main": "dist/index",
 	"types": "dist/index",

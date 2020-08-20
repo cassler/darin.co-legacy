@@ -14,7 +14,7 @@
 		"test": "yarn run build"
 	},
 	"dependencies": {
-		"@cassler/foo": "^1.0.2"
+		"@cassler/utils": "^1.0.2"
 	},
 	"devDependencies": {
 		"rimraf": "~3.0.2",

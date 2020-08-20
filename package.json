@@ -3,14 +3,17 @@
 	"description": "Template for setting up a TypeScript monorepo",
 	"private": true,
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"examples/*"
 	],
 	"scripts": {
 		"docs": "doctoc --title '**Table of content**' README.md",
 		"clean": "lerna run clean",
 		"build": "lerna run build",
 		"pub": "lerna publish",
-		"test": "lerna run test"
+		"test": "lerna run test",
+		"storybook": "lerna run storybook",
+		"cra": "yarn workspace @cassler/cra-example run start"
 	},
 	"devDependencies": {
 		"@nighttrax/eslint-config-tsx": "~6.1.0",
@@ -18,5 +21,8 @@
 		"eslint": "~7.6.0",
 		"lerna": "^3.22.1",
 		"typescript": "~3.9.6"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
 	}
 }

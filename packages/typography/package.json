@@ -1,0 +1,33 @@
+{
+	"name": "@cassler/typography",
+	"version": "0.2.0",
+	"description": "Preset type settings from Cassler Labs",
+	"keywords": [
+		"typography",
+		"fonts",
+		"react",
+		"css",
+		"style"
+	],
+	"author": "Darin Cassler <Darin.Cassler@coxautoinc.com>",
+	"homepage": "https://darin.co",
+	"license": "MIT",
+	"main": "src/index.tsx",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cassler/ts-monorepo.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: run tests from root\" && exit 1"
+	},
+	"bugs": {
+		"url": "https://github.com/cassler/ts-monorepo/issues"
+	}
+}

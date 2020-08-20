@@ -16,20 +16,25 @@
 		"react": "~16.13.1"
 	},
 	"dependencies": {
-		"@cassler/foo": "^1.0.2",
-		"@emotion/core": "^10.0.34"
+		"@cassler/utils": "^1.0.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.1",
+		"@cassler/typography": "*",
+		"@emotion/core": "^10.0.35",
+		"@emotion/styled": "^10.0.27",
 		"@storybook/addon-actions": "^6.0.5",
 		"@storybook/addon-docs": "^6.0.5",
 		"@storybook/addon-essentials": "^6.0.5",
 		"@storybook/addon-links": "^6.0.5",
 		"@storybook/react": "^6.0.5",
+		"@types/faker": "^4.1.12",
 		"@types/react": "~16.9.43",
 		"@types/storybook__react": "^5.2.1",
 		"add": "^2.0.6",
 		"babel-loader": "^8.1.0",
+		"faker": "^4.1.0",
+		"framer-motion": "^2.4.2",
 		"postcss-loader": "^3.0.0",
 		"react-is": "^16.13.1",
 		"sass": "^1.26.10",
