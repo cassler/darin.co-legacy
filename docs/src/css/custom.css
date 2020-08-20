@@ -7,13 +7,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: rgba(160, 128, 255, 1.00);
-  --ifm-color-primary-dark: rgba(102, 56, 240, .66);
-  --ifm-color-primary-darker: rgba(102, 56, 240, .85);
-  --ifm-color-primary-darkest: rgba(90, 50, 200, 1.00);
-  --ifm-color-primary-light: rgba(120, 66, 255, 1);
-  --ifm-color-primary-lighter: rgba(165, 120, 255, 0.9);
-  --ifm-color-primary-lightest: rgba(190, 150, 255, 1);
+  --ifm-color-primary: rgba(4, 205, 139, 1.00);
+  --ifm-color-primary-dark: rgba(36, 123, 95, 0.65);
+  --ifm-color-primary-darker: rgba(36, 123, 95, 0.85);
+  --ifm-color-primary-darkest: rgba(36, 123, 95, 1.00);
+  --ifm-color-primary-light: rgba(4, 205, 139, 1.00);
+  --ifm-color-primary-lighter: rgba(4, 205, 139, 0.70);
+  --ifm-color-primary-lightest: rgba(80, 255, 179, 0.8);
   --ifm-code-font-size: 95%;
 }
 
@@ -23,6 +23,8 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
+.navbar__brand img { position: relative; top: -3px}
 
 
 .button--secondary { color : var(--ifm-color-primary-darkest) !important }
