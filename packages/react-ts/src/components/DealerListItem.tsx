@@ -13,7 +13,7 @@ interface BadgeListProps extends BadgeProps {
 }
 
 export const DealerListItem: React.FC<Props> = ({ item }) => {
-	const { street, city, state, zip } = item.account;
+	const { street, city, state, zip, enrollment } = item.account;
 	const {
 		enrollmentStatusOK,
 		notImplemented,
@@ -77,6 +77,7 @@ export const DealerListItem: React.FC<Props> = ({ item }) => {
 					{street}<br /> {city}, {state} {zip}
 				</Text><br />
 				<Text disabled>{item.account.phone > 0 && toPhone(item.account.phone)}</Text>
+				<Text>{enrollment}</Text>
 			</div>
 		</Card>
 	)

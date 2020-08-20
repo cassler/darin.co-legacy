@@ -1,0 +1,34 @@
+---
+id: guide_partner_submission
+title: Add Partner Setup Requests
+sidebar_label: Add Setup Requests
+---
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+Next we'll indicate the accounts that we want to configure by providing a list of **partner IDs**. This can be done in two ways - with a file or by selecting IDs from a list.
+
+### Using a file
+Workflower is able to detect and validate files submitted from a number of partners. Simply select the file as it was submitted.
+
+ **IMPORTANT: You will need to convert Excel files to CSV first**
+
+<img alt='' src={(useBaseUrl('img/demo-b-06.png'))} />
+
+#### A note on partner settings
+When adding requests with a file, Workflower will also apply and partner-specific criteria to the requests themselves. For example: BOA requires that dealers be listed as "Active" in the "Program Status" column of their files. Workflower knows this and will ignore anything that does not meet this criteria.
+
+
+### Manually selecting IDs
+
+Switch to manual mode by toggling the switch below the file input shown here:
+
+<img alt='' src={(useBaseUrl('img/switch-to-manual.png'))} />
+
+Enter partner IDs in the newly revealed input box. Since you provided a Dealertrack report already, Workflower will autocomplete any partner IDs included. If a partner ID is unavailable on this list then that ID was not included on the report and presumably has not matched in Dealertrack.
+
+<img alt='' src={(useBaseUrl('img/cropped-manual-req.png'))} />
+
+You can select as many IDs as you like and they will be displayed as you go. If you select a wrong ID, you'll have to reset the input and start over. There is currently not a way to undo individual ID additions.
+
+
+With your setup requests listed it's time to proceed. Click "Continue"

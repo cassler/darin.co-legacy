@@ -1,12 +1,12 @@
 module.exports = {
-  title: 'Workflower Docs',
-  tagline: 'Workflower Mono',
+  title: 'Workflower',
+  tagline: 'A utility knife for workday life.',
 	url: 'https://pages.ghe.coxautoinc.com',
-	baseUrl: '/',
+	baseUrl: '/Darin-Cassler/workflower-monorepo/',
   favicon: 'img/favicon.ico',
-  organizationName: 'Darin-Cassler', // Usually your GitHub org/user name.
-	projectName: 'workflower-monorepo', // Usually your repo name.
 	githubHost: 'ghe.coxautoinc.com',
+	organizationName: 'Darin-Cassler', // Usually your GitHub org/user name.
+  projectName: 'workflower-monorepo', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'WF Docs',
@@ -35,47 +35,62 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Quickstart',
               to: '/docs/intro',
             },
             {
-              label: 'Second Doc',
-							to: '/docs/intro',
+              label: 'Dealertrack Reports',
+							to: '/docs/guide_choose_dt',
             },
+						{
+							label: 'Handling Requests',
+							to: '/docs/guide_partner_submission',
+						},
           ],
         },
         {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Lender DR Sharepoint',
+							href: 'https://coxautoinc.sharepoint.com/sites/LendingandTier1DigitalRetailing',
+							target: '_blank'
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Implementation Docs',
+							href: 'https://coxautoinc.sharepoint.com/sites/LendingandTier1DigitalRetailing/Shared%20Documents/Forms/AllItems.aspx?viewid=a6771fc7%2D2e11%2D46c2%2D99d0%2Dd0dfe921b98e&id=%2Fsites%2FLendingandTier1DigitalRetailing%2FShared%20Documents%2FImplementation',
+							target: '_blank'
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Salesforce Dashboard',
+							href: 'https://dealertrack-production.my.salesforce.com/01Z0e000000Qyed',
+							target: '_blank'
             },
+						{
+							label: 'eBiz Suite',
+							href: 'https://suiteadmin.dtdrs.dealertrack.com/#SuiteAccountPlace:676523',
+							target: '_blank'
+
+						}
           ],
         },
         {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: 'Browse Documentation Source',
+							to: 'https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/tree/gh-pages',
+							target: '_blank'
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+							href: 'https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo',
+							target: '_blank'
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Cox Auto, Inc. For internal use only.`,
     },
   },
   presets: [
