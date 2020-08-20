@@ -10,25 +10,35 @@ Workflower can pre-process digital retailing implementation request as they come
 ### 2. Post-Processing
 After identifying the appropriate course for items, Workflower allows you to generate accurate bulk provisioning files which can be used to implement dealers on eBiz Suite, Finance Driver and product subscription.
 
-## Included Packages
+
+# Quickstart
+
+### For end-users
+
+1. Download the [latest release (0.6)](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.6/workflower-portable-0.6-dist.zip)
+2. Unzip the contents and open `index.html`
+3. Head over to the [official documentation site](https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/) for a complete walkthrough and full documentation.
+
+
+### For developers
+
+1. `lerna bootstrap` or `yarn install`
+2. `yarn run start`
+
+This will launch the React client at `http://localhost:3333` and documentation website `http://localhost:3000`
+
+
+# Included Packages
 
 - **[core](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/tree/master/packages/core)** - Central business logic and classes for analyzing account/partner data.
 - **[react-ts](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/tree/master/packages/react-ts)** - React client built with TypeScript
 - **[csv](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/tree/master/packages/csv)** - A collection of utilities for parsing/unparsing uploaded files.
 - **[docs](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/tree/master/docs)** - Self-contained documentation website using Docusaurus.
 
-#### Quickstart (Developer)
-
-- `lerna bootstrap` or `yarn install`
-- `yarn run start`
-
-This will start:
-
-- React client at `http://localhost:3333`
-- Documentation website `http://localhost:3000`
 
 
-### Package Version Notice - August 20th 2020
+
+## Package Version Notice - August 20th 2020
 
 ```
 @wf/docs     v0.5.0 docs
