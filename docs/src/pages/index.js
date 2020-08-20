@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Simple Out-of-the-Box</>,
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+		imageUrl: 'img/tag-0.png',
     description: (
       <>
         Workflower was designed from the ground up to be entirely portable and require no installation. Just unzip and run.
@@ -18,7 +18,7 @@ const features = [
   },
   {
     title: <>Focus on What Matters</>,
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+		imageUrl: 'img/tag-1.png',
     description: (
       <>
         Workflower lets you focus on actions and outcomes, we&apos;ll do the chores. Go
@@ -28,7 +28,7 @@ const features = [
   },
   {
     title: <>No Servers</>,
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+		imageUrl: 'img/tag-2.png',
     description: (
       <>
         Workflower has no internal data or external dependencies. It runs locally and does not require an internet connection for any functionality.
@@ -61,8 +61,8 @@ function Home() {
       description="Description will go into a meta tag in <head />">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <h1 className="hero__title" className={clsx(styles.heroTitle)}>{siteConfig.title}</h1>
+					<p className={clsx('hero__subtitle', styles.heroSubtitle)}>{siteConfig.tagline}</p>
           <div className={styles.buttons}>
 						<Link
 							className={clsx(
@@ -77,7 +77,7 @@ function Home() {
 					<div className={styles.buttons}>
 						<Link
 							className={clsx(
-								'button button--outline button--secondary button--md',
+								'button button--fill button--primary button--md',
 								styles.getStarted,
 							)}
 							to={useBaseUrl('/docs/intro')}>
@@ -85,13 +85,12 @@ function Home() {
             </Link>&nbsp;
 						<Link
 							className={clsx(
-								'button button--outline button--secondary button--md',
+								'button button--fill button--primary button--md',
 								styles.getStarted,
 							)}
 							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/issues/new">
 							Report an Issue
             </Link>
-
 
           </div>
         </div>
