@@ -24,10 +24,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## Setting Exclusions
 
+<img alt='' src={(useBaseUrl('img/cropped-exclude.png'))} />
+
 Once you've identified a source for your exclusion list, upload it into the prompt. Workflower will analyze the file and display a dropdown menu.
 
 <img alt='' src={(useBaseUrl('img/demo-b-10.png'))} />
 
 Select the column where partner ID or dealertrack ID of the excluded dealers lives. If you were trying to generate product subscriptions for Bank of America, you would likely provide a Salesforce report of all accounts with active assets and include Dealertrack ID. Such a report can be [found here](https://dealertrack-production.my.salesforce.com/00O0e000005kHgF).
 
+<img alt='' src={(useBaseUrl('img/cropped-excluded.png'))} />
 Now Workflower knows you don't need information about these accounts. Time to move on!
