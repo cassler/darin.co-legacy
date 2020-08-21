@@ -75,6 +75,7 @@ export const WorkflowForm: React.FC = () => {
 		if (!ctx.partner && renderCount === 0) {
 			countRender(renderCount + 1)
 			ctx.loadContext()
+
 		}
 	}, [ctx, renderCount])
 
@@ -108,8 +109,8 @@ export const WorkflowForm: React.FC = () => {
 									>
 										<Button size="small" type="link" >Restore Session</Button>
 									</Popconfirm>
-									<Button onClick={() => ctx.setClear()} type="link">
-										Reset Workflow
+									<Button onClick={() => ctx.hardReset()} type="link">
+										Clear Saved Session
 													</Button>
 
 									<Button onClick={() => ctx.setDemo()} type="link">

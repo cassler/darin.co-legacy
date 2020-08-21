@@ -7,6 +7,18 @@ import { settings } from './data/settings';
 import { set, get } from 'idb-keyval';
 import { message } from 'antd';
 
+
+import TimeAgo from 'javascript-time-ago'
+
+// Load locale-specific relative date/time formatting rules.
+import en from 'javascript-time-ago/locale/en'
+
+// Add locale-specific relative date/time formatting rules.
+TimeAgo.addLocale(en)
+
+// Create relative date/time formatter.
+const timeAgo = new TimeAgo('en-US')
+
 export interface IParseResult {
 	data: any[];
 	errors: any;
@@ -92,6 +104,7 @@ export class WFProvider extends React.Component {
 	setStep: Function
 	loadState: Function
 	togglePartnerSettings: Function
+	hardReset: Function
 	saveContext: Function
 	loadContext: Function
 	constructor(props) {
@@ -198,32 +211,40 @@ export class WFProvider extends React.Component {
 				showPartnerSettings: newVis
 			}))
 		}
-		this.saveContext = (state) => {
+		this.hardReset = () => {
+			set("saveState", undefined);
+			this.setClear()
+		}
+		this.saveContext = (obj) => {
+			set("saveTime", new Date())
 			set("saveState", JSON.stringify({
-				requested: state.requested,
-				reference: state.reference,
-				partner: state.partner,
-				partner_name: state.partner_name,
-				config: state.config,
-				result: state.result,
-				log: state.log,
-				busy: state.busy,
-				currentTab: state.currentTab,
-				demo: state.demo,
-				step: state.step,
-				showPartnerSettings: state.showPartnerSettings
+				requested: obj.requested,
+				reference: obj.reference,
+				partner: obj.partner,
+				partner_name: obj.partner_name,
+				config: obj.config,
+				result: obj.result,
+				log: obj.log,
+				busy: obj.busy,
+				currentTab: obj.currentTab,
+				demo: obj.demo,
+				step: obj.step,
+				showPartnerSettings: obj.showPartnerSettings
 			}))
-			message.success('Saved state locally! You can safely close the window.');
+
 		}
 		this.loadContext = () => {
 			// Go find our requests
-			get<string>("saveState").then(value => {
-				if (value) {
-					message.info('Restored App State')
-					this.loadState(JSON.parse(value))
-				} else {
-					message.info("No save state found.")
-				}
+			get<unknown>("saveTime").then(timestamp => {
+				get<string>("saveState").then(value => {
+					if (value) {
+						// let diff = Date.now() - timestamp;
+						message.info(`Restored state from ${timeAgo.format(timestamp)}`)
+						this.loadState(JSON.parse(value))
+					} else {
+						message.info("No save state found.")
+					}
+				})
 			})
 		}
 
@@ -240,6 +261,7 @@ export class WFProvider extends React.Component {
 			setStep: this.setStep,
 			togglePartnerSettings: this.togglePartnerSettings,
 			loadState: this.loadState,
+			hardReset: this.hardReset,
 			saveContext: this.saveContext,
 			loadContext: this.loadContext
 		}
