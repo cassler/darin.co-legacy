@@ -7,7 +7,8 @@ import FileSelect from './FileSelect';
 import AutoCompleter from './AutoCompleter';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
-import { Statistic, Popover, Divider, Button, Result, Input, Switch } from 'antd';
+import { set, get } from 'idb-keyval';
+import { Statistic, Popover, Divider, Button, Result, Input, Switch, message, Popconfirm } from 'antd';
 import { FormOutlined, ArrowLeftOutlined, FileExcelOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { Spinner, FormGroup } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
@@ -27,6 +28,18 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "DRW") ctx.setConfig(settings.drw);
 		if (partner === "HAZ") ctx.setConfig(settings.haz);
 		if (partner === "CNZ") ctx.setConfig(settings.cnz);
+	}
+
+	const loadContext = () => {
+		// Go find our requests
+		get<string>("saveState").then(value => {
+			if (value) {
+				message.info('Restored App State')
+				ctx.loadState(JSON.parse(value))
+			} else {
+				message.info("No save state found.")
+			}
+		})
 	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
@@ -96,9 +109,19 @@ export const WorkflowForm: React.FC = () => {
 										callback={handlePartnerSelect}
 									/>
 									<Divider />
+									<Popconfirm
+										title="Current session will be lost."
+										onConfirm={loadContext}
+										onCancel={() => { }}
+										okText="Continue Loading"
+										cancelText="Cancel"
+									>
+										<Button size="small" type="link" >Restore Session</Button>
+									</Popconfirm>
 									<Button onClick={() => ctx.setClear()} type="link">
 										Reset Workflow
 													</Button>
+
 									<Button onClick={() => ctx.setDemo()} type="link">
 										Use Example Data
 													</Button>

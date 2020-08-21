@@ -41,7 +41,7 @@ export const ResultsView = (props) => {
 	}, [currentTabTitle, log.cancel.title, log.implement.title, log.invalid.title, log.unmatched.title])
 	return (
 		<>
-			<div>
+			<div style={{ padding: "48px" }}>
 				<h1 style={{ textAlign: 'center' }}>Today at {partner_name || partner}</h1>
 				<Tabs defaultActiveKey={log.implement.title} centered onChange={(key) => setTab(key)}>
 					{Object.keys(log).map((i, index) => {

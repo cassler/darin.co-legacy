@@ -78,9 +78,9 @@ function App() {
 										</motion.div>
 									)}
 							</AnimatePresence>
-							<div style={{ position: 'fixed', top: '24px', right: '24px' }}>
+							{ctx.step > 0 && (<div style={{ position: 'fixed', top: '24px', right: '24px' }}>
 								<SaveContextButton />
-							</div>
+							</div>)}
 							<Modal
 								title={`Partner Settings - ${ctx.partner}`}
 								width={800}
