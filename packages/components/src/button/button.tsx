@@ -54,23 +54,30 @@ export const Button: React.FC<IButtonProps> = (props = defaultProps) => {
 
 	const sty = {
 		base: css`
-			border-radius: '4px';
+			border-radius: 8px;
 			font-weight: 500;
 			border: 1px solid ${colors.gray[2]};
-			padding: '15px 15px';
+			padding: 15px 15px;
 			background-color: ${colors.gray[0]};
-			color: ${colors.gray[7]};
+			color: ${colors.gray[5]};
 			&:hover {
 				background-color: ${colors.gray[1]};
-				cursor: "pointer";
+				cursor: pointer;
 			}
 		`,
-		use3D: {
-			boxShadow: `2px 3px 8px ${colors.gray[3]}`,
-		},
+		use3D: css`
+			box-shadow: 2px 1px 12px ${colors.gray[2]};
+			&:hover {
+				background: transparent;
+				box-shadow: 2px 1px 8px ${colors.gray[2]};
+			}
+			&:active {
+				box-shadow: 1px 1px 4px ${colors.gray[2]};
+			}
+		`,
 		primary: {
-			backgroundColor: '#deffcc',
-			color: '#14b438'
+			backgroundColor: colors.gray[0],
+			color: colors.gray[8]
 		},
 		ghost: {
 			background: 'transparent',

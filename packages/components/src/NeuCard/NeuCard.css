@@ -1,0 +1,53 @@
+*, * + * {
+	box-sizing: border-box;
+}
+.neuCard {
+	padding: 50px;
+}
+
+.image-box {
+	max-width: 100%;
+	padding: 0;
+	position: relative;
+}
+
+.neuCardInner {
+	padding: 0;
+	border-radius: 15px;
+	z-index:500;
+	margin: 0;
+	overflow: hidden;
+	top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.neuCard img.fg {
+	max-width: 100%;
+	height: auto;
+	outline: 3px solid transparent;
+	border-radius: 15px;
+}
+.neuCard img.bbg, .neuCard img.bg {
+	position: absolute;
+	z-index: -100;
+	top:25px;
+	left:5%;
+	width: 90%;
+	height: auto;
+	-webkit-filter: blur(50px);
+	filter: blur(40px);
+	opacity:1;
+}
+
+.neuCard:hover img.bg {
+	-webkit-filter: blur(70px);
+	filter: blur(60px);
+	opacity:0.2;
+}
+
+.neuCard img.bbg {
+	top:5px;
+	left:0px;
+	-webkit-filter: blur(10px);
+	filter: blur(10px);
+	opacity:0.4;
+}
