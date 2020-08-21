@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { WFContext } from '../context';
-import { message, Button } from 'antd';
+import { message, Popconfirm, Button } from 'antd';
 import { set, get } from 'idb-keyval';
 
+/**
+ * @TODO - This functionality should exist inside the context itself.
+ */
 export function SaveContextButton() {
 	const { ctx } = useContext(WFContext);
 
@@ -33,13 +36,32 @@ export function SaveContextButton() {
 			step: ctx.step,
 			showPartnerSettings: ctx.showPartnerSettings
 		}))
-		message.success('Saved state locally!');
+		message.success('Saved state locally! You can safely close the window.');
 	}
 
 	return (
 		<>
-			<Button onClick={() => saveContext()}>Save</Button>
-			<Button onClick={() => loadContext()}>Load</Button>
+			<Popconfirm
+				title="This will overwrite any existing data."
+				onConfirm={saveContext}
+				onCancel={() => { }}
+				okText="Save"
+				cancelText="Cancel"
+			>
+				<Button size="small">Save Session</Button>
+			</Popconfirm>
+			<Popconfirm
+				title="Current session will be lost."
+				onConfirm={loadContext}
+				onCancel={() => { }}
+				okText="Continue Loading"
+				cancelText="Cancel"
+			>
+				<Button size="small" >Load Session</Button>
+			</Popconfirm>
+			<Button
+				size="small"
+				onClick={() => ctx.setClear()}>Clear Session</Button>
 		</>
 	)
 }
