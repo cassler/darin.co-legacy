@@ -16,8 +16,7 @@ function App() {
 	function handleClick(e) {
 		console.log('click', e);
 	}
-	const padSmall = { padding: '0', minHeight: 280 };
-	const padBig = { padding: '72px 24px 48px' };
+
 	const layoutStyle = {
 		display: "grid",
 		gridTemplateColumns: "300px 1fr",

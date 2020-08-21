@@ -4,7 +4,8 @@ import { ImplementationResult, ImpPayload } from '@wf/core';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
-
+import { set, get } from 'idb-keyval';
+import { message } from 'antd';
 
 export interface IParseResult {
 	data: any[];
@@ -40,11 +41,7 @@ interface WFContextVal extends WFContextI {
 	loadState: Function
 }
 
-interface WFContextsI {
-	[key: string]: WFContextI
-}
-
-export const initialContext: WFContextsI = {
+export const initialContext: { [key: string]: WFContextI } = {
 	demo: {
 		requested: drwRequestData,
 		reference: drwRefData,
@@ -95,6 +92,8 @@ export class WFProvider extends React.Component {
 	setStep: Function
 	loadState: Function
 	togglePartnerSettings: Function
+	saveContext: Function
+	loadContext: Function
 	constructor(props) {
 		super(props)
 		this.setPartner = (sel: PartnerCode) => {
@@ -199,6 +198,34 @@ export class WFProvider extends React.Component {
 				showPartnerSettings: newVis
 			}))
 		}
+		this.saveContext = (state) => {
+			set("saveState", JSON.stringify({
+				requested: state.requested,
+				reference: state.reference,
+				partner: state.partner,
+				partner_name: state.partner_name,
+				config: state.config,
+				result: state.result,
+				log: state.log,
+				busy: state.busy,
+				currentTab: state.currentTab,
+				demo: state.demo,
+				step: state.step,
+				showPartnerSettings: state.showPartnerSettings
+			}))
+			message.success('Saved state locally! You can safely close the window.');
+		}
+		this.loadContext = () => {
+			// Go find our requests
+			get<string>("saveState").then(value => {
+				if (value) {
+					message.info('Restored App State')
+					this.loadState(JSON.parse(value))
+				} else {
+					message.info("No save state found.")
+				}
+			})
+		}
 
 		this.state = {
 			...initialContext.default,
@@ -212,7 +239,9 @@ export class WFProvider extends React.Component {
 			setTab: this.setTab,
 			setStep: this.setStep,
 			togglePartnerSettings: this.togglePartnerSettings,
-			loadState: this.loadState
+			loadState: this.loadState,
+			saveContext: this.saveContext,
+			loadContext: this.loadContext
 		}
 	}
 
