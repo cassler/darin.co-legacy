@@ -5,6 +5,7 @@ import { Divider, Modal, Layout, Card } from 'antd';
 import { motion, AnimatePresence } from "framer-motion"
 import WorkflowForm from './components/WorkflowForm';
 import Stepper from './components/Stepper';
+import SaveContextButton from './components/SaveContextButton';
 import PreferenceMenu from './components/PreferenceMenu';
 import { WFProvider, WFContext } from './context';
 import ResultsContainer from './components/ResultsContainer'
@@ -56,6 +57,7 @@ function App() {
 											index={ctx.step} />
 										<div>
 											<Divider />
+											<SaveContextButton />
 											<PreferenceMenu handleClick={handleClick} partner={ctx.partner} />
 										</div>
 									</div>

@@ -12,7 +12,7 @@ export interface IParseResult {
 	meta: any;
 }
 
-interface WFContextI {
+export interface WFContextI {
 	requested: IParseResult | undefined,
 	reference: IParseResult | undefined,
 	partner: PartnerCode,
@@ -37,6 +37,7 @@ interface WFContextVal extends WFContextI {
 	setRequested: Function
 	setTab: Function
 	togglePartnerSettings: Function
+	loadState: Function
 }
 
 interface WFContextsI {
@@ -92,6 +93,7 @@ export class WFProvider extends React.Component {
 	setRequested: Function
 	setTab: Function
 	setStep: Function
+	loadState: Function
 	togglePartnerSettings: Function
 	constructor(props) {
 		super(props)
@@ -104,6 +106,23 @@ export class WFProvider extends React.Component {
 				step: 1,
 			}))
 		};
+		this.loadState = (obj: WFContextI) => {
+			this.setState(state => ({
+				...state,
+				requested: obj.requested,
+				reference: obj.reference,
+				partner: obj.partner,
+				partner_name: obj.partner_name,
+				config: obj.config,
+				result: obj.result,
+				log: obj.log,
+				busy: obj.busy,
+				currentTab: obj.currentTab,
+				demo: obj.demo,
+				step: obj.step,
+				showPartnerSettings: obj.showPartnerSettings
+			}))
+		}
 		this.setConfig = (obj: partnerConfigInput) => {
 			this.setState(state => ({
 				...state,
@@ -182,7 +201,8 @@ export class WFProvider extends React.Component {
 			setRequested: this.setRequested,
 			setTab: this.setTab,
 			setStep: this.setStep,
-			togglePartnerSettings: this.togglePartnerSettings
+			togglePartnerSettings: this.togglePartnerSettings,
+			loadState: this.loadState
 		}
 	}
 
