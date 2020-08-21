@@ -18,7 +18,7 @@ export const ResultsContainer = () => {
 	return (
 		<div>
 			<Button
-				style={{ position: "fixed", top: '24px', right: '24px' }}
+				style={{ position: "fixed", top: '24px', left: '324px' }}
 				disabled={ctx.step === 0}
 				type="link"
 				onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}
