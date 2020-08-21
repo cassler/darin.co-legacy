@@ -10,14 +10,21 @@ import { PartnerCode } from '@wf/types';
 export function SaveContextButton() {
 	const { ctx } = useContext(WFContext);
 
+	const handleSave = () => {
+		ctx.saveContext(ctx);
+		message.success('Saved session succesfully. You can close this window safely.')
+	}
 
+	const handleReset = () => {
+
+	}
 
 	return (
 
 		<div style={{ textAlign: 'center' }}>
 			<Popconfirm
 				title="This will overwrite any existing data."
-				onConfirm={ctx.saveContext(ctx)}
+				onConfirm={handleSave}
 				onCancel={() => { }}
 				okText="Save"
 				cancelText="Cancel"
@@ -33,10 +40,18 @@ export function SaveContextButton() {
 			>
 				<Button size="small" type="link" >Load</Button>
 			</Popconfirm>
-			<Button
-				type="link"
-				size="small"
-				onClick={() => ctx.setClear()}>Clear</Button>
+			<Popconfirm
+				title="This will delete any saved sessions."
+				onConfirm={ctx.setClear}
+				onCancel={() => { }}
+				okText="Destroy it."
+				cancelText="Nevermind"
+			>
+				<Button
+					type="link"
+					size="small"
+				>Clear</Button>
+			</Popconfirm>
 		</div>
 	)
 }

@@ -109,10 +109,17 @@ export const WorkflowForm: React.FC = () => {
 									>
 										<Button size="small" type="link" >Restore Session</Button>
 									</Popconfirm>
-									<Button onClick={() => ctx.hardReset()} type="link">
-										Clear Saved Session
+									<Popconfirm
+										title="This will delete any saved session"
+										onConfirm={ctx.hardReset}
+										onCancel={() => { }}
+										okText="Destroy it."
+										cancelText="Spare it"
+									>
+										<Button type="link">
+											Clear Saved Session
 													</Button>
-
+									</Popconfirm>
 									<Button onClick={() => ctx.setDemo()} type="link">
 										Use Example Data
 													</Button>
