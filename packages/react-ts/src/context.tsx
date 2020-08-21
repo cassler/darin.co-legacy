@@ -4,7 +4,20 @@ import { ImplementationResult, ImpPayload } from '@wf/core';
 import { data as drwRequestData } from './data/drwRequest';
 import { data as drwRefData } from './data/refData';
 import { settings } from './data/settings';
+import { set, get } from 'idb-keyval';
+import { message } from 'antd';
 
+
+import TimeAgo from 'javascript-time-ago'
+
+// Load locale-specific relative date/time formatting rules.
+import en from 'javascript-time-ago/locale/en'
+
+// Add locale-specific relative date/time formatting rules.
+TimeAgo.addLocale(en)
+
+// Create relative date/time formatter.
+const timeAgo = new TimeAgo('en-US')
 
 export interface IParseResult {
 	data: any[];
@@ -40,11 +53,7 @@ interface WFContextVal extends WFContextI {
 	loadState: Function
 }
 
-interface WFContextsI {
-	[key: string]: WFContextI
-}
-
-export const initialContext: WFContextsI = {
+export const initialContext: { [key: string]: WFContextI } = {
 	demo: {
 		requested: drwRequestData,
 		reference: drwRefData,
@@ -95,6 +104,9 @@ export class WFProvider extends React.Component {
 	setStep: Function
 	loadState: Function
 	togglePartnerSettings: Function
+	hardReset: Function
+	saveContext: Function
+	loadContext: Function
 	constructor(props) {
 		super(props)
 		this.setPartner = (sel: PartnerCode) => {
@@ -199,6 +211,42 @@ export class WFProvider extends React.Component {
 				showPartnerSettings: newVis
 			}))
 		}
+		this.hardReset = () => {
+			set("saveState", undefined);
+			this.setClear()
+		}
+		this.saveContext = (obj) => {
+			set("saveTime", new Date())
+			set("saveState", JSON.stringify({
+				requested: obj.requested,
+				reference: obj.reference,
+				partner: obj.partner,
+				partner_name: obj.partner_name,
+				config: obj.config,
+				result: obj.result,
+				log: obj.log,
+				busy: obj.busy,
+				currentTab: obj.currentTab,
+				demo: obj.demo,
+				step: obj.step,
+				showPartnerSettings: obj.showPartnerSettings
+			}))
+
+		}
+		this.loadContext = () => {
+			// Go find our requests
+			get<unknown>("saveTime").then(timestamp => {
+				get<string>("saveState").then(value => {
+					if (value) {
+						// let diff = Date.now() - timestamp;
+						message.info(`Restored state from ${timeAgo.format(timestamp)}`)
+						this.loadState(JSON.parse(value))
+					} else {
+						message.info("No save state found.")
+					}
+				})
+			})
+		}
 
 		this.state = {
 			...initialContext.default,
@@ -212,7 +260,10 @@ export class WFProvider extends React.Component {
 			setTab: this.setTab,
 			setStep: this.setStep,
 			togglePartnerSettings: this.togglePartnerSettings,
-			loadState: this.loadState
+			loadState: this.loadState,
+			hardReset: this.hardReset,
+			saveContext: this.saveContext,
+			loadContext: this.loadContext
 		}
 	}
 

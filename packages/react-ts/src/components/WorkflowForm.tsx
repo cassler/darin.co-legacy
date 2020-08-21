@@ -20,6 +20,7 @@ export const WorkflowForm: React.FC = () => {
 	const { ctx } = useContext(WFContext);
 	const { step } = ctx;
 	const [busy, toggleBusy] = useState<boolean>(false)
+	const [renderCount, countRender] = useState<number>(0)
 	const [useRequestFile, toggleRequestFile] = useState<boolean>(true)
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
@@ -30,17 +31,6 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "CNZ") ctx.setConfig(settings.cnz);
 	}
 
-	const loadContext = () => {
-		// Go find our requests
-		get<string>("saveState").then(value => {
-			if (value) {
-				message.info('Restored App State')
-				ctx.loadState(JSON.parse(value))
-			} else {
-				message.info("No save state found.")
-			}
-		})
-	}
 
 	const updateLiveIDs = (items: number[] | string[] | bigint[]) => {
 		const newConfig = {
@@ -73,13 +63,6 @@ export const WorkflowForm: React.FC = () => {
 		}
 	}
 
-	useEffect(() => {
-
-		// if (ctx.demo && !ctx.log) {
-		// 	createResult();
-		// 	ctx.setStep(4)
-		// }
-	})
 
 	const defaultMotion = {
 		transition: { ease: "easeInOut", duration: 0.3 },
@@ -87,6 +70,14 @@ export const WorkflowForm: React.FC = () => {
 		animate: { x: 0, opacity: 1, scale: 1 },
 		exit: { x: -300, opacity: 0, scale: 0.1 }
 	}
+
+	useEffect(() => {
+		if (!ctx.partner && renderCount === 0) {
+			countRender(renderCount + 1)
+			ctx.loadContext()
+
+		}
+	}, [ctx, renderCount])
 
 	return (
 		<div style={{ position: "relative", minHeight: '640px' }}>
@@ -111,17 +102,24 @@ export const WorkflowForm: React.FC = () => {
 									<Divider />
 									<Popconfirm
 										title="Current session will be lost."
-										onConfirm={loadContext}
+										onConfirm={ctx.loadContext}
 										onCancel={() => { }}
 										okText="Continue Loading"
 										cancelText="Cancel"
 									>
 										<Button size="small" type="link" >Restore Session</Button>
 									</Popconfirm>
-									<Button onClick={() => ctx.setClear()} type="link">
-										Reset Workflow
+									<Popconfirm
+										title="This will delete any saved session"
+										onConfirm={ctx.hardReset}
+										onCancel={() => { }}
+										okText="Destroy it."
+										cancelText="Spare it"
+									>
+										<Button type="link">
+											Clear Saved Session
 													</Button>
-
+									</Popconfirm>
 									<Button onClick={() => ctx.setDemo()} type="link">
 										Use Example Data
 													</Button>
