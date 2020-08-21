@@ -12,10 +12,10 @@
 
 body {
 	background-color: rgb(240, 242, 245) !important;
-	display: grid;
+	/* display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr;
-	align-items: center;
+	align-items: center; */
 }
 
 h2 {
@@ -33,16 +33,16 @@ h2 {
 	font-weight: 800;
 	color: #333;
 	letter-spacing: -0.05em;
-	padding: 0 48px 24px;
+	padding: 0 0 24px;
 	text-align: left;
 	font-size: 26px;
 	line-height: 26px;
 	margin: 0 0 24px;
 	text-align: center;
 	/* border-bottom: 1px solid #ddd; */
-	position: fixed;
+	/* position: fixed;
 	top: 24px;
-	left: 24px;
+	left: 24px; */
   /* height: 15vmin; */
   /* pointer-events: none; */
 }
@@ -76,9 +76,11 @@ h2 {
 }
 
 .result-card {
-
-	box-shadow: 3px 5px 24px rgba(100, 100, 100, 0.1),
-		1px 10px 12px rgba(50,50,50,0.2)
+	min-height: 100vh;
+	display: grid;
+	align-content: center;
+	box-shadow: 0 -5px 5px rgba(100, 100, 100, 0.1);
+		/* 1px 10px 12px rgba(50,50,50,0.2) */
 }
 
 .App-link {

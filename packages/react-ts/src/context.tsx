@@ -107,13 +107,23 @@ export class WFProvider extends React.Component {
 			}))
 		};
 		this.loadState = (obj: WFContextI) => {
+			let partner = obj.partner;
+			let newConfig: partnerConfigInput | undefined = undefined;
+			switch (partner) {
+				case "BOA": newConfig = settings.boa; break
+				case "DRW": newConfig = settings.drw; break
+				case "HAZ": newConfig = settings.haz; break
+				case "CNZ": newConfig = settings.cnz; break
+				default: newConfig = undefined
+			}
+
 			this.setState(state => ({
 				...state,
 				requested: obj.requested,
 				reference: obj.reference,
 				partner: obj.partner,
 				partner_name: obj.partner_name,
-				config: obj.config,
+				config: newConfig,
 				result: obj.result,
 				log: obj.log,
 				busy: obj.busy,
