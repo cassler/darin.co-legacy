@@ -9,7 +9,7 @@ export const Button = () => {
 		padding: 10px;
 		border: none;
 		border-radius: 8px;
-		background-color: #393;
+		background-color: #228;
 		color: #fff;
 	`
 	return (
