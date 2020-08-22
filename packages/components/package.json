@@ -1,23 +1,23 @@
 {
-  "name": "@nighttrax/components",
-  "version": "1.0.0",
-  "main": "dist/index",
-  "types": "dist/index",
-  "scripts": {
-    "build": "yarn run clean && yarn run compile",
-    "clean": "rimraf -rf ./dist",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepublishOnly": "yarn run build",
-    "test": "yarn run build"
-  },
-  "peerDependencies": {
-    "react": "~16.13.1"
-  },
-  "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@nighttrax/foo": "*"
-  },
-  "devDependencies": {
-    "@types/react": "~16.9.43"
-  }
+	"name": "@nighttrax/components",
+	"version": "1.0.0",
+	"main": "src/index",
+	"types": "src/index",
+	"scripts": {
+		"build": "yarn run clean && yarn run compile",
+		"clean": "rimraf -rf ./dist",
+		"compile": "tsc -p tsconfig.build.json",
+		"prepublishOnly": "yarn run build",
+		"test": "yarn run build"
+	},
+	"peerDependencies": {
+		"react": "~16.13.1"
+	},
+	"dependencies": {
+		"@emotion/core": "^10.0.35",
+		"@nighttrax/foo": "*"
+	},
+	"devDependencies": {
+		"@types/react": "~16.9.43"
+	}
 }
