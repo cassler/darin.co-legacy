@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '../Button/button';
+import { Button } from '@cassler/components';
 // import './header.css';
 
 export interface HeaderProps {

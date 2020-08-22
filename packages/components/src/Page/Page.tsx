@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header } from '../PageHeader/Header';
+import { Header } from '@cassler/components';
 // import './page.css';
 
 export interface PageProps {
