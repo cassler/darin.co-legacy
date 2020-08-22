@@ -13,7 +13,8 @@
 		"pub": "lerna publish",
 		"test": "lerna run test",
 		"storybook": "lerna run storybook",
-		"cra": "yarn workspace @cassler/cra-example run start"
+		"cra": "yarn workspace @cassler/cra-example run start",
+		"next:dev": "yarn workspace @cassler/nextjs-example next dev"
 	},
 	"devDependencies": {
 		"@nighttrax/eslint-config-tsx": "~6.1.0",

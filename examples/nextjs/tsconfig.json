@@ -10,7 +10,8 @@
 		"baseUrl": "../..",
 		"paths": {
 			"@cassler/*": [
-				"packages/*/src"
+				"packages/*/src",
+				"examples/*/src",
 			]
 		},
 		"allowJs": true,

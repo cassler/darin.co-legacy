@@ -10,13 +10,13 @@
 		"prepublishOnly": "yarn run build",
 		"test": "yarn run build",
 		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"build-storybook": "build-storybook",
+		"generate-barrels": "barrelsby --delete  -d src -l top"
 	},
-	"peerDependencies": {
-		"react": "~16.13.1"
-	},
+	"peerDependencies": {},
 	"dependencies": {
-		"@cassler/utils": "^1.0.2"
+		"@cassler/utils": "^1.0.2",
+		"react": "~16.13.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.1",
@@ -33,6 +33,7 @@
 		"@types/storybook__react": "^5.2.1",
 		"add": "^2.0.6",
 		"babel-loader": "^8.1.0",
+		"barrelsby": "^2.2.0",
 		"faker": "^4.1.0",
 		"framer-motion": "^2.4.2",
 		"postcss-loader": "^3.0.0",
@@ -41,6 +42,5 @@
 		"sass-loader": "^9.0.3",
 		"scss-loader": "^0.0.1",
 		"typescript": "^3.9.7"
-	},
-	"gitHead": "5ce6e1af2504c7c3d09c1e2b8a6c7ead9c2c4724"
+	}
 }

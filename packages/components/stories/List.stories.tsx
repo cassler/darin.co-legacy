@@ -21,7 +21,7 @@ const Template: Story<ListPropsI> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
 	header: <div>The header</div>,
-	footer: <div><Button /></div>
+	footer: <div><Button label="footer button" /></div>
 };
 
 export const Secondary = Template.bind({});

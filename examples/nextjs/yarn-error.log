@@ -1,0 +1,61 @@
+Arguments: 
+  /usr/local/bin/node /Users/darin/.npm-packages/bin/yarn install
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/Users/darin/.npm-packages/bin:/Users/darin/.npm-packages/bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  12.14.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@cassler%2fcomponents: Not found
+      at Request.params.callback [as _callback] (/Users/darin/.npm-packages/lib/node_modules/yarn/lib/cli.js:66947:18)
+      at Request.self.callback (/Users/darin/.npm-packages/lib/node_modules/yarn/lib/cli.js:140665:22)
+      at Request.emit (events.js:223:5)
+      at Request.<anonymous> (/Users/darin/.npm-packages/lib/node_modules/yarn/lib/cli.js:141637:10)
+      at Request.emit (events.js:223:5)
+      at IncomingMessage.<anonymous> (/Users/darin/.npm-packages/lib/node_modules/yarn/lib/cli.js:141559:12)
+      at Object.onceWrapper (events.js:312:28)
+      at IncomingMessage.emit (events.js:228:7)
+      at endReadableNT (_stream_readable.js:1185:12)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+npm manifest: 
+  {
+  	"name": "@cassler/nextjs-example",
+  	"private": true,
+  	"version": "1.0.1",
+  	"scripts": {
+  		"dev": "next dev",
+  		"build": "next build",
+  		"test": "yarn run build"
+  	},
+  	"workspaces": [
+  		"../packages/**"
+  	],
+  	"dependencies": {
+  		"@cassler/components": "1.0.2",
+  		"next": "~9.4.4",
+  		"react": "~16.13.1",
+  		"react-dom": "~16.13.1"
+  	},
+  	"devDependencies": {
+  		"@types/node": "~14.0.23",
+  		"@types/react": "~16.9.43",
+  		"@types/react-dom": "~16.9.8",
+  		"next-transpile-modules": "~3.3.0",
+  		"typescript": "~3.9.6"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

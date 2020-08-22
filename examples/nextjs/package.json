@@ -8,11 +8,10 @@
 		"test": "yarn run build"
 	},
 	"workspaces": [
-		"../packages/*",
-		"../examples/*"
+		"../packages/**"
 	],
 	"dependencies": {
-		"@cassler/components": "^1.0.1",
+		"@cassler/components": "*",
 		"next": "~9.4.4",
 		"react": "~16.13.1",
 		"react-dom": "~16.13.1"
