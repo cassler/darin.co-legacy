@@ -6,4 +6,6 @@ const withTM = require("next-transpile-modules")(
   [path.resolve(__dirname, "../../packages")]
 );
 
-module.exports = withTM();
+module.exports = withTM({
+	target: 'serverless'
+});
