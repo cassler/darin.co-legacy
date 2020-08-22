@@ -9,8 +9,8 @@ export const Button = () => {
 		padding: 10px;
 		border: none;
 		border-radius: 8px;
-		background-color: #339;
-		color: #ddf;
+		background-color: #393;
+		color: #fff;
 	`
 	return (
 		<button

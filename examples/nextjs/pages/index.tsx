@@ -1,4 +1,4 @@
 import React from "react";
-import { Button } from "@nighttrax/components";
+import { Button } from "@cassler/components";
 
 export default () => <Button />;

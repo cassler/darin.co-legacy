@@ -1,5 +1,5 @@
 {
-	"name": "@nighttrax/components",
+	"name": "@cassler/components",
 	"version": "1.0.0",
 	"main": "src/index",
 	"types": "src/index",
