@@ -18,7 +18,7 @@ export const Button = () => {
 			type="button"
 			onClick={() => alert(`the meaning if life is ${meaningOfLife}`)}
 		>
-			Click me!!!!!
+			darin is
 		</button>
 	)
 };
