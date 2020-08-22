@@ -9,7 +9,7 @@ export const Button = () => {
 		padding: 10px;
 		border: none;
 		border-radius: 8px;
-		background-color: #228;
+		background-color: #f92;
 		color: #fff;
 	`
 	return (
@@ -18,7 +18,7 @@ export const Button = () => {
 			type="button"
 			onClick={() => alert(`the meaning if life is ${meaningOfLife}`)}
 		>
-			darin is
+			darin is developed
 		</button>
 	)
 };
