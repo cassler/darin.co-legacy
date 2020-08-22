@@ -1,4 +1,6 @@
 import React from "react";
-import { Button } from "@cassler/components";
+import { Button, Layout } from "@cassler/components";
 
-export default () => <Button />;
+export default () => (
+	<Layout><Button /></Layout>
+);
