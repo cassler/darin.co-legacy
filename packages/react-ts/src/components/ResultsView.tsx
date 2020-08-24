@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImplementationResult, ImplementationPackage } from '@wf/core';
 import PreviewTable from './PreviewTable'
-import { Badge, Popover, Card, Divider, Typography, Tabs, Table } from 'antd';
+import { Badge, Popover, Card, PageHeader, Divider, Typography, Tabs, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SimpleAccount } from '@wf/types';
+import { WFContext } from '../context';
 
 
 const tabScoreStyle: React.CSSProperties = {
@@ -15,7 +16,8 @@ const tabScoreStyle: React.CSSProperties = {
 }
 
 export const ResultsView = (props) => {
-	const { partner, partner_name, log, result, liveCount } = props;
+
+	const { partner, partner_name, log, result, liveCount, handleBack } = props;
 	const [currentTabTitle, setTab] = useState(log.implement.title)
 	const [currentView, setView] = useState('implement');
 	useEffect(() => {
@@ -74,9 +76,10 @@ export const ResultsView = (props) => {
 
 	return (
 		<>
-			<h1 style={{ textAlign: 'center', marginTop: '48px' }}>
-				Today at {partner_name || partner}
-			</h1>
+			<PageHeader title={`Today at ${partner_name || partner}`}
+				onBack={() => handleBack()}
+			/>
+
 
 			<div style={tabScoreStyle}>
 				{Object.keys(log).map((i, index) => {

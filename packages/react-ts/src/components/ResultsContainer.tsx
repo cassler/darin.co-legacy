@@ -17,18 +17,15 @@ export const ResultsContainer = () => {
 
 	return (
 		<div>
-			<Button
-				style={{ position: "fixed", top: '24px', left: '324px' }}
-				disabled={ctx.step === 0}
-				type="link"
-				onClick={() => ctx.setStep(Math.max(0, ctx.step - 1))}
-			>
-				<ArrowLeftOutlined /> Go Back
-				</Button>
 			{ctx.log && (
 				<div>
 
-					<ResultsView partner_name={ctx.partner_name} partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids.length} />
+					<ResultsView
+						partner_name={ctx.partner_name}
+						partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids.length} handleBack={() => {
+							ctx.setStep(Math.max(0, ctx.step - 1))
+						}}
+					/>
 
 				</div>
 			)}
