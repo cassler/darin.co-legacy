@@ -12,6 +12,7 @@ interface PreviewTableProps {
 	title?: string,
 	excludeSize?: number,
 	totalSize?: number,
+	summary?: string
 	payload?: {
 		eBizUpload: any[];
 		financeDriverUpload: any[];
@@ -19,7 +20,7 @@ interface PreviewTableProps {
 	},
 	partner: PartnerCode
 }
-export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partner, payload, totalSize, excludeSize }) => {
+export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partner, payload, totalSize, excludeSize, summary }) => {
 
 	return (
 		<Table
@@ -34,20 +35,22 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 				}}>
 					<div>
 						<h3>Showing items that are {title} ({items.length})</h3>
-						<small>Showing info for {totalSize} entries. Excluding {excludeSize} ID noted as live.</small>
+						<Text type="secondary">{summary}</Text>
+						<Text disabled>Showing info for {totalSize} entries. Excluding {excludeSize} ID noted as live.</Text>
 					</div>
-					<div style={{ textAlign: 'right' }}>
-						<ProvisioningButtons
-							payload={payload}
-							partner={partner}
-							title="Get Provisioning Files"
-						/>
-					</div>
+					{payload && (
+
+						<div style={{ textAlign: 'right' }}>
+							<ProvisioningButtons
+								payload={payload}
+								partner={partner}
+								title="Get Provisioning Files"
+							/>
+						</div>
+					)}
 				</div>
 			)}
-			summary={() => (
-				<div></div>
-			)}
+
 			pagination={{ position: ["bottomRight"], pageSize: 50 }}
 			size="small"
 			dataSource={items.map(i => ({

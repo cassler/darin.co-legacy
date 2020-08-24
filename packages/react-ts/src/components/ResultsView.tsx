@@ -69,6 +69,7 @@ export const ResultsView = (props) => {
 	})
 
 	const listSet = currentTabTitle === 'Combined View' ? combined : log[currentView].items;
+	const desc = log[currentView].desc;
 
 
 	return (
@@ -129,14 +130,52 @@ export const ResultsView = (props) => {
 			</div>
 
 			<div style={{ marginRight: '24px' }}>
-				<PreviewTable
-					title={currentTabTitle}
-					items={listSet}
-					payload={log.provisioning}
-					partner={partner}
-					totalSize={result.length}
-					excludeSize={liveCount}
-				/>
+				{currentTabTitle === "Combined View" ? (
+					<>
+						<PreviewTable
+							title="Ready"
+							items={log.implement.items}
+							payload={log.provisioning}
+							partner={partner}
+							totalSize={result.length}
+							excludeSize={liveCount}
+							summary={log.implement.desc}
+						/>
+						<PreviewTable
+							title="Not Ready"
+							items={log.invalid.items}
+							partner={partner}
+							totalSize={result.length}
+							excludeSize={liveCount}
+							summary={log.invalid.desc}
+						/>
+						<PreviewTable
+							title="Unmatched Accounts"
+							items={log.unmatched.items}
+							partner={partner}
+							totalSize={result.length}
+							excludeSize={liveCount}
+							summary={log.unmatched.desc}
+						/>
+						<PreviewTable
+							title="Pending Cancel"
+							items={log.cancel.items}
+							partner={partner}
+							totalSize={result.length}
+							excludeSize={liveCount}
+							summary={log.cancel.desc}
+						/>
+					</>
+				) : (
+						<PreviewTable
+							title={currentTabTitle}
+							items={listSet}
+							payload={log.provisioning}
+							partner={partner}
+							totalSize={result.length}
+							excludeSize={liveCount}
+						/>
+					)}
 			</div>
 		</>
 	)
