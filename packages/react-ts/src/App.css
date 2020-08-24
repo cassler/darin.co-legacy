@@ -25,12 +25,37 @@ h2 {
 .ant-table-container {
 	padding: 12px;
 }
+.current-tab {
+	border-bottom: 3px solid blue;
+}
 .ant-popover-inner-content {
 	max-width: 400px
 }
 .ant-alert-description {
 	font-size: 13px !important;
 	line-height: 17px !important;
+}
+.scoreCard {
+	border-bottom: 3px solid #ccc !important;
+	cursor: pointer;
+	border-radius: 7px;
+}
+.scoreCard:hover {
+	border-bottom-color: #aaa !important;
+}
+.scoreCard.current-tab {
+	border-bottom: 3px solid #096dd9 !important
+}
+.scoreCard.current-tab:hover {
+	border-bottom: 3px solid #096dd9 !important
+}
+
+.scoreCard h1 {
+	font-size: 60px;
+	letter-spacing: -0.033em;
+	padding: 0;
+	margin: 0;
+
 }
 .App-logo {
 	font-weight: 800;

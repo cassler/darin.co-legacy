@@ -23,7 +23,7 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 
 	return (
 		<Table
-
+			scroll={{ y: 320 }}
 			title={() => (
 				<div style={{
 					display: 'grid',
@@ -48,7 +48,7 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 			summary={() => (
 				<div></div>
 			)}
-			pagination={{ position: ["topRight", "bottomRight"], pageSize: 20 }}
+			pagination={{ position: ["bottomRight"], pageSize: 50 }}
 			size="small"
 			dataSource={items.map(i => ({
 				pid: i.pid,

@@ -3,8 +3,9 @@ import { ImplementationPackage } from '@wf/core';
 import ProvisioningButtons from './ProvisioningButtons'
 import PreviewTable from './PreviewTable'
 import DealerListItem from './DealerListItem'
-import { Badge, Popover, PageHeader, Divider, Typography, Tabs, Table } from 'antd';
+import { Badge, Popover, Card, Divider, Typography, Tabs, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import Grid from 'antd/lib/card/Grid';
 const { Text } = Typography
 const { TabPane } = Tabs
 
@@ -12,11 +13,14 @@ const cardShadow = {
 	boxShadow: '2px 5px 10px rgba(100,100,110,0.2), 1px 1px 3px rgba(50,50,50,0.1)'
 }
 
-const scorecardStyle = {
+const tabScoreStyle: React.CSSProperties = {
+	// textAlign: "center",
+	// padding: 0,
+	marginRight: '24px',
 	display: "grid",
-	justifyContent: 'center',
-	gridTemplateColumns: '190px 190px 190px 190px',
-	gap: '5px'
+	gridTemplateColumns: '1fr 1fr 1fr 1fr',
+	gap: '24px',
+	marginBottom: '24px'
 }
 
 export const ResultsView = (props) => {
@@ -41,51 +45,48 @@ export const ResultsView = (props) => {
 	}, [currentTabTitle, log.cancel.title, log.implement.title, log.invalid.title, log.unmatched.title])
 	return (
 		<>
-
 			<h1 style={{ textAlign: 'center', marginTop: '48px' }}>
 				Today at {partner_name || partner}
 			</h1>
-			<Tabs defaultActiveKey={log.implement.title} centered onChange={(key) => setTab(key)}>
+
+			<div style={tabScoreStyle}>
 				{Object.keys(log).map((i, index) => {
 					const obj = log[i] as ImplementationPackage;
 					const count = obj.items?.length;
-					if (count > 0) return (
-						<TabPane key={`${obj.title}`} tab={(
+					return count > 0 && (
+						<Card
+							key={`${obj.title}`}
+							onClick={() => setTab(obj.title)}
+							className={`scoreCard ${currentTabTitle === obj.title && "current-tab"}`}>
 							<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
-								<div style={{ textAlign: 'center', padding: '0 12px' }}>
-									<h3 style={{ position: 'relative', left: '-5px', fontSize: '18px', letterSpacing: '-0.03em' }}>
+								<>
+									<h3>
+										{obj.title}&nbsp;
 										<Badge status={obj.status} count={count} />
-										{obj.title}
 									</h3>
 									<h1 style={{
-										fontSize: '72px',
-										lineHeight: '72px',
-										color: '#444',
-										paddingBottom: 0,
-										marginBottom: 5,
-										paddingLeft: '8px'
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'space-between'
 									}}>
-										{count}
+										<span>{count}</span>
+
 										<QuestionCircleOutlined
 											size={24}
 											style={{
 												color: '#ccc',
-												fontSize: '18px',
-												position: 'relative',
-												// top: '-4px',
-												right: '-8px'
+												fontSize: '13px',
+												marginLeft: '7px'
+												// position: 'relative',
+												// top: '-8px'
 											}}
-
 										/>
-									</h1>
-
-								</div>
+									</h1></>
 							</Popover>
-						)}>
-						</TabPane>
+						</Card>
 					)
 				})}
-			</Tabs>
+			</div>
 
 			<div style={{ marginRight: '24px' }}>
 				<PreviewTable
