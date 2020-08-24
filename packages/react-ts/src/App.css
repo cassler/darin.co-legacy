@@ -22,6 +22,9 @@ h2 {
 	font-weight: 800;
 }
 
+.ant-table-container {
+	padding: 12px;
+}
 .ant-popover-inner-content {
 	max-width: 400px
 }
