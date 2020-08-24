@@ -63,22 +63,22 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 			}))}
 			columns={[
 				{
-					title: 'DealertrackID',
+					title: 'DT ID',
 					dataIndex: 'dealertrackID',
 					key: 'dt',
-					width: 120,
+					width: 80,
 				},
 				{
 					title: 'Partner ID',
 					dataIndex: 'pid',
 					key: 'pid',
-					width: 100,
+					width: 115,
 				},
 				{
-					title: 'tests',
+					title: 'Checks',
 					dataIndex: 'tests',
 					key: 'tests',
-					width: 100,
+					width: 80,
 					render: (tests: { name: string, value: boolean, desc: string }[]) => tests.map(t => (
 						<Tooltip title={t.desc}>
 							<Badge status={t.value ? "success" : "warning"} title={t.name} />
@@ -86,27 +86,27 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 					))
 				},
 				{
-					title: 'Name',
+					title: 'Dealer Name',
 					dataIndex: 'dbaName',
 					key: 'dba'
 				},
 				{
-					title: 'enrollment',
+					title: 'Enrollment Phase',
 					dataIndex: 'enrollment',
 					key: 'enroll',
 					width: 240
 				},
 				{
-					title: 'city',
+					title: 'City',
 					dataIndex: 'city',
 					key: 'city',
 					width: 140
 				},
 				{
-					title: 'state',
+					title: 'State',
 					dataIndex: 'state',
 					key: 'state',
-					width: 50
+					width: 65
 				},
 				{
 					title: 'Zip',
