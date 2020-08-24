@@ -41,6 +41,15 @@ h2 {
 	border-radius: 7px;
 	opacity: 0.85 !important;
 }
+.scoreCard h1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.scoreCard.ghost {
+	background: transparent;
+	opacity: 0.5;
+}
 .scoreCard:hover {
 	border-bottom-color: #aaa !important;
 }

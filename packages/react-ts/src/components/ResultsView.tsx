@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { ImplementationPackage } from '@wf/core';
-import ProvisioningButtons from './ProvisioningButtons'
+import { ImplementationResult, ImplementationPackage } from '@wf/core';
 import PreviewTable from './PreviewTable'
-import DealerListItem from './DealerListItem'
 import { Badge, Popover, Card, Divider, Typography, Tabs, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import Grid from 'antd/lib/card/Grid';
-const { Text } = Typography
-const { TabPane } = Tabs
+import { SimpleAccount } from '@wf/types';
 
-const cardShadow = {
-	boxShadow: '2px 5px 10px rgba(100,100,110,0.2), 1px 1px 3px rgba(50,50,50,0.1)'
-}
 
 const tabScoreStyle: React.CSSProperties = {
-	// textAlign: "center",
-	// padding: 0,
 	marginRight: '24px',
 	display: "grid",
-	gridTemplateColumns: '1fr 1fr 1fr 1fr',
+	gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
 	gap: '24px',
 	marginBottom: '24px'
 }
@@ -26,9 +17,12 @@ const tabScoreStyle: React.CSSProperties = {
 export const ResultsView = (props) => {
 	const { partner, partner_name, log, result, liveCount } = props;
 	const [currentTabTitle, setTab] = useState(log.implement.title)
-	const [currentView, setView] = useState('implement')
+	const [currentView, setView] = useState('implement');
 	useEffect(() => {
 		switch (currentTabTitle) {
+			case 'combined':
+				setView('combined')
+				break;
 			case log.implement.title:
 				setView('implement')
 				break;
@@ -43,6 +37,40 @@ export const ResultsView = (props) => {
 				break;
 		}
 	}, [currentTabTitle, log.cancel.title, log.implement.title, log.invalid.title, log.unmatched.title])
+
+	function alphaSort(a, b) {
+		// Use toUpperCase() to ignore character casing
+		const bandA = a.account.dbaName.toUpperCase();
+		const bandB = b.account.dbaName.toUpperCase();
+
+		let comparison = 0;
+		if (bandA > bandB) {
+			comparison = 1;
+		} else if (bandA < bandB) {
+			comparison = -1;
+		}
+		return comparison;
+	}
+
+	const combined: ImplementationResult[] = [
+		...log.implement.items,
+		...log.cancel.items,
+		...log.invalid.items,
+		...log.unmatched.items
+	].filter(i => i.account).sort((a, b) => {
+		let [accountA, accountB] = [a.account as SimpleAccount, b.account as SimpleAccount]
+		let comparison = 0;
+		if (accountA.dbaName > accountB.dbaName) {
+			comparison = 1;
+		} else if (accountA.dbaName < accountB.dbaName) {
+			comparison = -1
+		}
+		return comparison;
+	})
+
+	const listSet = currentTabTitle === 'Combined View' ? combined : log[currentView].items;
+
+
 	return (
 		<>
 			<h1 style={{ textAlign: 'center', marginTop: '48px' }}>
@@ -65,11 +93,7 @@ export const ResultsView = (props) => {
 										{obj.title}&nbsp;
 										<Badge status={obj.status} count={count} />
 									</h3>
-									<h1 style={{
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'space-between'
-									}}>
+									<h1>
 										<span>{count}</span>
 
 										<QuestionCircleOutlined
@@ -78,21 +102,36 @@ export const ResultsView = (props) => {
 												color: '#ccc',
 												fontSize: '13px',
 												marginLeft: '7px'
-												// position: 'relative',
-												// top: '-8px'
 											}}
 										/>
-									</h1></>
+									</h1>
+								</>
 							</Card>
 						</Popover>
 					)
 				})}
+				<Card key="Combined View"
+					onClick={() => setTab("Combined View")}
+					className={`scoreCard ghost ${currentTabTitle === "Combined View" && "current-tab"}`}>
+					<h3>Combined View <Badge status="processing" count={combined.length} /></h3>
+					<h1>
+						<span>{combined.length}</span>
+						<QuestionCircleOutlined
+							size={24}
+							style={{
+								color: '#ccc',
+								fontSize: '13px',
+								marginLeft: '7px'
+							}}
+						/>
+					</h1>
+				</Card>
 			</div>
 
 			<div style={{ marginRight: '24px' }}>
 				<PreviewTable
 					title={currentTabTitle}
-					items={log[currentView].items}
+					items={listSet}
 					payload={log.provisioning}
 					partner={partner}
 					totalSize={result.length}
