@@ -2,7 +2,7 @@ import React from 'react';
 import { ImplementationResult, toPhone, ImpPayload } from '@wf/core';
 import { PartnerCode } from '@wf/types';
 import { ProvisioningButtons } from './ProvisioningButtons';
-import { Card, Badge, Tooltip, Typography, Space, Table } from 'antd';
+import { Badge, Tooltip, Typography, Space, Table } from 'antd';
 import { BadgeProps } from 'antd/lib/badge'
 const { Text } = Typography;
 
@@ -67,12 +67,14 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 					dataIndex: 'dealertrackID',
 					key: 'dt',
 					width: 80,
+					render: text => <Text code>{text}</Text>
 				},
 				{
 					title: 'Partner ID',
 					dataIndex: 'pid',
 					key: 'pid',
 					width: 115,
+					render: text => <Text code>{text}</Text>
 				},
 				{
 					title: 'Checks',
