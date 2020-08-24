@@ -39,12 +39,14 @@ h2 {
 	border-bottom: 3px solid #ccc !important;
 	cursor: pointer;
 	border-radius: 7px;
+	opacity: 0.85 !important;
 }
 .scoreCard:hover {
 	border-bottom-color: #aaa !important;
 }
 .scoreCard.current-tab {
-	border-bottom: 3px solid #096dd9 !important
+	border-bottom: 3px solid #096dd9 !important;
+	opacity: 1 !important;
 }
 .scoreCard.current-tab:hover {
 	border-bottom: 3px solid #096dd9 !important

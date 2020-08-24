@@ -54,11 +54,12 @@ export const ResultsView = (props) => {
 					const obj = log[i] as ImplementationPackage;
 					const count = obj.items?.length;
 					return count > 0 && (
-						<Card
-							key={`${obj.title}`}
-							onClick={() => setTab(obj.title)}
-							className={`scoreCard ${currentTabTitle === obj.title && "current-tab"}`}>
-							<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
+
+						<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
+							<Card
+								key={`${obj.title}`}
+								onClick={() => setTab(obj.title)}
+								className={`scoreCard ${currentTabTitle === obj.title && "current-tab"}`}>
 								<>
 									<h3>
 										{obj.title}&nbsp;
@@ -82,8 +83,8 @@ export const ResultsView = (props) => {
 											}}
 										/>
 									</h1></>
-							</Popover>
-						</Card>
+							</Card>
+						</Popover>
 					)
 				})}
 			</div>
