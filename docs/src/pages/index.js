@@ -71,8 +71,8 @@ function Home() {
 								'button button--fill button--secondary button--lg',
 								styles.getStarted,
 							)}
-							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.6/workflower-portable-0.7-dist.zip">
-							Download Workflower 0.7 (.zip)
+							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.8/workflower-portable-0.8-dist.zip">
+							Download Workflower 0.8 (.zip)
             </Link>
 					</div>
 					<br />
