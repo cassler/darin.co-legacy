@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { Card, Tag } from 'antd';
 import 'antd/dist/antd.css';
 import Papa from 'papaparse';
-import { message, Select, Button } from 'antd'
+import { message, Popover, Select, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRightOutlined } from '@ant-design/icons';
@@ -95,7 +95,7 @@ const FileSelect: React.FC<Props> = ({
 						onInputChange={(event) => console.log(event.target)}
 					/>
 				)}
-				{fields.length > 0 && (
+				{fields.length > 0 ? (
 					<div>
 						<h4>Select column where IDs are listed</h4>
 						<Select
@@ -105,7 +105,18 @@ const FileSelect: React.FC<Props> = ({
 							{fields.map(f => <Option key={f} value={f}>{f}</Option>)}
 						</Select>
 					</div>
-				)}
+				) : (
+						<div>
+							<Popover content={(
+								<p>Proceed using all data. Results will not be aware of existing assets or configurations.</p>
+							)}>
+								<Button style={{ position: "absolute", bottom: '0', right: '0' }} onClick={() => callback([])}>
+									Skip exclusions
+							<ArrowRightOutlined />
+								</Button>
+							</Popover>
+						</div>
+					)}
 			</FormGroup>
 			{ids.length > 0 && (
 				<>
@@ -113,8 +124,8 @@ const FileSelect: React.FC<Props> = ({
 					<code>{JSON.stringify(ids.slice(0, 10))}</code>
 				</>
 			)}
-			<div style={{ minHeight: '75px' }}>
-				{ready && (
+			{ready && (
+				<div style={{ minHeight: '75px' }}>
 					<motion.div
 						key="2"
 						transition={{ ease: "easeInOut", duration: 0.3 }}
@@ -135,8 +146,8 @@ const FileSelect: React.FC<Props> = ({
 							<ArrowRightOutlined />
 						</Button>
 					</motion.div>
-				)}
-			</div>
+				</div>
+			)}
 
 		</>
 	)
