@@ -157,6 +157,7 @@ export class WFProvider extends React.Component {
 			this.setState(state => ({
 				...state,
 				...initialContext.default,
+				renderCount: 1,
 				step: 0
 			}))
 		}
@@ -213,6 +214,7 @@ export class WFProvider extends React.Component {
 		}
 		this.hardReset = () => {
 			set("saveState", undefined);
+			set("saveTime", undefined);
 			this.setClear()
 		}
 		this.saveContext = (obj) => {
