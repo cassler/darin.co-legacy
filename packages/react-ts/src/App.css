@@ -25,6 +25,10 @@ h2 {
 .ant-table-container {
 	padding: 12px;
 }
+
+tr + tr.ant-table-expanded-row {
+	background-color: #fec !important;
+}
 .current-tab {
 	border-bottom: 3px solid blue;
 }

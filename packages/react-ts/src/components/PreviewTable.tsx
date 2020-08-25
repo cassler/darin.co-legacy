@@ -1,8 +1,8 @@
-import React from 'react';
-import { ImplementationResult, toPhone, ImpPayload } from '@wf/core';
+import React, { useState } from 'react';
+import { ImplementationResult, toPhone } from '@wf/core';
 import { PartnerCode } from '@wf/types';
 import { ProvisioningButtons } from './ProvisioningButtons';
-import { Badge, Tooltip, Typography, Space, Table } from 'antd';
+import { Badge, Tooltip, Typography, Descriptions, Table } from 'antd';
 import { BadgeProps } from 'antd/lib/badge'
 const { Text } = Typography;
 
@@ -24,7 +24,8 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 
 	return (
 		<Table
-			scroll={{ y: 320 }}
+
+			scroll={{ y: 620 }}
 			title={() => (
 				<div style={{
 					display: 'grid',
@@ -50,12 +51,16 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 					)}
 				</div>
 			)}
-
 			pagination={{ position: ["bottomRight"], pageSize: 50 }}
 			size="small"
-			dataSource={items.map(i => ({
+			dataSource={items.map((i, key) => ({
+				key,
 				pid: i.pid,
 				...i.checks,
+				original: {
+					...i.original,
+					path: ''
+				},
 				tests: [
 					{ name: 'Enrollment Status', value: i.checks.enrollmentStatusOK, desc: 'Meets DT Enrollment requirements?' },
 					{ name: 'Account Status', value: i.checks.accountStatusOK, desc: 'Valid DT account found?' },
@@ -64,6 +69,22 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 				],
 				...i.account,
 			}))}
+			expandable={{
+				expandedRowRender: (record) => (
+					<div style={{ margin: '24px' }}>
+						<Descriptions
+							title={`Request Details for ${record.dbaName}`}
+							size="small"
+						>
+							{Object.keys(record.original).map(i => (
+								<Descriptions.Item label={i}>{`${record.original[i] || '-'}`.slice(0, 40)}</Descriptions.Item>
+							))}
+						</Descriptions>
+
+					</div>
+				),
+				rowExpandable: (record) => record.original !== 'Not Expandable',
+			}}
 			columns={[
 				{
 					title: 'DT ID',
@@ -122,11 +143,6 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 
 			]} />
 
-		/**
-		 * notImplemented
-accountStatusOK
-partnerStatusOK
-		 */
 	)
 }
 
