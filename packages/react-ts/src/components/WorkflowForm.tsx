@@ -72,8 +72,9 @@ export const WorkflowForm: React.FC = () => {
 	}
 
 	useEffect(() => {
-		if (!ctx.reloaded && renderCount === 1) {
+		if (!ctx.reloaded && renderCount === 0) {
 			ctx.loadContext()
+			countRender(renderCount + 1)
 		}
 	}, [ctx, renderCount])
 
