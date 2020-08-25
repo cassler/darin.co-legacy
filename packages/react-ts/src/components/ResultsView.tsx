@@ -5,6 +5,7 @@ import { Badge, Popover, Card, PageHeader, Divider, Typography, Tabs, Table } fr
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SimpleAccount } from '@wf/types';
 import { WFContext } from '../context';
+import { motion, AnimatePresence } from 'framer-motion';
 
 
 const tabScoreStyle: React.CSSProperties = {
@@ -71,7 +72,46 @@ export const ResultsView = (props) => {
 	})
 
 	const listSet = currentTabTitle === 'Combined View' ? combined : log[currentView].items;
-	const desc = log[currentView].desc;
+
+
+	const tabScore = (obj: ImplementationPackage) => {
+		const variants = {
+			start: { fontSize: '60px' },
+			final: { fontSize: '36px' },
+		}
+		return (
+
+
+			<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
+				<Card
+					key={`${obj.title}`}
+					onClick={() => setTab(obj.title)}
+					className={`scoreCard ${currentTabTitle === obj.title && "current-tab"}`}>
+					<>
+						<motion.h3
+							animate={{ opacity: [0, 1] }}
+							transition={{ duration: 0.5, delay: 1 }}
+						>
+							{obj.title}&nbsp;
+						<Badge status={obj.status} count={obj.items.length} />
+						</motion.h3>
+						<motion.h1 animate={{ fontSize: ['72px', '48px'] }}
+							transition={{ duration: 0.5, delay: 1 }}>
+							<motion.span>{obj.items.length}</motion.span>
+							<QuestionCircleOutlined
+								size={24}
+								style={{
+									color: '#ccc',
+									fontSize: '13px',
+									marginLeft: '7px'
+								}}
+							/>
+						</motion.h1>
+					</>
+				</Card>
+			</Popover>
+		)
+	}
 
 
 	return (
@@ -79,39 +119,12 @@ export const ResultsView = (props) => {
 			<PageHeader title={`Today at ${partner_name || partner}`}
 				onBack={() => handleBack()}
 			/>
-
-
 			<div style={tabScoreStyle}>
 				{Object.keys(log).map((i, index) => {
 					const obj = log[i] as ImplementationPackage;
 					const count = obj.items?.length;
 					return count > 0 && (
-
-						<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
-							<Card
-								key={`${obj.title}`}
-								onClick={() => setTab(obj.title)}
-								className={`scoreCard ${currentTabTitle === obj.title && "current-tab"}`}>
-								<>
-									<h3>
-										{obj.title}&nbsp;
-										<Badge status={obj.status} count={count} />
-									</h3>
-									<h1>
-										<span>{count}</span>
-
-										<QuestionCircleOutlined
-											size={24}
-											style={{
-												color: '#ccc',
-												fontSize: '13px',
-												marginLeft: '7px'
-											}}
-										/>
-									</h1>
-								</>
-							</Card>
-						</Popover>
+						tabScore(obj)
 					)
 				})}
 				<Card key="Combined View"
@@ -133,52 +146,65 @@ export const ResultsView = (props) => {
 			</div>
 
 			<div style={{ marginRight: '24px' }}>
-				{currentTabTitle === "Combined View" ? (
-					<>
-						<PreviewTable
-							title="Ready"
-							items={log.implement.items}
-							payload={log.provisioning}
-							partner={partner}
-							totalSize={result.length}
-							excludeSize={liveCount}
-							summary={log.implement.desc}
-						/>
-						<PreviewTable
-							title="Not Ready"
-							items={log.invalid.items}
-							partner={partner}
-							totalSize={result.length}
-							excludeSize={liveCount}
-							summary={log.invalid.desc}
-						/>
-						<PreviewTable
-							title="Unmatched Accounts"
-							items={log.unmatched.items}
-							partner={partner}
-							totalSize={result.length}
-							excludeSize={liveCount}
-							summary={log.unmatched.desc}
-						/>
-						<PreviewTable
-							title="Pending Cancel"
-							items={log.cancel.items}
-							partner={partner}
-							totalSize={result.length}
-							excludeSize={liveCount}
-							summary={log.cancel.desc}
-						/>
-					</>
-				) : (
-						<PreviewTable
-							title={currentTabTitle}
-							items={listSet}
-							payload={log.provisioning}
-							partner={partner}
-							totalSize={result.length}
-							excludeSize={liveCount}
-						/>
-					)}
+				<AnimatePresence exitBeforeEnter>
+					<motion.div
+						key={currentTabTitle}
+						initial={{ opacity: 0, x: 100, }}
+						animate={{ opacity: 1, x: 0, }}
+						exit={{ opacity: 0, x: -100, }}
+						transition={{ duration: 0.25 }}>
+						{currentTabTitle === "Combined View" ? (
+							<>
+								<PreviewTable
+									title="Ready"
+									items={log.implement.items}
+									payload={log.provisioning}
+									partner={partner}
+									totalSize={result.length}
+									excludeSize={liveCount}
+									summary={log.implement.desc}
+								/>
+								<PreviewTable
+									title="Not Ready"
+									items={log.invalid.items}
+									partner={partner}
+									totalSize={result.length}
+									excludeSize={liveCount}
+									summary={log.invalid.desc}
+								/>
+								<PreviewTable
+									title="Unmatched Accounts"
+									items={log.unmatched.items}
+									partner={partner}
+									totalSize={result.length}
+									excludeSize={liveCount}
+									summary={log.unmatched.desc}
+								/>
+								<PreviewTable
+									title="Pending Cancel"
+									items={log.cancel.items}
+									partner={partner}
+									totalSize={result.length}
+									excludeSize={liveCount}
+									summary={log.cancel.desc}
+								/>
+							</>
+						) : (
+
+
+								<PreviewTable
+									title={currentTabTitle}
+									items={listSet}
+									payload={log.provisioning}
+									partner={partner}
+
+									totalSize={result.length}
+									excludeSize={liveCount}
+								/>
+
+							)}
+					</motion.div>
+				</AnimatePresence>
 			</div>
 		</>
 	)

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImplementationResult, toPhone } from '@wf/core';
 import { PartnerCode } from '@wf/types';
 import { ProvisioningButtons } from './ProvisioningButtons';
 import { Badge, Tooltip, Typography, Descriptions, Table } from 'antd';
-import { BadgeProps } from 'antd/lib/badge'
 const { Text } = Typography;
 
 
@@ -20,70 +19,80 @@ interface PreviewTableProps {
 	},
 	partner: PartnerCode
 }
-export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partner, payload, totalSize, excludeSize, summary }) => {
+export const PreviewTable: React.FC<PreviewTableProps> = ({
+	items, title, partner, payload, totalSize, excludeSize, summary
+}) => {
+
+	const renderTitle = () => (
+		<div style={{
+			display: 'grid',
+			gridTemplateColumns: '1fr 1fr',
+			justifyContent: 'space-between',
+			padding: '12px',
+			alignItems: 'center'
+		}}>
+			<div>
+				<h3>Showing items that are {title} ({items.length})</h3>
+				<Text type="secondary">{summary}</Text>
+				<Text disabled>Showing info for {totalSize} entries. Excluding {excludeSize} ID noted as live.</Text>
+			</div>
+			{payload && (
+				<div style={{ textAlign: 'right' }}>
+					<ProvisioningButtons
+						payload={payload}
+						partner={partner}
+						title="Get Provisioning Files"
+					/>
+				</div>
+			)}
+		</div>
+	);
+
+	// Build out an expanded seciond for each row
+	const renderExpand = (record) => (
+		<div style={{ margin: '24px' }}>
+			<Descriptions
+				title={`Request Details for ${record.dbaName}`}
+				size="small"
+			>
+				{Object.keys(record.original).map(i => (
+					<Descriptions.Item label={i}>{`${record.original[i] || '-'}`.slice(0, 40)}</Descriptions.Item>
+				))}
+			</Descriptions>
+
+		</div>
+	);
+
+	const renderNoExtra = (record) => record.original !== 'Not Expandable';
+
+	// Restruture our data for display
+	const sourceData = items.map((i, key) => ({
+		key,
+		pid: i.pid,
+		...i.checks,
+		original: {
+			...i.original,
+			path: ''
+		},
+		tests: [
+			{ name: 'Enrollment Status', value: i.checks.enrollmentStatusOK, desc: 'Meets DT Enrollment requirements?' },
+			{ name: 'Account Status', value: i.checks.accountStatusOK, desc: 'Valid DT account found?' },
+			{ name: 'Partner Status', value: i.checks.partnerStatusOK, desc: 'Meets partner requirements?' },
+			{ name: 'Live Status', value: i.checks.notImplemented, desc: 'Is this dealer already live?' },
+		],
+		...i.account,
+	}))
 
 	return (
 		<Table
-
-			scroll={{ y: 620 }}
-			title={() => (
-				<div style={{
-					display: 'grid',
-					gridTemplateColumns: '1fr 1fr',
-					justifyContent: 'space-between',
-					padding: '12px',
-					alignItems: 'center'
-				}}>
-					<div>
-						<h3>Showing items that are {title} ({items.length})</h3>
-						<Text type="secondary">{summary}</Text>
-						<Text disabled>Showing info for {totalSize} entries. Excluding {excludeSize} ID noted as live.</Text>
-					</div>
-					{payload && (
-
-						<div style={{ textAlign: 'right' }}>
-							<ProvisioningButtons
-								payload={payload}
-								partner={partner}
-								title="Get Provisioning Files"
-							/>
-						</div>
-					)}
-				</div>
-			)}
 			pagination={{ position: ["bottomRight"], pageSize: 50 }}
 			size="small"
-			dataSource={items.map((i, key) => ({
-				key,
-				pid: i.pid,
-				...i.checks,
-				original: {
-					...i.original,
-					path: ''
-				},
-				tests: [
-					{ name: 'Enrollment Status', value: i.checks.enrollmentStatusOK, desc: 'Meets DT Enrollment requirements?' },
-					{ name: 'Account Status', value: i.checks.accountStatusOK, desc: 'Valid DT account found?' },
-					{ name: 'Partner Status', value: i.checks.partnerStatusOK, desc: 'Meets partner requirements?' },
-					{ name: 'Live Status', value: i.checks.notImplemented, desc: 'Is this dealer already live?' },
-				],
-				...i.account,
-			}))}
+			scroll={{ y: 620 }}
+			title={renderTitle}
+			dataSource={sourceData}
 			expandable={{
-				expandedRowRender: (record) => (
-					<div style={{ margin: '24px' }}>
-						<Descriptions
-							title={`Request Details for ${record.dbaName}`}
-							size="small"
-						>
-							{Object.keys(record.original).map(i => (
-								<Descriptions.Item label={i}>{`${record.original[i] || '-'}`.slice(0, 40)}</Descriptions.Item>
-							))}
-						</Descriptions>
-
-					</div>
-				),
-				rowExpandable: (record) => record.original !== 'Not Expandable',
+				expandedRowRender: renderExpand,
+				rowExpandable: renderNoExtra,
 			}}
 			columns={[
 				{
@@ -138,7 +147,7 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({ items, title, partne
 					title: 'Zip',
 					dataIndex: 'zip',
 					key: 'zip',
-					width: 60
+					width: 75
 				},
 
 			]} />

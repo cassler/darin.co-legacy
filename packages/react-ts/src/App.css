@@ -44,6 +44,7 @@ tr + tr.ant-table-expanded-row {
 	cursor: pointer;
 	border-radius: 7px;
 	opacity: 0.85 !important;
+	transition: all 0.15s;
 }
 .scoreCard h1 {
 	display: flex;
@@ -56,6 +57,7 @@ tr + tr.ant-table-expanded-row {
 }
 .scoreCard:hover {
 	border-bottom-color: #aaa !important;
+	transform: scale(1.02);
 }
 .scoreCard.current-tab {
 	border-bottom: 3px solid #096dd9 !important;

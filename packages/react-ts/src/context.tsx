@@ -38,6 +38,7 @@ export interface WFContextI {
 	demo: boolean
 	step: number,
 	showPartnerSettings: boolean
+	reloaded: boolean
 }
 
 interface WFContextVal extends WFContextI {
@@ -66,7 +67,8 @@ export const initialContext: { [key: string]: WFContextI } = {
 		currentTab: "1",
 		demo: true,
 		step: 3,
-		showPartnerSettings: false
+		showPartnerSettings: false,
+		reloaded: false,
 	},
 	default: {
 		requested: undefined,
@@ -80,7 +82,8 @@ export const initialContext: { [key: string]: WFContextI } = {
 		currentTab: "1",
 		demo: false,
 		step: 0,
-		showPartnerSettings: false
+		showPartnerSettings: false,
+		reloaded: false,
 	}
 }
 
@@ -157,7 +160,7 @@ export class WFProvider extends React.Component {
 			this.setState(state => ({
 				...state,
 				...initialContext.default,
-				renderCount: 1,
+				reloaded: true,
 				step: 0
 			}))
 		}
