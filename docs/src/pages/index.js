@@ -61,7 +61,9 @@ function Home() {
       description="Description will go into a meta tag in <head />">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
-          <h1 className="hero__title" className={clsx(styles.heroTitle)}>{siteConfig.title}</h1>
+          <h1 className="hero__title" className={clsx(styles.heroTitle)}>
+						{siteConfig.title}
+					</h1>
 					<p className={clsx('hero__subtitle', styles.heroSubtitle)}>{siteConfig.tagline}</p>
           <div className={styles.buttons}>
 						<Link
@@ -69,8 +71,8 @@ function Home() {
 								'button button--fill button--secondary button--lg',
 								styles.getStarted,
 							)}
-							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.6/workflower-portable-0.7-dist.zip">
-							Download Workflower 0.7 (.zip)
+							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.8/workflower-portable-0.8-dist.zip">
+							Download Workflower 0.8 (.zip)
             </Link>
 					</div>
 					<br />

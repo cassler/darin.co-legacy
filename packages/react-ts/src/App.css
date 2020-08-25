@@ -12,16 +12,26 @@
 
 body {
 	background-color: rgb(240, 242, 245) !important;
-	display: grid;
+	/* display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr;
-	align-items: center;
+	align-items: center; */
 }
 
 h2 {
 	font-weight: 800;
 }
 
+.ant-table-container {
+	padding: 12px;
+}
+
+tr + tr.ant-table-expanded-row {
+	background-color: #fec !important;
+}
+.current-tab {
+	border-bottom: 3px solid blue;
+}
 .ant-popover-inner-content {
 	max-width: 400px
 }
@@ -29,22 +39,49 @@ h2 {
 	font-size: 13px !important;
 	line-height: 17px !important;
 }
+.scoreCard {
+	border-bottom: 3px solid #ccc !important;
+	cursor: pointer;
+	border-radius: 7px;
+	opacity: 0.85 !important;
+	transition: all 0.15s;
+}
+.scoreCard h1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.scoreCard.ghost {
+	background: transparent;
+	opacity: 0.5;
+}
+.scoreCard:hover {
+	border-bottom-color: #aaa !important;
+	transform: scale(1.02);
+}
+.scoreCard.current-tab {
+	border-bottom: 3px solid #096dd9 !important;
+	opacity: 1 !important;
+}
+.scoreCard.current-tab:hover {
+	border-bottom: 3px solid #096dd9 !important
+}
+
+.scoreCard h1 {
+	font-size: 60px;
+	letter-spacing: -0.033em;
+	padding: 0;
+	margin: 0;
+
+}
 .App-logo {
 	font-weight: 800;
 	color: #333;
 	letter-spacing: -0.05em;
-	padding: 0 48px 24px;
+	padding: 0;
 	text-align: left;
 	font-size: 26px;
-	line-height: 26px;
-	margin: 0 0 24px;
-	text-align: center;
-	/* border-bottom: 1px solid #ddd; */
-	position: fixed;
-	top: 24px;
-	left: 24px;
-  /* height: 15vmin; */
-  /* pointer-events: none; */
+	margin: 0;
 }
 
 .App-logo small {
@@ -76,9 +113,10 @@ h2 {
 }
 
 .result-card {
-
-	box-shadow: 3px 5px 24px rgba(100, 100, 100, 0.1),
-		1px 10px 12px rgba(50,50,50,0.2)
+	min-height: 100vh;
+	display: grid;
+	align-content: center;
+		/* 1px 10px 12px rgba(50,50,50,0.2) */
 }
 
 .App-link {

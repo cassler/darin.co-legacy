@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Workflower Core - React
 
 ## Quick Start
 
@@ -6,8 +6,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2.) From root of project run: `$ yarn workspace @wf/react-ts run build`;
 3.) Now start a lite-server with `$ yarn workspace @wf/react-ts light-server -s . -p 7000`
 
-## Forked from CRA
+## Full Docs on The Website
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Head over to the [official documentation site](https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/) for a complete walkthrough and full documentation.

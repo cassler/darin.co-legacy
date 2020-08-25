@@ -5,9 +5,32 @@ sidebar_label: Viewing Results
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-<img alt='' src={(useBaseUrl('img/demo-b-01.png'))} />
+After running the WF analysis on the provided data we are presented with a results screen like this.
 
-- Provide a file
-- Columns from file provided in dropdown.
-- Indicate a column that includes either DT or partner IDs
-- All IDs in that column will be omitted from our final output.
+<img alt='' src={(useBaseUrl('img/results-01.png'))} />
+
+
+### The Scorecards
+
+<img alt='' src={(useBaseUrl('img/scorecards-01.png'))} />
+
+Top level figures are displayed for four different categories a dealer may fall into. Displayed by default are those listed as "Ready". Hovering over any of the scorecards will display a tooltip that explains the corresponding category.
+
+### Download Provisioning Files
+
+
+<img alt='' src={(useBaseUrl('img/results-02-download.png'))} />
+
+Use the buttons to download a provisioning files for eBiz, Finance Driver and/or product subscription that include any dealers which Workflower has identified as "Ready". These files can be uploaded / emailed to their respective destinations as-is.
+
+- TODO: How to provision eBiz with a file
+- TODO: FinanceDriver file provisioning
+- TODO: Product subscription email workflower
+
+
+
+### Inspect Entries
+
+For any number of reasons you may need to look a bit deeper at a particular dealer's results. If you provided a "Request File" earlier in the process, all columns will be made available when expanding a row in the results table.
+
+<img alt='' src={(useBaseUrl('img/results-03-expand.png'))} />

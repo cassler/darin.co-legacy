@@ -1,3 +1,5 @@
+const version = require('../package.json').version;
+
 module.exports = {
   title: 'Workflower',
   tagline: 'A utility knife for workday life.',
@@ -9,10 +11,10 @@ module.exports = {
   projectName: 'workflower-monorepo', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'WF Docs',
+      title: `${version}`,
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Workflower',
+        src: 'img/wf.png',
       },
       items: [
         {

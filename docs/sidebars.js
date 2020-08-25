@@ -8,7 +8,8 @@ module.exports = {
 			"guide_partner_submission",
 			"guide_set_exclusions",
 			"guide_preview",
-			"guide_results"
+			"guide_results",
+			"session_manage",
 		] ,
 		"Output Guide": [
 			"process_state",
