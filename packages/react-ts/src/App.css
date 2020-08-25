@@ -25,6 +25,10 @@ h2 {
 .ant-table-container {
 	padding: 12px;
 }
+
+tr + tr.ant-table-expanded-row {
+	background-color: #fec !important;
+}
 .current-tab {
 	border-bottom: 3px solid blue;
 }
@@ -40,6 +44,15 @@ h2 {
 	cursor: pointer;
 	border-radius: 7px;
 	opacity: 0.85 !important;
+}
+.scoreCard h1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.scoreCard.ghost {
+	background: transparent;
+	opacity: 0.5;
 }
 .scoreCard:hover {
 	border-bottom-color: #aaa !important;
@@ -63,18 +76,10 @@ h2 {
 	font-weight: 800;
 	color: #333;
 	letter-spacing: -0.05em;
-	padding: 0 0 24px;
+	padding: 0;
 	text-align: left;
 	font-size: 26px;
-	line-height: 26px;
-	margin: 0 0 24px;
-	text-align: center;
-	/* border-bottom: 1px solid #ddd; */
-	/* position: fixed;
-	top: 24px;
-	left: 24px; */
-  /* height: 15vmin; */
-  /* pointer-events: none; */
+	margin: 0;
 }
 
 .App-logo small {
@@ -109,7 +114,6 @@ h2 {
 	min-height: 100vh;
 	display: grid;
 	align-content: center;
-	box-shadow: 0 -5px 5px rgba(100, 100, 100, 0.1);
 		/* 1px 10px 12px rgba(50,50,50,0.2) */
 }
 

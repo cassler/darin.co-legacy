@@ -17,7 +17,7 @@ export const PreferenceMenu: React.FC<IPreferenceMenu> = ({ title, partner, hand
 	return (
 		<Menu
 			onClick={handleClick}
-			style={{ background: "transparent", alignSelf: 'end' }}
+
 			mode="vertical" >
 			<Menu.Item
 				key="m1"
