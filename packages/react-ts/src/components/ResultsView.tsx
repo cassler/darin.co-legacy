@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ImplementationResult, ImplementationPackage } from '@wf/core';
 import PreviewTable from './PreviewTable'
-import { Badge, Popover, Card, PageHeader, Divider, Typography, Tabs, Table } from 'antd';
+import { Badge, Popover, Card, PageHeader } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SimpleAccount } from '@wf/types';
-import { WFContext } from '../context';
 import { motion, AnimatePresence } from 'framer-motion';
 
 
@@ -41,20 +40,6 @@ export const ResultsView = (props) => {
 		}
 	}, [currentTabTitle, log.cancel.title, log.implement.title, log.invalid.title, log.unmatched.title])
 
-	function alphaSort(a, b) {
-		// Use toUpperCase() to ignore character casing
-		const bandA = a.account.dbaName.toUpperCase();
-		const bandB = b.account.dbaName.toUpperCase();
-
-		let comparison = 0;
-		if (bandA > bandB) {
-			comparison = 1;
-		} else if (bandA < bandB) {
-			comparison = -1;
-		}
-		return comparison;
-	}
-
 	const combined: ImplementationResult[] = [
 		...log.implement.items,
 		...log.cancel.items,
@@ -75,10 +60,7 @@ export const ResultsView = (props) => {
 
 
 	const tabScore = (obj: ImplementationPackage) => {
-		const variants = {
-			start: { fontSize: '60px' },
-			final: { fontSize: '36px' },
-		}
+
 		return (
 
 

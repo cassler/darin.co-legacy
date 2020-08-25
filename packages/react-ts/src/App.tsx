@@ -8,7 +8,7 @@ import Stepper from './components/Stepper';
 import SaveContextButton from './components/SaveContextButton';
 import PreferenceMenu from './components/PreferenceMenu';
 import { WFProvider, WFContext } from './context';
-import ResultsContainer from './components/ResultsContainer'
+import ResultsView from './components/ResultsView'
 const { Content } = Layout;
 
 
@@ -99,7 +99,12 @@ function App() {
 									</motion.div>
 								) : (
 										<motion.div {...motionPrefs} key="1">
-											<ResultsContainer />
+											<ResultsView
+												partner_name={ctx.partner_name}
+												partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids.length} handleBack={() => {
+													ctx.setStep(Math.max(0, ctx.step - 1))
+												}}
+											/>
 										</motion.div>
 									)}
 							</AnimatePresence>
