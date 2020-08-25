@@ -20,6 +20,7 @@ export const ResultsView = (props) => {
 	const { partner, partner_name, log, result, liveCount, handleBack } = props;
 	const [currentTabTitle, setTab] = useState(log.implement.title)
 	const [currentView, setView] = useState('implement');
+
 	useEffect(() => {
 		switch (currentTabTitle) {
 			case 'combined':
@@ -60,10 +61,7 @@ export const ResultsView = (props) => {
 
 
 	const tabScore = (obj: ImplementationPackage) => {
-
 		return (
-
-
 			<Popover content={obj.desc} title={obj.title} style={{ maxWidth: 400 }}>
 				<Card
 					key={`${obj.title}`}

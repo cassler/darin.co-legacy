@@ -9,7 +9,6 @@ import SaveContextButton from './components/SaveContextButton';
 import PreferenceMenu from './components/PreferenceMenu';
 import { WFProvider, WFContext } from './context';
 import ResultsView from './components/ResultsView'
-const { Content } = Layout;
 
 
 function App() {

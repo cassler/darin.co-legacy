@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImplementationResult, toPhone } from '@wf/core';
+import { ImplementationResult } from '@wf/core';
 import { PartnerCode } from '@wf/types';
 import { ProvisioningButtons } from './ProvisioningButtons';
 import { Badge, Tooltip, Typography, Descriptions, Table } from 'antd';

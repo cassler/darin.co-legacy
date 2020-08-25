@@ -41,12 +41,12 @@ This will launch the React client at `http://localhost:3333` and documentation w
 ## Package Version Notice - August 20th 2020
 
 ```
-@wf/docs     v0.7.0 docs
-@wf/core     v0.7.0 packages/core
-@wf/csv      v0.7.0 packages/csv
-@wf/examples v0.3.0 packages/examples
-@wf/react-ts v0.7.0 packages/react-ts
-@wf/template v0.1.0 packages/template
-@wf/types    v0.7.0 packages/types
+@wf/docs     v0.8.0 ../../docs
+@wf/core     v0.8.0 ../core
+@wf/csv      v0.8.0 ../csv
+@wf/examples v0.3.0 ../examples
+@wf/react-ts v0.8.0
+@wf/template v0.1.0 ../template
+@wf/types    v0.8.0 ../types
 ```
 
