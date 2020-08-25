@@ -87,7 +87,7 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({
 		<Table
 			pagination={{ position: ["bottomRight"], pageSize: 50 }}
 			size="small"
-			scroll={{ y: 620 }}
+			scroll={{ y: 360 }}
 			title={renderTitle}
 			dataSource={sourceData}
 			expandable={{
