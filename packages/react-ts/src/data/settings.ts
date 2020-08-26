@@ -110,6 +110,27 @@ export const settings: partnerSettingsList = {
 			info: true,
 		},
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7B5B2EA0D8-9785-440F-92CA-EA5818FDB0A6%7D&file=How%20to%20Complete%20a%20Bank%20of%20America%20Lender%20Project.docx&action=default&mobileredirect=true',
+		prodSubTemplate: {
+			subject: 'Activate Digital Service for Bank of America SAP : 1034975',
+			content: [
+				'Bank of America (BOA)',
+				'Please activate Digital data service for Bank of America SAP : 1034975',
+				'Billing Date: activation date',
+				'',
+				'AMOUNT: $0 monthly, they are billed manually for now',
+				'New Method: ',
+				'CBDSUITE',
+				'CBDSUITESET OTC of $ 100 per stores',
+				'',
+				'Bill to / sold to and Payer is: Bank of America: SAP : 1034975',
+				'',
+				'Bank of America',
+				'9000 Southside Blvd FL',
+				'9-200-05-04',
+				'Jacksonville, Florida 32256',
+				'United States'
+			]
+		},
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: any) => {
 			// console.log('validating', item)

@@ -105,18 +105,18 @@ const FileSelect: React.FC<Props> = ({
 							{fields.map(f => <Option key={f} value={f}>{f}</Option>)}
 						</Select>
 					</div>
-				) : (
-						<div>
-							<Popover content={(
-								<p>Proceed using all data. Results will not be aware of existing assets or configurations.</p>
-							)}>
-								<Button style={{ position: "absolute", bottom: '0', right: '0' }} onClick={() => callback([])}>
-									Skip exclusions
+				) : slug === 'exclude' && (
+					<div>
+						<Popover content={(
+							<p>Proceed using all data. Results will not be aware of existing assets or configurations.</p>
+						)}>
+							<Button style={{ position: "absolute", bottom: '0', right: '0' }} onClick={() => callback([])}>
+								Skip exclusions
 							<ArrowRightOutlined />
-								</Button>
-							</Popover>
-						</div>
-					)}
+							</Button>
+						</Popover>
+					</div>
+				)}
 			</FormGroup>
 			{ids.length > 0 && (
 				<>
