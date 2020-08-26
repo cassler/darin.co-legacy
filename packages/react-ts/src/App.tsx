@@ -38,7 +38,7 @@ function App() {
 		background: '#fff',
 		display: 'grid',
 		padding: '18px 24px',
-		gridTemplateColumns: '1fr 270px',
+		gridTemplateColumns: '1fr 320px',
 		alignItems: 'center',
 		boxShadow: '2px 2px 8px rgba(100, 100, 100, 0.1)',
 		zIndex: 500
@@ -69,6 +69,8 @@ function App() {
 										</h1>
 									</div>
 									<div style={{ display: "flex", justifyContent: 'flex-end', textAlign: 'right' }}>
+										<Button size="small" type="link" href="https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/" target="_blank">Docs</Button>
+										<Divider type="vertical" />
 										<Dropdown overlay={() => (
 											<PreferenceMenu handleClick={handleClick} partner={ctx.partner} />
 										)}>
