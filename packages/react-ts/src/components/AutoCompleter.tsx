@@ -1,56 +1,37 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { WFContext } from '../context';
-import { Button, Input, AutoComplete } from 'antd';
-import { ArrowRightOutlined } from '@ant-design/icons'
+import { Button, Input, AutoComplete, List, Typography, Popover, Tag } from 'antd';
+import { ArrowRightOutlined, QuestionOutlined } from '@ant-design/icons'
 import { motion, AnimatePresence } from 'framer-motion';
-
-const mockVal = (str, repeat = 1) => ({
-	value: str.repeat(repeat),
-});
-
-const renderItem = (id, name) => ({
-	value: id,
-	label: (
-		<span>
-			<b>{id}</b> - {name}
-		</span>
-	)
-})
+const { Text } = Typography;
 
 export const AutoCompleter: React.FC = () => {
 	const { ctx } = useContext(WFContext);
 
-	const ids = ctx.reference.data.map(i => ({
+	const ids = ctx.reference.data.map((i, index) => ({
 		value: i['Lender Dealer Id'],
+		key: index,
 		label: i['Lender Dealer Id'] + ' - ' + i['DBA Name']
 	}));
 	const [value, setValue] = useState('');
 	const [options, setOptions] = useState(ids ? ids : []);
 	const [selected, setSelection] = useState([]);
 
-
-	const onSearch = searchText => {
-		setOptions(
-			!searchText ? ids : options.filter(i => {
-				return searchText === `${i.value}`.slice(0, searchText.length) ||
-					`${i.label}`.includes(searchText)
-			})
-		);
-	};
-
 	const onSelect = data => {
 		console.log('onSelect', data);
-		setSelection([...selected, data])
+		let option = options.filter(i => i.value === data)
+		setSelection([...selected, ...option])
 		setValue('')
 	};
 
 	const onChange = data => {
+		console.log(data)
 		setValue(data);
 	};
 
 	const onConfirm = data => {
 		let newData = data.map(i => ({
-			[ctx.config.internal_id]: i
+			[ctx.config.internal_id]: i.value
 		}))
 		ctx.setRequested({
 			data: newData,
@@ -67,8 +48,11 @@ export const AutoCompleter: React.FC = () => {
 				style={{
 					width: 400,
 				}}
+				filterOption={(inputValue, option) =>
+					`${option.value}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1 ||
+					`${option.label}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+				}
 				onSelect={onSelect}
-				onSearch={onSearch}
 				onChange={onChange}
 			>
 				<Input.Search size="large" placeholder="Select dealers" />
@@ -83,7 +67,21 @@ export const AutoCompleter: React.FC = () => {
 						animate={{ x: 0, opacity: 1, scale: 1 }}
 						exit={{ x: 0, opacity: 0, scale: 1 }}
 					>
-						<h3>Request IDs: {selected.map(i => `${i} `)}</h3>
+						<Popover content={(
+							<List
+								header={(<h3>These dealers will be included</h3>)}
+								style={{ maxWidth: '440px', marginLeft: 'auto', marginRight: 'auto' }}
+								dataSource={selected}
+								renderItem={item => (
+									<List.Item>
+										<Text mark>[ADD]</Text> {item.label}
+									</List.Item>
+								)}
+							/>
+						)}>
+							<div><br />
+								<Tag>{selected.length} dealers selected <QuestionOutlined /></Tag></div>
+						</Popover>
 						<div style={{ position: "absolute", bottom: '0', right: '0' }}>
 							<Button
 								onClick={() => setSelection([])}>
