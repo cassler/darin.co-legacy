@@ -7,7 +7,10 @@ export declare interface PartnerCodes {
 }
 
 
-
+export interface ProdSubTemplate {
+	subject: string,
+	content: string[],
+}
 
 export type partnerConfigInput = {
 	partner: PartnerCode,
@@ -23,6 +26,7 @@ export type partnerConfigInput = {
 	valid_phases: EnrollmentPhase[],
 	ebiz_profile: number,
 	reference_doc?: string,
+	prodSubTemplate?: ProdSubTemplate,
 	custom_validation: Function,
 	generate: {
 		fd: boolean,

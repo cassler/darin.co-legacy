@@ -6,7 +6,6 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SimpleAccount } from '@wf/types';
 import { motion, AnimatePresence } from 'framer-motion';
 
-
 const tabScoreStyle: React.CSSProperties = {
 	marginRight: '24px',
 	display: "grid",
@@ -177,7 +176,6 @@ export const ResultsView = (props) => {
 									items={listSet}
 									payload={log.provisioning}
 									partner={partner}
-
 									totalSize={result.length}
 									excludeSize={liveCount}
 								/>

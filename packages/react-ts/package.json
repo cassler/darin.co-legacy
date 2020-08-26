@@ -1,6 +1,6 @@
 {
 	"name": "@wf/react-ts",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"homepage": "./",
 	"dependencies": {
 		"@ant-design/icons": "^4.2.2",
