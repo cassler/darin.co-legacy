@@ -13,9 +13,10 @@
 		"build-storybook": "build-storybook",
 		"generate-barrels": "barrelsby --delete  -d src -l top"
 	},
-	"peerDependencies": {},
 	"dependencies": {
 		"@cassler/utils": "^1.0.2",
+		"@types/color": "^3.0.1",
+		"antd": "^4.6.1",
 		"react": "~16.13.1"
 	},
 	"devDependencies": {

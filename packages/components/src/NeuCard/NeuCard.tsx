@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@cassler/components';
+import { colors } from '@cassler/typography';
 
 // import './NeuCard.css'
 /** @jsx jsx */
@@ -12,7 +13,7 @@ export interface NeuCardPropsI {
 }
 
 export function NeuCard({ src, color, width = 500 }: NeuCardPropsI) {
-
+	const [flipped, flip] = useState(false)
 	const style = css`
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 		/* box-shadow: 2px 3px 10px #e3e3e6; */
@@ -55,7 +56,7 @@ export function NeuCard({ src, color, width = 500 }: NeuCardPropsI) {
 			font-size: 20px;
 		}
 		.neu-subtitle {
-			color: #999;
+			color: ${colors.blue[2]};
 			margin: 0 0 20px;
 			padding: 0;
 			font-size: 15px;
@@ -72,12 +73,10 @@ export function NeuCard({ src, color, width = 500 }: NeuCardPropsI) {
 				</div>
 				<figcaption>
 					<h3>Hello there</h3>
-					<p className="neu-subtitle">There's something here</p>
-					<Button label="Haha" size="medium" primary use3D ghost />
+					<p className="neu-subtitle">There's something here {flipped && 'WE FLIPPED IT'}</p>
+					<Button label="Haha" size="medium" primary use3D ghost onClick={() => flip(!flipped)} />
 				</figcaption>
 			</figure>
-
-
 		</div>
 	)
 }

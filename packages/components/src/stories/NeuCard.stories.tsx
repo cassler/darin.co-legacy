@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import Button, { IButtonProps } from '../Button/button'
 import { colors } from '@cassler/typography'
-import NeuCard, { NeuCardPropsI } from './NeuCard';
+import NeuCard, { NeuCardPropsI } from '../NeuCard/NeuCard';
 
 export default {
 	title: 'Example/NeuCard',
