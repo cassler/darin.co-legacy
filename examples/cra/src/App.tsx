@@ -23,7 +23,7 @@ function App() {
 		<div className="app-container">
 			<div className="content">
 				<h1><small>Lets play</small><br />MicroSweeper</h1>
-				<MicroSweeper size={20} />
+				<MicroSweeper size={30} difficulty={0.8} />
 			</div>
 		</div>
 	)

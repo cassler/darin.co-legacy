@@ -6,7 +6,8 @@ import { Button } from '@cassler/components'
 
 
 export interface MicroSweeperProps {
-	size: number
+	size: number,
+	difficulty: number
 }
 
 export interface MicronPropsI {
@@ -16,73 +17,51 @@ export interface MicronPropsI {
 	clicked: boolean,
 	visible: boolean,
 	index: number,
-	proximity?: number
+	proximity: number | null
 }
 
-type StateType = {
-	items: MicronPropsI[]
-}
-type ActionType =
-	| { type: 'click' }
-	| { type: 'success' }
-	| { type: 'failure' }
 
-const MStateContext = React.createContext({})
-const MDispatchContext = React.createContext({})
-
-const countReducer = (state: StateType, action: ActionType) => {
-	switch (action.type) {
-		case 'click': {
-			return state
-		}
-		case 'success': {
-			return state
-		}
-		default: {
-			throw new Error(`Unhandled action type: ${action.type}`)
-		}
-	}
-}
-
-export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, children }) => {
-
+export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficulty = 0.85 }) => {
+	const [microns, setMicrons] = useState<MicronPropsI[]>([]);
+	const [score, setScore] = useState(0)
 	const empty = Array.from(Array(size * size).keys());
+
+	useEffect(() => {
+		let initialBoard = empty.map(index => getMicron(index));
+		let defaultBoard = initialBoard.map(i => ({
+			...i,
+			proximity: countBombs(getNeighbors(i, initialBoard))
+		}))
+		setMicrons(defaultBoard)
+	}, [])
+
 	const getMicron = (index: number): MicronPropsI => {
 		const row = (Math.floor(index / size));
 		return {
 			index,
-			bomb: Math.random() >= 0.85,
+			bomb: Math.random() >= difficulty,
 			row: (Math.floor(index / size)) + 1,
 			col: index - (row * size) + 1,
 			clicked: false,
-			visible: false
+			visible: false,
+			proximity: null
 		}
 	}
-	const defaultBoard: MicronPropsI[] = empty.map(index => getMicron(index));
 
-
-	const [microns, setMicrons] = useState<MicronPropsI[]>([]);
-	const [current, setCurrent] = useState<MicronPropsI>();
-	const [next, setNext] = useState<MicronPropsI[]>([]);
-
-	useEffect(() => {
-		setMicrons(defaultBoard)
-	}, [])
-
-	function getNeighbors(item: MicronPropsI): MicronPropsI[] {
+	function getNeighbors(item: MicronPropsI, source: MicronPropsI[]): MicronPropsI[] {
 		const { index, col } = item;
 		const raw = [
 			// Abovvr
-			index > size && microns[index - size],
-			col > 1 && microns[index - size - 1],
-			col < size && microns[index - size + 1],
+			index > size && source[index - size],
+			col > 1 && source[index - size - 1],
+			col < size && source[index - size + 1],
 			// To the sides
-			col > 1 && microns[index - 1],
-			col < size && microns[index + 1],
+			col > 1 && source[index - 1],
+			col < size && source[index + 1],
 			// Below
-			index < (size * size - size) && microns[index + size],
-			col < size && microns[index + size + 1],
-			col > 1 && microns[index + size - 1],
+			index < (size * size - size) && source[index + size],
+			col < size && source[index + size + 1],
+			col > 1 && source[index + size - 1],
 		].filter(Boolean) as MicronPropsI[]
 
 		return raw;
@@ -93,40 +72,53 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, children 
 		return neighbors.filter(i => i.bomb === true).length
 	}
 
+	async function updateMicron(item: MicronPropsI) {
+		const { index } = item;
+		await setMicrons([
+			...microns.slice(0, index),
+			item,
+			...microns.slice(index + 1, 999),
+		])
+	}
 
 	function checkMicron(item: MicronPropsI): {
 		next: MicronPropsI[],
 	} | void {
-		const { index } = item;
-		if (item.visible) return;
-		let neighbors = getNeighbors(item)
-		let bombCount = countBombs(neighbors)
+		if (item.clicked) return;
+		updateMicron({
+			...item,
+			visible: true,
+			clicked: true
+		});
+		setScore(score + 1)
 
-		setMicrons([
-			...microns.slice(0, index),
-			{ ...item, proximity: bombCount, visible: true },
-			...microns.slice(index + 1, 999),
-		])
-
-
-		if (bombCount === 0) {
-			let newNext = [...next, ...neighbors].filter((value, index, self) => {
-				return self.indexOf(value) === index && value.index !== index && value.visible === false;
+		if (item.proximity === 0) {
+			let neighbors = getNeighbors(item, microns);
+			let newBoard = [...microns];
+			neighbors.map(n => {
+				// If it has no bombs next to it, keep going
+				n.proximity === 0 && neighbors.push(...getNeighbors(n, microns))
 			})
-			console.log(index)
-			console.log('filtered', newNext.filter(i => i.index !== index))
-			setNext([...next.filter(i => i.index !== index), ...neighbors.filter(i => !i.visible)])
-		} else {
-			setNext([...next.filter(i => i.index !== index)])
+			let newItems = [...neighbors.map(i => ({ ...i, visible: true }))]
+			for (const n of newItems) {
+				newBoard = [
+					...newBoard.slice(0, n.index),
+					n,
+					...newBoard.slice(n.index + 1, 9999)
+				]
+			}
+			if (
+				newBoard.filter(i => i.visible == true).length !==
+				microns.filter(i => i.visible).length
+			) {
+				setMicrons(newBoard);
+				setScore(newBoard.filter(i => i.visible).length)
+			}
 		}
-
-		setCurrent({ ...item, proximity: bombCount, visible: true })
 	}
 
 	function handleClick(item: MicronPropsI, cascade: boolean = false) {
 		if (!item) return;
-		let { index } = item;
-		// 1 - If this is a bomb. Set game over.
 		if (item.bomb) {
 			console.log('BOMB! you DIED');
 			return;
@@ -135,12 +127,12 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, children 
 	}
 
 	useEffect(() => {
-		console.log({ next })
-		if (next.length) {
-			handleClick(next[0])
-			// console.log({ next })
-		}
-	}, [microns, next, checkMicron, handleClick])
+		let toClick = microns.filter(i => i.proximity === 0 && i.visible && !i.clicked);
+		toClick.length && toClick.map(a => {
+			checkMicron(a)
+		})
+
+	}, [setMicrons, checkMicron])
 
 
 	const sty = css`
@@ -150,7 +142,7 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, children 
 
 	return (
 		<div>
-			<h3>Microsweeper - {empty.length}</h3>
+			<h3>Microsweeper - {empty.length} / Score {score}</h3>
 			<div css={sty}>
 				{microns.map(i => <Micron {...i} onClick={() => handleClick(i)} />)}
 			</div>
@@ -172,7 +164,8 @@ export const Micron: React.FC<MicronPropsI & { onClick: Function }> = ({ onClick
 	}
 	return (
 		<div style={bomb ? { border: '1px solid red' } : { color: 'blue' }}>
-			{proximity || visible ? (
+
+			{visible ? (
 				<b>{proximity}</b>
 			) : (
 					<button onClick={() => handleClick()}>{row} {col}</button>
