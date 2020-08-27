@@ -17,7 +17,10 @@ export interface MicronPropsI {
 	clicked: boolean,
 	visible: boolean,
 	index: number,
-	proximity: number | null
+	proximity: number | null,
+	flagged: boolean,
+	self?: MicronPropsI,
+	cb?: Function
 }
 
 
@@ -44,6 +47,7 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 			col: index - (row * size) + 1,
 			clicked: false,
 			visible: false,
+			flagged: false,
 			proximity: null
 		}
 	}
@@ -93,7 +97,7 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 		setScore(score + 1)
 
 		if (item.proximity === 0) {
-			let neighbors = getNeighbors(item, microns);
+			let neighbors = getNeighbors(item, microns).filter(i => !i.flagged === true);
 			let newBoard = [...microns];
 			neighbors.map(n => {
 				// If it has no bombs next to it, keep going
@@ -101,14 +105,16 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 			})
 			let newItems = [...neighbors.map(i => ({ ...i, visible: true }))]
 			for (const n of newItems) {
-				newBoard = [
-					...newBoard.slice(0, n.index),
-					n,
-					...newBoard.slice(n.index + 1, 9999)
-				]
+				if (!n.flagged) {
+					newBoard = [
+						...newBoard.slice(0, n.index),
+						n,
+						...newBoard.slice(n.index + 1, 9999)
+					]
+				}
 			}
 			if (
-				newBoard.filter(i => i.visible == true).length !==
+				newBoard.filter(i => i.visible === true).length !==
 				microns.filter(i => i.visible).length
 			) {
 				setMicrons(newBoard);
@@ -117,13 +123,25 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 		}
 	}
 
-	function handleClick(item: MicronPropsI, cascade: boolean = false) {
+	function handleClick(item: MicronPropsI, event: React.MouseEvent) {
 		if (!item) return;
-		if (item.bomb) {
-			console.log('BOMB! you DIED');
-			return;
+		console.log(event)
+		event.preventDefault()
+		if (event.type === 'click') {
+			if (item.bomb) {
+				console.log('BOMB! you DIED');
+				return;
+			}
+			checkMicron(item);
+
+		} else if (event.nativeEvent.which === 3) {
+
+			setMicrons([
+				...microns.slice(0, item.index),
+				{ ...item, flagged: true },
+				...microns.slice(item.index + 1, 9999)
+			])
 		}
-		checkMicron(item);
 	}
 
 	useEffect(() => {
@@ -145,7 +163,7 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 		<div>
 			<h3>Microsweeper - {empty.length} / Score {score} ({microns.filter(i => i.bomb).length} bombs)</h3>
 			<div css={sty}>
-				{microns.map(i => <Micron {...i} onClick={() => handleClick(i)} />)}
+				{microns.map(i => <Micron {...i} cb={handleClick} self={i} />)}
 			</div>
 		</div>
 	)
@@ -155,12 +173,13 @@ export default MicroSweeper;
 
 
 /** Individual Squares on the Board */
-export const Micron: React.FC<MicronPropsI & { onClick: Function }> = ({ onClick, bomb, row, col, proximity, visible }) => {
+export const Micron: React.FC<MicronPropsI> = ({ cb, bomb, row, col, proximity, visible, flagged, self }) => {
 	const [isClicked, setClicked] = useState(false);
 
-	const handleClick = () => {
+	const handleClick = (e: React.MouseEvent) => {
 		setClicked(true);
-		onClick()
+		console.log(e)
+		cb(self, e)
 	}
 
 	const boxSty = css`
@@ -189,10 +208,14 @@ export const Micron: React.FC<MicronPropsI & { onClick: Function }> = ({ onClick
 		border: 1px solid transparent;
 	`;
 
+	const flagStyle = css`
+
+	`
+
 	const variants = {
-		hidden: { opacity: 0, background: 'transparent', transition: { duration: 0.35 } },
-		visible: { opacity: 1, background: 'transparent', transition: { duration: 0.35 } },
-		blank: { opacity: 1, background: '#fff', transition: { duration: 0.35 } },
+		hidden: { opacity: 0, background: 'rgba(255,255,255,0)', transition: { duration: 0.35 } },
+		visible: { opacity: 1, background: 'rgba(255,255,255,0)', transition: { duration: 0.35 } },
+		blank: { opacity: 1, background: 'rgba(255,255,255,1)', transition: { duration: 0.35 } },
 	}
 
 
@@ -214,8 +237,10 @@ export const Micron: React.FC<MicronPropsI & { onClick: Function }> = ({ onClick
 						initial="hidden"
 						animate="blank"
 						variants={variants}
-						css={btnSty}
-						onClick={() => handleClick()}>
+						css={[btnSty, flagged && flagStyle]}
+						onContextMenu={(e) => handleClick(e)}
+						onClick={(e) => handleClick(e)}>
+						{flagged && '❔'}
 					</motion.button>
 				)}
 
