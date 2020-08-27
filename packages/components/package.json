@@ -1,8 +1,8 @@
 {
 	"name": "@cassler/components",
 	"version": "1.0.2",
-	"main": "src/index",
-	"types": "src/index",
+	"main": "dist/index",
+	"types": "dist/index",
 	"scripts": {
 		"build": "yarn run clean && yarn run compile",
 		"clean": "rimraf -rf ./dist",
