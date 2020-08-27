@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { message } from 'antd';
+import { motion, AnimatePresence } from 'framer-motion';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { Button } from '@cassler/components'
@@ -132,17 +132,18 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 			checkMicron(a)
 		})
 
-	}, [setMicrons, checkMicron])
+	}, [checkMicron])
 
 
 	const sty = css`
 		display: grid;
 		grid-template-columns: repeat(${size}, 1fr);
+		gap: 0;
 	`;
 
 	return (
 		<div>
-			<h3>Microsweeper - {empty.length} / Score {score}</h3>
+			<h3>Microsweeper - {empty.length} / Score {score} ({microns.filter(i => i.bomb).length} bombs)</h3>
 			<div css={sty}>
 				{microns.map(i => <Micron {...i} onClick={() => handleClick(i)} />)}
 			</div>
@@ -156,20 +157,68 @@ export default MicroSweeper;
 /** Individual Squares on the Board */
 export const Micron: React.FC<MicronPropsI & { onClick: Function }> = ({ onClick, bomb, row, col, proximity, visible }) => {
 	const [isClicked, setClicked] = useState(false);
-	const [prox, setProx] = useState(0)
 
 	const handleClick = () => {
 		setClicked(true);
 		onClick()
 	}
+
+	const boxSty = css`
+		min-width: 40px;
+		margin: 0;
+		padding: 0;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+	`
+
+	const btnSty = css`
+		width: 100%;
+		box-sizing: border-box;
+		height: 60px;
+		background: #fff;
+		margin: -2px 0 0;
+		outline: none;
+		border: 1px solid #ddd;
+		font-size: 24px;
+	`
+
+	const btnDisabled = css`
+		background: transparent;
+		border: 1px solid transparent;
+	`;
+
+	const variants = {
+		hidden: { opacity: 0, background: 'transparent', transition: { duration: 0.35 } },
+		visible: { opacity: 1, background: 'transparent', transition: { duration: 0.35 } },
+		blank: { opacity: 1, background: '#fff', transition: { duration: 0.35 } },
+	}
+
+
+
 	return (
-		<div style={bomb ? { border: '1px solid red' } : { color: 'blue' }}>
+		<div css={boxSty}>
 
 			{visible ? (
-				<b>{proximity}</b>
+				<motion.button
+					initial="hidden"
+					animate="visible"
+					variants={variants}
+					disabled
+					css={[btnSty, btnDisabled]}>
+					{proximity}
+				</motion.button>
 			) : (
-					<button onClick={() => handleClick()}>{row} {col}</button>
+					<motion.button
+						initial="hidden"
+						animate="blank"
+						variants={variants}
+						css={btnSty}
+						onClick={() => handleClick()}>
+					</motion.button>
 				)}
+
 		</div>
 	)
 }
