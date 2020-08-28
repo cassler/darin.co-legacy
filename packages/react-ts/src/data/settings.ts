@@ -14,7 +14,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "noreply@carnow.com",
 		leads: "corinne@carnow.com",
 		internal_id: "PID",
-		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -30,6 +30,28 @@ export const settings: partnerSettingsList = {
 		custom_validation: (item: any) => {
 			return true
 		},
+		prodSubTemplate: {
+			subject: 'Activate Digital Service for CarNow Inc 0001148792',
+			content: [
+				'CarNow Inc(CNZ)',
+				'Please activate Digital data service for CarNow Inc  0001148792',
+				'',
+				' - Billing Date: Activation Date',
+				'',
+				' - New Method:',
+				'DRSFDCBD $0 monthly – automatically bill out of SAP',
+				'CBDDSSET as a OTC of $75 per store',
+				'',
+				'Bill to/ Sold to and Payer is: CarNow Inc  0001148792',
+				'',
+				'CarNow Inc',
+				'2 Clement road',
+				'Hanover, NH 03755',
+				'United States',
+				'',
+				'Ship to Dealer(s) attached',
+			]
+		}
 	},
 	haz: {
 		partner: "HAZ",
@@ -38,7 +60,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "noreply@carzato.com",
 		leads: "noreply@carzato.com",
 		internal_id: "PID",
-		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -62,7 +84,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "NoEmail@darwinautomotive.com",
 		leads: "NoEmail@darwinautomotive.com",
 		internal_id: "Partner Dealer ID",
-		ebiz_dt_dealer_id_field: "Lender Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/Digital_Retail_Suite_Dealer_File-DRW(4).csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -79,6 +101,31 @@ export const settings: partnerSettingsList = {
 			// return item && item.hasOwnProperty('Status') && item.Status === "A";
 			return true
 		},
+		prodSubTemplate: {
+			subject: '',
+			content: [
+				'Darwin Automotive(DRW)',
+				'',
+				'Please activate Digital Data service for Darwin Automotive 1155065',
+				'',
+				'Billing Date: is day it is activated/ installed',
+				'',
+				'AMOUNT: $0 monthly, they are billed manually for now',
+				'',
+				'New Method:',
+				'',
+				'DRSFDCBD  at $0',
+				'DRSFDI as a OTC of $0',
+				'',
+				'Bill to/ Sold to and Payer is:',
+				'',
+				'Darwin Automotive',
+				'517 US Route 1 South Suite 2210',
+				'Iselin, NJ 08830',
+				'',
+				'Ship to Dealer(s): attached',
+			]
+		}
 	},
 	boa: {
 		// identify settings and fill certain fields
@@ -93,7 +140,7 @@ export const settings: partnerSettingsList = {
 		// name of ID used internally by partner
 		leads: "NoReply@bankofamerica.com",
 		// value used for eBiz profile "DT Dealer ID"
-		ebiz_dt_dealer_id_field: "DealerTrack Id",
+		ebiz_dt_dealer_id_field: "dealertrackID",
 		// JSON of file submission from this partner
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/shorter-as-csv-new.csv",
 		// JSON of DT Business Report for partner
