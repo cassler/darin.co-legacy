@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PartnerCode, partnerConfigInput } from '@wf/types';
 import { ImplementationResult, ImpPayload } from '@wf/core';
 import { data as drwRequestData } from './data/drwRequest';

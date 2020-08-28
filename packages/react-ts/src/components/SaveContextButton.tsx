@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
 import { WFContext } from '../context';
 import { message, Popconfirm, Button } from 'antd';
-import { set, get } from 'idb-keyval';
-import { settings } from '../data/settings';
-import { PartnerCode } from '@wf/types';
 /**
  * @TODO - This functionality should exist inside the context itself.
  */
@@ -13,10 +10,6 @@ export function SaveContextButton() {
 	const handleSave = () => {
 		ctx.saveContext(ctx);
 		message.success('Saved session succesfully. You can close this window safely.')
-	}
-
-	const handleReset = () => {
-
 	}
 
 	return (

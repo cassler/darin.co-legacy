@@ -68,7 +68,7 @@ export const PreviewTable: React.FC<PreviewTableProps> = ({
 	// Restruture our data for display
 	const sourceData = items.map((i, key) => ({
 		key,
-		pid: i.pid,
+		pid: i.account.partnerID,
 		original: i.original,
 		tests: [
 			{ name: 'Enrollment Status', value: i.checks.enrollmentStatusOK, desc: 'Meets DT Enrollment requirements?' },
