@@ -15,7 +15,7 @@ After identifying the appropriate course for items, Workflower allows you to gen
 
 ### For end-users
 
-1. Download the [latest release (0.9.1)](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/0.9.1/workflower-portable-0.9.1-dist.zip)
+1. Download the [latest release (0.9.1)](https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/archive/0.9.1.zip)
 2. Unzip the contents and open `index.html`
 3. Head over to the [official documentation site](https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/) for a complete walkthrough and full documentation.
 
