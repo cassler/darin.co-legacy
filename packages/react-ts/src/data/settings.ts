@@ -102,7 +102,7 @@ export const settings: partnerSettingsList = {
 			return true
 		},
 		prodSubTemplate: {
-			subject: '',
+			subject: 'Activate Digital Data service for Darwin Automotive 1155065',
 			content: [
 				'Darwin Automotive(DRW)',
 				'',
