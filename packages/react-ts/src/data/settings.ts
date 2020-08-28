@@ -14,7 +14,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "noreply@carnow.com",
 		leads: "corinne@carnow.com",
 		internal_id: "PID",
-		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -38,7 +38,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "noreply@carzato.com",
 		leads: "noreply@carzato.com",
 		internal_id: "PID",
-		ebiz_dt_dealer_id_field: "Partner Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/custom_pid_request.csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -62,7 +62,7 @@ export const settings: partnerSettingsList = {
 		dealerContact: "NoEmail@darwinautomotive.com",
 		leads: "NoEmail@darwinautomotive.com",
 		internal_id: "Partner Dealer ID",
-		ebiz_dt_dealer_id_field: "Lender Dealer Id",
+		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/Digital_Retail_Suite_Dealer_File-DRW(4).csv",
 		dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
 		live_ids: sample_ebs_entries_drw,
@@ -93,7 +93,7 @@ export const settings: partnerSettingsList = {
 		// name of ID used internally by partner
 		leads: "NoReply@bankofamerica.com",
 		// value used for eBiz profile "DT Dealer ID"
-		ebiz_dt_dealer_id_field: "DealerTrack Id",
+		ebiz_dt_dealer_id_field: "dealertrackID",
 		// JSON of file submission from this partner
 		submitted_file: "/Users/darin/Code/@workflower/packages/examples/src/data/shorter-as-csv-new.csv",
 		// JSON of DT Business Report for partner
