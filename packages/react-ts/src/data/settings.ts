@@ -87,7 +87,7 @@ export const settings: partnerSettingsList = {
 		ebiz_dt_dealer_id_field: "partnerID",
 		submitted_file: "/",
 		dt_report_file: "/",
-		live_ids: [],
+		live_ids: sample_ebs_entries_drw,
 		ebiz_profile: 2390475,
 		valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
 		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7BDFE66E3B-6406-4B9A-A95D-E1390AD70F25%7D&file=How%20to%20Complete%20a%20Digital%20Airstrike%20(%20DAS%20)%20Project.docx&action=default&mobileredirect=true&cid=db749db7-30c6-4234-b30f-a4c166ebbc3e',
