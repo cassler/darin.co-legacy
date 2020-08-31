@@ -77,6 +77,51 @@ export const settings: partnerSettingsList = {
 			return true
 		},
 	},
+	das: {
+		partner: "DAS",
+		partner_name: "Digital Air Strike",
+		crm: "NoReply@DAS.com",
+		dealerContact: "NoReply@DAS.com",
+		leads: "NoReply@DAS.com",
+		internal_id: "Partner Dealer ID",
+		ebiz_dt_dealer_id_field: "partnerID",
+		submitted_file: "/",
+		dt_report_file: "/",
+		live_ids: [],
+		ebiz_profile: 2390475,
+		valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
+		reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7BDFE66E3B-6406-4B9A-A95D-E1390AD70F25%7D&file=How%20to%20Complete%20a%20Digital%20Airstrike%20(%20DAS%20)%20Project.docx&action=default&mobileredirect=true&cid=db749db7-30c6-4234-b30f-a4c166ebbc3e',
+		generate: {
+			fd: true,
+			ebs: true,
+			ps: true,
+			info: true,
+		},
+		custom_validation: (item: any) => {
+			// return item && item.hasOwnProperty('Status') && item.Status === "A";
+			return true
+		},
+		prodSubTemplate: {
+			subject: 'Activate Digital Data service for Digital Air Strike SAP : 1097799',
+			content: [
+				'DIGITAL AIRSTRIKE (DAS)',
+				'',
+				'Please activate Digital data service for Digital Airstrike  1097799',
+				'',
+				'Billing Date: Activation / Install date',
+				'AMOUNT: $0 monthly, they are billed manually for now',
+				'',
+				'New Method:',
+				'DRSPDCBD at $0',
+				'CBDDSSET as a OTC of $50 per store',
+				'',
+				'INSTALL FEE AND SAP CODE and AMOUNT OTC',
+				'Bill to / Sold to and Payer is: Digital Airstrike  4024962',
+				'',
+				'Ship to Dealer(s): attached',
+			]
+		}
+	},
 	drw: {
 		partner: "DRW",
 		partner_name: "Darwin Automotive",

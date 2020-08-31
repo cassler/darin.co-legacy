@@ -54,7 +54,7 @@ const FileSelect: React.FC<Props> = ({
 					}
 					if (slug === "ref") {
 						if (cols.includes("Enrollment Phase")) {
-							message.success("This looks like a DT Report! Setting ");
+							message.success("This looks like a DT Report! Continue to use as reference data.");
 							setData(res)
 							setReady(true)
 						} else {
