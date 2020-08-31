@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { PartnerCode, partnerConfigInput } from '@wf/types';
 import { ImplementationResult, ImpPayload } from '@wf/core';
 import { data as drwRequestData } from './data/drwRequest';
@@ -39,19 +39,6 @@ export interface WFContextI {
 	step: number,
 	showPartnerSettings: boolean
 	reloaded: boolean
-}
-
-interface WFContextVal extends WFContextI {
-	setPartner: Function
-	setConfig: Function
-	setDemo: Function
-	setClear: Function
-	setResult: Function
-	setReference: Function
-	setRequested: Function
-	setTab: Function
-	togglePartnerSettings: Function
-	loadState: Function
 }
 
 export const initialContext: { [key: string]: WFContextI } = {

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { WFContext } from '../context';
 import { Button, Input, AutoComplete, List, Typography, Popover, Tag, Divider } from 'antd';
 import { ArrowRightOutlined, QuestionOutlined } from '@ant-design/icons'
@@ -7,29 +7,12 @@ const { Text } = Typography;
 
 export const AutoCompleter: React.FC = () => {
 	const { ctx } = useContext(WFContext);
-
-	const ids = ctx.reference.data.map((i, index) => ({
-		value: i['Lender Dealer Id'],
-		key: index,
-		string: i['DealerTrack Id'] + ' ' + i['DBA Name'],
-		label: (<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<Text strong>{i['DBA Name']}</Text>
-			<div>
-				<small>
-					<Text type='secondary'>DT {i['DealerTrack Id']}</Text>
-					<Divider type="vertical" />
-					<Text type='secondary'>Partner {i['Lender Dealer Id']}</Text>
-				</small>
-			</div>
-		</div>)
-	}));
 	const [value, setValue] = useState('');
-	const [options, setOptions] = useState(ids ? ids : []);
 	const [selected, setSelection] = useState([]);
 
 	const onSelect = data => {
 		console.log('onSelect', data);
-		let option = options.filter(i => i.value === data)
+		let option = ids.filter(i => i.value === data)
 		setSelection([...selected, ...option])
 		setValue('')
 	};
@@ -50,19 +33,27 @@ export const AutoCompleter: React.FC = () => {
 		});
 	}
 
-	const renderLabel = (dt: number, pid: number, dba: string) => ({
-		value: pid,
+	const ids = ctx.reference.data.map((i, index) => ({
+		value: i['Lender Dealer Id'],
+		key: index,
+		string: i['DealerTrack Id'] + ' ' + i['DBA Name'],
 		label: (<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<Tag>{dt}</Tag> <Tag>{pid}</Tag>
-			<Text strong>{dba}</Text>
+			<Text strong>{i['DBA Name']}</Text>
+			<div>
+				<small>
+					<Text type='secondary'>DT {i['DealerTrack Id']}</Text>
+					<Divider type="vertical" />
+					<Text type='secondary'>Partner {i['Lender Dealer Id']}</Text>
+				</small>
+			</div>
 		</div>)
-	})
+	}));
 
 	return (
 		<>
 			<AutoComplete
 				value={value}
-				options={options}
+				options={ids}
 				style={{
 					width: 500,
 				}}
