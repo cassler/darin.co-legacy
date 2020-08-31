@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { WFContext } from '../context';
-import { Button, Input, AutoComplete, List, Typography, Popover, Tag } from 'antd';
+import { Button, Input, AutoComplete, List, Typography, Popover, Tag, Divider } from 'antd';
 import { ArrowRightOutlined, QuestionOutlined } from '@ant-design/icons'
 import { motion, AnimatePresence } from 'framer-motion';
 const { Text } = Typography;
@@ -11,7 +11,17 @@ export const AutoCompleter: React.FC = () => {
 	const ids = ctx.reference.data.map((i, index) => ({
 		value: i['Lender Dealer Id'],
 		key: index,
-		label: i['Lender Dealer Id'] + ' - ' + i['DBA Name']
+		string: i['DealerTrack Id'] + ' ' + i['DBA Name'],
+		label: (<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+			<Text strong>{i['DBA Name']}</Text>
+			<div>
+				<small>
+					<Text type='secondary'>DT {i['DealerTrack Id']}</Text>
+					<Divider type="vertical" />
+					<Text type='secondary'>Partner {i['Lender Dealer Id']}</Text>
+				</small>
+			</div>
+		</div>)
 	}));
 	const [value, setValue] = useState('');
 	const [options, setOptions] = useState(ids ? ids : []);
@@ -40,17 +50,26 @@ export const AutoCompleter: React.FC = () => {
 		});
 	}
 
+	const renderLabel = (dt: number, pid: number, dba: string) => ({
+		value: pid,
+		label: (<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+			<Tag>{dt}</Tag> <Tag>{pid}</Tag>
+			<Text strong>{dba}</Text>
+		</div>)
+	})
+
 	return (
 		<>
 			<AutoComplete
 				value={value}
 				options={options}
 				style={{
-					width: 400,
+					width: 500,
 				}}
 				filterOption={(inputValue, option) =>
 					`${option.value}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1 ||
-					`${option.label}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+					`${option.label}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1 ||
+					`${option.string}`.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
 				}
 				onSelect={onSelect}
 				onChange={onChange}
