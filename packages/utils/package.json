@@ -1,6 +1,6 @@
 {
 	"name": "@wf/utils",
-	"version": "0.9.1",
+	"version": "0.9.5",
 	"description": "Various utilities and helpers for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",

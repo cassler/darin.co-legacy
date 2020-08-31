@@ -1,6 +1,6 @@
 {
 	"name": "@wf/types",
-	"version": "0.9.1",
+	"version": "0.9.5",
 	"description": "Types & Interfaces for use across WF definitions",
 	"main": "index.js",
 	"author": "Darin Cassler",
