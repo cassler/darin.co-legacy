@@ -129,6 +129,7 @@ export class WFProvider extends React.Component {
 				case "DRW": newConfig = settings.drw; break
 				case "HAZ": newConfig = settings.haz; break
 				case "CNZ": newConfig = settings.cnz; break
+				case "DAS": newConfig = settings.das; break
 				default: newConfig = undefined
 			}
 
