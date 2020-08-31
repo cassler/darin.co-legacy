@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import Papa from 'papaparse';
 import { message, Popover, Select, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { IParseResult } from '../context';
 const { Option } = Select;
@@ -54,7 +54,7 @@ const FileSelect: React.FC<Props> = ({
 					}
 					if (slug === "ref") {
 						if (cols.includes("Enrollment Phase")) {
-							message.success("This looks like a DT Report! Setting ");
+							message.success("This looks like a DT Report! Continue to use as reference data.");
 							setData(res)
 							setReady(true)
 						} else {
