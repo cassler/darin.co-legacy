@@ -102,7 +102,7 @@ function App() {
 										<motion.div {...motionPrefs} key="1">
 											<ResultsView
 												partner_name={ctx.partner_name}
-												partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids.length} handleBack={() => {
+												partner={ctx.partner} log={ctx.log} result={ctx.result} liveCount={ctx.config.live_ids ? ctx.config.live_ids.length : 0} handleBack={() => {
 													ctx.setStep(Math.max(0, ctx.step - 1))
 												}}
 											/>

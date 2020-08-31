@@ -80,7 +80,7 @@ export const Stepper: React.FC<IStepperProps> = ({
 			<Steps direction="vertical" current={index} >
 				{defaultSteps.map(item => (
 					<Steps.Step
-						onClick={() => item.onClick()}
+						onClick={() => { }}
 						title={item.title}
 						description={item.isReady ? item.readyDescription : item.description}
 					/>

@@ -8,7 +8,6 @@ import AutoCompleter from './AutoCompleter';
 import Bookmarklet from './Bookmarklet';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
-import { set, get } from 'idb-keyval';
 import { Statistic, Popover, Divider, Button, Result, Input, Switch, message, Popconfirm } from 'antd';
 import { FormOutlined, ArrowLeftOutlined, FileExcelOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { Spinner, FormGroup } from '@blueprintjs/core';
@@ -29,6 +28,7 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "BOA") ctx.setConfig(settings.boa);
 		if (partner === "DRW") ctx.setConfig(settings.drw);
 		if (partner === "HAZ") ctx.setConfig(settings.haz);
+		if (partner === "DAS") ctx.setConfig(settings.das);
 		if (partner === "CNZ") ctx.setConfig(settings.cnz);
 	}
 
@@ -95,7 +95,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<SelectPartner
-										partners={["BOA", "DRW", "CNZ", "HAZ"] as PartnerCode[]}
+										partners={["BOA", "DRW", "CNZ", "HAZ", "DAS"] as PartnerCode[]}
 										defaultPartner={ctx.partner}
 										callback={handlePartnerSelect}
 									/>
