@@ -30,6 +30,9 @@ export const settings: partnerSettingsList = {
 		custom_validation: (item: any) => {
 			return true
 		},
+		report_validation: (items: object[]): boolean => {
+			return items.length < 1000 && items[0]['Lender Dealer Id'].toString().length === 6
+		},
 		prodSubTemplate: {
 			subject: 'Activate Digital Service for CarNow Inc 0001148792',
 			content: [
@@ -73,6 +76,9 @@ export const settings: partnerSettingsList = {
 			ps: true,
 			info: true,
 		},
+		report_validation: (item: any) => {
+			return true
+		},
 		custom_validation: (item: any) => {
 			return true
 		},
@@ -96,6 +102,9 @@ export const settings: partnerSettingsList = {
 			ebs: true,
 			ps: true,
 			info: true,
+		},
+		report_validation: (items: object[]): boolean => {
+			return items.length < 1000 && items[0]['Lender Dealer Id'].toString().length === 6
 		},
 		custom_validation: (item: any) => {
 			// return item && item.hasOwnProperty('Status') && item.Status === "A";
@@ -141,6 +150,9 @@ export const settings: partnerSettingsList = {
 			ebs: true,
 			ps: true,
 			info: true,
+		},
+		report_validation: (items: object[]): boolean => {
+			return items.length < 1000 && items[0]['Lender Dealer Id'].toString().length === 4
 		},
 		custom_validation: (item: any) => {
 			// return item && item.hasOwnProperty('Status') && item.Status === "A";
@@ -222,6 +234,9 @@ export const settings: partnerSettingsList = {
 				'Jacksonville, Florida 32256',
 				'United States'
 			]
+		},
+		report_validation: (items: object[]): boolean => {
+			return items.length > 5000 && items[0]['Lender Dealer Id'].toString().length === 10
 		},
 		// extra tests to be performed like checking "Program Active Status"
 		custom_validation: (item: any) => {

@@ -140,6 +140,7 @@ export const WorkflowForm: React.FC = () => {
 									slug="ref"
 									callback={ctx.setReference}
 									count={ctx.reference?.data.length || 0}
+									checkFile={ctx.config.report_validation}
 									helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
 									internal_id={ctx.config.internal_id}
 								/>

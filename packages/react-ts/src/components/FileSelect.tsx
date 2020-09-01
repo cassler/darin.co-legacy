@@ -14,6 +14,7 @@ type Props = {
 	count?: number,
 	slug: string,
 	helper?: string,
+	checkFile?: Function,
 	internal_id?: string,
 	callback: Function,
 }
@@ -23,6 +24,7 @@ const FileSelect: React.FC<Props> = ({
 	slug,
 	callback,
 	helper,
+	checkFile,
 	internal_id
 }) => {
 	const [filename, setFilename] = useState<string>(`Choose ${label} CSV`)
@@ -55,6 +57,10 @@ const FileSelect: React.FC<Props> = ({
 					if (slug === "ref") {
 						if (cols.includes("Enrollment Phase")) {
 							message.success("This looks like a DT Report! Continue to use as reference data.");
+							let isValid = checkFile(res.data as object[]);
+							if (!isValid) {
+								message.warning("This may not be the correct report. Please check.")
+							}
 							setData(res)
 							setReady(true)
 						} else {
