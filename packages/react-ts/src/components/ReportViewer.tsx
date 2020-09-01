@@ -128,10 +128,10 @@ export function ReportViewer() {
 
 	return (
 		<div>
-			Im the report viewer
-			<FileSelect label="Old DT Report" slug="prev" callback={handleChange} />
-			<FileSelect label="New DT Report" slug="next" callback={handleChange} />
-
+			<div style={{ display: 'flex', width: '100%' }}>
+				<FileSelect label="Old DT Report" slug="prev" callback={handleChange} />
+				<FileSelect label="New DT Report" slug="next" callback={handleChange} />
+			</div>
 			<Button onClick={() => setResult(diffData(oldData.data, newData.data))}>
 				Nice
 			</Button>
