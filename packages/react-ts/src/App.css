@@ -22,6 +22,12 @@ h2 {
 	font-weight: 800;
 }
 
+.addition {
+	color: green !important
+}
+.deletion {
+	color: red !important
+}
 .ant-table-container {
 	padding: 12px;
 }
