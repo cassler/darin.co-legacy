@@ -20,9 +20,17 @@ export function ReportViewer() {
 
 	const diffData = (oldObj: object[], newObj: object[]) => {
 
-		let oldStr = truncateEntry(oldObj).map(i => JSON.stringify(i)).join('\n')
-		let newStr = truncateEntry(newObj).map(i => JSON.stringify(i)).join('\n')
-		return jsdiff.diffLines(oldStr, newStr)
+		let oldStr = truncateEntry(oldObj).join('\n')
+		let newStr = truncateEntry(newObj).join('\n')
+		let raw = jsdiff.diffLines(oldStr, newStr)
+		return raw.filter(i => i.added || i.removed).map(type => {
+			let { added, removed } = type;
+			let entries = type.value.split('\n').filter(i => i.length > 5)
+			return entries.map(i => ({
+				change: added ? 'add' : 'remove',
+				...JSON.parse(i)
+			}))
+		}).flat().sort((a, b) => a.partnerID - b.partnerID)
 	}
 
 	const handleChange = (result: IParseResult, slug: string) => {
@@ -64,43 +72,22 @@ export function ReportViewer() {
 			state: item['State'],
 			zip: item['Zip'],
 			country: item['Country'],
-			phone: item['Phone No'],
-			fax: item['Fax No'],
+			phone: item['Phone'],
+			fax: item['Fax'],
 			// user_count: item['User Count'],
 			dealertrackID: item['DealerTrack Id'],
-			partnerID: item['Lender Dealer Id'],
+			partnerID: item['Partner Dealer ID'],
 			// lenderRepName: item['Lender Rep Name'],
 			enrollment: item['Enrollment Phase']
-		}))
-		return truncated;
+		})).sort((a, b) => a.partnerID - b.partnerID)
+		return truncated.map(i => JSON.stringify(i))
 	}
 
-	const tableData = result
-		.filter(i => i.added || i.removed)
-		.sort((a, b) => {
-			return JSON.parse(a.value).partnerID - JSON.parse(b.value).partnerID
-		})
-		.map((r, index) => {
-			let dealer = JSON.parse(r.value);
-			return {
-				added: r.added,
-				removed: r.removed,
-				change: r.added ? <PlusCircleOutlined /> : <MinusCircleOutlined />,
-				partnerID: dealer.partnerID,
-				dealertrackID: dealer.dealertrackID,
-				key: `${index}`,
-				legalName: dealer.legalName,
-				dbaName: dealer.dbaName,
-				street: dealer.street,
-				city: dealer.city,
-				state: dealer.state,
-				zip: dealer.zip,
-				country: dealer.country,
-				phone: dealer.phone,
-				fax: dealer.fax,
-				enrollment: dealer.enrollment
-			}
-		})
+
+	useEffect(() => {
+		loadState()
+	}, [])
+
 
 
 	const columns = [
@@ -138,21 +125,24 @@ export function ReportViewer() {
 			<Button onClick={() => loadState()}>
 				Load
 			</Button>
-			{tableData.length > 0 && (
+
+			{result.length > 0 && (
 				<div>
 					<Table
 						size="small"
 						pagination={{
 							defaultPageSize: 50
 						}}
-						dataSource={tableData} columns={columns}
+						dataSource={result} columns={columns}
 						rowClassName={(row, index) => {
-							return row.added ? 'addition' : 'deletion'
+							return row.change === 'add' ? 'addition' : 'deletion'
 						}}
 					/>
 				</div>
 			)}
+			<pre>{JSON.stringify(result, null, 2)}</pre>
 		</div>
+
 	)
 }
 
