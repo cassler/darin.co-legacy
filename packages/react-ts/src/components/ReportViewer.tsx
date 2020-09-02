@@ -7,18 +7,14 @@ import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from
 import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import DeltaTable from './DeltaTable'
 
-export type JSONDiff = {
-	added: boolean,
-	removed: boolean,
-	count: number,
-	value: string
-}
+
+export type DiffDataProps = IParseResult & { fileName: string }
+
 export function ReportViewer() {
-	const [oldData, setOldData] = useState<IParseResult & { fileName: string } | undefined>();
-	const [newData, setNewData] = useState<IParseResult & { fileName: string } | undefined>();
-	const [keyDelta, setKeyDelta] = useState<JSONDiff[]>()
-	const [selectedRowKeys, selectRowKey] = useState([]);
+	const [oldData, setOldData] = useState<DiffDataProps>();
+	const [newData, setNewData] = useState<DiffDataProps>();
 	const [result, setResult] = useState<{
 		add: boolean,
 		removed: boolean,
@@ -27,10 +23,7 @@ export function ReportViewer() {
 		value: string
 	}[]>([])
 
-	const [showCompare, toggleCompare] = useState(false)
-
 	const diffData = (oldObj: object[], newObj: object[]) => {
-
 		let oldStr = oldObj.map(i => JSON.stringify(i)).join('\n')
 		let newStr = newObj.map(i => JSON.stringify(i)).join('\n')
 		let raw = jsdiff.diffLines(oldStr, newStr)
@@ -86,98 +79,15 @@ export function ReportViewer() {
 			setNewData(JSON.parse(data))
 		})
 		console.log(next)
-		// const cols = get<string>("nextCols").then(data => {
-		// 	setColumns(JSON.parse(data))
-		// })
-		// console.log(cols)
 		const prev = get<string>("prevData").then(data => {
 			setOldData(JSON.parse(data))
 		})
 		console.log(prev)
 	}
 
-
-
 	useEffect(() => {
 		loadState()
 	}, [])
-
-
-	type Entry = {
-		change: string
-		add: string
-	}
-
-
-	const colNames = result.length > 0 ? Object.keys(result[0]).slice(0, 10) : [];
-	const rawColumns = colNames.map(col => ({
-		title: col.toUpperCase(),
-		dataIndex: col,
-		// width: col.width,
-		key: col.toLowerCase(),
-		ellipsis: true,
-		change: '',
-		sorter: (a, b) => a[col] - b[col],
-		sortDirections: ['ascend', 'descend'],
-		// filters: [
-		// 	{ text: 'Additions', value: true },
-		// 	{ text: 'Deletions', value: false }
-		// ],
-		// onFilter: (value, record) => record.add === value,
-		defaultSortOrder: ['ascend'],
-		render: (text, record) => (
-			<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-				{text}
-			</div>
-		),
-	})).filter(i => !['KEY', 'ADD', 'CHANGE', 'LENDER ID'].includes(i.title))
-
-	const columns = [
-
-		{
-			title: '',
-			key: 'change',
-			dataIndex: 'change',
-			width: 30,
-			filters: [
-				{ text: 'Additions', value: true },
-				{ text: 'Deletions', value: false }
-			],
-			onFilter: (value, record) => record.add === value,
-		},
-		...rawColumns,
-	]
-
-
-	// Build out an expanded seciond for each row
-	const renderExpand = (record) => (
-		<div style={{ margin: '24px' }}>
-			<Descriptions
-				title={`Request Details:`}
-				size="small"
-			>
-				{Object.keys(record).map(i => (
-					<Descriptions.Item label={i}>{`${record[i] || '-'}`.slice(0, 40)}</Descriptions.Item>
-				))}
-			</Descriptions>
-
-		</div>
-	);
-
-	const showCompareKeys = () => {
-		let keys = selectedRowKeys;
-		if (keys.length > 1) {
-			let [a, b] = [result[keys[0]], result[keys[1]]]
-			delete a.change
-			delete a.add
-			delete b.change
-			delete b.add
-			let raw = jsdiff.diffJson(a, b)
-			console.log({ raw })
-			setKeyDelta(raw)
-		}
-		toggleCompare(!showCompare)
-	}
 
 	const contentStyle = {
 		padding: '96px 24px 24px',
@@ -190,6 +100,8 @@ export function ReportViewer() {
 		alignItems: 'center',
 		justifyItems: 'center'
 	}
+
+
 	return (
 
 
@@ -229,70 +141,8 @@ export function ReportViewer() {
 						/>
 
 					</div>
-				) : (
-						<div>
-							<Table
-								size="small"
-								pagination={{
-									defaultPageSize: 15
-								}}
-								expandable={{
-									expandedRowRender: renderExpand,
-									rowExpandable: record => record.change !== 'Not Expandable',
-								}}
-								title={() => (
-									<PageHeader
-										title="Deltas"
-										subTitle="Comparing entries from files"
-										onBack={() => setResult([])}
-										extra={([
-											<Button disabled={selectedRowKeys.length < 2} onClick={() => showCompareKeys()}>Compare Items</Button>,
-											<Button key="buy" onClick={() => setResult([])}>Reset</Button>
-										])}
-									/>
-								)}
-								dataSource={result} columns={columns as ColumnsType<Entry>}
-								rowClassName={(row, index) => {
-									return row.add ? 'row-addition' : 'row-deletion'
-								}}
-								rowSelection={{
-									selectedRowKeys,
-									onChange: selectRowKey
-								}}
-							/>
-						</div>
-					)}
-				<Drawer
-					title="Fine Delta"
-					placement="left"
-					width={540}
-					closable={false}
-					onClose={() => toggleCompare(!showCompare)}
-					visible={showCompare}
-				>
-					<div style={{ display: 'grid', 'gridTemplateColumns': '1fr 1fr' }}>
-						<div style={{ gridColumn: "0/1" }}><h3>Previous</h3></div>
-						<div style={{ gridColumn: "1/0" }}><h3>New</h3></div>
-						{keyDelta && keyDelta.map((item, key) => {
-							if (item.added) {
-								return <p key={key}
-									style={{ gridColumn: "0/1" }}
-									className='addition'>{item.value}</p>
-							}
-							if (item.removed) {
-								return <p key={key}
-									style={{ gridColumn: "1/2" }}
-									className='subtraction'>{item.value}</p>
-							}
-							// return <p key={key}
-							// 	style={{ gridColumn: "0/2" }}
-							// 	className='secondary'>{item.value}</p>
-						}
+				) : <DeltaTable data={result} onReset={() => setResult([])} />}
 
-						)}
-
-					</div>
-				</Drawer>
 			</div>
 		</div>
 
