@@ -156,7 +156,7 @@ export function ReportViewer() {
 	);
 
 	const contentStyle = {
-		// padding: '24px',
+		padding: '96px 24px 24px',
 		width: '100vw',
 	}
 	const deltaFileUI: React.CSSProperties = {

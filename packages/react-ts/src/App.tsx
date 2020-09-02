@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import ViewSettings from './components/ViewSettings';
 import { Dropdown, Modal, Layout, Card, Button, Divider } from 'antd';
+import { SettingOutlined, SwapOutlined } from '@ant-design/icons'
 import { motion, AnimatePresence } from "framer-motion"
 import WorkflowForm from './components/WorkflowForm';
 import Stepper from './components/Stepper';
@@ -17,19 +18,18 @@ function App() {
 		console.log('click', e);
 	}
 
-	const [defaultMode, toggleMode] = useState<boolean>(false)
+	const [defaultMode, toggleMode] = useState<boolean>(true)
 
 	const layoutStyle = {
 		display: "grid",
 		gridTemplateColumns: defaultMode ? "300px 1fr" : "380px 1fr",
-		minHeight: "100vh",
+		height: "100vh",
 		width: "100%",
-		paddingTop: '75px'
 	}
 	const sideBarStyle = {
-		padding: '24px 48px 24px 24px',
+		padding: '96px 48px 24px 24px',
 		display: "grid",
-		gridTemplateRows: "min-content 1fr min-content"
+		gridTemplateRows: "1fr min-content"
 	}
 
 	const toolbarStyle: React.CSSProperties = {
@@ -48,7 +48,7 @@ function App() {
 	}
 
 	const contentStyle = {
-		padding: '20px',
+		padding: '96px 24px 24px',
 	}
 
 	const motionPrefs = {
@@ -69,11 +69,14 @@ function App() {
 			<Layout>
 				<div style={toolbarStyle}>
 					<h1 className='App-logo'>
-						Workflower <small>Core</small>
+						Workflower <small>{defaultMode ? 'Core' : 'Delta'}</small>
 					</h1>
-					<Button onClick={() => toggleMode(!defaultMode)}>
-						Switch Mode
+					<div style={{ textAlign: 'right' }}>
+						<Button onClick={() => toggleMode(!defaultMode)}>
+							<SwapOutlined /> Switch Mode
 					</Button>
+						<Button size="small" type="link" href="https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/" target="_blank">Docs</Button>
+					</div>
 				</div>
 				{defaultMode ? (
 
@@ -89,17 +92,17 @@ function App() {
 											refSize={ctx.reference?.data.length}
 											reqSize={ctx.requested?.data.length}
 											index={ctx.step} />
-										<div style={{ display: "flex", justifyContent: 'flex-end', textAlign: 'right' }}>
-											<Button size="small" type="link" href="https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/" target="_blank">Docs</Button>
-											<Divider type="vertical" />
-											<Dropdown overlay={() => (
-												<PreferenceMenu handleClick={handleClick} partner={ctx.partner} />
-											)}>
-												<Button size="small" type="link" >Options</Button>
-											</Dropdown>
-											<Divider type="vertical" />
+										<div style={{ textAlign: 'center' }}>
+											<Button
+												key="m3"
+												disabled={!ctx.partner}
+												onClick={() => ctx.togglePartnerSettings(!ctx.showPartnerSettings)}
+												icon={<SettingOutlined />}
+												title="Partner Settings">
+												Partner Settings {ctx.partner && `(${ctx.partner})`}
+											</Button>
+											<Divider />
 											<SaveContextButton />
-
 										</div>
 									</div>
 									<AnimatePresence exitBeforeEnter>
