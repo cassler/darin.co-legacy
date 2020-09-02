@@ -23,10 +23,10 @@ h2 {
 }
 
 .addition {
-	color: green !important
+	color: rgba(62, 156, 20, 1.00) !important
 }
 .deletion {
-	color: red !important
+	color: rgba(255, 77, 79, 1.00) !important
 }
 .ant-table-container {
 	padding: 12px;

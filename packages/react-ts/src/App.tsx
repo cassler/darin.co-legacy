@@ -135,12 +135,9 @@ function App() {
 					</WFContext.Consumer>
 				) : (
 						<div style={{ ...layoutStyle, border: '1px solid #f00' }}>
-							<div style={{ ...sideBarStyle, border: '1px solid #f00' }}>
-								Sidebar
-								</div>
-							<div style={contentStyle}>
-								<ReportViewer />
-							</div>
+
+							<ReportViewer />
+
 						</div>
 					)}
 			</Layout>
