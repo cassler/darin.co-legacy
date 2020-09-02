@@ -1,6 +1,6 @@
 {
 	"name": "@wf/template",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Default package structure for @wf",
 	"main": "src/index.ts",
 	"author": "Darin Cassler",

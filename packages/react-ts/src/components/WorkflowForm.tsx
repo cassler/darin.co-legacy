@@ -38,6 +38,7 @@ export const WorkflowForm: React.FC = () => {
 			...ctx.config,
 			live_ids: items
 		}
+		debugger
 		ctx.setConfig(newConfig);
 		ctx.setStep(ctx.step + 1)
 	}
@@ -140,6 +141,7 @@ export const WorkflowForm: React.FC = () => {
 									slug="ref"
 									callback={ctx.setReference}
 									count={ctx.reference?.data.length || 0}
+									checkFile={ctx.config.report_validation}
 									helper={`CSV from Dealertrack > Reports > Partner (${ctx.partner})`}
 									internal_id={ctx.config.internal_id}
 								/>

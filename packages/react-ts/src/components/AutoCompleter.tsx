@@ -10,9 +10,11 @@ export const AutoCompleter: React.FC = () => {
 	const [value, setValue] = useState('');
 	const [selected, setSelection] = useState([]);
 
+	const { data } = ctx.reference;
+
 	const onSelect = data => {
 		console.log('onSelect', data);
-		let option = ids.filter(i => i.value === data)
+		let option = initialOptions.filter(i => i.value === data)
 		setSelection([...selected, ...option])
 		setValue('')
 	};
@@ -33,12 +35,12 @@ export const AutoCompleter: React.FC = () => {
 		});
 	}
 
-	const ids = ctx.reference.data.map((i, index) => ({
+	const initialOptions = data.map((i, index) => ({
 		value: i['Lender Dealer Id'],
 		key: index,
 		string: i['DealerTrack Id'] + ' ' + i['DBA Name'],
-		label: (<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<Text strong>{i['DBA Name']}</Text>
+		label: (<div style={{ display: 'flex', justifyContent: 'space-between', width: 460 }}>
+			<div><Text strong>{i['DBA Name']}</Text></div>
 			<div>
 				<small>
 					<Text type='secondary'>DT {i['DealerTrack Id']}</Text>
@@ -53,7 +55,7 @@ export const AutoCompleter: React.FC = () => {
 		<>
 			<AutoComplete
 				value={value}
-				options={ids}
+				options={initialOptions}
 				style={{
 					width: 500,
 				}}
@@ -77,18 +79,19 @@ export const AutoCompleter: React.FC = () => {
 						animate={{ x: 0, opacity: 1, scale: 1 }}
 						exit={{ x: 0, opacity: 0, scale: 1 }}
 					>
-						<Popover content={(
-							<List
-								header={(<h3>These dealers will be included</h3>)}
-								style={{ maxWidth: '440px', marginLeft: 'auto', marginRight: 'auto' }}
-								dataSource={selected}
-								renderItem={item => (
-									<List.Item>
-										<Text mark>[ADD]</Text> {item.label}
-									</List.Item>
-								)}
-							/>
-						)}>
+						<Popover
+
+							content={(
+								<List
+									header={(<h3>These dealers will be included</h3>)}
+									dataSource={selected}
+									renderItem={item => (
+										<List.Item>
+											{item.label}
+										</List.Item>
+									)}
+								/>
+							)}>
 							<div><br />
 								<Tag>{selected.length} dealers selected <QuestionOutlined /></Tag></div>
 						</Popover>

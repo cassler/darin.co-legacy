@@ -28,6 +28,7 @@ export type partnerConfigInput = {
 	reference_doc?: string,
 	prodSubTemplate?: ProdSubTemplate,
 	custom_validation: Function,
+	report_validation: Function,
 	generate: {
 		fd: boolean,
 		ebs: boolean,
