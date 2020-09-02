@@ -17,9 +17,11 @@ function App() {
 		console.log('click', e);
 	}
 
+	const [defaultMode, toggleMode] = useState<boolean>(false)
+
 	const layoutStyle = {
 		display: "grid",
-		gridTemplateColumns: "300px 1fr",
+		gridTemplateColumns: defaultMode ? "300px 1fr" : "380px 1fr",
 		minHeight: "100vh",
 		width: "100%",
 		paddingTop: '75px'
@@ -47,7 +49,6 @@ function App() {
 
 	const contentStyle = {
 		padding: '20px',
-		border: '3px solid #f00'
 	}
 
 	const motionPrefs = {
@@ -61,7 +62,7 @@ function App() {
 		exit: { y: 100, opacity: 0, scale: 3.7 }
 	}
 
-	const [defaultMode, toggleMode] = useState<boolean>(false)
+
 	return (
 
 		<WFProvider>
@@ -134,7 +135,7 @@ function App() {
 						)}
 					</WFContext.Consumer>
 				) : (
-						<div style={{ ...layoutStyle, border: '1px solid #f00' }}>
+						<div style={{ ...layoutStyle }}>
 
 							<ReportViewer />
 

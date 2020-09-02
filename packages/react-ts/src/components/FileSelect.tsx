@@ -50,7 +50,7 @@ const FileSelect: React.FC<Props> = ({
 				complete: (res) => {
 					let cols = res.meta.fields;
 					if (slug === "prev" || "next") {
-						callback(res, slug)
+						callback(res, slug, file.name)
 					}
 					if (slug === "exclude") {
 						message.info("Nothing was done with this data.");

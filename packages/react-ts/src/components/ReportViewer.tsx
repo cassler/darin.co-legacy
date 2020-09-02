@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import FileSelect from './FileSelect';
 import { IParseResult } from '../context';
 import * as jsdiff from 'diff';
-import { Button, Table, Descriptions } from 'antd';
+import { Button, Table, Descriptions, Result, Divider } from 'antd';
 import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
-import { PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 
 
 export function ReportViewer() {
-	const [oldData, setOldData] = useState<IParseResult | null>(null);
-	const [newData, setNewData] = useState<IParseResult | null>(null);
+	const [oldData, setOldData] = useState<IParseResult & { fileName: string } | undefined>();
+	const [newData, setNewData] = useState<IParseResult & { fileName: string } | undefined>();
 	const [cols, setColumns] = useState([])
 	const [result, setResult] = useState<{
 		added: boolean,
@@ -30,7 +30,7 @@ export function ReportViewer() {
 			let { added, removed } = type;
 			let entries = type.value.split('\n').filter(i => i.length > 5)
 			return entries.map((i, iIndex) => ({
-				change: added ? <PlusCircleOutlined /> : <MinusCircleOutlined />,
+				change: added ? <PlusCircleOutlined className='addition' /> : <MinusCircleOutlined className='deletion' />,
 				add: added ? true : false,
 				...JSON.parse(i)
 			}))
@@ -40,18 +40,36 @@ export function ReportViewer() {
 		}))
 	}
 
-	const handleChange = (result: IParseResult, slug: string) => {
+	const handleChange = (result: IParseResult, slug: string, fileName: string) => {
 		if (slug === 'next') {
-			setNewData(result)
+			let data = { ...result, fileName }
+			setNewData(data)
 			setColumns(result.meta.fields)
 			set("nextCols", JSON.stringify(result.meta.fields))
-			set("nextData", JSON.stringify(result))
+			set("nextData", JSON.stringify(data))
 		}
 		if (slug === 'prev') {
-			setOldData(result)
+			let data = { ...result, fileName }
+			setOldData(data)
 			setColumns(result.meta.fields)
 			set("prevCols", JSON.stringify(result.meta.fields))
-			set("prevData", JSON.stringify(result))
+			set("prevData", JSON.stringify(data))
+		}
+	}
+
+	const resetCache = (type: string) => {
+		if (type === 'next') {
+			setNewData(undefined)
+			setColumns([])
+			set("nextCols", null)
+			set("nextData", null)
+		}
+		if (type === 'prev') {
+
+			setOldData(undefined)
+			setColumns([])
+			set("prevCols", null)
+			set("prevData", null)
 		}
 	}
 
@@ -83,7 +101,7 @@ export function ReportViewer() {
 
 
 	const colNames = result.length > 0 ? Object.keys(result[0]).slice(0, 10) : [];
-	const columns = colNames.map(col => ({
+	const rawColumns = colNames.map(col => ({
 		title: col.toUpperCase(),
 		dataIndex: col,
 		// width: col.width,
@@ -92,13 +110,34 @@ export function ReportViewer() {
 		change: '',
 		sorter: (a, b) => a[col] - b[col],
 		sortDirections: ['ascend', 'descend'],
-		// defaultSortOrder: ['ascend'],
-		// render: (text, record) => (
-		// 	<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-		// 		{text}
-		// 	</div>
-		// ),
-	})).filter(i => i.title !== 'KEY' && i.title !== 'ADD')
+		// filters: [
+		// 	{ text: 'Additions', value: true },
+		// 	{ text: 'Deletions', value: false }
+		// ],
+		// onFilter: (value, record) => record.add === value,
+		defaultSortOrder: ['ascend'],
+		render: (text, record) => (
+			<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+				{text}
+			</div>
+		),
+	})).filter(i => !['KEY', 'ADD', 'CHANGE', 'LENDER ID'].includes(i.title))
+
+	const columns = [
+
+		{
+			title: '',
+			key: 'change',
+			dataIndex: 'change',
+			width: 30,
+			filters: [
+				{ text: 'Additions', value: true },
+				{ text: 'Deletions', value: false }
+			],
+			onFilter: (value, record) => record.add === value,
+		},
+		...rawColumns,
+	]
 
 
 	// Build out an expanded seciond for each row
@@ -117,35 +156,62 @@ export function ReportViewer() {
 	);
 
 	const contentStyle = {
-		padding: '20px',
-		border: '3px solid #f00'
+		// padding: '24px',
+		width: '100vw',
 	}
-	const sideBarStyle = {
-		padding: '24px 48px 24px 24px',
-		display: "grid",
-		gridTemplateRows: "min-content 1fr min-content"
+	const deltaFileUI: React.CSSProperties = {
+		padding: '0 100px 0',
+		display: 'grid',
+		gridTemplateColumns: '1fr 100px 1fr',
+		alignItems: 'center',
+		justifyItems: 'center'
 	}
 	return (
 		<>
-			<div style={{ ...sideBarStyle, border: '1px solid #f00' }}>
 
-				<FileSelect label="Old DT Report" slug="prev" callback={handleChange} />
-				<FileSelect label="New DT Report" slug="next" callback={handleChange} />
-
-				<Button onClick={() => setResult(diffData(oldData.data, newData.data))}>
-					Nice
-			</Button>
-				<Button onClick={() => loadState()}>
-					Load
-			</Button>
-			</div>
 			<div style={contentStyle}>
+				<div>
+					<div style={deltaFileUI}>
+
+						<Result
+							status={oldData ? "success" : "info"}
+							title="Previous File Added"
+							subTitle={oldData && oldData.fileName ? oldData.fileName : 'No file added'}
+							extra={[
+								!oldData && <FileSelect label="Old DT Report" slug="prev" callback={handleChange} />,
+								oldData && <p><Button key="buy" onClick={() => resetCache('prev')}>Reset</Button></p>,
+							]}
+						/>
+						<div style={{ textAlign: 'center' }}>
+							<SwapOutlined style={{ fontSize: '48px', color: !oldData || !newData ? '#ccc' : '#333' }} />
+							<Divider />
+							<Button
+								type="primary"
+								disabled={!oldData || !newData}
+								size="large"
+								onClick={() => setResult(diffData(oldData.data, newData.data))}>
+								Compare
+							</Button>
+						</div>
+						<Result
+							status={newData ? "success" : "info"}
+							title="New File Added"
+							subTitle={newData && newData.fileName ? newData.fileName : 'No file added'}
+							extra={[
+								!newData && <FileSelect label="New DT Report" slug="next" callback={handleChange} />,
+								newData && <p><Button key="buy" onClick={() => resetCache('next')}>Reset</Button></p>,
+							]}
+						/>
+
+					</div>
+
+				</div>
 				{result.length > 0 && (
 					<div>
 						<Table
 							size="small"
 							pagination={{
-								defaultPageSize: 50
+								defaultPageSize: 15
 							}}
 							expandable={{
 								expandedRowRender: renderExpand,
@@ -153,12 +219,12 @@ export function ReportViewer() {
 							}}
 							dataSource={result} columns={columns as ColumnsType<Entry>}
 							rowClassName={(row, index) => {
-								return row.add ? 'addition' : 'deletion'
+								return row.add ? 'row-addition' : 'row-deletion'
 							}}
 						/>
 					</div>
 				)}
-				<pre>{JSON.stringify(result, null, 2)}</pre>
+				{/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
 			</div>
 		</>
 

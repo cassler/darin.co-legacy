@@ -28,6 +28,12 @@ h2 {
 .deletion {
 	color: rgba(255, 77, 79, 1.00) !important
 }
+.row-deletion {
+	color: #999;
+}
+.row-deletion .ant-table-row-expand-icon-cell {
+	color: rgba(0, 0, 0, 0.65) !important
+}
 .ant-table-container {
 	padding: 12px;
 }
