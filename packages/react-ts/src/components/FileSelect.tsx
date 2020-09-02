@@ -49,6 +49,9 @@ const FileSelect: React.FC<Props> = ({
 				dynamicTyping: true,
 				complete: (res) => {
 					let cols = res.meta.fields;
+					if (slug === "prev" || "next") {
+						callback(res, slug, file.name)
+					}
 					if (slug === "exclude") {
 						message.info("Nothing was done with this data.");
 						setFields(res.meta.fields);
