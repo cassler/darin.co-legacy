@@ -3,23 +3,31 @@ import React, { useState, useEffect } from 'react';
 import FileSelect from './FileSelect';
 import { IParseResult } from '../context';
 import * as jsdiff from 'diff';
-import { Button, Table, Descriptions, Result, Divider } from 'antd';
+import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from 'antd';
 import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 
-
+export type JSONDiff = {
+	added: boolean,
+	removed: boolean,
+	count: number,
+	value: string
+}
 export function ReportViewer() {
 	const [oldData, setOldData] = useState<IParseResult & { fileName: string } | undefined>();
 	const [newData, setNewData] = useState<IParseResult & { fileName: string } | undefined>();
-	const [cols, setColumns] = useState([])
+	const [keyDelta, setKeyDelta] = useState<JSONDiff[]>()
+	const [selectedRowKeys, selectRowKey] = useState([]);
 	const [result, setResult] = useState<{
-		added: boolean,
+		add: boolean,
 		removed: boolean,
 		count: number,
 		change: string,
 		value: string
 	}[]>([])
+
+	const [showCompare, toggleCompare] = useState(false)
 
 	const diffData = (oldObj: object[], newObj: object[]) => {
 
@@ -44,14 +52,14 @@ export function ReportViewer() {
 		if (slug === 'next') {
 			let data = { ...result, fileName }
 			setNewData(data)
-			setColumns(result.meta.fields)
+			// setColumns(result.meta.fields)
 			set("nextCols", JSON.stringify(result.meta.fields))
 			set("nextData", JSON.stringify(data))
 		}
 		if (slug === 'prev') {
 			let data = { ...result, fileName }
 			setOldData(data)
-			setColumns(result.meta.fields)
+			// setColumns(result.meta.fields)
 			set("prevCols", JSON.stringify(result.meta.fields))
 			set("prevData", JSON.stringify(data))
 		}
@@ -60,14 +68,14 @@ export function ReportViewer() {
 	const resetCache = (type: string) => {
 		if (type === 'next') {
 			setNewData(undefined)
-			setColumns([])
+			// setColumns([])
 			set("nextCols", null)
 			set("nextData", null)
 		}
 		if (type === 'prev') {
 
 			setOldData(undefined)
-			setColumns([])
+			// setColumns([])
 			set("prevCols", null)
 			set("prevData", null)
 		}
@@ -78,10 +86,10 @@ export function ReportViewer() {
 			setNewData(JSON.parse(data))
 		})
 		console.log(next)
-		const cols = get<string>("nextCols").then(data => {
-			setColumns(JSON.parse(data))
-		})
-		console.log(cols)
+		// const cols = get<string>("nextCols").then(data => {
+		// 	setColumns(JSON.parse(data))
+		// })
+		// console.log(cols)
 		const prev = get<string>("prevData").then(data => {
 			setOldData(JSON.parse(data))
 		})
@@ -97,6 +105,7 @@ export function ReportViewer() {
 
 	type Entry = {
 		change: string
+		add: string
 	}
 
 
@@ -155,6 +164,21 @@ export function ReportViewer() {
 		</div>
 	);
 
+	const showCompareKeys = () => {
+		let keys = selectedRowKeys;
+		if (keys.length > 1) {
+			let [a, b] = [result[keys[0]], result[keys[1]]]
+			delete a.change
+			delete a.add
+			delete b.change
+			delete b.add
+			let raw = jsdiff.diffJson(a, b)
+			console.log({ raw })
+			setKeyDelta(raw)
+		}
+		toggleCompare(!showCompare)
+	}
+
 	const contentStyle = {
 		padding: '96px 24px 24px',
 		width: '100vw',
@@ -167,12 +191,12 @@ export function ReportViewer() {
 		justifyItems: 'center'
 	}
 	return (
-		<>
 
-			<div style={contentStyle}>
-				<div>
+
+		<div style={contentStyle}>
+			<div>
+				{result.length === 0 ? (
 					<div style={deltaFileUI}>
-
 						<Result
 							status={oldData ? "success" : "info"}
 							title="Previous File Added"
@@ -191,8 +215,9 @@ export function ReportViewer() {
 								size="large"
 								onClick={() => setResult(diffData(oldData.data, newData.data))}>
 								Compare
-							</Button>
+								</Button>
 						</div>
+
 						<Result
 							status={newData ? "success" : "info"}
 							title="New File Added"
@@ -204,29 +229,72 @@ export function ReportViewer() {
 						/>
 
 					</div>
+				) : (
+						<div>
+							<Table
+								size="small"
+								pagination={{
+									defaultPageSize: 15
+								}}
+								expandable={{
+									expandedRowRender: renderExpand,
+									rowExpandable: record => record.change !== 'Not Expandable',
+								}}
+								title={() => (
+									<PageHeader
+										title="Deltas"
+										subTitle="Comparing entries from files"
+										onBack={() => setResult([])}
+										extra={([
+											<Button disabled={selectedRowKeys.length < 2} onClick={() => showCompareKeys()}>Compare Items</Button>,
+											<Button key="buy" onClick={() => setResult([])}>Reset</Button>
+										])}
+									/>
+								)}
+								dataSource={result} columns={columns as ColumnsType<Entry>}
+								rowClassName={(row, index) => {
+									return row.add ? 'row-addition' : 'row-deletion'
+								}}
+								rowSelection={{
+									selectedRowKeys,
+									onChange: selectRowKey
+								}}
+							/>
+						</div>
+					)}
+				<Drawer
+					title="Fine Delta"
+					placement="left"
+					width={540}
+					closable={false}
+					onClose={() => toggleCompare(!showCompare)}
+					visible={showCompare}
+				>
+					<div style={{ display: 'grid', 'gridTemplateColumns': '1fr 1fr' }}>
+						<div style={{ gridColumn: "0/1" }}><h3>Previous</h3></div>
+						<div style={{ gridColumn: "1/0" }}><h3>New</h3></div>
+						{keyDelta && keyDelta.map((item, key) => {
+							if (item.added) {
+								return <p key={key}
+									style={{ gridColumn: "0/1" }}
+									className='addition'>{item.value}</p>
+							}
+							if (item.removed) {
+								return <p key={key}
+									style={{ gridColumn: "1/2" }}
+									className='subtraction'>{item.value}</p>
+							}
+							// return <p key={key}
+							// 	style={{ gridColumn: "0/2" }}
+							// 	className='secondary'>{item.value}</p>
+						}
 
-				</div>
-				{result.length > 0 && (
-					<div>
-						<Table
-							size="small"
-							pagination={{
-								defaultPageSize: 15
-							}}
-							expandable={{
-								expandedRowRender: renderExpand,
-								rowExpandable: record => record.change !== 'Not Expandable',
-							}}
-							dataSource={result} columns={columns as ColumnsType<Entry>}
-							rowClassName={(row, index) => {
-								return row.add ? 'row-addition' : 'row-deletion'
-							}}
-						/>
+						)}
+
 					</div>
-				)}
-				{/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
+				</Drawer>
 			</div>
-		</>
+		</div>
 
 	)
 }

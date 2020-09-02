@@ -18,7 +18,7 @@ function App() {
 		console.log('click', e);
 	}
 
-	const [defaultMode, toggleMode] = useState<boolean>(true)
+	const [defaultMode, toggleMode] = useState<boolean>(false)
 
 	const layoutStyle = {
 		display: "grid",
