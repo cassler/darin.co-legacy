@@ -38,6 +38,7 @@ export const WorkflowForm: React.FC = () => {
 			...ctx.config,
 			live_ids: items
 		}
+		debugger
 		ctx.setConfig(newConfig);
 		ctx.setStep(ctx.step + 1)
 	}
