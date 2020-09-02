@@ -1,7 +1,7 @@
 module.exports = {
   someSidebar: {
 
-		Overview: [
+		"WF Core": [
 			"intro",
 			"guide_partner_select",
 			"guide_choose_dt",
@@ -11,21 +11,21 @@ module.exports = {
 			"guide_results",
 			"session_manage",
 		] ,
-		"Output Guide": [
-			"process_state",
-			"calculate_changes",
+		"WF Delta": [
+			"delta",
+			"product_subscription_emails",
 		],
 		"Supported Partners": [
 			"boa",
 			"drw",
 			"cnz",
 			"haz",
-			"das",
-			"goo"
+			"das"
 		],
 		"Further Reading": [
 			"methodology",
-			"product_subscription_emails",
+			"process_state",
+			"calculate_changes",
 		]
 		// "Partner Support": [
 
