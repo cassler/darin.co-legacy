@@ -3,18 +3,20 @@ import React, { useState, useEffect } from 'react';
 import FileSelect from './FileSelect';
 import { IParseResult } from '../context';
 import * as jsdiff from 'diff';
-import { Button, Table, Descriptions, Result, Divider } from 'antd';
+import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from 'antd';
 import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import DeltaTable from './DeltaTable'
+import { CSVTableModal } from './CSVTable';
 
+export type DiffDataProps = IParseResult & { fileName: string }
 
 export function ReportViewer() {
-	const [oldData, setOldData] = useState<IParseResult & { fileName: string } | undefined>();
-	const [newData, setNewData] = useState<IParseResult & { fileName: string } | undefined>();
-	const [cols, setColumns] = useState([])
+	const [oldData, setOldData] = useState<DiffDataProps>();
+	const [newData, setNewData] = useState<DiffDataProps>();
 	const [result, setResult] = useState<{
-		added: boolean,
+		add: boolean,
 		removed: boolean,
 		count: number,
 		change: string,
@@ -22,7 +24,6 @@ export function ReportViewer() {
 	}[]>([])
 
 	const diffData = (oldObj: object[], newObj: object[]) => {
-
 		let oldStr = oldObj.map(i => JSON.stringify(i)).join('\n')
 		let newStr = newObj.map(i => JSON.stringify(i)).join('\n')
 		let raw = jsdiff.diffLines(oldStr, newStr)
@@ -44,14 +45,14 @@ export function ReportViewer() {
 		if (slug === 'next') {
 			let data = { ...result, fileName }
 			setNewData(data)
-			setColumns(result.meta.fields)
+			// setColumns(result.meta.fields)
 			set("nextCols", JSON.stringify(result.meta.fields))
 			set("nextData", JSON.stringify(data))
 		}
 		if (slug === 'prev') {
 			let data = { ...result, fileName }
 			setOldData(data)
-			setColumns(result.meta.fields)
+			// setColumns(result.meta.fields)
 			set("prevCols", JSON.stringify(result.meta.fields))
 			set("prevData", JSON.stringify(data))
 		}
@@ -60,14 +61,14 @@ export function ReportViewer() {
 	const resetCache = (type: string) => {
 		if (type === 'next') {
 			setNewData(undefined)
-			setColumns([])
+			// setColumns([])
 			set("nextCols", null)
 			set("nextData", null)
 		}
 		if (type === 'prev') {
 
 			setOldData(undefined)
-			setColumns([])
+			// setColumns([])
 			set("prevCols", null)
 			set("prevData", null)
 		}
@@ -78,82 +79,15 @@ export function ReportViewer() {
 			setNewData(JSON.parse(data))
 		})
 		console.log(next)
-		const cols = get<string>("nextCols").then(data => {
-			setColumns(JSON.parse(data))
-		})
-		console.log(cols)
 		const prev = get<string>("prevData").then(data => {
 			setOldData(JSON.parse(data))
 		})
 		console.log(prev)
 	}
 
-
-
 	useEffect(() => {
 		loadState()
 	}, [])
-
-
-	type Entry = {
-		change: string
-	}
-
-
-	const colNames = result.length > 0 ? Object.keys(result[0]).slice(0, 10) : [];
-	const rawColumns = colNames.map(col => ({
-		title: col.toUpperCase(),
-		dataIndex: col,
-		// width: col.width,
-		key: col.toLowerCase(),
-		ellipsis: true,
-		change: '',
-		sorter: (a, b) => a[col] - b[col],
-		sortDirections: ['ascend', 'descend'],
-		// filters: [
-		// 	{ text: 'Additions', value: true },
-		// 	{ text: 'Deletions', value: false }
-		// ],
-		// onFilter: (value, record) => record.add === value,
-		defaultSortOrder: ['ascend'],
-		render: (text, record) => (
-			<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-				{text}
-			</div>
-		),
-	})).filter(i => !['KEY', 'ADD', 'CHANGE', 'LENDER ID'].includes(i.title))
-
-	const columns = [
-
-		{
-			title: '',
-			key: 'change',
-			dataIndex: 'change',
-			width: 30,
-			filters: [
-				{ text: 'Additions', value: true },
-				{ text: 'Deletions', value: false }
-			],
-			onFilter: (value, record) => record.add === value,
-		},
-		...rawColumns,
-	]
-
-
-	// Build out an expanded seciond for each row
-	const renderExpand = (record) => (
-		<div style={{ margin: '24px' }}>
-			<Descriptions
-				title={`Request Details:`}
-				size="small"
-			>
-				{Object.keys(record).map(i => (
-					<Descriptions.Item label={i}>{`${record[i] || '-'}`.slice(0, 40)}</Descriptions.Item>
-				))}
-			</Descriptions>
-
-		</div>
-	);
 
 	const contentStyle = {
 		padding: '96px 24px 24px',
@@ -166,20 +100,47 @@ export function ReportViewer() {
 		alignItems: 'center',
 		justifyItems: 'center'
 	}
+
+	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]) => {
+		const fields = payload.meta.fields
+		const sizes = Object.values(payload.data[0])
+		const columns = fields.map((col, index) => ({
+			title: col.toUpperCase(),
+			dataIndex: col,
+			key: col.toLowerCase(),
+			ellipsis: true,
+			width: 30 + `${sizes[index]}`.length * 5,
+			change: '',
+			sorter: (a, b) => a[col] - b[col],
+			sortDirections: ['ascend', 'descend'],
+			defaultSortOrder: ['ascend'],
+			render: (text, record) => (
+				<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+					{text}
+				</div>
+			),
+		})).filter(i => filter ? !filter.includes(i.title) : true)
+
+		return first ? columns.slice(0, first) : columns
+	}
+
 	return (
-		<>
 
-			<div style={contentStyle}>
-				<div>
+
+		<div style={contentStyle}>
+			<div>
+				{result.length === 0 ? (
 					<div style={deltaFileUI}>
-
 						<Result
 							status={oldData ? "success" : "info"}
 							title="Previous File Added"
 							subTitle={oldData && oldData.fileName ? oldData.fileName : 'No file added'}
 							extra={[
 								!oldData && <FileSelect label="Old DT Report" slug="prev" callback={handleChange} />,
-								oldData && <p><Button key="buy" onClick={() => resetCache('prev')}>Reset</Button></p>,
+								oldData && <div style={{ width: 200 }}>
+									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
+									<CSVTableModal payload={oldData} />
+								</div>
 							]}
 						/>
 						<div style={{ textAlign: 'center' }}>
@@ -191,42 +152,27 @@ export function ReportViewer() {
 								size="large"
 								onClick={() => setResult(diffData(oldData.data, newData.data))}>
 								Compare
-							</Button>
+								</Button>
 						</div>
+
 						<Result
 							status={newData ? "success" : "info"}
 							title="New File Added"
 							subTitle={newData && newData.fileName ? newData.fileName : 'No file added'}
 							extra={[
 								!newData && <FileSelect label="New DT Report" slug="next" callback={handleChange} />,
-								newData && <p><Button key="buy" onClick={() => resetCache('next')}>Reset</Button></p>,
+								newData && <div style={{ width: 200 }}>
+									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
+									<CSVTableModal payload={newData} />
+								</div>
 							]}
 						/>
 
 					</div>
+				) : <DeltaTable data={result} onReset={() => setResult([])} />}
 
-				</div>
-				{result.length > 0 && (
-					<div>
-						<Table
-							size="small"
-							pagination={{
-								defaultPageSize: 15
-							}}
-							expandable={{
-								expandedRowRender: renderExpand,
-								rowExpandable: record => record.change !== 'Not Expandable',
-							}}
-							dataSource={result} columns={columns as ColumnsType<Entry>}
-							rowClassName={(row, index) => {
-								return row.add ? 'row-addition' : 'row-deletion'
-							}}
-						/>
-					</div>
-				)}
-				{/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
 			</div>
-		</>
+		</div>
 
 	)
 }
