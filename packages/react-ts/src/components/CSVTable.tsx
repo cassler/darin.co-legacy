@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
-import { Table, Dropdown, Modal, Button, Row, Checkbox, Menu } from 'antd';
+import { Table, Popover, Modal, Button, Space, Checkbox, Menu, Row } from 'antd';
 import { IParseResultNamed } from '../context';
 import { SortAscendingOutlined, DownOutlined } from '@ant-design/icons';
 
@@ -8,14 +8,15 @@ import { SortAscendingOutlined, DownOutlined } from '@ant-design/icons';
 export interface CSVTablePropsI {
 	payload: IParseResultNamed,
 	columnCount?: number,
-	exclude?: string[]
+	exclude?: string[],
+	filename: string
 }
 
 type Entry = {
 	change: string
 	add: string
 }
-export const CSVTable: React.FC<CSVTablePropsI> = ({ payload, columnCount, exclude }) => {
+export const CSVTable: React.FC<CSVTablePropsI> = ({ payload, columnCount, exclude, filename }) => {
 
 	const [selectedColumns, setColumns] = useState<string[]>(payload.meta.fields.slice(0, 6))
 	const makeTableCols = (fields: string[], first?: number, filter?: string[]) => {
@@ -76,36 +77,41 @@ export const CSVTable: React.FC<CSVTablePropsI> = ({ payload, columnCount, exclu
 	}
 	return (
 		<>
-			<Dropdown placement="bottomRight" overlay={
-				<Menu>
-					{payload.meta.fields.map(field => (
-						<Menu.Item>
-							<Checkbox
-								onChange={(val) => dropCol(val)}
-								style={{ display: 'block' }}
-								checked={selectedColumns.includes(field)}
-								value={field}>{field}</Checkbox>
-						</Menu.Item>
-					))}
-				</Menu>
-			}>
-				<a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-					Select Columns <DownOutlined />
-				</a>
-			</Dropdown>
+
 
 			<Table
 				size="small"
 				dataSource={payload.data}
 				columns={columns as ColumnsType<Entry>}
-				scroll={{ x: 1300 }}
-
+				scroll={{ x: 1300, y: 700 }}
+				title={() => (
+					<div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '48px' }}>
+						<h3>{filename}</h3>
+						<Popover content={
+							<Menu>
+								{payload.meta.fields.map(field => (
+									<Row style={{ padding: 2 }}>
+										<Checkbox
+											onChange={(val) => dropCol(val)}
+											style={{ display: 'block' }}
+											checked={selectedColumns.includes(field)}
+											value={field}>{field}</Checkbox>
+									</Row>
+								))}
+							</Menu>
+						}>
+							<a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+								Select Columns <DownOutlined />
+							</a>
+						</Popover>
+					</div>
+				)}
 			/>
 		</>
 	)
 }
 
-export const CSVTableModal: React.FC<CSVTablePropsI> = ({ payload, columnCount, exclude }) => {
+export const CSVTableModal: React.FC<CSVTablePropsI> = ({ filename, payload, columnCount, exclude }) => {
 	const [visible, toggle] = useState(false)
 	return (
 		<>
@@ -113,12 +119,12 @@ export const CSVTableModal: React.FC<CSVTablePropsI> = ({ payload, columnCount, 
 				Preview Data
 			</Button>
 			<Modal
-				visible={visible} title={payload.fileName} width="95vw"
-				style={{ width: '95vw', height: '100vh' }}
+				visible={visible} width="98vw"
+				style={{ top: 75, left: 0, boxSizing: 'border-box' }}
 				onCancel={() => toggle(false)}
 				onOk={() => toggle(false)}
 			>
-				<CSVTable payload={payload} columnCount={columnCount} exclude={exclude} />
+				<CSVTable filename={filename} payload={payload} columnCount={columnCount} exclude={exclude} />
 			</Modal>
 		</>
 	)

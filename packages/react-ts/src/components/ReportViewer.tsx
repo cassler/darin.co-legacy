@@ -101,7 +101,7 @@ export function ReportViewer() {
 		justifyItems: 'center'
 	}
 
-	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]) => {
+	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]): ColumnsType[] => {
 		const fields = payload.meta.fields
 		const sizes = Object.values(payload.data[0])
 		const columns = fields.map((col, index) => ({
@@ -139,7 +139,7 @@ export function ReportViewer() {
 								!oldData && <FileSelect label="Old DT Report" slug="prev" callback={handleChange} />,
 								oldData && <div style={{ width: 200 }}>
 									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
-									<CSVTableModal payload={oldData} />
+									<CSVTableModal payload={oldData} filename={oldData.fileName} />
 								</div>
 							]}
 						/>
@@ -163,14 +163,14 @@ export function ReportViewer() {
 								!newData && <FileSelect label="New DT Report" slug="next" callback={handleChange} />,
 								newData && <div style={{ width: 200 }}>
 									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
-									<CSVTableModal payload={newData} />
+									<CSVTableModal filename={newData.fileName} payload={newData} />
 								</div>
 							]}
 						/>
 
 					</div>
 				) : <DeltaTable data={result} onReset={() => setResult([])} />}
-
+				{oldData && <CSVTableModal filename={oldData.fileName} payload={oldData} />}
 			</div>
 		</div>
 
