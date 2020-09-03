@@ -73,12 +73,12 @@ export const WorkflowForm: React.FC = () => {
 		exit: { x: -300, opacity: 0, scale: 0.1 }
 	}
 
-	useEffect(() => {
-		if (!ctx.reloaded && renderCount === 0) {
-			ctx.loadContext()
-			countRender(renderCount + 1)
-		}
-	}, [ctx, renderCount])
+	// useEffect(() => {
+	// 	if (!ctx.reloaded && renderCount === 0) {
+	// 		ctx.loadContext()
+	// 		countRender(renderCount + 1)
+	// 	}
+	// }, [ctx, renderCount])
 
 	return (
 		<div style={{ position: "relative", minHeight: '640px' }}>

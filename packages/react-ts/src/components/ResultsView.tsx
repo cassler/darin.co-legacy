@@ -94,7 +94,7 @@ export const ResultsView = (props) => {
 
 
 	return (
-		<>
+		<div style={{ marginTop: '96px' }}>
 			<PageHeader title={`Today at ${partner_name || partner}`}
 				onBack={() => handleBack()}
 			/>
@@ -184,7 +184,7 @@ export const ResultsView = (props) => {
 					</motion.div>
 				</AnimatePresence>
 			</div>
-		</>
+		</div>
 	)
 }
 
