@@ -25,6 +25,10 @@ export interface IParseResult {
 	meta: any;
 }
 
+export interface IParseResultNamed extends IParseResult {
+	fileName: string
+}
+
 export interface WFContextI {
 	requested: IParseResult | undefined,
 	reference: IParseResult | undefined,

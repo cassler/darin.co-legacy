@@ -226,12 +226,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<div className="Stat-Group" style={{ minHeight: '240px' }}>
-										<Popover content={<ExclusionSet currentIds={ctx.config.live_ids} callback={updateLiveIDs} />}>
-											<div>
-												<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
-												<FormOutlined />
-											</div>
-										</Popover>
+										<Statistic title="Live with Partner" value={ctx.config.live_ids.length} />
 										<Statistic title="DT Accounts" value={ctx.reference?.data.length} />
 										<Statistic title="Items on Request" value={ctx.requested?.data.length} />
 									</div>

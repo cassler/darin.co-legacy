@@ -8,7 +8,7 @@ import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import DeltaTable from './DeltaTable'
-
+import { CSVTableModal } from './CSVTable';
 
 export type DiffDataProps = IParseResult & { fileName: string }
 
@@ -101,6 +101,28 @@ export function ReportViewer() {
 		justifyItems: 'center'
 	}
 
+	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]) => {
+		const fields = payload.meta.fields
+		const sizes = Object.values(payload.data[0])
+		const columns = fields.map((col, index) => ({
+			title: col.toUpperCase(),
+			dataIndex: col,
+			key: col.toLowerCase(),
+			ellipsis: true,
+			width: 30 + `${sizes[index]}`.length * 5,
+			change: '',
+			sorter: (a, b) => a[col] - b[col],
+			sortDirections: ['ascend', 'descend'],
+			defaultSortOrder: ['ascend'],
+			render: (text, record) => (
+				<div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+					{text}
+				</div>
+			),
+		})).filter(i => filter ? !filter.includes(i.title) : true)
+
+		return first ? columns.slice(0, first) : columns
+	}
 
 	return (
 
@@ -115,7 +137,10 @@ export function ReportViewer() {
 							subTitle={oldData && oldData.fileName ? oldData.fileName : 'No file added'}
 							extra={[
 								!oldData && <FileSelect label="Old DT Report" slug="prev" callback={handleChange} />,
-								oldData && <p><Button key="buy" onClick={() => resetCache('prev')}>Reset</Button></p>,
+								oldData && <div style={{ width: 200 }}>
+									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
+									<CSVTableModal payload={oldData} />
+								</div>
 							]}
 						/>
 						<div style={{ textAlign: 'center' }}>
@@ -136,7 +161,10 @@ export function ReportViewer() {
 							subTitle={newData && newData.fileName ? newData.fileName : 'No file added'}
 							extra={[
 								!newData && <FileSelect label="New DT Report" slug="next" callback={handleChange} />,
-								newData && <p><Button key="buy" onClick={() => resetCache('next')}>Reset</Button></p>,
+								newData && <div style={{ width: 200 }}>
+									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
+									<CSVTableModal payload={newData} />
+								</div>
 							]}
 						/>
 

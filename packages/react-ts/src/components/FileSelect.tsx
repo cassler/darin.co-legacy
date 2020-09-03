@@ -6,7 +6,8 @@ import { message, Popover, Select, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
 import { motion } from "framer-motion"
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { IParseResult } from '../context';
+import { IParseResultNamed } from '../context';
+import { CSVTableModal } from './CSVTable';
 const { Option } = Select;
 
 type Props = {
@@ -28,7 +29,7 @@ const FileSelect: React.FC<Props> = ({
 	internal_id
 }) => {
 	const [filename, setFilename] = useState<string>(`Choose ${label} CSV`)
-	const [data, setData] = useState<IParseResult | undefined>();
+	const [data, setData] = useState<IParseResultNamed | undefined>();
 	const [ready, setReady] = useState(false);
 	const [hasError, setError] = useState(false);
 	const [fields, setFields] = useState([])
@@ -56,7 +57,7 @@ const FileSelect: React.FC<Props> = ({
 						debugger
 						message.info("Nothing was done with this data.");
 						setFields(res.meta.fields);
-						setData(res)
+						setData({ ...res, fileName: file.name })
 					}
 					if (slug === "ref") {
 						if (cols.includes("Enrollment Phase")) {
@@ -65,7 +66,7 @@ const FileSelect: React.FC<Props> = ({
 							if (!isValid) {
 								message.warning("This may not be the correct report. Please check.")
 							}
-							setData(res)
+							setData({ ...res, fileName: file.name })
 							setReady(true)
 						} else {
 							message.error("This doesn't look right. Make sure you're providing a Dealertrack report.")
@@ -75,7 +76,7 @@ const FileSelect: React.FC<Props> = ({
 					if (slug === "req") {
 						if (internal_id && cols.includes(internal_id)) {
 							message.success(`This looks like a partner file. Setting as request data.`)
-							setData(res)
+							setData({ ...res, fileName: file.name })
 							setReady(true)
 						} else {
 							message.error(`This doesn't look right. Make sure the file includes a column for ${internal_id} `)
@@ -143,18 +144,23 @@ const FileSelect: React.FC<Props> = ({
 						animate={{ x: 0, opacity: 1, scale: 1 }}
 						exit={{ x: 0, opacity: 0, scale: 1 }}
 					>
-						<Button
-							style={{ position: "absolute", bottom: '0', right: '0' }}
-							disabled={!ready}
-							type="primary"
-							onClick={() => {
-								slug === 'exclude' ?
-									callback(ids) :
-									callback(data)
-							}}>
-							Continue
+						<div style={{ position: "absolute", bottom: '0', right: '0' }}>
+
+
+							<CSVTableModal payload={data} />&nbsp;
+							<Button
+
+								disabled={!ready}
+								type="primary"
+								onClick={() => {
+									slug === 'exclude' ?
+										callback(ids) :
+										callback(data)
+								}}>
+								Continue
 							<ArrowRightOutlined />
-						</Button>
+							</Button>
+						</div>
 					</motion.div>
 				</div>
 			)}
