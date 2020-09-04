@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
-import { Table, Popover, Modal, Button, Checkbox, Menu, Dropdown, Row, PageHeader } from 'antd';
+import { Table, Modal, Button, Checkbox, Menu, Dropdown, Row, PageHeader } from 'antd';
 import { IParseResultNamed } from '../context';
 import { DownOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
@@ -21,10 +21,11 @@ export const CSVTable: React.FC<CSVTablePropsI> = (
 	{ payload, columnCount, exclude, filename }
 ) => {
 
-	const [selectedColumns, setColumns] = useState<string[]>(payload.meta.fields.slice(0, columnCount ? columnCount : 999))
+	const initialColumns = payload.meta.fields.filter(i => payload.data[0][i] !== null)
+	const [selectedColumns, setColumns] = useState<string[]>(initialColumns.slice(0, columnCount ? columnCount : 999))
 
 	const makeTableCols = (fields: string[], first?: number, filter?: string[]) => {
-
+		const sample = payload.data[0]
 		const columns = [
 			{
 				title: '',
@@ -41,6 +42,7 @@ export const CSVTable: React.FC<CSVTablePropsI> = (
 				title: col.toUpperCase(),
 				dataIndex: col,
 				key: col.toLowerCase(),
+				width: `${sample[col]}`.length * 10 + 50,
 				ellipsis: true,
 				change: '',
 				sorter: (a, b) => a[col] - b[col],
@@ -147,6 +149,7 @@ export const CSVTableModal: React.FC<CSVTablePropsI> = ({ filename, payload, col
 		</>
 	)
 }
+
 
 export default CSVTable;
 
