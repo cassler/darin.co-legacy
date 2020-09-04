@@ -8,7 +8,7 @@ import JSONTree from 'react-json-tree'
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import DeltaTable from './DeltaTable'
-import { CSVTableModal } from './CSVTable';
+import CSVTable, { CSVTableModal } from './CSVTable';
 
 export type DiffDataProps = IParseResult & { fileName: string }
 
@@ -170,7 +170,7 @@ export function ReportViewer() {
 
 					</div>
 				) : <DeltaTable data={result} onReset={() => setResult([])} />}
-				{oldData && <CSVTableModal filename={oldData.fileName} payload={oldData} />}
+				{oldData && <CSVTable filename={oldData.fileName} payload={oldData} />}
 			</div>
 		</div>
 
