@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { WFContext } from '../context';
+import { WFContext } from '../../context';
 import { Menu } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { PartnerCode } from '@wf/types';

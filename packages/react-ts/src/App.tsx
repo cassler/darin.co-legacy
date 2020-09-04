@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
-import ViewSettings from './components/ViewSettings';
+import ViewSettings from './components/App/ViewSettings';
 import { Dropdown, Modal, Layout, Card, Button, Divider } from 'antd';
 import { SettingOutlined, SwapOutlined } from '@ant-design/icons'
 import { motion, AnimatePresence } from "framer-motion"
 import WorkflowForm from './components/WorkflowForm';
-import Stepper from './components/Stepper';
-import SaveContextButton from './components/SaveContextButton';
-import PreferenceMenu from './components/PreferenceMenu';
+import Stepper from './components/App/Stepper';
+import SaveContextButton from './components/App/SaveContextButton';
+import PreferenceMenu from './components/App/PreferenceMenu';
 import { WFProvider, WFContext } from './context';
 import ResultsView from './components/ResultsView'
 import ReportViewer from './components/ReportViewer'

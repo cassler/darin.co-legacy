@@ -6,8 +6,8 @@ import { message, Popover, Select, Button } from 'antd'
 import { FormGroup, FileInput } from '@blueprintjs/core'
 import { motion } from "framer-motion"
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { IParseResultNamed } from '../context';
-import { CSVTableModal } from './CSVTable';
+import { IParseResultNamed } from '../../context';
+import { CSVTableModal } from '../Preview/CSVTable';
 const { Option } = Select;
 
 type Props = {

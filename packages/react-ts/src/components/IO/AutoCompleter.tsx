@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { WFContext } from '../context';
+import { WFContext } from '../../context';
 import { Button, Input, AutoComplete, List, Typography, Popover, Tag, Divider } from 'antd';
 import { ArrowRightOutlined, QuestionOutlined } from '@ant-design/icons'
 import { motion, AnimatePresence } from 'framer-motion';

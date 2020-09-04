@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { PartnerCode } from '@wf/types';
 import { ImpPayloadI } from './ImpPackage';
 import DownloadButton from './DownloadButton';
-import { WFContext } from '../context';
+import { WFContext } from '../../context';
 
 interface ProvisioningButtonsProps {
 	payload: ImpPayloadI,

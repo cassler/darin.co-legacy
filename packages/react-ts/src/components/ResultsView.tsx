@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ImplementationResult, ImplementationPackage } from '@wf/core';
-import PreviewTable from './PreviewTable'
+import PreviewTable from './Preview/PreviewTable'
 import { Badge, Popover, Card, PageHeader } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SimpleAccount } from '@wf/types';

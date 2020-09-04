@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
 import { Table, Modal, Button, Checkbox, Menu, Dropdown, Row, PageHeader } from 'antd';
-import { IParseResultNamed } from '../context';
+import { IParseResultNamed } from '../../context';
 import { DownOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import OutsideClickHandler from 'react-outside-click-handler';

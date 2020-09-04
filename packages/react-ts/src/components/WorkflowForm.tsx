@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { PartnerCode } from '@wf/types';
 import { Workflower } from '@wf/core';
-import SelectPartner from './SelectPartner';
-import FileSelect from './FileSelect';
-import AutoCompleter from './AutoCompleter';
-import Bookmarklet from './Bookmarklet';
+import SelectPartner from './IO/SelectPartner';
+import FileSelect from './IO/FileSelect';
+import AutoCompleter from './IO/AutoCompleter';
+import Bookmarklet from './IO/Bookmarklet';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button, Result, Switch, Popconfirm } from 'antd';

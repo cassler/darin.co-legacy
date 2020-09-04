@@ -1,14 +1,14 @@
 import { ColumnsType } from 'antd/es/table';
 import React, { useState, useEffect } from 'react';
-import FileSelect from './FileSelect';
+import FileSelect from './IO/FileSelect';
 import { IParseResult } from '../context';
 import * as jsdiff from 'diff';
 import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from 'antd';
 
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
-import DeltaTable from './DeltaTable'
-import CSVTable, { CSVTableModal } from './CSVTable';
+import DeltaTable from './Preview/DeltaTable'
+import CSVTable, { CSVTableModal } from './Preview/CSVTable';
 
 export type DiffDataProps = IParseResult & { fileName: string }
 
