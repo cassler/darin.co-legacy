@@ -147,7 +147,7 @@ const FileSelect: React.FC<Props> = ({
 						<div style={{ position: "absolute", bottom: '0', right: '0' }}>
 
 
-							<CSVTableModal payload={data} />&nbsp;
+							<CSVTableModal filename={data.fileName} payload={data} />&nbsp;
 							<Button
 
 								disabled={!ready}

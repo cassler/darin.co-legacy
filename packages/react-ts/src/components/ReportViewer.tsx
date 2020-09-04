@@ -4,11 +4,11 @@ import FileSelect from './FileSelect';
 import { IParseResult } from '../context';
 import * as jsdiff from 'diff';
 import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from 'antd';
-import JSONTree from 'react-json-tree'
+
 import { set, get } from 'idb-keyval';
 import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import DeltaTable from './DeltaTable'
-import { CSVTableModal } from './CSVTable';
+import CSVTable, { CSVTableModal } from './CSVTable';
 
 export type DiffDataProps = IParseResult & { fileName: string }
 
@@ -101,15 +101,15 @@ export function ReportViewer() {
 		justifyItems: 'center'
 	}
 
-	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]) => {
+	const makeTableCols = (payload: IParseResult, first?: number, filter?: string[]): ColumnsType[] => {
 		const fields = payload.meta.fields
-		const sizes = Object.values(payload.data[0])
+		const sample = payload.data[0];
 		const columns = fields.map((col, index) => ({
 			title: col.toUpperCase(),
 			dataIndex: col,
 			key: col.toLowerCase(),
 			ellipsis: true,
-			width: 30 + `${sizes[index]}`.length * 5,
+			width: 30 + `${sample[col]}`.length * 5,
 			change: '',
 			sorter: (a, b) => a[col] - b[col],
 			sortDirections: ['ascend', 'descend'],
@@ -138,8 +138,8 @@ export function ReportViewer() {
 							extra={[
 								!oldData && <FileSelect label="Old DT Report" slug="prev" callback={handleChange} />,
 								oldData && <div style={{ width: 200 }}>
-									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
-									<CSVTableModal payload={oldData} />
+									<Button key="buy" onClick={() => resetCache('prev')}>Reset</Button>&nbsp;
+									<CSVTableModal payload={oldData} filename={oldData.fileName} />
 								</div>
 							]}
 						/>
@@ -163,14 +163,14 @@ export function ReportViewer() {
 								!newData && <FileSelect label="New DT Report" slug="next" callback={handleChange} />,
 								newData && <div style={{ width: 200 }}>
 									<Button key="buy" onClick={() => resetCache('next')}>Reset</Button>&nbsp;
-									<CSVTableModal payload={newData} />
+									<CSVTableModal filename={newData.fileName} payload={newData} />
 								</div>
 							]}
 						/>
 
 					</div>
 				) : <DeltaTable data={result} onReset={() => setResult([])} />}
-
+				{oldData && <CSVTable filename={oldData.fileName} payload={oldData} />}
 			</div>
 		</div>
 

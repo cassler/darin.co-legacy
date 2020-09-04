@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
-import { Button, Table, Descriptions, Result, Divider, PageHeader, Drawer } from 'antd';
-import { SwapOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import { Button, Table, Descriptions, PageHeader, Drawer } from 'antd';
 import * as jsdiff from 'diff';
 
 interface DeltatableProps {
@@ -146,6 +145,7 @@ export const DeltaTable: React.FC<DeltatableProps> = ({ data, onReset }) => {
 								style={{ gridColumn: "1/2" }}
 								className='subtraction'>{item.value}</p>
 						}
+						return null
 					}
 
 					)}

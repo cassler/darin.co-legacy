@@ -1,15 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { PartnerCode } from '@wf/types';
 import { Workflower } from '@wf/core';
 import SelectPartner from './SelectPartner';
-import ExclusionSet from './ExclusionSet';
 import FileSelect from './FileSelect';
 import AutoCompleter from './AutoCompleter';
 import Bookmarklet from './Bookmarklet';
 import { settings } from '../data/settings';
 import { WFContext } from '../context';
 import { Statistic, Popover, Divider, Button, Result, Switch, Popconfirm } from 'antd';
-import { FormOutlined, ArrowLeftOutlined, FileExcelOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, FileExcelOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { Spinner, FormGroup } from '@blueprintjs/core';
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -20,7 +19,7 @@ export const WorkflowForm: React.FC = () => {
 	const { ctx } = useContext(WFContext);
 	const { step } = ctx;
 	const [busy, toggleBusy] = useState<boolean>(false)
-	const [renderCount, countRender] = useState<number>(0)
+	// const [renderCount, countRender] = useState<number>(0)
 	const [useRequestFile, toggleRequestFile] = useState<boolean>(true)
 	// When choosing a new partner, also apply their configs
 	const handlePartnerSelect = (partner: PartnerCode) => {
