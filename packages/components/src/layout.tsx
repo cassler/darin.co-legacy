@@ -49,7 +49,6 @@ export const Layout: React.FC = (props) => {
 				<div className='header'></div>
 			</div>
 			<div css={sty}>
-
 				<div className='footer'>5123123</div>
 				<div className='sidebar'>8</div>
 				<div className='main' css={mainStyle}>

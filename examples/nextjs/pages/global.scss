@@ -1,0 +1,25 @@
+@use 'color' as c;
+
+
+*, *+* {
+	box-sizing: border-box;
+}
+
+body {
+  background-color: c.$indigo-8;
+  color: c.$gray-0;
+	 font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: c.$teal-7;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: c.$indigo-7;
+  }
+}

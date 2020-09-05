@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { MicroSweeper, Button, Layout } from "@cassler/components";
-import { motion } from "framer-motion"
+// import { MicroSweeper, Button, Layout } from "@cassler/components";
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { ThemeProvider } from 'emotion-theming'
+import { colors, theme } from '@cassler/color';
 
 export default () => {
-	// const [comment, setComment] = useState<string>();
-	// const newKanye = () => {
-	// 	fetch('https://api.kanye.rest')
-	// 		.then((res) => res.json())
-	// 		.then(data => setComment(data.quote))
-	// }
-	// useEffect(() => {
-	// 	newKanye()
-	// }, [])
 
 	return (
-
 		<div>
-			<MicroSweeper size={20} difficulty={0.9} />
-			<h5>Your current yeet is:</h5>
+			<ThemeProvider theme={theme}>
+				<h2 css={theme => ({ color: theme.color.error })}>Heading TWOOO</h2>
+				<h5>Your current yeet is:</h5>
+				<h1>Darin.co</h1>
+			</ThemeProvider>
 		</div>
 
 	)

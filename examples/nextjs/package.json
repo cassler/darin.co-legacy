@@ -8,11 +8,15 @@
 		"test": "yarn run build"
 	},
 	"dependencies": {
+		"@cassler/color": "*",
 		"@cassler/components": "*",
+		"emotion-theming": "^10.0.27",
 		"framer-motion": "^2.4.3-beta.2",
 		"next": "~9.4.4",
+		"open-color": "^1.7.0",
 		"react": "^16.13.1",
-		"react-dom": "^16.13.1"
+		"react-dom": "^16.13.1",
+		"sass": "^1.26.10"
 	},
 	"devDependencies": {
 		"@types/node": "~14.0.23",
