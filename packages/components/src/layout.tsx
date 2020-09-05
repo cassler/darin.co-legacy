@@ -1,63 +1,71 @@
-/* eslint-disable no-alert */
 import React from "react";
-/** @jsxFrag React.Fragment */
-import { css, jsx } from '@emotion/core';
-import { GithubOutlined, HeartOutlined } from '@ant-design/icons';
 
-export const Layout: React.FC = (props) => {
+type Props = {
+	theme: unknown
+	footer?: React.ReactNode,
+	children: React.ReactNode,
+	header?: React.ReactNode,
+	sidebar?: React.ReactNode,
+	size?: LayoutSize
+}
 
-	const sty = css`
-		padding: 0;
-		margin: -1px 0 0;
-		width: 100%;
-		min-height: 200vh;
-		display: grid;
-		grid-template-columns: 100px 1fr 100px;
-		grid-template-rows: 70px 1fr 100px 70px;
-		grid-template-areas: "head head head"
-												 "sidebar main rightRail"
-												 "sidebar main rightRail"
-												 "sidebar footer rightRail";
-		/* > div { border: 1px solid #dedede;} */
-		> .affix-top { grid-area: head; top: 0; left: 0; right: 0; }
-		> .affix-bottom { }
-		> .header { grid-area: head; background: #fff; }
-		> .footer { grid-area: footer}
-		> .main {
-			grid-area: main;
-			/* background: #fff; */
+type LayoutSize = 'small' | 'medium' | 'large'
+
+type SpaceProps = {
+	size: LayoutSize,
+	children: React.ReactNode
+}
+export const Space: React.FC<SpaceProps> = ({ size, children }) => {
+	const childStyle = () => {
+		switch (size) {
+			case "small": {
+				return { padding: '4px 8px' }
+				break;
+			}
+			case "large": {
+				return { padding: '24px 48px' }
+				break;
+			}
+			default: {
+				return { padding: '12px' }
+				break;
+			}
 		}
-		/* > .sidebar { grid-area: sidebar; background: #f3f3f9 } */
-		/* > .gutter { grid-area: rightRail; background: #222} */
-	`;
+	}
+	return <div style={childStyle()}>{children}</div>
+}
 
-	const affixTopStyle = css`
-		position: fixed;
-		background: rgba(200, 50, 52, 1.00);
-		width: 100%;
-		height: 70px;
-	`
 
-	const mainStyle = css`
-		padding: 40px;
-	`
+export const Layout: React.FC<Props> = (
+	{ footer, children, header, sidebar, size }
+) => {
+
 
 
 	return (
 		<>
-			<div css={affixTopStyle}>
-				<div className='header'></div>
+			<div>
+				{header && (
+					<div className='header'>
+						<Space size={size}>{header}</Space>
+					</div>
+				)}
 			</div>
-			<div css={sty}>
-				<div className='footer'>5123123</div>
-				<div className='sidebar'>8</div>
-				<div className='main' css={mainStyle}>
-					{props.children}
+			<div>
+				{footer && (
+					<div className='footer'>
+						<Space size={size}>
+							{footer}
+						</Space>
+					</div>
+				)}
+				<div className='main'>
+					<Space size={size}>
+						{children}
+					</Space>
 				</div>
-				<div className="gutter">lol</div>
 
 			</div>
-
 		</>
 	)
 }

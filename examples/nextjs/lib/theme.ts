@@ -1,10 +1,9 @@
-import { colors } from './colors'
-import { css } from '@emotion/core'
+import { colors } from '@cassler/color'
 
 export const theme = {
 	color: {
 		bg: colors.gray[0],
-		text: colors.lime[5],
+		text: colors.violet[5],
 		secondary: colors.gray[6],
 		muted: colors.gray[4],
 		error: colors.red[5]
@@ -16,8 +15,4 @@ export const theme = {
 	}
 }
 
-export const appStyle = (theme) => css({
-	color: theme.color.text
-})
-
-
+export default theme;
