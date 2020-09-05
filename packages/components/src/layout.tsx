@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import React from "react";
-/** @jsx jsx */
+/** @jsxFrag React.Fragment */
 import { css, jsx } from '@emotion/core';
 import { GithubOutlined, HeartOutlined } from '@ant-design/icons';
 

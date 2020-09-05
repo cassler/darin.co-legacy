@@ -5,8 +5,8 @@ import { Button } from "@cassler/components";
 
 ReactDOM.render(
 	<React.StrictMode>
-		{meaningOfLife}
-		<Button />
+		<h3>{meaningOfLife}</h3>
+		<Button label="My Button" onClick={() => console.log('hah')} />
 	</React.StrictMode>,
 	document.getElementById("root")
 );

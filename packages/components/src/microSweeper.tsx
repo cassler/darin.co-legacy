@@ -35,6 +35,16 @@ export const MicroSweeper: React.FC<MicroSweeperProps> = ({ size = 12, difficult
 			...i,
 			proximity: countBombs(getNeighbors(i, initialBoard))
 		}))
+
+		let prepBoard = defaultBoard.map(i => {
+			if (i.proximity > 0) return i;
+			let neighbors = getNeighbors(i, defaultBoard);
+			let zone = neighbors.map(n => getNeighbors(n, defaultBoard))
+			return {
+				...i,
+				next: getNeighbors(i, defaultBoard)
+			}
+		})
 		setMicrons(defaultBoard)
 	}, [])
 

@@ -15,14 +15,10 @@ export default () => {
 
 	return (
 
-		<Layout>
+		<div>
 			<MicroSweeper size={20} difficulty={0.9} />
 			<h5>Your current yeet is:</h5>
-
-			{/* <h1 style={{ fontSize: 48 }}>{comment}</h1> */}
-
-			{/* <Button onClick={newKanye} label="I am the greatest" /> */}
-		</Layout>
+		</div>
 
 	)
 };
