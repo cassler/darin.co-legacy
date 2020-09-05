@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { meaningOfLife } from "@nighttrax/foo";
+import { meaningOfLife } from "@cassler/foo";
 import React from "react";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
