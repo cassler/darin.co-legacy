@@ -1,48 +1,65 @@
 /* eslint-disable no-alert */
 import React from "react";
-/** @jsx jsx */
+/** @jsxFrag React.Fragment */
 import { css, jsx } from '@emotion/core';
+import { GithubOutlined, HeartOutlined } from '@ant-design/icons';
 
 export const Layout: React.FC = (props) => {
 
 	const sty = css`
 		padding: 0;
-		margin: 0;
+		margin: -1px 0 0;
 		width: 100%;
-		border: 1px solid #222;
-		min-height: 100vh;
+		min-height: 200vh;
 		display: grid;
-		grid-template-columns: 50px 100px 1fr 100px 50px;
+		grid-template-columns: 100px 1fr 100px;
 		grid-template-rows: 70px 1fr 100px 70px;
-		grid-template-areas: "head head head head head"
-												 "leftRail leftGutter main rightGutter rightRail"
-												 "leftRail leftGutter main rightGutter rightRail"
-												 "leftRail footer footer footer rightRail";
-		div:nth-child(2n) { background-color: #a9d9e9 }
-		div:nth-child(3n-1) { background-color: #e9d9e9 }
-		div:nth-child(4n-1) { background-color: #e0f9f9 }
-		div:nth-child(6n-1) { background-color: #f0f3d2 }
+		grid-template-areas: "head head head"
+												 "sidebar main rightRail"
+												 "sidebar main rightRail"
+												 "sidebar footer rightRail";
+		/* > div { border: 1px solid #dedede;} */
+		> .affix-top { grid-area: head; top: 0; left: 0; right: 0; }
+		> .affix-bottom { }
+		> .header { grid-area: head; background: #fff; }
+		> .footer { grid-area: footer}
+		> .main {
+			grid-area: main;
+			/* background: #fff; */
+		}
+		/* > .sidebar { grid-area: sidebar; background: #f3f3f9 } */
+		/* > .gutter { grid-area: rightRail; background: #222} */
 	`;
 
-	const headerStyle = css`
+	const affixTopStyle = css`
+		position: fixed;
+		background: rgba(200, 50, 52, 1.00);
+		width: 100%;
+		height: 70px;
+	`
 
-	`;
+	const mainStyle = css`
+		padding: 40px;
+	`
+
 
 	return (
-		<div css={sty}>
-			<div style={{ gridArea: 'head' }}>1</div>
-			<div>3</div>
-			<div>4</div>
-			<div>5</div>
-			<div>6</div>
-			<div>7</div>
-			<div style={{ gridArea: "footer" }}>5123123</div>
-			<div style={{ gridArea: "footer" }}>8</div>
-			<div style={{ gridArea: "main" }}>
-				{props.children}
+		<>
+			<div css={affixTopStyle}>
+				<div className='header'></div>
+			</div>
+			<div css={sty}>
+
+				<div className='footer'>5123123</div>
+				<div className='sidebar'>8</div>
+				<div className='main' css={mainStyle}>
+					{props.children}
+				</div>
+				<div className="gutter">lol</div>
+
 			</div>
 
-		</div>
+		</>
 	)
 }
 
