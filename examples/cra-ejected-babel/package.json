@@ -1,12 +1,12 @@
 {
-	"name": "@nighttrax/cra-babel-example",
+	"name": "@cassler/cra-babel-example",
 	"description": "Example of using create-react-app + babel in a TS monorepo",
 	"private": true,
 	"version": "1.0.0",
 	"dependencies": {
 		"@babel/core": "7.9.0",
 		"@cassler/components": "*",
-		"@nighttrax/foo": "*",
+		"@cassler/foo": "*",
 		"@svgr/webpack": "4.3.3",
 		"@typescript-eslint/eslint-plugin": "~2.10.0",
 		"@typescript-eslint/parser": "~2.10.0",

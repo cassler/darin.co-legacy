@@ -14,8 +14,9 @@
 		"react": "~16.13.1"
 	},
 	"dependencies": {
+		"@ant-design/icons": "^4.2.2",
 		"@emotion/core": "^10.0.35",
-		"@nighttrax/foo": "*"
+		"@cassler/foo": "*"
 	},
 	"devDependencies": {
 		"@types/react": "~16.9.43"

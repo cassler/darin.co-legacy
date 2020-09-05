@@ -1,24 +1,30 @@
 /* eslint-disable no-alert */
-import { meaningOfLife } from "@nighttrax/foo";
+import { meaningOfLife } from "@cassler/foo";
 import React from "react";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 
-export const Button = () => {
+
+interface ButtonPropsI {
+	label: string,
+	onClick: Function
+}
+export const Button: React.FC<ButtonPropsI> = ({ onClick, label }) => {
 	const styles = css`
-		padding: 10px;
+		padding: 16px 24px;
 		border: none;
+		font-size: 18px;
 		border-radius: 8px;
-		background-color: #228;
-		color: #fff;
+		background-color: #a11;
+		color: #fcc;
 	`
 	return (
 		<button
 			css={styles}
 			type="button"
-			onClick={() => alert(`the meaning if life is ${meaningOfLife}`)}
+			onClick={() => onClick ? onClick() : alert(`the meaning if life is ${meaningOfLife}`)}
 		>
-			darin is
+			{label ? label : 'darin is developed'}
 		</button>
 	)
 };
