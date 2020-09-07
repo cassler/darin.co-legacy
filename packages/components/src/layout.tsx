@@ -19,7 +19,7 @@ export const Space: React.FC<SpaceProps> = ({ size, children }) => {
 	const childStyle = () => {
 		switch (size) {
 			case "small": {
-				return { padding: '4px 8px' }
+				return { padding: '15px' }
 				break;
 			}
 			case "large": {

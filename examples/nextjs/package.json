@@ -7,6 +7,9 @@
 		"build": "next build",
 		"test": "yarn run build"
 	},
+	"workspaces": [
+		"../../packages/*"
+	],
 	"dependencies": {
 		"@cassler/color": "*",
 		"@cassler/components": "*",
