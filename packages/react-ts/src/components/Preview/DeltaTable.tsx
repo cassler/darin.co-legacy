@@ -125,7 +125,7 @@ export const DeltaTable: React.FC<DeltatableProps> = ({ data, onReset }) => {
       />
       <Drawer
         title="Fine Delta"
-        placement="left"
+        placement="right"
         width={540}
         closable={false}
         onClose={() => toggleCompare(!showCompare)}
