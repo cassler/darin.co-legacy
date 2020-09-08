@@ -152,7 +152,8 @@ export const settings: partnerSettingsList = {
 			info: true,
 		},
 		report_validation: (items: object[]): boolean => {
-			return items.length < 1000 && items[0]['Lender Dealer Id'].toString().length === 4
+			let count = items.length;
+			return items.length < 1000 && items[Math.floor(count / 2)]['Lender Dealer Id'].toString().length === 4
 		},
 		custom_validation: (item: any) => {
 			// return item && item.hasOwnProperty('Status') && item.Status === "A";

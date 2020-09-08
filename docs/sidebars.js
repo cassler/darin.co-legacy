@@ -11,8 +11,9 @@ module.exports = {
 			"guide_results",
 			"session_manage",
 		] ,
-		"WF Delta": [
+		"WF Tools": [
 			"delta",
+			"tablepreview",
 			"product_subscription_emails",
 		],
 		"Supported Partners": [
