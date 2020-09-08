@@ -1,31 +1,31 @@
 {
-	"name": "@wf/core",
-	"version": "1.0.0",
-	"description": "Default package structure for @wf",
-	"main": "src/index.ts",
-	"author": "Darin Cassler",
-	"license": "MIT",
-	"scripts": {
-		"generate-barrels": "barrelsby --delete  -d src -l top"
-	},
-	"devDependencies": {
-		"@types/jest": "^24.0.18",
-		"barrelsby": "^2.1.1",
-		"jest": "^24.9.0",
-		"prettier": "^1.18.2",
-		"tslint": "^5.19.0",
-		"tslint-config-prettier": "^1.18.0",
-		"tslint-plugin-prettier": "^2.0.1",
-		"typescript": "^3.9.7"
-	},
-	"dependencies": {
-		"@types/boxen": "^3.0.1",
-		"@types/chalk": "^2.2.0",
-		"boxen": "^4.2.0",
-		"chalk": "^4.1.0",
-		"lodash": "^4.17.19",
-		"moment": "^2.27.0",
-		"ts-node-dev": "^1.0.0-pre.52",
-		"tsc-watch": "^4.2.9"
-	}
+  "name": "@wf/core",
+  "version": "1.1.0",
+  "description": "Default package structure for @wf",
+  "main": "src/index.ts",
+  "author": "Darin Cassler",
+  "license": "MIT",
+  "scripts": {
+    "generate-barrels": "barrelsby --delete  -d src -l top"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "barrelsby": "^2.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@types/boxen": "^3.0.1",
+    "@types/chalk": "^2.2.0",
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "ts-node-dev": "^1.0.0-pre.52",
+    "tsc-watch": "^4.2.9"
+  }
 }
