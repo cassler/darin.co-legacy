@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
+const version = require('../../package.json').version;
 
 const features = [
   {
@@ -71,8 +72,8 @@ function Home() {
 								'button button--fill button--secondary button--lg',
 								styles.getStarted,
 							)}
-							to="https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/1.0.0/workflower-portable-1.0.0-dist.zip">
-							Download Workflower 1.0.0 (.zip)
+							to={`https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/${version}/workflower-portable-${version}-dist.zip`}>
+							Download Workflower {version} (.zip)
             </Link>
 					</div>
 					<br />
