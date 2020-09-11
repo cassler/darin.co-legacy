@@ -19,6 +19,31 @@ export const theme = {
   },
 };
 
+/**
+ * We want to apply the same template for each color variation
+ * This reduces duplicate code.
+ */
+const colorOptions = ["indigo", "orange", "teal", "blue", "grape"];
+const lightColors = colorOptions.map((color) => {
+  return css`
+    [data-theme*="${color}"] {
+      --primary-color: ${colors[color][5]};
+      --secondary-color: ${colors[color][4]};
+      --highlight: ${Color(colors[color][2]).lighten(0.1).fade(1).hex()};
+    }
+		data-theme*="dark"][data-theme*="${color}"] {
+    --primary-color: ${colors[color][3]};
+    --secondary-color: ${colors[color][6]};
+    --font-secondary-color: ${Color(colors[color][3])
+      .desaturate(0.85)
+      .darken(0.1)
+      .hex()};
+    --bg-color: ${Color(colors[color][9]).darken(0.7).hex()};
+    --highlight: ${Color(colors[color][9]).darken(0.5).fade(0.8).hex()};
+  }
+  `;
+});
+
 export const GlobalStyle = css`
   html {
     --primary-color: rgba(21, 206, 95, 1);
@@ -34,36 +59,6 @@ export const GlobalStyle = css`
     --highlight: rgba(21, 206, 95, 0.1);
   }
 
-  [data-theme*="blue"] {
-    --primary-color: #302ae6;
-    --secondary-color: #536390;
-    --highlight: ${Color(colors.blue[2]).lighten(0.1).fade(1).hex()};
-  }
-  [data-theme*="indigo"] {
-    --primary-color: ${colors.indigo[5]};
-    --secondary-color: ${colors.indigo[4]};
-    --highlight: ${Color(colors.indigo[2]).lighten(0.1).fade(1).hex()};
-  }
-  [data-theme*="orange"] {
-    --primary-color: ${colors.orange[5]};
-    --secondary-color: ${colors.orange[4]};
-    --highlight: ${Color(colors.orange[2]).lighten(0.1).fade(1).hex()};
-  }
-  [data-theme*="violet"] {
-    --primary-color: ${colors.violet[5]};
-    --secondary-color: ${colors.violet[4]};
-    --highlight: ${Color(colors.violet[2]).lighten(0.1).fade(1).hex()};
-  }
-  [data-theme*="grape"] {
-    --primary-color: ${colors.grape[5]};
-    --secondary-color: ${colors.grape[4]};
-    --highlight: ${Color(colors.grape[2]).lighten(0.1).fade(1).hex()};
-  }
-  [data-theme*="teal"] {
-    --primary-color: ${colors.teal[5]};
-    --secondary-color: ${colors.teal[4]};
-    --highlight: ${Color(colors.teal[2]).lighten(0.1).fade(1).hex()};
-  }
   [data-theme*="dark"] {
     --primary-color: rgba(74, 242, 161, 1);
     --secondary-color: #818cab;
@@ -74,66 +69,7 @@ export const GlobalStyle = css`
     --bg-color: l(#ccc, 90%);
     --highlight: ${Color(colors.blue[2]).fade(1).hex()};
   }
-  [data-theme*="dark"][data-theme*="blue"] {
-    --primary-color: ${colors.blue[3]};
-    --secondary-color: ${colors.blue[6]};
-    --font-secondary-color: ${Color(colors.blue[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.blue[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.blue[9]).darken(0.5).fade(0.8).hex()};
-  }
-  [data-theme*="dark"][data-theme*="indigo"] {
-    --primary-color: ${colors.indigo[3]};
-    --secondary-color: ${colors.indigo[5]};
-    --font-secondary-color: ${Color(colors.indigo[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.indigo[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.indigo[9]).darken(0.5).fade(0.8).hex()};
-  }
-  [data-theme*="dark"][data-theme*="orange"] {
-    --primary-color: ${colors.orange[3]};
-    --secondary-color: ${colors.orange[5]};
-    --font-secondary-color: ${Color(colors.orange[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.orange[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.orange[9]).darken(0.5).fade(0.8).hex()};
-  }
-  [data-theme*="dark"][data-theme*="violet"] {
-    --primary-color: ${colors.violet[3]};
-    --secondary-color: ${colors.violet[6]};
-    --font-secondary-color: ${Color(colors.violet[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.violet[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.violet[9]).darken(0.5).fade(0.8).hex()};
-  }
-  [data-theme*="dark"][data-theme*="grape"] {
-    --primary-color: ${colors.grape[3]};
-    --secondary-color: ${colors.grape[5]};
-    --font-secondary-color: ${Color(colors.grape[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.grape[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.grape[9]).darken(0.5).fade(0.8).hex()};
-  }
-  [data-theme*="dark"][data-theme*="teal"] {
-    --primary-color: ${colors.teal[3]};
-    --secondary-color: ${colors.teal[5]};
-    --font-secondary-color: ${Color(colors.teal[3])
-      .desaturate(0.85)
-      .darken(0.1)
-      .hex()};
-    --bg-color: ${Color(colors.teal[9]).darken(0.7).hex()};
-    --highlight: ${Color(colors.teal[9]).darken(0.5).fade(0.8).hex()};
-  }
+  ${lightColors}
   html,
   body {
     background-color: var(--bg-color);
