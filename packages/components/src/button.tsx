@@ -1,66 +1,87 @@
 /* eslint-disable no-alert */
 import React from "react";
-import { colors } from "@cassler/color";
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { ClassNames, css, jsx } from "@emotion/core";
+import { colors } from "@cassler/color";
 
-export interface IButtonProps {
-	children: React.ReactNode;
-	onClick: React.MouseEventHandler;
-	size?: "small" | "large" | "medium";
-	primary?: boolean;
-	ghost?: boolean;
-}
+export type IButtonProps = {
+  onClick: React.MouseEventHandler<HTMLElement>;
+  size: "small" | "large" | "medium";
+  className: string;
+  ghost: boolean;
+  danger: boolean;
+  primary: boolean;
+  block: boolean;
+  disabled: boolean;
+  children: React.ReactNode;
+};
 
-export function Button({
-	size, primary, ghost, onClick, children
-}: IButtonProps): JSX.Element {
-	const defaultStyle = css`
+export const Button: React.FC<Partial<IButtonProps>> = ({
+  size,
+  primary,
+  ghost,
+  onClick,
+  children,
+  className,
+}): React.ReactElement => {
+  const defaultStyle = css`
     padding: 6px 12px;
-    border: 2px solid ${colors.gray[3]};
+    border: 2px solid var(--primary-color);
+    background-color: var(--bg-color);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: -0.033em;
     border-radius: 6px;
-    background-color: ${colors.gray[2]};
-    color: ${colors.gray[8]};
+    color: var(--primary-color);
     &:hover {
       cursor: pointer;
     }
-  `;
-	const primaryStyle = css`
-    background-color: ${colors.indigo[6]};
-    border-color: ${colors.indigo[8]};
-    color: ${colors.gray[0]};
-    &:hover {
-      background-color: ${colors.indigo[8]};
+    & + .dbtn-button {
+      margin-left: 6px;
     }
   `;
-	const ghostStyle = css`
+  const primaryStyle = css`
+    color: var(--primary-color);
+    &:hover {
+      background-color: ${colors.lime[8]};
+    }
+  `;
+  const ghostStyle = css`
 		background-color: transparent;
 		/* border: 1px solid ${colors.gray[4]}; */
 	`;
-	const smallStyle = css`
+  const smallStyle = css`
     padding: 4px 8px;
     font-size: 12px;
   `;
-	const largeStyle = css`
+  const largeStyle = css`
     padding: 12px 18px;
   `;
-	const styles = [
-		defaultStyle,
-		size === "small" && smallStyle,
-		size === "large" && largeStyle,
-		primary && primaryStyle,
-		ghost && ghostStyle,
-	];
-	return (
-		<button
-			type="button"
-			css={styles}
-			onClick={() => onClick || null}
-		>
-			{children}
-		</button>
-	);
-}
+  const styles = [
+    defaultStyle,
+    size === "small" && smallStyle,
+    size === "large" && largeStyle,
+    primary && primaryStyle,
+    ghost && ghostStyle,
+  ];
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>
+  ) => {
+    if (onClick) {
+      (onClick as React.MouseEventHandler<
+        HTMLButtonElement | HTMLAnchorElement
+      >)(e);
+    }
+  };
+  return (
+    <button
+      className={className ? className + "dbtn-button" : "dbtn-button"}
+      type="button"
+      css={styles}
+      onClick={handleClick}
+    >
+      <>{children}</>
+    </button>
+  );
+};

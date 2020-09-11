@@ -12,7 +12,8 @@
 		"build": "lerna run build",
 		"pub": "lerna publish",
 		"test": "lerna run test",
-		"next:build": "lerna run --scope @cassler/nextjs build"
+		"next:build": "lerna run --scope @cassler/nextjs build",
+		"next": "lerna run --scope @cassler/nextjs dev"
 	},
 	"devDependencies": {
 		"@nighttrax/eslint-config-tsx": "~6.1.0",

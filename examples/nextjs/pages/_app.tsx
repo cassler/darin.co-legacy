@@ -1,11 +1,22 @@
 // import App from 'next/app'
-import type { AppProps /*, AppContext */ } from 'next/app'
-import '../styles/global.scss';
+import { useState } from "react";
+import type { AppProps /*, AppContext */ } from "next/app";
+import "../styles/global.scss";
+import "../../../packages/gt-nacirema/src/gt-font.css";
+import "../../../packages/gt-nacirema/src/calibre.css";
+import "../../../packages/gt-nacirema/src/glosa.css";
+
+import { ThemeProvider } from "emotion-theming";
+import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />
+  const [currentTheme, setTheme] = useState(theme);
+  return (
+    <ThemeProvider theme={currentTheme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
-
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
@@ -19,4 +30,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 //   return { ...appProps }
 // }
 
-export default MyApp
+export default MyApp;

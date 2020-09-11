@@ -1,0 +1,101 @@
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 300;
+  src: url(./gt-nacirema/GT-America-Standard-Light-de0b653f1adaacb771865f17b58e5ccddfd844938089b59ee2c1e502f27dce0e.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Light-ee6fe14146f522cfa66599ca11c879932b117f5214ec6855b3a8cdb17c31720a.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Light-e163ebbccbd546f17445b5de452926891e41a14c81ef20da990dcdc262f972ba.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 300;
+  src: url(./gt-nacirema/GT-America-Standard-Light-Italic-97199bb91a315c0adf44ff21a88dfb42f7b254da1a06a96e3b300b513576adbe.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Light-Italic-9c1154a291b44c4a2b359e1bfb1877420b16f7b8a2fc48e2567f5963b6d56484.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Light-Italic-33e626a3ff6cf37a17426322e17a6395ef0c4f5eb950eb097e4aec747c1a101e.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 500;
+  src: url(./gt-nacirema/GT-America-Standard-Regular-8b4a57cb225e85f4ea969c208f59c0c8ba303ac5c536f4b7ccf7943ba761406f.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Regular-803405c8311d1dbca3fccd7c78320d28e45e516c0a813e9c439d15980839c56c.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Regular-af04f23d8ed83c92293785a80e24bf9f8fe36c415ccbdb942c2d89a0451a339b.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 500;
+  src: url(./gt-nacirema/GT-America-Standard-Regular-Italic-171382f76200271a528a60de3d5428e755439e07e1e4d828dc4896de05152b37.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Regular-Italic-4b45ca23f4c2b69297bae516b482d2884bfa8d20ae786749fbc264ca3bd942d6.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Regular-Italic-ddb9f9d0ff1a576b15e98d0e8ee2996b93b3a692c2faaf8aeebeaa43a33dba9a.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 700;
+  src: url(./gt-nacirema/GT-America-Standard-Bold-4d76d8a7af351265d77345d5d33675da721a7896a5c73c52a4d1056916f2e89e.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Bold-0086bc27856d9d109bc1ef98621e3b1025dc950546b46b84e66da0105e7f8e2a.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Bold-041f2907645a5323aa4f6a88bf902a581f742c5cf5c3b10f67716b317f86b20f.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 700;
+  src: url(./gt-nacirema/GT-America-Standard-Bold-Italic-36f4a7428244979e62e9f0e2ee6a3b993f685282f34ba82ad54acc4b26139589.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Standard-Bold-Italic-d10426c7239c7e3ef4582ca166c0f6faabf881ad870163cfad08b16e2a089e7c.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Standard-Bold-Italic-ba221ee3800190b23036c7359782ef9c345de3649324c3c2010bef34cfc6dbf7.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America Compressed";
+  font-style: normal;
+  font-weight: 700;
+  src: url(./gt-nacirema/GT-America-Compressed-Bold-cbe21a87d67c242461ed62eb2da8f8bbff156da278931a8ad343b19ca96f3c44.eot?#iefix)
+      format("embedded-opentype"),
+    url(./gt-nacirema/GT-America-Compressed-Bold-0c8280f54462b2b9ef88f2155e836abfeeb656c6776e8deb9604b3c6ab45d5ed.woff)
+      format("woff"),
+    url(./gt-nacirema/GT-America-Compressed-Bold-b68eb2a0cb58b341a26450c717767784d079d267d21682cac74a297c94db6559.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "GT America Expanded Black";
+  font-style: normal;
+  font-weight: 700;
+  src: url(./gt-nacirema/GT-America-Expanded-Black-8cb5631760c428d46aade7d90d397be2d2471b80f6bb3ebfdc3457474d7f8f50.woff)
+    format("woff");
+}
+@font-face {
+  font-family: "GT America Expanded Black Italic";
+  font-style: italic;
+  font-weight: 700;
+  src: url(./gt-nacirema/GT-America-Expanded-Black-Italic-4e8d01ae89e54935e476dc13247b95ec1c3458ba500dad61ca6560d64351062e.woff)
+    format("woff");
+}
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
