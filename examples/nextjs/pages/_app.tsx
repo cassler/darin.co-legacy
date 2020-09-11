@@ -2,8 +2,8 @@
 import { useState } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
 import "../styles/global.scss";
-import "../../../packages/gt-nacirema/src/gt-font.css";
-import "../../../packages/gt-nacirema/src/calibre.css";
+// import "../../../packages/gt-nacirema/src/gt-font.css";
+import "../../../packages/gt-nacirema/dist/main.css";
 import "../../../packages/gt-nacirema/src/glosa.css";
 
 import { ThemeProvider } from "emotion-theming";

@@ -32,10 +32,9 @@ module.exports = {
         use: [
           {
             loader: ExtractCssChunks.loader,
-            options: {
-              // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/`,
-              publicPath: 'static/',
-            },
+            // options: {
+            //   publicPath: 'static/',
+            // },
           },
           'css-loader',
         ],

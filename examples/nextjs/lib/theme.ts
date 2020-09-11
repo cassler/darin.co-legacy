@@ -23,7 +23,7 @@ export const theme = {
  * We want to apply the same template for each color variation
  * This reduces duplicate code.
  */
-const colorOptions = ["indigo", "orange", "teal", "blue", "grape"];
+const colorOptions = ["indigo", "orange", "teal", "blue", "grape", "violet"];
 const lightColors = colorOptions.map((color) => {
   return css`
     [data-theme*="${color}"] {
@@ -31,7 +31,7 @@ const lightColors = colorOptions.map((color) => {
       --secondary-color: ${colors[color][4]};
       --highlight: ${Color(colors[color][2]).lighten(0.1).fade(1).hex()};
     }
-		data-theme*="dark"][data-theme*="${color}"] {
+		[data-theme*="dark"][data-theme*="${color}"] {
     --primary-color: ${colors[color][3]};
     --secondary-color: ${colors[color][6]};
     --font-secondary-color: ${Color(colors[color][3])
@@ -58,7 +58,7 @@ export const GlobalStyle = css`
     --font-accent: "GT America Expanded Black Italic";
     --highlight: rgba(21, 206, 95, 0.1);
   }
-
+  ${lightColors}
   [data-theme*="dark"] {
     --primary-color: rgba(74, 242, 161, 1);
     --secondary-color: #818cab;
@@ -69,7 +69,6 @@ export const GlobalStyle = css`
     --bg-color: l(#ccc, 90%);
     --highlight: ${Color(colors.blue[2]).fade(1).hex()};
   }
-  ${lightColors}
   html,
   body {
     background-color: var(--bg-color);
