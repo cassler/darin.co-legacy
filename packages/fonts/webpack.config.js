@@ -39,24 +39,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.(ttf|eot)$/,
+        test: /\.(ttf|woff|woff2|eot)$/,
         use: {
           loader: 'file-loader',
           options: {
             name: 'fonts/[name].[ext]',
-            // publicPath: '.', // Take the directory into account
-          },
-        },
-      },
-      {
-        // Match woff2 and patterns like .woff?v=1.1.1.
-        test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 50000,
-            mimetype: 'application/font-woff',
-            name: 'fonts/[name].[ext]', // Output below ./fonts
             // publicPath: '.', // Take the directory into account
           },
         },
