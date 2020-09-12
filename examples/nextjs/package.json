@@ -11,6 +11,7 @@
     "../../packages/*"
   ],
   "dependencies": {
+    "@cassler/snippets": "*",
     "@cassler/color": "*",
     "@cassler/components": "*",
     "@cassler/fonts": "*",

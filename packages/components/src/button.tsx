@@ -33,8 +33,12 @@ export const Button: React.FC<Partial<IButtonProps>> = ({
     letter-spacing: -0.033em;
     border-radius: 6px;
     color: var(--primary-color);
+    outline: none;
     &:hover {
       cursor: pointer;
+    }
+    &:focus {
+      outline: none;
     }
     & + .dbtn-button {
       margin-left: 6px;

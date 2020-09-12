@@ -5,6 +5,7 @@ import { jsx, css, Global } from "@emotion/core";
 import { useTheme } from "emotion-theming";
 import { GlobalStyle } from "../lib/theme";
 import paragraphs from "../lib/lorem";
+import { coinFlip, pickFromHat } from "@cassler/snippets";
 
 export type AccentColor =
   | "blue"
@@ -24,8 +25,8 @@ export const AccentColors: AccentColor[] = [
 
 export default () => {
   const theme = useTheme();
-  const [darkMode, toggleDark] = useState<boolean>(true);
-  const [accent, setAccent] = useState<AccentColor>("blue");
+  const [darkMode, toggleDark] = useState<boolean>(coinFlip());
+  const [accent, setAccent] = useState<AccentColor>(pickFromHat(AccentColors));
 
   function cycleAccent(current: AccentColor) {
     let cursor = AccentColors.indexOf(current) + 1;
@@ -47,7 +48,14 @@ export default () => {
       <Layout
         theme={theme}
         size="small"
-        header={<span></span>}
+        header={
+          <>
+            <Button onClick={() => cycleAccent(accent)}>Cycle Color</Button>
+            <Button onClick={() => toggleDark(!darkMode)}>
+              Use {darkMode ? "Light" : "Dark"} Mode
+            </Button>
+          </>
+        }
         footer={<span>++</span>}
         sidebar={<span>Sidebar</span>}
       >

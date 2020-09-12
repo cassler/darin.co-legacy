@@ -29,12 +29,14 @@ const lightColors = colorOptions.map((color) => {
   return css`
     [data-theme*="${color}"] {
       --primary-color: ${currentHue[5]};
+			--primary-accent: ${Color(currentHue[3]).lighten(0.15).hex()};
       --secondary-color: ${currentHue[4]};
       --highlight: ${Color(currentHue[2]).lighten(0.1).fade(1).hex()};
     }
 		[data-theme*="dark"][data-theme*="${color}"] {
     --primary-color: ${currentHue[3]};
     --secondary-color: ${currentHue[6]};
+		--primary-accent: ${Color(currentHue[5]).darken(0.3).desaturate(0.7).hex()};
     --font-secondary-color: ${Color(currentHue[3])
       .desaturate(0.85)
       .darken(0.1)
@@ -48,6 +50,7 @@ const lightColors = colorOptions.map((color) => {
 export const GlobalStyle = css`
   html {
     --primary-color: rgba(21, 206, 95, 1);
+    --primary-accent: rgba(21, 206, 95, 0.5);
     --secondary-color: #536390;
     --font-color: #424242;
     --font-secondary-color: #727272;
@@ -62,6 +65,7 @@ export const GlobalStyle = css`
   ${lightColors}
   [data-theme*="dark"] {
     --primary-color: rgba(74, 242, 161, 1);
+    --primary-accent: rgba(21, 206, 95, 0.5);
     --secondary-color: #818cab;
     --font-color: #e1e1ff;
     --font-secondary-color: #b1b1cc;
@@ -75,7 +79,7 @@ export const GlobalStyle = css`
     background-color: var(--bg-color);
     font-family: var(--font-body);
     color: var(--font-color);
-    max-width: 90%;
+    max-width: 95%;
     margin: 0 auto;
     font-size: calc(1rem + 0.25vh);
     transition: 0.2s all;
@@ -97,6 +101,9 @@ export const GlobalStyle = css`
   }
   a:link {
     color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 2px solid var(--primary-accent);
   }
   div.content {
     max-width: 40rem;
