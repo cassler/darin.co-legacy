@@ -3,6 +3,9 @@ import { useState } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
 import "../styles/global.scss";
 
+import "../../../packages/fonts/src/glosa.css";
+import "../../../packages/fonts/src/calibre.css";
+
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";
 
