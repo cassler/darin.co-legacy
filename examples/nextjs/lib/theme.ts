@@ -25,21 +25,22 @@ export const theme = {
  */
 const colorOptions = ["indigo", "orange", "teal", "blue", "grape", "violet"];
 const lightColors = colorOptions.map((color) => {
+  let currentHue = colors[color];
   return css`
     [data-theme*="${color}"] {
-      --primary-color: ${colors[color][5]};
-      --secondary-color: ${colors[color][4]};
-      --highlight: ${Color(colors[color][2]).lighten(0.1).fade(1).hex()};
+      --primary-color: ${currentHue[5]};
+      --secondary-color: ${currentHue[4]};
+      --highlight: ${Color(currentHue[2]).lighten(0.1).fade(1).hex()};
     }
 		[data-theme*="dark"][data-theme*="${color}"] {
-    --primary-color: ${colors[color][3]};
-    --secondary-color: ${colors[color][6]};
-    --font-secondary-color: ${Color(colors[color][3])
+    --primary-color: ${currentHue[3]};
+    --secondary-color: ${currentHue[6]};
+    --font-secondary-color: ${Color(currentHue[3])
       .desaturate(0.85)
       .darken(0.1)
       .hex()};
-    --bg-color: ${Color(colors[color][9]).darken(0.7).hex()};
-    --highlight: ${Color(colors[color][9]).darken(0.5).fade(0.8).hex()};
+    --bg-color: ${Color(currentHue[9]).darken(0.7).hex()};
+    --highlight: ${Color(currentHue[9]).darken(0.5).fade(0.8).hex()};
   }
   `;
 });
@@ -78,12 +79,28 @@ export const GlobalStyle = css`
     margin: 0 auto;
     font-size: calc(1rem + 0.25vh);
     transition: 0.2s all;
+    -webkit-font-smoothing: antialiased;
   }
-
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-alt);
+    letter-spacing: -0.01666em;
+  }
   p em {
     background-color: var(--highlight);
     font-weight: 500;
     padding: 0 2px;
     letter-spacing: -0.0166em;
+  }
+  a:link {
+    color: var(--primary-color);
+  }
+  div.content {
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;

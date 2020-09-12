@@ -41,10 +41,6 @@ export default () => {
     document.documentElement.setAttribute("data-theme", currentAccent);
   }, [darkMode, accent]);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-accent", accent);
-  }, [setAccent, accent]);
-
   return (
     <div>
       <Global styles={GlobalStyle} />
@@ -55,38 +51,43 @@ export default () => {
         footer={<span>++</span>}
         sidebar={<span>Sidebar</span>}
       >
-        <h1
-          style={{
-            fontFamily: "var(--font-alt)",
-            fontWeight: 900,
-            lineHeight: "1.0em",
-          }}
-        >
-          Whenever the{" "}
-          <span style={{ color: "var(--primary-color" }}>{accent}</span> <br />
-          happens, be ready for it.
-        </h1>
-        <p>{paragraphs[0]}</p>
+        <div className="content">
+          <h1
+            style={{
+              fontFamily: "var(--font-alt)",
+              fontWeight: 800,
+              lineHeight: "1.0em",
+            }}
+          >
+            Whenever the{" "}
+            <span style={{ color: "var(--primary-color" }}>{accent}</span>{" "}
+            <br />
+            happens, be ready for it.
+          </h1>
+          <p>{paragraphs[0]}</p>
 
-        <p
-          style={{
-            color: "var(--font-secondary-color)",
-            fontSize: "0.9em",
-            fontWeight: 400,
-          }}
-        >
-          {paragraphs[1]}
-        </p>
-
-        <p>{paragraphs[2]}</p>
-        <p>
-          {paragraphs[1]} <em>There is no way to do this.</em>
-        </p>
-        <p>{paragraphs[3]}</p>
-        <Button onClick={() => cycleAccent(accent)}>Cycle Color</Button>
-        <Button onClick={() => toggleDark(!darkMode)}>
-          Use {darkMode ? "Light" : "Dark"} Mode
-        </Button>
+          <p
+            style={{
+              color: "var(--font-secondary-color)",
+              fontSize: "0.9em",
+              fontWeight: 400,
+            }}
+          >
+            {paragraphs[1]}
+          </p>
+          <p>
+            In case you were wondering, <a href="#">this is what a link</a>{" "}
+            would look like in the middle of a paragraph. ${paragraphs[2]}
+          </p>
+          <p>
+            {paragraphs[1]} <em>There is no way to do this.</em>
+          </p>
+          <p>{paragraphs[3]}</p>
+          <Button onClick={() => cycleAccent(accent)}>Cycle Color</Button>
+          <Button onClick={() => toggleDark(!darkMode)}>
+            Use {darkMode ? "Light" : "Dark"} Mode
+          </Button>
+        </div>
       </Layout>
     </div>
   );
