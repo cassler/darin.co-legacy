@@ -39,7 +39,7 @@ export default () => {
     let currentTheme = darkMode ? "dark" : "light";
     let currentAccent = `${currentTheme} ${accent}`;
     document.documentElement.setAttribute("data-theme", currentAccent);
-  }, [toggleDark, darkMode, accent, setAccent]);
+  }, [darkMode, accent]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-accent", accent);

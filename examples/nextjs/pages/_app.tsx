@@ -2,9 +2,12 @@
 import { useState } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
 import "../styles/global.scss";
+import "@cassler/fonts/dist/main.css";
+
 // import "../../../packages/gt-nacirema/src/gt-font.css";
-import "../../../packages/gt-nacirema/dist/main.css";
-import "../../../packages/gt-nacirema/src/glosa.css";
+// import "../../../packages/fonts/dist/main.css";
+// import "../../../packages/fonts/src/glosa.css";
+// import "@cassler/fonts/dist/main.css";
 
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";

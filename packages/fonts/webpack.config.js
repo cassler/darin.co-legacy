@@ -1,7 +1,8 @@
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 /* eslint-disable import/no-extraneous-dependencies */
-const path = require('path');
+// const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.ts',
@@ -15,7 +16,7 @@ module.exports = {
   // },
   plugins: [
     new TsconfigPathsPlugin(),
-    new ExtractCssChunks({
+    new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '[name].css',
@@ -25,37 +26,38 @@ module.exports = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
-      // Font stylesheets
       {
-        // test: /\.(scss|css)$/,
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [
           {
-            loader: ExtractCssChunks.loader,
+            loader: MiniCssExtractPlugin.loader,
             // options: {
-            //   publicPath: 'static/',
+            //   publicPath: '.',
             // },
           },
           'css-loader',
         ],
-        // loaders: [
-        //   ExtractCssChunks.loader,
-        //   'style-loader',
-        //   'css-loader',
-        //   'resolve-url-loader', // add this before sass-loader
-        //   'sass-loader',
-        // ],
       },
-
-      // Font files
       {
-        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        test: /\.(ttf|eot)$/,
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]',
-            outputPath: 'static/',
-            esModule: false,
+            name: 'fonts/[name].[ext]',
+            // publicPath: '.', // Take the directory into account
+          },
+        },
+      },
+      {
+        // Match woff2 and patterns like .woff?v=1.1.1.
+        test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 50000,
+            mimetype: 'application/font-woff',
+            name: 'fonts/[name].[ext]', // Output below ./fonts
+            // publicPath: '.', // Take the directory into account
           },
         },
       },
