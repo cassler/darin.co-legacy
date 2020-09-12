@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@cassler/bar": "*",
-    "@cassler/gt-nacirema": "*"
+    "@cassler/fonts": "*"
   },
   "devDependencies": {
     "webpack": "~4.43.0",
