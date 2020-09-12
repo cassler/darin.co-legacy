@@ -5,9 +5,9 @@ import "../styles/global.scss";
 // import "@cassler/fonts/dist/main.css";
 
 // import "../../../packages/gt-nacirema/src/gt-font.css";
-// import "../../../packages/fonts/dist/main.css";
-import "../../../packages/fonts/src/glosa.css";
-import "../../../packages/fonts/src/calibre.css";
+import "../../../packages/fonts/dist/main.css";
+// import "../../../packages/fonts/src/glosa.css";
+// import "../../../packages/fonts/src/calibre.css";
 // import "@cassler/fonts/dist/main.css";
 
 import { ThemeProvider } from "emotion-theming";
