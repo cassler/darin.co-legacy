@@ -59,13 +59,6 @@ export default () => {
     document.documentElement.setAttribute("data-theme", currentAccent);
   }, [darkMode, accent]);
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   console.log("This will run after 1 second!");
-    //   cycleAccent(accent);
-    // }, 3000);
-  });
-
   return (
     <div>
       <Global styles={GlobalStyle} />
@@ -73,17 +66,13 @@ export default () => {
         theme={theme}
         size="small"
         header={
-          <>
-            <Button onClick={() => cycleAccent(accent)}>Cycle Color</Button>
-            <Button onClick={() => toggleFooter(!footer)}>Toggle Footer</Button>
-            <Button primary onClick={() => toggleDark(!darkMode)}>
-              Use {darkMode ? "Light" : "Dark"} Mode
-            </Button>
-          </>
+          <div className="center">
+            <h5>Notes from the Lab</h5>
+          </div>
         }
         footer={
           footer && (
-            <>
+            <div className="center">
               <Button size="small" onClick={() => cycleAccent(accent)}>
                 Cycle Color
               </Button>
@@ -95,7 +84,7 @@ export default () => {
                 <FontAwesomeIcon icon={darkMode ? faMoon : faSun} />
                 &nbsp; Use {darkMode ? "Light" : "Dark"} Mode
               </Button>
-            </>
+            </div>
           )
         }
         sidebar={<span>Sidebar</span>}
@@ -112,24 +101,34 @@ export default () => {
               style={{ color: "var(--primary-accent)" }}
             />
           </h1>
+          <h4>darin.co</h4>
           <PageTitle>
             Making neato internet <br />
-            <span style={{ color: "var(--primary-color" }}>magic</span>&nbsp;
+            <span style={{ color: "var(--primary-color" }}>
+              <em>magic</em>{" "}
+            </span>
             since 1999.
           </PageTitle>
-          <SubTitle>{paragraphs[3]}</SubTitle>
-          <Caption>{paragraphs[0]}</Caption>
+          <SubTitle>{paragraphs[0]}</SubTitle>
+          <p>{paragraphs[1]}</p>
+          <h2>Design for Access</h2>
           <Image
             width="140px"
             right
             url="https://images.unsplash.com/photo-1599921051697-c8d23fb8e65a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
           />
-          <p>{paragraphs[1]}</p>
-          <p>
-            In case you were wondering, <a href="#">this is what a link</a>{" "}
-            would look like in the middle of a paragraph. ${paragraphs[2]}
-          </p>
-          <p>{paragraphs[1]}</p>
+          <p>{paragraphs[2]}</p>
+          <p>{paragraphs[3]}</p>
+          <p>{paragraphs[4]}</p>
+          <h2>Built for Humans</h2>
+          <p>{paragraphs[5]}</p>
+          <p>{paragraphs[6]}</p>
+          <p>{paragraphs[7]}</p>
+          <p>{paragraphs[8]}</p>
+          <h2>
+            Handcrafted in <Strike>Vermont</Strike> Texas
+          </h2>
+          <p>{paragraphs[9]}</p>
           <Card>
             <p>{paragraphs[3]}</p>
           </Card>
@@ -137,6 +136,13 @@ export default () => {
       </Layout>
     </div>
   );
+};
+
+const Strike = (props) => {
+  const styles = {
+    textDecoration: "line-through",
+  };
+  return <span style={styles}>{props.children}</span>;
 };
 
 const Image = (props) => {
@@ -175,13 +181,7 @@ const Card = (props) => {
 };
 
 const PageTitle = (props) => {
-  const styles = {
-    fontFamily: "var(--font-alt)",
-    fontWeight: 800,
-    fontSize: "3rem",
-    lineHeight: "1.0em",
-  };
-  return <h1 style={styles}>{props.children}</h1>;
+  return <h1>{props.children}</h1>;
 };
 const SubTitle = (props) => {
   const styles = {

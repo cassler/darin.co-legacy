@@ -21,7 +21,7 @@ body {
   color: var(--font-color);
   margin: 0;
   padding: 0;
-  font-size: calc(1rem + 0.15vh);
+  font-size: calc(1rem + 0.25vh);
   transition: 0.3s all;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
@@ -32,14 +32,46 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: var(--font-alt);
   letter-spacing: -0.01666em;
+  color: var(--heading-color-alt);
 }
+h1 {
+  font-family: var(--font-alt);
+  font-size: calc(3rem + 0.8vh);
+  color: var(--heading-color-alt);
+  // fontFamily: "var(--font-alt)",
+  font-weight: 800;
+  letter-spacing: -0.0333em;
+  line-height: 0.95em;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  color: var(--primary-color);
+}
+
+h5 {
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
 p em {
   background-color: var(--highlight);
   font-weight: 500;
   padding: 0 2px;
   letter-spacing: -0.0166em;
+}
+.center {
+  text-align: center;
 }
 a:link {
   color: var(--primary-color);

@@ -1,10 +1,18 @@
 import React from "react";
 
 export const paragraphs = [
-  "Once again this year, SmokyMountains.com has the best online foliage prediction map. And once again again, summer was far too short and trees here in VT have already been changing colors for weeks (although most have not really started yet). The onset of fall carries an extra wallop in this pandemic year: in many parts of the country, summer made it possible for people to comfortably meet up with family and friends in the lower-risk out-of-doors, an option that will be increasingly less comfy once the leaves fall and the weather crisps up. (via @legalnomads).",
-  `Congrats to @austinkleon for 15 years of blogging! "This is my home online. It's where you can find me. If you want to know me, knock on the door, and I'll let you in.`,
-  `Cory Doctorow is selling the DRM-free audiobook version of his new book directly to listeners, bypassing Audible and their DRM. "The idea that a company gets to decide how you use your property, after you buy it from them? Fuck that.`,
-  `"After two decades in a filing cabinet and three next to a parking lot in Baltimore", Dorothy Parker's ashes return to NYC.`,
+  `My name is Darin Cassler. I build handcrafted software and web solutions so you don't just work smarter - you work less. Small, bespoke products that your team, your customers or your audience will actually love.`,
+  `Running a business should be about making decisions, not pushing paper. There are more important things you could be doing. If you spend more time wrangling data than using it, lets talk.`,
+
+  `I said this back in 2012: "over half of all web traffic will be from smartphones and tablet devices by the end of the year". Boy was that an understatement. Perhaps more important: that was just the start.`,
+
+  `Chances are you have spent the past decade cutting a physical tether, doing more and more on the go. Now developers and companies all over the world are sprinting to their own kind of newfound flexibility.`,
+
+  `Things like microservices, event-based platform, polymorphic data and graph APIs are taking clerical work down the same path as telephone operator work. There are better things to do with your time.`,
+  `It's easy to go overboard with a bloated website or app. Back in the late 1970s, Dieter Rams (luminary designer) was becoming increasingly concerned by the state of the world around him: "An impenetrable confusion of forms, colours and noises." Thus were born the 10 Principles of Good Design. Among them was this:`,
+  `"Good design is as little design as possible"`,
+  `Lose all of the noise and deliver a concise website which actually helps your visitors. Together we’ll craft a content strategy to bring your audience all of the information they need and help them find all the information they want.`,
+  `Vermonters are known for their craftsmanship and web development is no exception. Every line of code and every last pixel is crafted with the finest of care (and drenched in maple syrup).`,
 ];
 
 export default paragraphs;
