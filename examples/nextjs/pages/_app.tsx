@@ -5,8 +5,8 @@ import { useWindowSize } from "@cassler/hooks";
 
 import "../styles/global.scss";
 
-// import "@cassler/fonts/src/glosa.css";
-// import "@cassler/fonts/src/calibre.css";
+import "@cassler/fonts/src/glosa.css";
+import "@cassler/fonts/src/calibre.css";
 
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";
