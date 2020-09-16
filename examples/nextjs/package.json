@@ -11,16 +11,22 @@
     "../../packages/*"
   ],
   "dependencies": {
-    "@cassler/snippets": "*",
     "@cassler/color": "*",
     "@cassler/components": "*",
     "@cassler/fonts": "*",
+    "@cassler/snippets": "*",
+    "@cassler/hooks": "*",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "emotion-theming": "^10.0.27",
     "framer-motion": "^2.4.3-beta.2",
     "next": "~9.4.4",
     "open-color": "^1.7.0",
     "react": "^16.13.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
+    "react-perfect-scrollbar": "^1.5.8",
     "sass": "^1.26.10"
   },
   "devDependencies": {

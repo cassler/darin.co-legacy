@@ -45,9 +45,11 @@ export const Button: React.FC<Partial<IButtonProps>> = ({
     }
   `;
   const primaryStyle = css`
-    color: var(--primary-color);
+    color: var(--bg-color);
+    background-color: var(--primary-color);
     &:hover {
-      background-color: ${colors.lime[8]};
+      background-color: var(--primary-color);
+      backdrop-filter: darken(0.2);
     }
   `;
   const ghostStyle = css`

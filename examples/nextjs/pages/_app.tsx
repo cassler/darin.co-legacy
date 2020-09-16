@@ -1,16 +1,25 @@
 // import App from 'next/app'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
+import { useWindowSize } from "@cassler/hooks";
+
 import "../styles/global.scss";
 
-import "@cassler/fonts/src/glosa.css";
-import "@cassler/fonts/src/calibre.css";
+// import "@cassler/fonts/src/glosa.css";
+// import "@cassler/fonts/src/calibre.css";
 
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTheme, setTheme] = useState(theme);
+  useEffect(() => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
+  const { height, width } = useWindowSize();
+
   return (
     <ThemeProvider theme={currentTheme}>
       <Component {...pageProps} />

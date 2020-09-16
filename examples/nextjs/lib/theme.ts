@@ -29,19 +29,22 @@ const lightColors = colorOptions.map((color) => {
   return css`
     [data-theme*="${color}"] {
       --primary-color: ${currentHue[5]};
-			--primary-accent: ${Color(currentHue[3]).lighten(0.15).hex()};
+			--primary-accent: ${Color(currentHue[2]).hex()};
+			--hint-color: ${Color(currentHue[2]).hex()};
       --secondary-color: ${currentHue[4]};
       --highlight: ${Color(currentHue[2]).lighten(0.1).fade(1).hex()};
     }
 		[data-theme*="dark"][data-theme*="${color}"] {
     --primary-color: ${currentHue[3]};
+		--primary-accent: ${Color(currentHue[9]).hex()};
     --secondary-color: ${currentHue[6]};
-		--primary-accent: ${Color(currentHue[5]).darken(0.3).desaturate(0.7).hex()};
     --font-secondary-color: ${Color(currentHue[3])
       .desaturate(0.85)
       .darken(0.1)
       .hex()};
     --bg-color: ${Color(currentHue[9]).darken(0.7).hex()};
+		--contrast-color: ${Color(currentHue[9]).darken(0.8).hex()};
+		--hint-color: ${Color(currentHue[8]).darken(0.5).hex()};
     --highlight: ${Color(currentHue[9]).darken(0.5).fade(0.8).hex()};
   }
   `;
@@ -55,14 +58,18 @@ export const GlobalStyle = css`
     --font-color: #424242;
     --font-secondary-color: #727272;
     --bg-color: #eee;
+    --contrast-color: #f9f9f9;
+    --hint-color: rgba(21, 206, 95, 0.5);
     --heading-color: #292922;
     --ui-color: rgba(21, 206, 95, 1);
     --font-body: "Calibre";
     --font-alt: "Glosa Display";
     --font-accent: "GT America Expanded Black Italic";
     --highlight: rgba(21, 206, 95, 0.1);
+    --grid-unit: 1rem;
+    --content-width: 95%;
+    --line-width: 40rem;
   }
-  ${lightColors}
   [data-theme*="dark"] {
     --primary-color: rgba(74, 242, 161, 1);
     --primary-accent: rgba(21, 206, 95, 0.5);
@@ -70,44 +77,13 @@ export const GlobalStyle = css`
     --font-color: #e1e1ff;
     --font-secondary-color: #b1b1cc;
     --bg-color: #161625;
+    --contrast-color: #161624;
     --heading-color: #818cab;
-    --bg-color: l(#ccc, 90%);
-    --highlight: ${Color(colors.blue[2]).fade(1).hex()};
+    --ui-color: rgba(21, 206, 95, 1);
+    //  --font-body: "Calibre";
+    //  --font-alt: "Glosa Display";
+    //  --font-accent: "GT America Expanded Black Italic";
+    --highlight: rgba(21, 206, 95, 0.1);
   }
-  html,
-  body {
-    background-color: var(--bg-color);
-    font-family: var(--font-body);
-    color: var(--font-color);
-    max-width: 95%;
-    margin: 0 auto;
-    font-size: calc(1rem + 0.25vh);
-    transition: 0.2s all;
-    -webkit-font-smoothing: antialiased;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    font-family: var(--font-alt);
-    letter-spacing: -0.01666em;
-  }
-  p em {
-    background-color: var(--highlight);
-    font-weight: 500;
-    padding: 0 2px;
-    letter-spacing: -0.0166em;
-  }
-  a:link {
-    color: var(--primary-color);
-    font-weight: 500;
-    text-decoration: none;
-    border-bottom: 2px solid var(--primary-accent);
-  }
-  div.content {
-    max-width: 40rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  ${lightColors}
 `;
