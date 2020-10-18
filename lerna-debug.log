@@ -1,13 +1,15 @@
 0 silly argv {
 0 silly argv   _: [ 'add' ],
-0 silly argv   scope: '@cassler/components',
-0 silly argv   globs: [],
+0 silly argv   D: true,
+0 silly argv   dev: true,
+0 silly argv   scope: '@cassler/gt-nacirema',
+0 silly argv   globs: [ 'sass-loader', 'style-loader' ],
 0 silly argv   lernaVersion: '3.22.1',
 0 silly argv   '$0': '/Users/darin/.npm-packages/bin/lerna',
-0 silly argv   pkg: '@antd/icons'
+0 silly argv   pkg: 'css-load'
 0 silly argv }
 1 notice cli v3.22.1
-2 verbose rootPath /Users/darin/Code/ts-mono-rework-aug20
+2 verbose rootPath /Users/darin/Code/@cassler
 3 info versioning independent
-4 error Error: 404 Not Found - GET https://registry.npmjs.org/@antd%2ficons - Not found
-4 error     at /Users/darin/Code/ts-mono-rework-aug20/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15
+4 error Error: 404 Not Found - GET https://registry.npmjs.org/css-load - Not found
+4 error     at /Users/darin/Code/@cassler/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15

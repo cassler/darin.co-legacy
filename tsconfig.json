@@ -1,13 +1,14 @@
 {
-  "extends": "./tsconfig.build.json",
-
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@nighttrax/*": ["packages/*/src"]
-    },
-    "jsx": "react",
-    "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+	"extends": "./tsconfig.build.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@cassler/*": [
+				"packages/*/src"
+			]
+		},
+		"jsx": "react",
+		"esModuleInterop": true,
+		"skipLibCheck": true
+	}
 }

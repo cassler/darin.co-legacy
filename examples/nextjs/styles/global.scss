@@ -1,0 +1,405 @@
+@use 'color' as c;
+
+*,
+* + * {
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html,
+body {
+  background-color: var(--bg-color);
+  font-family: var(--font-body);
+  color: var(--font-color);
+  margin: 0;
+  padding: 0;
+  font-size: calc(1rem + 0.25vh);
+  transition: 0.3s all, 0.0s font-size;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  letter-spacing: -0.01666em;
+  color: var(--heading-color-alt);
+}
+h1 {
+  font-family: var(--font-alt);
+  font-size: calc(3rem + 0.8vh);
+  color: var(--heading-color-alt);
+  // fontFamily: "var(--font-alt)",
+  font-weight: 800;
+  letter-spacing: -0.0333em;
+  line-height: 0.95em;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  color: var(--primary-color);
+}
+
+h5 {
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+p em {
+  background-color: var(--highlight);
+  font-weight: 500;
+  padding: 0 2px;
+  letter-spacing: -0.0166em;
+}
+.center {
+  text-align: center;
+}
+a:link {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 2px solid var(--primary-accent);
+}
+a:visited {
+  color: var(--secondary-color);
+}
+div.content {
+  // max-width: var(--content-width);
+  max-width: var(--line-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-contain {
+  display: grid;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  grid-template-rows: min-content 1fr min-content;
+}
+.layout-header {
+  border-bottom: 1px solid var(--hint-color);
+  top: 0;
+  background-color: var(--bg-color);
+  width: 100vw;
+  transition: 0.25s padding;
+  &:hover {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+.layout-footer {
+  border-top: 1px solid var(--hint-color);
+  bottom: 0;
+  background-color: var(--contrast-color);
+  width: 100vw;
+  transition: 0.25s padding;
+  &:hover {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+.layout-main {
+  overflow-y: scroll;
+  padding-left: 24px;
+}
+
+.layout-inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_thin-643908539e45d3e35e536567c5f5f54653d2b0f46c98deb25235dd873a980946.woff)
+      format("woff"),
+    url(/calibre_thin-aef7c6773c315b8e2b28b001e041fbcbac302ea2522a42441e5cd9416c16f637.woff2)
+      format("woff2"),
+    url(/calibre_thin.svg) format("svg"),
+    url(/calibre_thin-c5aec5ed9b1f1cb2d25b5916e5a0b614eb17afc3a854bbef8aeb09ee81cd4833.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_thin_italic-9403e070621f43489fc378188897c079f9d9589dbd6317e95f1bbbfc2700819a.woff)
+      format("woff"),
+    url(/calibre_thin_italic-36af8ec4b38ce7a5cc8b98154d78c8c0b6c7ccdfa5b73ba68b3d5c000e357e73.woff2)
+      format("woff2"),
+    url(/calibre_thin_italic.svg) format("svg"),
+    url(/calibre_thin_italic-63f4b799dc9285d34065cbcc4615cde38ab7bcb1e7c96dcbaf43ee03aaf63435.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_light-a800b0e856e285c47e46c1f2b977d6d00042011086a0f0526b2832c0f2023a23.woff)
+      format("woff"),
+    url(/calibre_light-492c0bbdc4fb2fda6a8ca4c489236731034ce1c1d40e6194bcb8a220d6a160da.woff2)
+      format("woff2"),
+    url(/calibre_light.svg) format("svg"),
+    url(/calibre_light-9e4beacab60ca9c8ab3c899e2f9e0161d373e900541480d9d56942603d9aa774.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_light_italic-d095580c1cfe663ac123383edd2dc8f66005504c03526a2fce51e3fd28f16597.woff)
+      format("woff"),
+    url(/calibre_light_italic-41573c23e18d65528a23d3ad8e4fdcafe3c07075ba446e3812d7240b86437c10.woff2)
+      format("woff2"),
+    url(/calibre_light_italic.svg) format("svg"),
+    url(/calibre_light_italic-d9ca3936c3868ac3110cc828fd07583569124eaf285ae29cddf4c053b1eec03f.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_regular-63756cf0def3a3d6259c10eccc27f299ec583d62303cebbc635454f2b107b710.woff)
+      format("woff"),
+    url(/calibre_regular-eb301f992c03254993270ca3b685bf5cab2c5a7d896ce7938179315f8f9668f7.woff2)
+      format("woff2"),
+    url(/calibre_regular.svg) format("svg"),
+    url(/calibre_regular-ee7cd441e912abe806a2434931f8d4d71ee25f09e2711e566ffdad22d0c01b2b.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_regular_italic-958c0ad621c022000b3a3006e849aa5e313bb4045e7b4b58b340f5edcc540499.woff)
+      format("woff"),
+    url(/calibre_regular_italic-4ca5a5271c4dd1fd73c6f5098c568f51cd18b3140d892a55b3f758c677081c40.woff2)
+      format("woff2"),
+    url(/calibre_regular_italic.svg) format("svg"),
+    url(/calibre_regular_italic-2b13407fe9dbc86586121efd42185bf4d13035ff29bb41134ff35206aa3e38ff.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_medium-32a58cd6308db34d0c685972bc7278b457a6157abb6c64d0f4772ce45e60f2ce.woff)
+      format("woff"),
+    url(/calibre_medium-39ae94b9c5f0cd81e2df44658ef78761f74123990970f748e8087940656d6f52.woff2)
+      format("woff2"),
+    url(/calibre_medium.svg) format("svg"),
+    url(/calibre_medium-66766b74a6f2d4ebe7c16a85fa8d6e0445c793e539690b3b0a30db086af656ef.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_medium_italic-ce3f3554ea9b5ee716ec7fbc480a65aa3255f641002be96a34066ef46d45eaf5.woff)
+      format("woff"),
+    url(/calibre_medium_italic-ddbaa3de399573a2c626112d8f8fce6107b46e295fc833257de5990540d9ca40.woff2)
+      format("woff2"),
+    url(/calibre_medium_italic.svg) format("svg"),
+    url(/calibre_medium_italic.eot) format("eot");
+  font-style: italic;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_semibold-f428ac3ef52f48d4488b11a8c83be54c5e674731d4d496da17c1b16583530c34.woff)
+      format("woff"),
+    url(/calibre_semibold-db693bbf6a7c75277f4b84874d10545c6475a9844b7df19a2731636207bdbb93.woff2)
+      format("woff2"),
+    url(/calibre_semibold.svg) format("svg"),
+    url(/calibre_semibold-faac89f76b432d8accfcb923741282187d5c74b6ad09ef82048543c8baba4877.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_semibold_italic-a8458928004a0e74f4247fd44a59a3ee9b6ef02e18f5008188a985131b4a79ca.woff)
+      format("woff"),
+    url(/calibre_semibold_italic-1e0123686320c57444fe36eb113384c3d62f391ec9b6dc0a4ca1a86478cc1e69.woff2)
+      format("woff2"),
+    url(/calibre_semibold_italic.svg) format("svg"),
+    url(/calibre_semibold_italic-003649754379a0f18b098fff94c041fe78653f2d46d3b53b92845913ffd516df.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_bold-173cc06a6cc0cbdcf2f2cbb980014e152280486b482eb1508ce1b6824d27b3e0.woff)
+      format("woff"),
+    url(/calibre_bold-9b8cf15ea5b2e98f9c87cfb34fb8b9550a2bcb7a46db8fe59cead456bd0204ea.woff2)
+      format("woff2"),
+    url(/calibre_bold.svg) format("svg"),
+    url(/calibre_bold-53d67dfc019960cb7ac2250663ef1ced57fdccc791f57e0580c6f511673afa8f.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_bold_italic-8f2be1f2ca18fd99e0af6bd4689ca2c20bded774336f762d9ed3397b5f26d950.woff)
+      format("woff"),
+    url(/calibre_bold_italic-0678fa63e783cef36c4ef1be2cd29a7fb0a288c1ececb5570adc81d7560ed7ae.woff2)
+      format("woff2"),
+    url(/calibre_bold_italic.svg) format("svg"),
+    url(/calibre_bold_italic-d0bc0f1c08b0342f558be4f6f31d04c6870f590a2a65ea0ee3de7c2a3f104c0b.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_black-bd329df5ad874cb2f6d3516e1235dcfa831b364a7ffc090eb3fb296d02d8e3e8.woff)
+      format("woff"),
+    url(/calibre_black-f3545a8a42348b9dc49c611f9d95bee9fe0d15aa411ecadb127b67b349c5e1ff.woff2)
+      format("woff2"),
+    url(/calibre_black.svg) format("svg"),
+    url(/calibre_black-087f7b1e8c5e636015dba530566461ae9b50774ff1bfe7c2ed8a74a175d1e1cc.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url(/calibre_black_italic-c169317f364059acfaae7a11def41bc29955db01c4d14efc322b8a281765dbc1.woff)
+      format("woff"),
+    url(/calibre_black_italic-7daa5835a65905ba93492cd4861004a61d756e5b255789bae9634faeb6510739.woff2)
+      format("woff2"),
+    url(/calibre_black_italic.svg) format("svg"),
+    url(/calibre_black_italic.eot) format("eot");
+  font-style: italic;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_roman-9cb852535422706caa218b64f99443f495bcf06ba8b967f14af9c8c95dd3fe45.woff)
+      format("woff"),
+    url(/glosa_display_roman-6ca1663a0e4f63f0a1d80fed18daa54aff68b5962f229a6c9ba180305af177c7.woff2)
+      format("woff2"),
+    url(/glosa_display_roman-31c00054b1479e35763994a88f810a8bff33c11102cae9b16d7d73cdbf696a14.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_roman_italic-ef3dc5c0d72aa1ff816b2fe022a7bcd73fb78f3f5b5e865edcdfe458c65dc7af.woff)
+      format("woff"),
+    url(/glosa_display_roman_italic-125c2ef2621e6d44f8b6e4b025e7fabf1f4cc197007609759e8afa18f95c15d9.woff2)
+      format("woff2"),
+    url(/glosa_display_roman_italic-ae962ec7c4bc84c75e88d17e44e2c7d4ea42c99ec84496f0d10f3d1e4b237b1e.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_medium-100650c51b4309ae282871dd8400d34239104335b468dd5f8676fcc796d9b09a.woff)
+      format("woff"),
+    url(/glosa_display_medium-9e1ed3f16ab07b015c048026790d8337780821ae5caf0b3a7574ac8144827327.woff2)
+      format("woff2"),
+    url(/glosa_display_medium-69297ac25d8e07882dad4e6ca0d585b529637db523782715af94da9e02666a7c.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_medium_italic-f9be59a7c86f9f696bd9dffdd0b628feadec3a2425ed291aa7dda00af4f0caea.woff)
+      format("woff"),
+    url(/glosa_display_medium_italic-9e1c8a11aa96962af121bdfd399fd80d5bca34b4e7aeb310e7bfda44103eb47e.woff2)
+      format("woff2"),
+    url(/glosa_display_medium_italic-c92376cf26466bfbbc1674869395098fffbb893415ea25c311704767bca4f668.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_bold-c19a9258cf04ca61a78443fc36144fda5b77fd5337cbb92c89cee98d4fbc1ddd.woff)
+      format("woff"),
+    url(/glosa_display_bold-1ee96402723adc13fe49d356c4c61796e7a2787a41fee073e6a9380822b4e026.woff2)
+      format("woff2"),
+    url(/glosa_display_bold-6d1fecad25f15d24c82c1a3b66162cdb23968d3105e9afd3bbda2dadbc9fb758.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_bold_italic-bb026cd4b9efaafb13c83c9ef62b6f2c6a84f452910dd644b3c36f1644cfd882.woff)
+      format("woff"),
+    url(/glosa_display_bold_italic-e72cc7063221d17243d426da1ec4666e021252c59370f4d0be2a26046f675669.woff2)
+      format("woff2"),
+    url(/glosa_display_bold_italic-e313ed0066c14576bc8f6d083f77ffff81ed0d4a8d0d308d6554a9ad3a71a409.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_black-cf1c4f0c748422b04e9767d3f324373411b6f120b69feac77e73e13f21888ece.woff)
+      format("woff"),
+    url(/glosa_display_black-534995ac1152f44edf0238adffe1361ba5dfe7f91037b8299e040c3f24eaab77.woff2)
+      format("woff2"),
+    url(/glosa_display_black-d04c4c93cbd0b886539fcf3193cfceafe45f22b12202ba49c7bc04df1b59d2a1.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(/glosa_display_black_italic-0839564f897d9b1effa88f47f2c5fe86d65ec254f53d9c9f4ed3edf6165f73a8.woff)
+      format("woff"),
+    url(/glosa_display_black_italic-2db32c76974b573885d6a9096d7f32e9b8d00205473f738aef4e07646798ecf7.woff2)
+      format("woff2"),
+    url(/glosa_display_black_italic-1ba5d4479086f238167171bb0f8e3fcd10390cde158cccfd6600aaf367c060cd.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 900;
+}

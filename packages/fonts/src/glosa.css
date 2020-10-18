@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_roman-9cb852535422706caa218b64f99443f495bcf06ba8b967f14af9c8c95dd3fe45.woff)
+      format("woff"),
+    url(./glosa/glosa_display_roman-6ca1663a0e4f63f0a1d80fed18daa54aff68b5962f229a6c9ba180305af177c7.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_roman-31c00054b1479e35763994a88f810a8bff33c11102cae9b16d7d73cdbf696a14.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_roman_italic-ef3dc5c0d72aa1ff816b2fe022a7bcd73fb78f3f5b5e865edcdfe458c65dc7af.woff)
+      format("woff"),
+    url(./glosa/glosa_display_roman_italic-125c2ef2621e6d44f8b6e4b025e7fabf1f4cc197007609759e8afa18f95c15d9.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_roman_italic-ae962ec7c4bc84c75e88d17e44e2c7d4ea42c99ec84496f0d10f3d1e4b237b1e.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_medium-100650c51b4309ae282871dd8400d34239104335b468dd5f8676fcc796d9b09a.woff)
+      format("woff"),
+    url(./glosa/glosa_display_medium-9e1ed3f16ab07b015c048026790d8337780821ae5caf0b3a7574ac8144827327.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_medium-69297ac25d8e07882dad4e6ca0d585b529637db523782715af94da9e02666a7c.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_medium_italic-f9be59a7c86f9f696bd9dffdd0b628feadec3a2425ed291aa7dda00af4f0caea.woff)
+      format("woff"),
+    url(./glosa/glosa_display_medium_italic-9e1c8a11aa96962af121bdfd399fd80d5bca34b4e7aeb310e7bfda44103eb47e.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_medium_italic-c92376cf26466bfbbc1674869395098fffbb893415ea25c311704767bca4f668.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_bold-c19a9258cf04ca61a78443fc36144fda5b77fd5337cbb92c89cee98d4fbc1ddd.woff)
+      format("woff"),
+    url(./glosa/glosa_display_bold-1ee96402723adc13fe49d356c4c61796e7a2787a41fee073e6a9380822b4e026.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_bold-6d1fecad25f15d24c82c1a3b66162cdb23968d3105e9afd3bbda2dadbc9fb758.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_bold_italic-bb026cd4b9efaafb13c83c9ef62b6f2c6a84f452910dd644b3c36f1644cfd882.woff)
+      format("woff"),
+    url(./glosa/glosa_display_bold_italic-e72cc7063221d17243d426da1ec4666e021252c59370f4d0be2a26046f675669.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_bold_italic-e313ed0066c14576bc8f6d083f77ffff81ed0d4a8d0d308d6554a9ad3a71a409.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_black-cf1c4f0c748422b04e9767d3f324373411b6f120b69feac77e73e13f21888ece.woff)
+      format("woff"),
+    url(./glosa/glosa_display_black-534995ac1152f44edf0238adffe1361ba5dfe7f91037b8299e040c3f24eaab77.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_black-d04c4c93cbd0b886539fcf3193cfceafe45f22b12202ba49c7bc04df1b59d2a1.eot)
+      format("eot");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Glosa Display";
+  src: url(./glosa/glosa_display_black_italic-0839564f897d9b1effa88f47f2c5fe86d65ec254f53d9c9f4ed3edf6165f73a8.woff)
+      format("woff"),
+    url(./glosa/glosa_display_black_italic-2db32c76974b573885d6a9096d7f32e9b8d00205473f738aef4e07646798ecf7.woff2)
+      format("woff2"),
+    url(./glosa/glosa_display_black_italic-1ba5d4479086f238167171bb0f8e3fcd10390cde158cccfd6600aaf367c060cd.eot)
+      format("eot");
+  font-style: italic;
+  font-weight: 900;
+}

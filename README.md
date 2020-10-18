@@ -1,14 +1,16 @@
 <!--suppress HtmlDeprecatedAttribute -->
+
 [![Build Status](https://travis-ci.com/NiGhTTraX/ts-monorepo.svg?branch=master)](https://travis-ci.com/NiGhTTraX/ts-monorepo)
 
 <div align="center">
 Template project for setting up a TypeScript monorepo
 </div>
 
-----
+---
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of content**
 
 - [Features](#features)
@@ -24,6 +26,25 @@ Template project for setting up a TypeScript monorepo
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Packages
+
+```
+@cassler/cra-babel-example  v1.0.0 examples/cra-ejected-babel (PRIVATE)
+@cassler/cra                v1.0.0 examples/cra               (PRIVATE)
+@cassler/jest-babel-example v1.0.0 examples/jest-babel        (PRIVATE)
+@cassler/jest-example       v1.0.0 examples/jest-tsjest       (PRIVATE)
+@cassler/nextjs             v1.0.0 examples/nextjs            (PRIVATE)
+@cassler/ts-node            v1.0.0 examples/ts-node           (PRIVATE)
+@cassler/webpack-example    v1.0.0 examples/webpack           (PRIVATE)
+@cassler/bar                v1.0.0 packages/bar
+@cassler/color              v1.0.0 packages/colors
+@cassler/components         v1.0.0 packages/components
+@cassler/fonts              v1.0.0 packages/fonts
+@cassler/foo                v1.0.0 packages/foo
+@cassler/hooks              v1.0.0 packages/hooks
+@cassler/snippets           v1.0.0 packages/snippets
+```
+
 ## Features
 
 The main focus of this repo is making the `Go to definition` feature in IDEs work without any surprises, meaning it will work after a fresh clone without needing to build the project.
@@ -34,7 +55,6 @@ The secondary focus is to remove surprises when publishing packages. The repo is
 
 ![build-output](./media/build-output.png)
 
-
 ## Setup
 
 This repo uses [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) and [Lerna](https://lerna.js.org/). I recommend `yarn` for monorepos due to its easier setup, but everything here works with `npm` and `lerna bootstrap` as well and you can check that out in the [`npm` branch](https://github.com/NiGhTTraX/ts-monorepo/tree/npm).
@@ -42,7 +62,6 @@ This repo uses [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/
 ```
 yarn install
 ```
-
 
 ## Docs
 
@@ -106,8 +125,8 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
   resolve: {
-    plugins: [new TsconfigPathsPlugin()]
-  }
+    plugins: [new TsconfigPathsPlugin()],
+  },
 };
 ```
 
@@ -117,7 +136,7 @@ See the full example [here](examples/webpack).
 
 If you use `Babel` then see [this example](examples/jest-babel) from the [Babel](#babel) section above.
 
-If you use [ts-jest](https://github.com/kulshekhar/ts-jest) then you can use its `pathsToModuleNameMapper` helper: 
+If you use [ts-jest](https://github.com/kulshekhar/ts-jest) then you can use its `pathsToModuleNameMapper` helper:
 
 ```js
 const { pathsToModuleNameMapper } = require("ts-jest/utils");
@@ -160,7 +179,6 @@ module.exports = (config) => {
 ```
 
 See the full example [here](examples/cra).
-
 
 ### NextJS
 
