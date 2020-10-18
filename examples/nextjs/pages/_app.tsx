@@ -1,8 +1,7 @@
 // import App from 'next/app'
 import { useState, useEffect } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
-import { useColorMode, ColorProvider } from '@cassler/hooks';
-import { Tint, Tints } from '@cassler/hooks'
+import Wrapper from '../components/wrapper';
 
 import "../styles/global.scss";
 
@@ -16,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
+			<Wrapper>
+      	<Component {...pageProps} />
+			</Wrapper>
     </ThemeProvider>
   );
 }

@@ -4,7 +4,6 @@ import { jsx, css, Global } from "@emotion/core";
 import paragraphs from "../lib/lorem";
 import { pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Wrapper from '../components/wrapper';
 
 import {
   faCoffee,
@@ -25,7 +24,7 @@ export default () => {
   const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
 
   return (
-    <Wrapper>
+    <>
         <div className="content">
           <h1>
             <FontAwesomeIcon
@@ -70,7 +69,7 @@ export default () => {
             <p>{paragraphs[3]}</p>
           </Card>
         </div>
-      </Wrapper>
+      </>
   );
 };
 
