@@ -1,6 +1,24 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function useMedia(queries, values, defaultValue) {
+/**
+ *
+ * @param queries
+ * @param values
+ * @param Example usage:
+
+ const columnCount = useMedia<number>(
+    // Media queries
+    ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 600px)'],
+    // Column counts (relates to above media queries by array index)
+    [5, 4, 3],
+    // Default column count
+    2
+  );
+
+ **/
+
+export default function useMedia<T>(queries: string[], values: T[], defaultValue: T) {
+	if (typeof window === "undefined") { return }
   // Array containing a media query list for each query
   const mediaQueryLists = queries.map(q => window.matchMedia(q));
 
@@ -9,11 +27,11 @@ export default function useMedia(queries, values, defaultValue) {
     // Get index of first media query that matches
     const index = mediaQueryLists.findIndex(mql => mql.matches);
     // Return related value or defaultValue if none
-    return typeof values[index] !== 'undefined' ? values[index] : defaultValue;
+    return values?.[index] || defaultValue;
   };
 
   // State and setter for matched value
-  const [value, setValue] = useState(getValue);
+  const [value, setValue] = useState<T>(getValue);
 
   useEffect(
     () => {

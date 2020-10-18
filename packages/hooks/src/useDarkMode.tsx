@@ -3,11 +3,15 @@ import useMedia from './useMedia';
 import useLocalStorage from './useLocalStorage';
 
 
-export default function useDarkMode() {
+export type HookStringBool = [
+	boolean,
+	(value: boolean | ((val: boolean) => boolean)) => void
+]
+export default function useDarkMode(): HookStringBool {
 	// Use our useLocalStorage hook to persist state through a page refresh.
   // Read the recipe for this hook to learn more: usehooks.com/useLocalStorage
-  const [enabledState, setEnabledState] = useLocalStorage<string>(
-		'enabledState','dark-mode-enabled'
+  const [enabledState, setEnabledState] = useLocalStorage<boolean>(
+		'enabledState',true
 	);
 	// const [name, setName] = useLocalStorage<string>('name', 'Bob');
 

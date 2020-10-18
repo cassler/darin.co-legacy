@@ -7,7 +7,8 @@ import { GlobalStyle } from "../lib/theme";
 import paragraphs from "../lib/lorem";
 import { coinFlip, pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PerfectScrollbar from "react-perfect-scrollbar";
+
+
 import {
   faCoffee,
   faCrow,
@@ -38,12 +39,14 @@ const emblems = [faCrow, faMoon, faSun, faFrog, faDove, faCoffee, faAtlas];
 
 export default () => {
   const theme = useTheme();
-  const [darkMode, toggleDark] = useState<boolean>(coinFlip());
-  const [accent, setAccent] = useState<AccentColor>(pickFromHat(AccentColors));
+  const [darkMode, toggleDark] = useState<boolean>(false);
+  const [accent, setAccent] = useState<AccentColor>(AccentColors[5]);
   const [footer, toggleFooter] = useState<boolean>(true);
 
   const currentIcon = pickFromHat(emblems);
   const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
+
+
 
   function cycleAccent(current: AccentColor) {
     let cursor = AccentColors.indexOf(current) + 1;

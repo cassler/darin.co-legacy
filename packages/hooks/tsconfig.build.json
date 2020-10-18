@@ -2,7 +2,13 @@
   "extends": "../../tsconfig.build.json",
 
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+		"module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+		"jsx": "react",
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
 
   "include": [

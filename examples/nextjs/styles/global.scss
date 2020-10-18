@@ -22,7 +22,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: calc(1rem + 0.25vh);
-  transition: 0.3s all;
+  transition: 0.3s all, 0.0s font-size;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }

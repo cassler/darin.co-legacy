@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-import useDarkMode from './useDarkMode';
+import useDarkMode, { HookStringBool } from './useDarkMode';
 import useLocalStorage from './useLocalStorage';
 
 // We want to clarify whick of the colors might be available.
 export type Tint =
 	"indigo"|"orange"|"teal"|"blue"|"grape"|"violet"| "yellow"|"cyan"|"pink"
 
-
-
-export const useColorMode = (initialValue?: Tint): [[string, (Tint) => void],[boolean, (boolean) => void]] => {
+export const useColorMode = (initialValue?: Tint):
+	[
+		[string, (Tint) => void],
+		HookStringBool
+	] => {
 
 	// Use whatever color is definied in the hook specifically
 	const initialColor = typeof initialValue !== 'undefined' ? initialValue : 'blue';

@@ -1,6 +1,5 @@
-export * as useWindowSize from './useWindowSize';
-export * as useMemoCompare from './useMemoCompare';
-export * as usDarkMode from './useDarkMode';
-export * as useLocalStorage from './useLocalStorage';
-export * as useMedia from './useMedia'
-export * as useColorMode from './useColorMode';
+export *  from './useWindowSize';
+export *  from './useMemoCompare';
+export *  from './useDarkMode';
+export *  from './useLocalStorage';
+export *  from './useColorMode';

@@ -1,7 +1,7 @@
 // import App from 'next/app'
 import { useState, useEffect } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
-import { useWindowSize } from "@cassler/hooks";
+import { useColorMode } from '@cassler/hooks';
 
 import "../styles/global.scss";
 
@@ -13,12 +13,8 @@ import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTheme, setTheme] = useState(theme);
-  useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }, []);
+	const [[a,b],[c,d]] = useColorMode();
 
-  const { height, width } = useWindowSize();
 
   return (
     <ThemeProvider theme={currentTheme}>
