@@ -206,10 +206,11 @@ export const Micron: React.FC<MicronPropsI> = ({ cb, bomb, row, col, proximity, 
 		width: 100%;
 		box-sizing: border-box;
 		height: 60px;
-		background: #fff;
+		background: var(--bg-color);
 		margin: -2px 0 0;
 		outline: none;
-		border: 1px solid #ddd;
+		color: var(--primary-color);
+		border: 1px solid var(--contrast-color);
 		font-size: 24px;
 	`
 
