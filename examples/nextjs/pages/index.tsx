@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Button } from "@cassler/components";
 /** @jsx jsx */
 import { jsx, css, Global } from "@emotion/core";
-import { useTheme } from "emotion-theming";
-import { GlobalStyle } from "../lib/theme";
 import paragraphs from "../lib/lorem";
-import { coinFlip, pickFromHat } from "@cassler/snippets";
+import { pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Wrapper from '../components/wrapper';
 
 import {
   faCoffee,
@@ -19,38 +15,17 @@ import {
   faDove,
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
-import { useColorMode } from "@cassler/hooks/src";
 
 
 const emblems = [faCrow, faMoon, faSun, faFrog, faDove, faCoffee, faAtlas];
 
 export default () => {
-  const theme = useTheme();
-
-  const [footer, toggleFooter] = useState<boolean>(true);
-	const [[ color, setColor ], [darkMode, setDarkMode]] = useColorMode();
 
   const currentIcon = pickFromHat(emblems);
   const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
 
-
-  useEffect(() => {
-    let currentTheme = darkMode ? "dark" : "light";
-    let currentAccent = `${currentTheme} ${color}`;
-    document.documentElement.setAttribute("data-theme", currentAccent);
-  }, [darkMode, color]);
-
-
   return (
-    <div>
-      <Global styles={GlobalStyle} />
-      <Layout
-        theme={theme}
-        size="small"
-        header={<Header darkMode={darkMode} color={color} />}
-        footer={<Footer darkMode={darkMode} color={color} setDarkMode={setDarkMode} setColor={setColor} />}
-        sidebar={<span>Sidebar</span>}
-      >
+    <Wrapper>
         <div className="content">
           <h1>
             <FontAwesomeIcon
@@ -95,8 +70,7 @@ export default () => {
             <p>{paragraphs[3]}</p>
           </Card>
         </div>
-      </Layout>
-    </div>
+      </Wrapper>
   );
 };
 
