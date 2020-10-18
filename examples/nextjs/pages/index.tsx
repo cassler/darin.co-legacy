@@ -7,7 +7,8 @@ import { GlobalStyle } from "../lib/theme";
 import paragraphs from "../lib/lorem";
 import { coinFlip, pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 import {
   faCoffee,
@@ -18,49 +19,27 @@ import {
   faDove,
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
+import { useColorMode } from "@cassler/hooks/src";
 
-export type AccentColor =
-  | "blue"
-  | "indigo"
-  | "orange"
-  | "violet"
-  | "grape"
-  | "teal";
-export const AccentColors: AccentColor[] = [
-  "blue",
-  "indigo",
-  "orange",
-  "violet",
-  "grape",
-  "teal",
-];
 
 const emblems = [faCrow, faMoon, faSun, faFrog, faDove, faCoffee, faAtlas];
 
 export default () => {
   const theme = useTheme();
-  const [darkMode, toggleDark] = useState<boolean>(false);
-  const [accent, setAccent] = useState<AccentColor>(AccentColors[5]);
+
   const [footer, toggleFooter] = useState<boolean>(true);
+	const [[ color, setColor ], [darkMode, setDarkMode]] = useColorMode();
 
   const currentIcon = pickFromHat(emblems);
   const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
 
 
-
-  function cycleAccent(current: AccentColor) {
-    let cursor = AccentColors.indexOf(current) + 1;
-    if (cursor === AccentColors.length) {
-      setAccent(AccentColors[0]);
-    } else {
-      setAccent(AccentColors[cursor]);
-    }
-  }
   useEffect(() => {
     let currentTheme = darkMode ? "dark" : "light";
-    let currentAccent = `${currentTheme} ${accent}`;
+    let currentAccent = `${currentTheme} ${color}`;
     document.documentElement.setAttribute("data-theme", currentAccent);
-  }, [darkMode, accent]);
+  }, [darkMode, color]);
+
 
   return (
     <div>
@@ -68,28 +47,8 @@ export default () => {
       <Layout
         theme={theme}
         size="small"
-        header={
-          <div className="center">
-            <h5>Notes from the Lab</h5>
-          </div>
-        }
-        footer={
-          footer && (
-            <div className="center">
-              <Button size="small" onClick={() => cycleAccent(accent)}>
-                Cycle Color
-              </Button>
-              <Button
-                size="small"
-                primary
-                onClick={() => toggleDark(!darkMode)}
-              >
-                <FontAwesomeIcon icon={darkMode ? faMoon : faSun} />
-                &nbsp; Use {darkMode ? "Light" : "Dark"} Mode
-              </Button>
-            </div>
-          )
-        }
+        header={<Header darkMode={darkMode} color={color} />}
+        footer={<Footer darkMode={darkMode} color={color} setDarkMode={setDarkMode} setColor={setColor} />}
         sidebar={<span>Sidebar</span>}
       >
         <div className="content">

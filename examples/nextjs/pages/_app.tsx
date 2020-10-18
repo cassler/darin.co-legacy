@@ -1,7 +1,8 @@
 // import App from 'next/app'
 import { useState, useEffect } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
-import { useColorMode } from '@cassler/hooks';
+import { useColorMode, ColorProvider } from '@cassler/hooks';
+import { Tint, Tints } from '@cassler/hooks'
 
 import "../styles/global.scss";
 
@@ -12,12 +13,9 @@ import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [currentTheme, setTheme] = useState(theme);
-	const [[a,b],[c,d]] = useColorMode();
-
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ThemeProvider theme={theme}>
       <Component {...pageProps} />
     </ThemeProvider>
   );
