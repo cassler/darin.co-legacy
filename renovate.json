@@ -2,7 +2,9 @@
   "extends": [
     "config:base"
   ],
-  "schedule": ["monthly"],
+  "schedule": [
+    "daily"
+  ],
   "rangeStrategy": "replace",
   "automerge": true
 }
