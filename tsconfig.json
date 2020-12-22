@@ -1,13 +1,21 @@
 {
   "extends": "./tsconfig.build.json",
-
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@nighttrax/*": ["packages/*/src"]
+      "@cassler/*": [
+        "packages/*/src"
+      ]
     },
     "jsx": "react",
     "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "types": [
+      "@emotion/react"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules"
+  ],
 }

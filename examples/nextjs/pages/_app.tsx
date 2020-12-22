@@ -1,11 +1,28 @@
 // import App from 'next/app'
-import type { AppProps /*, AppContext */ } from 'next/app'
-import './global.css';
+import { useState, useEffect } from "react";
+import type { AppProps /*, AppContext */ } from "next/app";
+import Wrapper from '../components/wrapper';
+
+
+import "../styles/global.scss";
+
+import "@cassler/fonts/src/mono.css";
+import "@cassler/fonts/src/calibre.css";
+import "@cassler/fonts/src/glosa.css";
+
+import { ThemeProvider, jsx } from "@emotion/react";
+import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />
-}
 
+  return (
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <Component {...pageProps} />
+      </Wrapper>
+    </ThemeProvider>
+  );
+}
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
@@ -19,4 +36,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 //   return { ...appProps }
 // }
 
-export default MyApp
+export default MyApp;

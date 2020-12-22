@@ -1,24 +1,127 @@
 import React, { useEffect, useState } from "react";
-import { MicroSweeper, Button, Layout } from "@cassler/components";
-import { motion } from "framer-motion"
+import { jsx, Global } from "@emotion/react";
+import paragraphs from "../lib/lorem";
+import { pickFromHat } from "@cassler/snippets";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { css } from '@emotion/css'
+
+import {
+  faCoffee,
+  faCrow,
+  faAtlas,
+  faMoon,
+  faFrog,
+  faDove,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
+
+
+const emblems = [faCrow, faMoon, faSun, faFrog, faDove, faCoffee, faAtlas];
 
 export default () => {
-	// const [comment, setComment] = useState<string>();
-	// const newKanye = () => {
-	// 	fetch('https://api.kanye.rest')
-	// 		.then((res) => res.json())
-	// 		.then(data => setComment(data.quote))
-	// }
-	// useEffect(() => {
-	// 	newKanye()
-	// }, [])
 
-	return (
+  const currentIcon = pickFromHat(emblems);
+  const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
 
-		<div>
-			<MicroSweeper size={20} difficulty={0.9} />
-			<h5>Your current yeet is:</h5>
-		</div>
+  return (
+    <>
+      <div className="content">
+        <h1>
+          <FontAwesomeIcon
+            icon={currentIcon}
+            style={{ color: "var(--primary-color)" }}
+          />
+            &nbsp;
+            <FontAwesomeIcon
+            icon={secondIcon}
+            style={{ color: "var(--primary-accent)" }}
+          />
+        </h1>
+        <h4>darin.cos</h4>
+        <PageTitle>
+          Making neato internet <br />
+          <span style={{ color: "var(--primary-color" }}>
+            <em>magic</em>{" "}
+          </span>
+            since 1999.
+          </PageTitle>
+        <SubTitle>{paragraphs[0]}</SubTitle>
+        <p>{paragraphs[1]}</p>
+        <h2>Design for Access</h2>
+        <Image
+          width="140px"
+          right
+          url="https://images.unsplash.com/photo-1599921051697-c8d23fb8e65a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+        />
+        <p>{paragraphs[2]}</p>
+        <p>{paragraphs[3]}</p>
+        <p>{paragraphs[4]}</p>
+        <h2>Built for Humans</h2>
+        <p>{paragraphs[5]}</p>
+        <p>{paragraphs[6]}</p>
+        <p>{paragraphs[7]}</p>
+        <p>{paragraphs[8]}</p>
+        <h2>
+          Handcrafted in <Strike>Vermont</Strike> Texas
+          </h2>
+        <p>{paragraphs[9]}</p>
+        <Card>
+          <p>{paragraphs[3]}</p>
+        </Card>
+      </div>
+    </>
+  );
+};
 
-	)
+const Strike = (props) => {
+  const styles = {
+    textDecoration: "line-through",
+  };
+  return <span style={styles}>{props.children}</span>;
+};
+
+
+const Image = (props) => {
+  const sty = css({
+    borderRadius: 14,
+    backgroundClip: "padding-box",
+    maxWidth: props.width
+  })
+
+  return (
+    <div className={sty}>
+      <img src={props.url} />
+    </div>
+  );
+};
+
+const Card = (props) => {
+  const styles = {
+    backgroundColor: "var(--contrast-color)",
+    border: "1px solid var(--hint-color)",
+    padding: "0.25rem 1.5rem",
+    fontSize: "0.9em",
+    borderRadius: "5px",
+  };
+  return <div style={styles}>{props.children}</div>;
+};
+
+const PageTitle = (props) => {
+  return <h1>{props.children}</h1>;
+};
+const SubTitle = (props) => {
+  const styles = {
+    fontSize: "1.333em",
+    color: "var(--font-secondary-color)",
+  };
+  return <span style={styles}>{props.children}</span>;
+};
+
+const Caption = (props) => {
+  const styles = {
+    color: "var(--font-secondary-color)",
+    fontSize: "0.9em",
+    fontWeight: 400,
+  };
+  return <p style={styles}>{props.children}</p>;
 };
