@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-/** @jsx jsx */
-import { jsx, css, Global } from "@emotion/react";
+import { jsx, Global } from "@emotion/react";
 import paragraphs from "../lib/lorem";
 import { pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { css } from '@emotion/css'
 
 import {
   faCoffee,
@@ -80,25 +80,16 @@ const Strike = (props) => {
   return <span style={styles}>{props.children}</span>;
 };
 
+
 const Image = (props) => {
-  const styles = css`
-    border-radius: 14px;
-    background-clip: padding-box;
-    max-width: ${props.width};
-    ${props.right &&
-    css`
-      float: right;
-      margin-left: 1rem;
-      margin-bottom: 0.5rem;
-    `}
-    img {
-      border-radius: 14px;
-      max-width: 100%;
-      height: auto;
-    }
-  `;
+  const sty = css({
+    borderRadius: 14,
+    backgroundClip: "padding-box",
+    maxWidth: props.width
+  })
+
   return (
-    <div css={styles}>
+    <div className={sty}>
       <img src={props.url} />
     </div>
   );
