@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import type { AppProps /*, AppContext */ } from "next/app";
 import Wrapper from '../components/wrapper';
 
+
 import "../styles/global.scss";
 
 import "@cassler/fonts/src/mono.css";
 import "@cassler/fonts/src/calibre.css";
 import "@cassler/fonts/src/glosa.css";
 
-import { ThemeProvider } from "emotion-theming";
+import { ThemeProvider, jsx } from "@emotion/react";
 import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {

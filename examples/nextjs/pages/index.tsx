@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 /** @jsx jsx */
-import { jsx, css, Global } from "@emotion/core";
+import { jsx, css, Global } from "@emotion/react";
 import paragraphs from "../lib/lorem";
 import { pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

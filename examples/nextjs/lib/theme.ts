@@ -2,7 +2,7 @@ import { colors } from "@cassler/color";
 import Color from "color";
 
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 
 export const theme = {
   color: {

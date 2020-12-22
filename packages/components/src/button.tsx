@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import React from "react";
 /** @jsx jsx */
-import { ClassNames, css, jsx } from "@emotion/core";
+import { ClassNames, css, jsx } from "@emotion/react";
 import { colors } from "@cassler/color";
 
 export type IButtonProps = {

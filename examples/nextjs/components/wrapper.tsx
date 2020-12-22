@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "@cassler/components";
 /** @jsx jsx */
-import { jsx, css, Global } from "@emotion/core";
-import { useTheme } from "emotion-theming";
+import { jsx, css, Global, useTheme } from "@emotion/react";
 import { GlobalStyle } from "../lib/theme";
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -12,7 +11,7 @@ import { useColorMode } from "@cassler/hooks/src";
 
 export const Wrapper: React.FunctionComponent = (props) => {
   const theme = useTheme();
-	const [[ color, setColor ], [darkMode, setDarkMode]] = useColorMode();
+  const [[color, setColor], [darkMode, setDarkMode]] = useColorMode();
 
 
   useEffect(() => {
