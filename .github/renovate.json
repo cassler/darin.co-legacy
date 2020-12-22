@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "extends": [
+    "config:base"
+  ],
+  "schedule": [
+    "daily"
+  ],
+  "rangeStrategy": "replace",
+  "automerge": true,
+  "automergeType": "pr-comment",
+  "automergeComment": "bors: r+",
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/examples/**",
+    "**/__tests__/**",
+    "**/test/**",
+    "**/tests/**",
+    "**/__fixtures__/**"
+  ]
+}
