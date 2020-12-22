@@ -36,9 +36,9 @@ const lightColors = colorOptions.map((color) => {
 			--heading-color-alt: ${Color(currentHue[9]).darken(0.9).hex()};
 			--font-color: ${Color(currentHue[9]).desaturate(0.5).darken(0.5).hex()};
     	--font-secondary-color: ${Color(currentHue[9])
-        .desaturate(0.5)
-        .darken(0.5)
-        .hex()};
+      .desaturate(0.5)
+      .darken(0.5)
+      .hex()};
       --highlight: ${Color(currentHue[2]).lighten(0.1).fade(1).hex()};
     }
 		[data-theme*="dark"][data-theme*="${color}"] {
@@ -68,9 +68,9 @@ export const GlobalStyle = css`
     --contrast-color: #f9f9f9;
     --hint-color: rgba(21, 206, 95, 0.5);
     --ui-color: rgba(21, 206, 95, 1);
-    --font-body: "Calibre";
-    --font-alt: "Glosa Display";
-    --font-accent: "GT America Expanded Black Italic";
+    --font-body: "MNL", system-ui, -apple-system, "Calibre";
+    --font-alt: "MNL";
+    --font-accent: "MNL";
     --highlight: rgba(21, 206, 95, 0.1);
     --grid-unit: 1rem;
     --content-width: 95%;

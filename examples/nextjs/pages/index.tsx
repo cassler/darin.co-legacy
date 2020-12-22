@@ -25,51 +25,51 @@ export default () => {
 
   return (
     <>
-        <div className="content">
-          <h1>
-            <FontAwesomeIcon
-              icon={currentIcon}
-              style={{ color: "var(--primary-color)" }}
-            />
+      <div className="content">
+        <h1>
+          <FontAwesomeIcon
+            icon={currentIcon}
+            style={{ color: "var(--primary-color)" }}
+          />
             &nbsp;
             <FontAwesomeIcon
-              icon={secondIcon}
-              style={{ color: "var(--primary-accent)" }}
-            />
-          </h1>
-          <h4>darin.co</h4>
-          <PageTitle>
-            Making neato internet <br />
-            <span style={{ color: "var(--primary-color" }}>
-              <em>magic</em>{" "}
-            </span>
+            icon={secondIcon}
+            style={{ color: "var(--primary-accent)" }}
+          />
+        </h1>
+        <h4>darin.cos</h4>
+        <PageTitle>
+          Making neato internet <br />
+          <span style={{ color: "var(--primary-color" }}>
+            <em>magic</em>{" "}
+          </span>
             since 1999.
           </PageTitle>
-          <SubTitle>{paragraphs[0]}</SubTitle>
-          <p>{paragraphs[1]}</p>
-          <h2>Design for Access</h2>
-          <Image
-            width="140px"
-            right
-            url="https://images.unsplash.com/photo-1599921051697-c8d23fb8e65a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-          />
-          <p>{paragraphs[2]}</p>
-          <p>{paragraphs[3]}</p>
-          <p>{paragraphs[4]}</p>
-          <h2>Built for Humans</h2>
-          <p>{paragraphs[5]}</p>
-          <p>{paragraphs[6]}</p>
-          <p>{paragraphs[7]}</p>
-          <p>{paragraphs[8]}</p>
-          <h2>
-            Handcrafted in <Strike>Vermont</Strike> Texas
+        <SubTitle>{paragraphs[0]}</SubTitle>
+        <p>{paragraphs[1]}</p>
+        <h2>Design for Access</h2>
+        <Image
+          width="140px"
+          right
+          url="https://images.unsplash.com/photo-1599921051697-c8d23fb8e65a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+        />
+        <p>{paragraphs[2]}</p>
+        <p>{paragraphs[3]}</p>
+        <p>{paragraphs[4]}</p>
+        <h2>Built for Humans</h2>
+        <p>{paragraphs[5]}</p>
+        <p>{paragraphs[6]}</p>
+        <p>{paragraphs[7]}</p>
+        <p>{paragraphs[8]}</p>
+        <h2>
+          Handcrafted in <Strike>Vermont</Strike> Texas
           </h2>
-          <p>{paragraphs[9]}</p>
-          <Card>
-            <p>{paragraphs[3]}</p>
-          </Card>
-        </div>
-      </>
+        <p>{paragraphs[9]}</p>
+        <Card>
+          <p>{paragraphs[3]}</p>
+        </Card>
+      </div>
+    </>
   );
 };
 

@@ -1,0 +1,132 @@
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-ExtraLight.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-ExtraLight.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-ExtraLight.woff2)
+      format("woff2");
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-ExtraLightItalic.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-ExtraLightItalic.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-ExtraLightItalic.woff2)
+      format("woff2");
+  font-style: italic;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-Light.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-Light.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-Light.woff2)
+      format("woff2");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-LightItalic.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-LightItalic.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-LightItalic.woff2)
+      format("woff2");
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-Regular.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-Regular.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-Regular.woff2)
+      format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-RegularItalic.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-RegularItalic.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-RegularItalic.woff2)
+      format("woff2");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-Medium.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-Medium.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-Medium.woff2)
+      format("woff2");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-MediumItalic.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-MediumItalic.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-MediumItalic.woff2)
+      format("woff2");
+  font-style: italic;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-Bold.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-Bold.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-Bold.woff2)
+      format("woff2");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "MNL";
+  src: url(./monolisa/MonoLisa-BoldItalic.otf)
+      format("otf"),
+    url(./monolisa/MonoLisa-BoldItalic.woff)
+      format("woff"),
+    url(./monolisa/MonoLisa-BoldItalic.woff2)
+      format("woff2");
+  font-style: italic;
+  font-weight: 700;
+}
+
+/*
+
+MonoLisa-Bold.woff              MonoLisa-ExtraLightItalic.woff2 MonoLisa-MediumItalic.otf
+MonoLisa-Bold.woff2             MonoLisa-Light.otf              MonoLisa-MediumItalic.woff
+MonoLisa-Bold.otf               MonoLisa-ExtraLightItalic.woff  MonoLisa-Medium.woff2
+MonoLisa-BoldItalic.otf         MonoLisa-Light.woff             MonoLisa-MediumItalic.woff2
+MonoLisa-BoldItalic.woff        MonoLisa-Light.woff2
+MonoLisa-BoldItalic.woff2       MonoLisa-LightItalic.otf
+MonoLisa-ExtraLight.otf         MonoLisa-LightItalic.woff
+MonoLisa-ExtraLight.woff        MonoLisa-LightItalic.woff2      MonoLisa-RegularItalic.otf
+MonoLisa-ExtraLight.woff2       MonoLisa-Medium.otf             MonoLisa-RegularItalic.woff
+MonoLisa-ExtraLightItalic.otf   MonoLisa-Medium.woff            MonoLisa-RegularItalic.woff2 */

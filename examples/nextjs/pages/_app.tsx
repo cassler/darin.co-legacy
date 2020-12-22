@@ -5,8 +5,9 @@ import Wrapper from '../components/wrapper';
 
 import "../styles/global.scss";
 
-import "@cassler/fonts/src/glosa.css";
+import "@cassler/fonts/src/mono.css";
 import "@cassler/fonts/src/calibre.css";
+import "@cassler/fonts/src/glosa.css";
 
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "../lib/theme";
@@ -15,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme}>
-			<Wrapper>
-      	<Component {...pageProps} />
-			</Wrapper>
+      <Wrapper>
+        <Component {...pageProps} />
+      </Wrapper>
     </ThemeProvider>
   );
 }
