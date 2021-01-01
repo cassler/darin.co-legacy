@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-export type LayoutSize = 'small' | 'medium' | 'large';
+export type LayoutSize = "small" | "medium" | "large";
 
 export interface ILayoutProps {
   theme: unknown;
@@ -17,7 +17,7 @@ export const Layout: React.FunctionComponent<ILayoutProps> = ({
   children = null,
   header = null,
   sidebar = null,
-  size = 'medium',
+  size = "medium",
 }) => (
   <div className="layout-contain">
     {header && (
@@ -51,16 +51,16 @@ type SpaceProps = {
 };
 export const Space: React.FC<SpaceProps> = ({ size, children }) => {
   const childStyle = () => {
-    const base = { width: 'var(--content-width)' };
+    const base = { width: "var(--content-width)" };
     switch (size) {
-      case 'small': {
-        return { ...base, padding: '15px' };
+      case "small": {
+        return { ...base, padding: "15px" };
       }
-      case 'large': {
-        return { ...base, padding: '24px 48px' };
+      case "large": {
+        return { ...base, padding: "24px 48px" };
       }
       default: {
-        return { ...base, padding: '12px' };
+        return { ...base, padding: "12px" };
       }
     }
   };

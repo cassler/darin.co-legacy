@@ -89,18 +89,20 @@ module.exports = {
 
     quotes: [
       'error',
-      'single',
+      'double',
       {
         avoidEscape: true,
         allowTemplateLiterals: true,
       },
     ],
+    'jsx-quotes': ['error', 'prefer-double'],
     'prettier/prettier': [
       'error',
       {
         trailingComma: 'es5',
         printWidth: 80,
-        singleQuote: true,
+        singleQuote: false,
+        jsxSingleQuote: false,
       },
     ],
     radix: 0,
