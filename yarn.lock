@@ -1371,10 +1371,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cassler/eslint-config-base@^6.1.7":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-base/-/eslint-config-base-6.1.7.tgz#8dfc638a6d333a224688f897835ee3d5d960f2d7"
-  integrity sha512-aCyuvMdR1bqaImCy7397p7SnxhYUNP1iMl2l88FONki0FFKcUCkStS437YXRFUQB/G3Bs+fwcftIPxdKcD67Yg==
+"@cassler/eslint-config-base@^6.1.8":
+  version "6.1.8"
+  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-base/-/eslint-config-base-6.1.8.tgz#bd75f69d83bb39714f7c72bddcf33251bca9f65c"
+  integrity sha512-wz6qTRFjYI9iHXbBThWCsdvEin6yj/N9VaLi+KfC7+NERrQx0cjXFW9fnDOBbApVyN+u7oTXSJY7+01ZLL26mg==
   dependencies:
     eslint-config-airbnb-base "~14.2.1"
     eslint-config-prettier "~7.0.0"
@@ -1392,22 +1392,22 @@
     eslint-plugin-jsx-a11y "^6.2.3"
     eslint-plugin-react "^7.16.0"
 
-"@cassler/eslint-config-ts@^7.1.7":
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-ts/-/eslint-config-ts-7.1.7.tgz#f6dd16a44e5cf50b431cf907564b7acb52d259e2"
-  integrity sha512-Znc10g5GGb4pZLZrdRREx8VFAKnCZL72oC7T82iDmfsvbXHSelsGxN9jsI4z5b0Vb9AA2bfnq5DhqieB4FL+sA==
+"@cassler/eslint-config-ts@^7.1.8":
+  version "7.1.8"
+  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-ts/-/eslint-config-ts-7.1.8.tgz#4eea2a10806fa3715c91bba62dc0de46c8799165"
+  integrity sha512-f3XXdN5BFnnx80sC9vNgnwCBbUMKT/KT/kWdrMFDUzzUqtyBbzmknERkZkWU9w46r2omRoQNmOM98ulMB65M6Q==
   dependencies:
-    "@cassler/eslint-config-base" "^6.1.7"
+    "@cassler/eslint-config-base" "^6.1.8"
     "@typescript-eslint/eslint-plugin" "~3.10.0"
     "@typescript-eslint/parser" "~3.10.0"
 
-"@cassler/eslint-config-tsx@~7.1.7":
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-tsx/-/eslint-config-tsx-7.1.7.tgz#633fcff721d550f3d6f6c74ea9c089323cf1a044"
-  integrity sha512-+7lfaQUoZK77cUY2bfXuMdqQJKR/WmLEiLfWYmY1fXQM5uhILE/kqlrU+Gn+89pRu54c06DoC5QSx/2JnlFcaQ==
+"@cassler/eslint-config-tsx@~7.1.8":
+  version "7.1.8"
+  resolved "https://registry.yarnpkg.com/@cassler/eslint-config-tsx/-/eslint-config-tsx-7.1.8.tgz#bba72d94c1d75fecd2635d7c721958a265193582"
+  integrity sha512-AGLUtcPm01CUO1nDQLA9kBTg3PgSXUPyUZbMRyC6Dc86fRkiL+a7UQ4zZFgMAFNAPMefJxJprHqoTohpbg7ijA==
   dependencies:
     "@cassler/eslint-config-react" "^4.0.2"
-    "@cassler/eslint-config-ts" "^7.1.7"
+    "@cassler/eslint-config-ts" "^7.1.8"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
