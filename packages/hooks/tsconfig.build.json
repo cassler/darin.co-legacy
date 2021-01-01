@@ -1,16 +1,17 @@
 {
   "extends": "../../tsconfig.build.json",
-
   "compilerOptions": {
     "outDir": "./dist",
-		"module": "commonjs",
-    "target": "es5",
+    "module": "commonjs",
+    "target": "es2017",
     "sourceMap": true,
-		"jsx": "react",
+    "jsx": "react",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": [
+      "ES2015"
+    ]
   },
-
   "include": [
     "src/**/*"
   ]

@@ -1,26 +1,26 @@
 {
-	"name": "ts-monorepo",
-	"description": "Template for setting up a TypeScript monorepo",
-	"private": true,
-	"workspaces": [
-		"packages/*",
-		"examples/*"
-	],
-	"scripts": {
-		"docs": "doctoc --title '**Table of content**' README.md",
-		"clean": "lerna run clean",
-		"build": "lerna run build",
-		"pub": "lerna publish",
-		"test": "lerna run test",
-		"next:build": "lerna run --scope @cassler/nextjs build",
-		"next": "lerna run --scope @cassler/nextjs dev"
-	},
-	"devDependencies": {
-		"@nighttrax/eslint-config-tsx": "~7.0.0",
-		"doctoc": "~2.0.0",
-		"eslint": "~7.16.0",
-		"eslint-config-airbnb": "^18.2.0",
-		"lerna": "~3.22.0",
-		"typescript": "^4.0.2"
-	}
+  "name": "ts-monorepo",
+  "description": "Template for setting up a TypeScript monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "docs": "doctoc --title '**Table of content**' README.md",
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "pub": "lerna publish",
+    "test": "lerna run test",
+    "next:build": "lerna run --scope @cassler/nextjs build",
+    "next": "lerna run --scope @cassler/nextjs dev"
+  },
+  "devDependencies": {
+    "@cassler/eslint-config-tsx": "~7.1.5",
+    "doctoc": "~2.0.0",
+    "eslint": "~7.16.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "lerna": "^3.22.0",
+    "typescript": "^4.0.2"
+  }
 }

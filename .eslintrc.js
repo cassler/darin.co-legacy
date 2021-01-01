@@ -1,3 +1,4 @@
 module.exports = {
-  extends: 'airbnb',
+  root: true,
+  extends: ['@cassler/eslint-config-tsx'],
 };

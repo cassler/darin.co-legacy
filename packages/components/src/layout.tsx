@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export type LayoutSize = "small" | "medium" | "large";
+export type LayoutSize = 'small' | 'medium' | 'large';
 
 export interface ILayoutProps {
   theme: unknown;
@@ -17,32 +17,30 @@ export const Layout: React.FunctionComponent<ILayoutProps> = ({
   children = null,
   header = null,
   sidebar = null,
-  size = "medium",
-}) => {
-  return (
-    <div className="layout-contain">
-      {header && (
-        <div className="layout-header">
-          <div className="layout-inner">
-            <Space size={size}>{header}</Space>
-          </div>
-        </div>
-      )}
-      <div className="layout-main">
+  size = 'medium',
+}) => (
+  <div className="layout-contain">
+    {header && (
+      <div className="layout-header">
         <div className="layout-inner">
-          <Space size={size}>{children}</Space>
+          <Space size={size}>{header}</Space>
         </div>
       </div>
-      {footer && (
-        <div className="layout-footer">
-          <div className="layout-inner">
-            <Space size={size}>{footer}</Space>
-          </div>
-        </div>
-      )}
+    )}
+    <div className="layout-main">
+      <div className="layout-inner">
+        <Space size={size}>{children}</Space>
+      </div>
     </div>
-  );
-};
+    {footer && (
+      <div className="layout-footer">
+        <div className="layout-inner">
+          <Space size={size}>{footer}</Space>
+        </div>
+      </div>
+    )}
+  </div>
+);
 
 export default Layout;
 
@@ -53,16 +51,16 @@ type SpaceProps = {
 };
 export const Space: React.FC<SpaceProps> = ({ size, children }) => {
   const childStyle = () => {
-    let base = { width: "var(--content-width)" };
+    const base = { width: 'var(--content-width)' };
     switch (size) {
-      case "small": {
-        return { ...base, padding: "15px" };
+      case 'small': {
+        return { ...base, padding: '15px' };
       }
-      case "large": {
-        return { ...base, padding: "24px 48px" };
+      case 'large': {
+        return { ...base, padding: '24px 48px' };
       }
       default: {
-        return { ...base, padding: "12px" };
+        return { ...base, padding: '12px' };
       }
     }
   };

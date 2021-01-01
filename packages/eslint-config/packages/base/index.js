@@ -10,114 +10,101 @@ module.exports = {
     'eslint-config-airbnb-base/rules/style',
     'eslint-config-airbnb-base/rules/variables',
     'eslint-config-airbnb-base/rules/es6',
-  ].map(require.resolve).concat([
-    // This disables all stylistic rules from the above.
-    'prettier',
-  ]),
+  ]
+    .map(require.resolve)
+    .concat([
+      // This disables all stylistic rules from the above.
+      'prettier',
+      'prettier/react',
+    ]),
 
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 2018,
+    ecmaFeatures: {
+      impliedStrict: true,
+      classes: true,
+    },
+  },
   env: {
     browser: true,
+    node: true,
+    jest: true,
   },
 
   plugins: ['prettier', 'import'],
 
   rules: {
-    "prettier/prettier": [
-      "error",
+    'arrow-body-style': [2, 'as-needed'],
+
+    'import/no-extraneous-dependencies': [
+      'error',
       {
-        "trailingComma": "es5",
-        "singleQuote": true,
-        "printWidth": 80
-      }
-    ],
-    "arrow-body-style": [
-      2,
-      "as-needed"
+        devDependencies: false,
+      },
     ],
 
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies: false,
-    }],
-
-    "jsx-a11y/href-no-hash": "off",
-    "jsx-a11y/anchor-is-valid": [
-      "warn",
-      {
-        "aspects": [
-          "invalidHref"
-        ]
-      }
-    ],
-
+    'jsx-a11y/href-no-hash': 'off',
+    // "jsx-a11y/anchor-is-valid": 2,
     'one-var': 0,
     'one-var-declaration-per-line': 0,
     'prefer-arrow-callback': 0,
     strict: 0,
     'no-use-before-define': [2, { functions: false }],
     'no-underscore-dangle': 0,
-    "no-param-reassign": [
+    'no-param-reassign': [
       2,
       {
-        "props": false
-      }
+        props: false,
+      },
     ],
     'no-plusplus': 0,
-    "no-return-assign": [
-      "error",
-      "except-parens"
-    ],
-    "no-restricted-syntax": [
+    'no-return-assign': ['error', 'except-parens'],
+    'no-restricted-syntax': [
       2,
-      "ForInStatement",
-      "LabeledStatement",
-      "WithStatement"
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
     ],
-    "no-shadow": [
+    'no-shadow': [
       2,
       {
-        "hoist": "all",
-        "allow": [
-          "resolve",
-          "reject",
-          "done",
-          "next",
-          "err",
-          "error"
-        ]
-      }
+        hoist: 'all',
+        allow: ['resolve', 'reject', 'done', 'next', 'err', 'error'],
+      },
     ],
-    "no-unused-expressions": [
+    'no-unused-expressions': [
       2,
       {
-        "allowTaggedTemplates": true
-      }
+        allowTaggedTemplates: true,
+      },
     ],
-    "no-unused-vars": [
-      1,
+    'no-unused-vars': 2,
+    'prefer-const': [
+      'error',
       {
-        "ignoreSiblings": true,
-        "argsIgnorePattern": "res|next|^err"
-      }
-    ],
-    "prefer-const": [
-      "error",
-      {
-        "destructuring": "all"
-      }
+        destructuring: 'all',
+      },
     ],
 
-    "quotes": [
-      2,
-      "single",
+    quotes: [
+      'error',
+      'single',
       {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
+        avoidEscape: true,
+        allowTemplateLiterals: true,
+      },
     ],
-    "radix": 0,
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'es5',
+        printWidth: 80,
+        singleQuote: true,
+      },
+    ],
+    radix: 0,
   },
 
-  overrides: [
-    testOverrides,
-  ],
+  overrides: [testOverrides],
 };
