@@ -8,10 +8,16 @@ export function useWindowSize() {
     height: undefined,
   });
 
+  if (typeof window === "undefined") {
+    return windowSize;
+  }
+
   useEffect(() => {
     // Handler to call on window resize
+
     function handleResize() {
       // Set window width/height to state
+
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
