@@ -1,6 +1,12 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
+    "lib": [
+      "ES7",
+      "ES2015",
+      "DOM"
+    ],
+    "target": "es2017",
     "baseUrl": ".",
     "paths": {
       "@cassler/*": [

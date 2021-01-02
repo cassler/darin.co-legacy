@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
 import useMedia from './useMedia';
-import useLocalStorage from './useLocalStorage';
-
+import useLocalStorage from "./useLocalStorage";
 
 export type HookStringBool = [
-	boolean,
-	(value: boolean | ((val: boolean) => boolean)) => void
-]
+  boolean,
+  (value: boolean | ((val: boolean) => boolean)) => void
+];
 export default function useDarkMode(): HookStringBool {
-	// Use our useLocalStorage hook to persist state through a page refresh.
+  // Use our useLocalStorage hook to persist state through a page refresh.
   // Read the recipe for this hook to learn more: usehooks.com/useLocalStorage
   const [enabledState, setEnabledState] = useLocalStorage<boolean>(
-		'enabledState',true
-	);
-	// const [name, setName] = useLocalStorage<string>('name', 'Bob');
+    "enabledState",
+    true
+  );
+  // const [name, setName] = useLocalStorage<string>('name', 'Bob');
 
   // See if user has set a browser or OS preference for dark mode.
   // The usePrefersDarkMode hook composes a useMedia hook (see code below).
@@ -27,11 +27,11 @@ export default function useDarkMode(): HookStringBool {
   // Fire off effect that add/removes dark mode class
   useEffect(
     () => {
-			// Convert this to another hook!
-			// const currentTheme = enabled ? "dark" : "light";
-			// const accent = 'grape';
-    	// let currentAccent = `${currentTheme}-${accent}`;
-			// document.documentElement.setAttribute("data-theme", currentAccent);
+      // Convert this to another hook!
+      // const currentTheme = enabled ? "dark" : "light";
+      // const accent = 'grape';
+      // let currentAccent = `${currentTheme}-${accent}`;
+      // document.documentElement.setAttribute("data-theme", currentAccent);
     },
     [enabled, setEnabledState] // Only re-call effect when value changes
   );
@@ -39,7 +39,6 @@ export default function useDarkMode(): HookStringBool {
   // Return enabled state and setter
   return [enabled, setEnabledState];
 }
-
 
 // Compose our useMedia hook to detect dark mode preference.
 // The API for useMedia looks a bit weird, but that's because ...
@@ -49,4 +48,3 @@ export default function useDarkMode(): HookStringBool {
 export function usePrefersDarkMode() {
   return useMedia(['(prefers-color-scheme: dark)'], [true], false);
 }
-

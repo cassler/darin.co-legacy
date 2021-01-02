@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export type LocalStorageHook<T> = [
-	T,
-	(value: T | ((val: T) => T)) => void
-]
-export default function useLocalStorage<T>(key: string, initialValue: T):LocalStorageHook<T>  {
+export type LocalStorageHook<T> = [T, (value: T | ((val: T) => T)) => void];
+export default function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): LocalStorageHook<T> {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -33,7 +33,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T):LocalSt
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
-			 console.log(error);
+      console.log(error);
     }
   };
 
