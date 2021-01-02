@@ -1,12 +1,8 @@
-0 silly argv {
-0 silly argv   _: [ 'add' ],
-0 silly argv   globs: [],
-0 silly argv   lernaVersion: '3.22.1',
-0 silly argv   '$0': '/Users/darin/.npm-packages/bin/lerna',
-0 silly argv   pkg: '@types/emotion'
-0 silly argv }
-1 notice cli v3.22.1
-2 verbose rootPath /Users/darin/Code/@cassler
-3 info versioning independent
-4 error Error: 404 Not Found - GET https://registry.npmjs.org/@types%2femotion - Not found
-4 error     at /Users/darin/Code/@cassler/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15
+100 warn complete Waiting for 4 child processes to exit. CTRL-C to exit immediately.
+101 error Error: Command failed: git tag @cassler/jest-babel-example@1.0.1 -m @cassler/jest-babel-example@1.0.1
+101 error fatal: tag '@cassler/jest-babel-example@1.0.1' already exists
+101 error
+101 error     at makeError (/Users/darin/Code/@cassler/node_modules/execa/index.js:174:9)
+101 error     at /Users/darin/Code/@cassler/node_modules/execa/index.js:278:16
+101 error     at processTicksAndRejections (internal/process/task_queues.js:94:5)
+101 error     at async Promise.all (index 2)
