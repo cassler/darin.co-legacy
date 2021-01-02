@@ -1,29 +1,29 @@
-import React, { useEffect, useContext } from 'react';
-import useDarkMode, { HookStringBool } from './useDarkMode';
-import useLocalStorage from './useLocalStorage';
-import useMedia from './useMedia';
+import React, { useEffect, useContext } from "react";
+import useDarkMode, { HookStringBool } from "./useDarkMode";
+import useLocalStorage from "./useLocalStorage";
+import useMedia from "./useMedia";
 
 // We want to clarify whick of the colors might be available.
 export type Tint =
-  | 'indigo'
-  | 'orange'
-  | 'teal'
-  | 'blue'
-  | 'grape'
-  | 'violet'
-  | 'yellow'
-  | 'cyan'
-  | 'pink';
+  | "indigo"
+  | "orange"
+  | "teal"
+  | "blue"
+  | "grape"
+  | "violet"
+  | "yellow"
+  | "cyan"
+  | "pink";
 export const Tints = [
-  'indigo',
-  'orange',
-  'teal',
-  'blue',
-  'grape',
-  'violet',
-  'yellow',
-  'cyan',
-  'pink',
+  "indigo",
+  "orange",
+  "teal",
+  "blue",
+  "grape",
+  "violet",
+  "yellow",
+  "cyan",
+  "pink",
 ];
 
 export interface IColorContextProps {
@@ -36,7 +36,7 @@ export interface IColorContextProps {
 
 export const ColorContext = React.createContext<IColorContextProps>({
   darkMode: false,
-  tint: 'pink',
+  tint: "pink",
   columns: 2,
 } as IColorContextProps);
 
@@ -45,7 +45,7 @@ export const useColorMode = (
 ): [[string, (Tint) => void], HookStringBool] => {
   // Use whatever color is definied in the hook specifically
   const initialColor =
-    typeof initialValue !== 'undefined' ? initialValue : 'blue';
+    typeof initialValue !== "undefined" ? initialValue : "blue";
 
   // Use our common hook to manage darkmode states
   const [darkMode, setDarkMode] = useDarkMode();
@@ -53,20 +53,20 @@ export const useColorMode = (
   // Use our useLocalStorage hook to persist state through a page refresh.
   // Read the recipe for this hook to learn more: usehooks.com/useLocalStorage
   const [localColor, setCurrentColor] = useLocalStorage(
-    'localColor',
+    "localColor",
     initialColor
   );
 
   // If localColor is defined use it, otherwise fallback to default color.
   // This allows user to override OS level setting on our website.
   const currentColor =
-    typeof localColor !== 'undefined' ? localColor : initialColor;
+    typeof localColor !== "undefined" ? localColor : initialColor;
 
   // Fire off effect now that we have Darkmode and colors
   useEffect(() => {
-    const mode = darkMode ? 'dark' : 'light';
+    const mode = darkMode ? "dark" : "light";
     const currentTheme = `${mode}-${currentColor}`;
-    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.documentElement.setAttribute("data-theme", currentTheme);
   }, [darkMode, currentColor]);
 
   // Return currentColor state and setter
@@ -84,7 +84,7 @@ export const ColorProvider: React.FC = (props): JSX.Element => {
   // Watch our media hook to update these values easily.
   const columnCount = useMedia<number>(
     // Media queries
-    ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 600px)'],
+    ["(min-width: 1500px)", "(min-width: 1000px)", "(min-width: 600px)"],
     // Column counts (relates to above media queries by array index)
     [5, 3, 2],
     // Default column count
@@ -96,7 +96,7 @@ export const ColorProvider: React.FC = (props): JSX.Element => {
       value={{
         darkMode,
         tint,
-        columns: columnCount,
+        columns: columnCount || 0,
         setDarkMode,
         setColor,
       }}

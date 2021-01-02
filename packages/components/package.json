@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/index",
   "types": "src/index",
+  "private": true,
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "clean": "rimraf -rf ./dist",
