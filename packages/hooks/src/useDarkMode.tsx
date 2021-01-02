@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import useMedia from './useMedia';
+import { useEffect } from "react";
+import useMedia from "./useMedia";
 import useLocalStorage from "./useLocalStorage";
 
 export type HookStringBool = [
@@ -22,7 +22,7 @@ export default function useDarkMode(): HookStringBool {
   // If enabledState is defined use it, otherwise fallback to prefersDarkMode.
   // This allows user to override OS level setting on our website.
   const enabled =
-    typeof enabledState !== 'undefined' ? enabledState : prefersDarkMode;
+    typeof enabledState !== "undefined" ? enabledState : prefersDarkMode;
 
   // Fire off effect that add/removes dark mode class
   useEffect(
@@ -46,5 +46,5 @@ export default function useDarkMode(): HookStringBool {
 // Thanks to hook composition we can hide away that extra complexity!
 // Read the recipe for useMedia to learn more: usehooks.com/useMedia
 export function usePrefersDarkMode() {
-  return useMedia(['(prefers-color-scheme: dark)'], [true], false);
+  return useMedia(["(prefers-color-scheme: dark)"], [true], false);
 }

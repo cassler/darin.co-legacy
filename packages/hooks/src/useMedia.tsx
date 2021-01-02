@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  *
@@ -22,8 +22,8 @@ export default function useMedia<T>(
   values: T[],
   defaultValue: T
 ) {
-  if (typeof window === 'undefined') {
-    return 0;
+  if (typeof window === "undefined") {
+    return false;
   }
 
   // Array containing a media query list for each query

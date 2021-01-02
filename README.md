@@ -29,20 +29,21 @@ Template project for setting up a TypeScript monorepo
 ## Packages
 
 ```
-@cassler/cra-babel-example  v1.0.0 examples/cra-ejected-babel (PRIVATE)
-@cassler/cra                v1.0.0 examples/cra               (PRIVATE)
-@cassler/jest-babel-example v1.0.0 examples/jest-babel        (PRIVATE)
-@cassler/jest-example       v1.0.0 examples/jest-tsjest       (PRIVATE)
-@cassler/nextjs             v1.0.0 examples/nextjs            (PRIVATE)
-@cassler/ts-node            v1.0.0 examples/ts-node           (PRIVATE)
-@cassler/webpack-example    v1.0.0 examples/webpack           (PRIVATE)
-@cassler/bar                v1.0.0 packages/bar
-@cassler/color              v1.0.0 packages/colors
-@cassler/components         v1.0.0 packages/components
-@cassler/fonts              v1.0.0 packages/fonts
-@cassler/foo                v1.0.0 packages/foo
-@cassler/hooks              v1.0.0 packages/hooks
-@cassler/snippets           v1.0.0 packages/snippets
+@cassler/cra-babel-example   v1.0.0 examples/cra-ejected-babel (PRIVATE)
+@cassler/cra                 v1.0.0 examples/cra               (PRIVATE)
+@cassler/jest-babel-example  v1.0.0 examples/jest-babel        (PRIVATE)
+@cassler/jest-example        v1.0.0 examples/jest-tsjest       (PRIVATE)
+@cassler/nextjs              v1.0.0 examples/nextjs            (PRIVATE)
+@cassler/ts-node             v1.0.0 examples/ts-node           (PRIVATE)
+@cassler/webpack-example     v1.0.0 examples/webpack           (PRIVATE)
+@cassler/bar                 v1.0.0 packages/bar
+@cassler/color               v1.0.0 packages/colors
+@cassler/components          v1.0.0 packages/components
+@cassler/eslint-config      MISSING packages/eslint-config     (PRIVATE)
+@cassler/fonts               v1.0.0 packages/fonts
+@cassler/foo                 v1.0.0 packages/foo
+@cassler/hooks               v1.0.0 packages/hooks
+@cassler/snippets            v1.0.0 packages/snippets
 ```
 
 ## Features
