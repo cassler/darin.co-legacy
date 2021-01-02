@@ -1,6 +1,6 @@
 <!--suppress HtmlDeprecatedAttribute -->
 
-[![Build Status](https://travis-ci.com/NiGhTTraX/ts-monorepo.svg?branch=master)](https://travis-ci.com/NiGhTTraX/ts-monorepo)
+[![Build Status](https://travis-ci.com/cassler/ts-monorepo.svg?branch=master)](https://travis-ci.com/cassler/ts-monorepo)
 
 <div align="center">
 Template project for setting up a TypeScript monorepo
@@ -57,7 +57,7 @@ The secondary focus is to remove surprises when publishing packages. The repo is
 
 ## Setup
 
-This repo uses [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) and [Lerna](https://lerna.js.org/). I recommend `yarn` for monorepos due to its easier setup, but everything here works with `npm` and `lerna bootstrap` as well and you can check that out in the [`npm` branch](https://github.com/NiGhTTraX/ts-monorepo/tree/npm).
+This repo uses [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) and [Lerna](https://lerna.js.org/). I recommend `yarn` for monorepos due to its easier setup, but everything here works with `npm` and `lerna bootstrap` as well and you can check that out in the [`npm` branch](https://github.com/cassler/ts-monorepo/tree/npm).
 
 ```
 yarn install
@@ -67,10 +67,10 @@ yarn install
 
 See the following blog posts:
 
-- [How to set up a TypeScript monorepo with Lerna](https://medium.com/@NiGhTTraX/how-to-set-up-a-typescript-monorepo-with-lerna-c6acda7d4559)
-- [Making TypeScript monorepos play nice with other tools](https://medium.com/@NiGhTTraX/making-typescript-monorepos-play-nice-with-other-tools-a8d197fdc680)
+- [How to set up a TypeScript monorepo with Lerna](https://medium.com/@cassler/how-to-set-up-a-typescript-monorepo-with-lerna-c6acda7d4559)
+- [Making TypeScript monorepos play nice with other tools](https://medium.com/@cassler/making-typescript-monorepos-play-nice-with-other-tools-a8d197fdc680)
 
-If you're looking for the project references solution checkout the [`project-references`](https://github.com/NiGhTTraX/lerna-ts/tree/project-references) branch.
+If you're looking for the project references solution checkout the [`project-references`](https://github.com/cassler/lerna-ts/tree/project-references) branch.
 
 ## Examples
 
@@ -106,7 +106,7 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "^@nighttrax/(.+)": "../\\1/src",
+          "^@cassler/(.+)": "../\\1/src",
         },
       },
     ],

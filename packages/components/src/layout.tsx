@@ -18,31 +18,29 @@ export const Layout: React.FunctionComponent<ILayoutProps> = ({
   header = null,
   sidebar = null,
   size = "medium",
-}) => {
-  return (
-    <div className="layout-contain">
-      {header && (
-        <div className="layout-header">
-          <div className="layout-inner">
-            <Space size={size}>{header}</Space>
-          </div>
-        </div>
-      )}
-      <div className="layout-main">
+}) => (
+  <div className="layout-contain">
+    {header && (
+      <div className="layout-header">
         <div className="layout-inner">
-          <Space size={size}>{children}</Space>
+          <Space size={size}>{header}</Space>
         </div>
       </div>
-      {footer && (
-        <div className="layout-footer">
-          <div className="layout-inner">
-            <Space size={size}>{footer}</Space>
-          </div>
-        </div>
-      )}
+    )}
+    <div className="layout-main">
+      <div className="layout-inner">
+        <Space size={size}>{children}</Space>
+      </div>
     </div>
-  );
-};
+    {footer && (
+      <div className="layout-footer">
+        <div className="layout-inner">
+          <Space size={size}>{footer}</Space>
+        </div>
+      </div>
+    )}
+  </div>
+);
 
 export default Layout;
 
@@ -53,7 +51,7 @@ type SpaceProps = {
 };
 export const Space: React.FC<SpaceProps> = ({ size, children }) => {
   const childStyle = () => {
-    let base = { width: "var(--content-width)" };
+    const base = { width: "var(--content-width)" };
     switch (size) {
       case "small": {
         return { ...base, padding: "15px" };
