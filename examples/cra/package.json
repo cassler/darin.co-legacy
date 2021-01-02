@@ -2,10 +2,10 @@
 	"name": "@cassler/cra",
 	"description": "Example of using create-react-app in a TS monorepo",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"dependencies": {
-		"@cassler/components": "*",
-		"@cassler/foo": "*",
+		"@cassler/components": "^1.0.1",
+		"@cassler/foo": "^1.0.1",
 		"@emotion/babel-preset-css-prop": "^11.0.0",
 		"@emotion/core": "^11.0.0",
 		"@emotion/css": "^11.1.3",
