@@ -3,8 +3,6 @@ import React, { ReactElement } from "react";
 import { jsx, Global, useTheme } from "@emotion/react";
 import { css } from "@emotion/css";
 
-interface Props {}
-
 export function GlobalStyles(): React.ReactElement {
   const theme = useTheme();
   return (
@@ -27,6 +25,7 @@ export function GlobalStyles(): React.ReactElement {
           --base: ${theme.color.baseColor};
           --mid: ${theme.color.mid};
         }
+
         .page-intro {
           font-size: 16px;
           line-height: 24px;

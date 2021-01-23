@@ -24,7 +24,7 @@ const UserResult: React.FC<IUserResultProps> = ({ user }) => {
     h3,
     .user-name {
       padding: 0;
-      margin: 0;
+      margin: 0 0 4px;
       color: ${theme.color.darkColor};
       font-weight: bold;
       font-size: 16px;
@@ -33,16 +33,15 @@ const UserResult: React.FC<IUserResultProps> = ({ user }) => {
     }
     p,
     .user-desc {
+      margin: 0;
       color: ${theme.color.baseColor};
       font-size: 14px;
       line-height: 150%;
       letter-spacing: -0.015em;
     }
-    img: {
-      padding: 0;
-      width: 96px !important;
-      border: 1px solid #f00;
-      margin: 0;
+    .sr-only {
+      opacity: 0;
+      display: hidden;
     }
   `;
 
@@ -53,9 +52,9 @@ const UserResult: React.FC<IUserResultProps> = ({ user }) => {
     <UCard>
       <div
         className="avatar"
-        style={{ backgroundImage: resizeAvatar(user.avatar) }}
+        style={{ backgroundImage: `url(${resizeAvatar(user.avatar)}` }}
       >
-        <img src={resizeAvatar(user.avatar)} />
+        <img src={user.avatar} alt="Profile Image" className="sr-only" />
       </div>
       <div>
         <h3 className="user-name">{user.name}</h3>

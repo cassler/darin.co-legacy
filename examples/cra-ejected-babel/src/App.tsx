@@ -11,7 +11,7 @@ export default function App(): React.ReactElement {
     <ThemeProvider theme={AirTheme}>
       <GlobalStyles />
       <Layout>
-        <h1>The Person Finder</h1>
+        <h1 className="page-title">The Person Finder</h1>
         <p className="page-intro">The description</p>
         <PersonFinder />
       </Layout>
