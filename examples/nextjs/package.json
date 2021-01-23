@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@types/react-window": "^1.8.2",
     "framer-motion": "^2.4.3-beta.2",
     "next": "~9.4.4",
     "open-color": "^1.7.0",
@@ -30,6 +31,8 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-query": "^3.6.0",
+    "react-window": "^1.8.6",
     "sass": "^1.26.10"
   },
   "devDependencies": {

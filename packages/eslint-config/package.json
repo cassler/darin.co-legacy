@@ -14,6 +14,9 @@
   "dependencies": {
     "@cassler/hooks": "^1.2.8",
     "@cassler/snippets": "^1.1.6",
-    "react": "^17.0.1"
+    "@types/react-window": "^1.8.2",
+    "react": "^17.0.1",
+    "react-query": "^3.6.0",
+    "react-window": "^1.8.6"
   }
 }
