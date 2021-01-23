@@ -30,6 +30,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-query": "^3.6.0",
     "sass": "^1.26.10"
   },
   "devDependencies": {
