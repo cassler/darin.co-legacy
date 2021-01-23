@@ -2,12 +2,14 @@
 	"name": "@cassler/jest-babel-example",
 	"description": "Example of using jest + babel with a TS monorepo",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"scripts": {
 		"test": "jest"
 	},
 	"dependencies": {
-		"@cassler/foo": "*",
+		"@cassler/foo": "^1.0.1",
+		"@cassler/hooks": "^1.2.8",
+		"@cassler/snippets": "^1.1.6",
 		"@emotion/babel-preset-css-prop": "^11.0.0",
 		"@emotion/core": "^11.0.0",
 		"@emotion/css": "^11.1.3",

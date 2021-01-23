@@ -2,14 +2,16 @@
   "name": "@cassler/webpack-example",
   "description": "Example of using webpack in a TS monorepo",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "webpack",
     "test": "yarn run build"
   },
   "dependencies": {
-    "@cassler/bar": "*",
-    "@cassler/fonts": "*",
+    "@cassler/bar": "^1.0.1",
+    "@cassler/fonts": "^1.0.1",
+    "@cassler/hooks": "^1.2.8",
+    "@cassler/snippets": "^1.1.6",
     "@emotion/babel-preset-css-prop": "^11.0.0",
     "@emotion/core": "^11.0.0",
     "@emotion/css": "^11.1.3",
