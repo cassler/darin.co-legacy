@@ -1,16 +1,18 @@
 import React, { ReactElement, useMemo, useState } from "react";
 import data from "../../data/users-mock.json";
 import { User } from "../types/User";
+import UserResult from "./UserResult";
 
 export default function PersonFinder(): ReactElement {
   const users: User[] = data;
-
-  const [query, setQuery] = useState<string>();
-
+  const [query, setQuery] = useState<string>("");
+  const initialList = users.slice(0, 25);
   const queryList = useMemo(
-    () => users.filter((u) => u.name.includes(query || "")),
+    () =>
+      query ? users.filter((u) => u.name.includes(query || "")) : initialList,
     [query]
   );
+
   return (
     <div>
       <input
@@ -22,7 +24,7 @@ export default function PersonFinder(): ReactElement {
       {queryList.length}
       <div id="results-list">
         {queryList.slice(0, 100).map((user) => (
-          <h3>{user.name}</h3>
+          <UserResult user={user} />
         ))}
       </div>
     </div>
