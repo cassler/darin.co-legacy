@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 
 export const Layout: React.FC = ({ children }) => {
   const theme = useTheme();
+
   const MainDiv = styled.main`
     max-width: ${theme.containerWidth};
     margin-right: auto;
@@ -21,6 +22,13 @@ export const Layout: React.FC = ({ children }) => {
       line-height: 110%;
       font-feature-settings: "case" on;
       color: ${theme.color.headerColor};
+    }
+    .page-intro {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+      color: ${theme.color.darkColor};
+      letter-spacing: -0.015em;
     }
   `;
 

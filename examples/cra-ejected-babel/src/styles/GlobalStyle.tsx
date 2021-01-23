@@ -25,14 +25,6 @@ export function GlobalStyles(): React.ReactElement {
           --base: ${theme.color.baseColor};
           --mid: ${theme.color.mid};
         }
-
-        .page-intro {
-          font-size: 16px;
-          line-height: 24px;
-          font-weight: 400;
-          color: ${theme.color.darkColor};
-          letter-spacing: -0.015em;
-        }
       `}
     />
   );
