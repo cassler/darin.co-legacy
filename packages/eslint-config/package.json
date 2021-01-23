@@ -12,6 +12,8 @@
     "lerna": "^3.22.1"
   },
   "dependencies": {
+    "@cassler/hooks": "^1.2.8",
+    "@cassler/snippets": "^1.1.6",
     "react": "^17.0.1"
   }
 }

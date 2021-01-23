@@ -1,8 +1,7 @@
 // import App from 'next/app'
 import { useState, useEffect } from "react";
-import type { AppProps /*, AppContext */ } from "next/app";
-import Wrapper from '../components/wrapper';
-
+import type { AppProps /* , AppContext */ } from "next/app";
+import Wrapper from "../components/wrapper";
 
 import "../styles/global.scss";
 
@@ -14,7 +13,6 @@ import { ThemeProvider, jsx } from "@emotion/react";
 import { theme } from "../lib/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
-
   return (
     <ThemeProvider theme={theme}>
       <Wrapper>

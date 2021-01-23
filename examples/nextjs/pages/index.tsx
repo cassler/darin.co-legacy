@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { jsx, Global } from "@emotion/react";
 import paragraphs from "../lib/lorem";
-import { pickFromHat } from "@cassler/snippets";
+// import { pickFromHat } from "@cassler/snippets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { css } from '@emotion/css'
+import { css } from "@emotion/css";
 
 import {
   faCoffee,
@@ -15,13 +15,11 @@ import {
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 const emblems = [faCrow, faMoon, faSun, faFrog, faDove, faCoffee, faAtlas];
 
 export default () => {
-
-  const currentIcon = pickFromHat(emblems);
-  const secondIcon = pickFromHat(emblems.filter((i) => i !== currentIcon));
+  const currentIcon = emblems[4];
+  const secondIcon = emblems[3];
 
   return (
     <>
@@ -31,8 +29,8 @@ export default () => {
             icon={currentIcon}
             style={{ color: "var(--primary-color)" }}
           />
-            &nbsp;
-            <FontAwesomeIcon
+          &nbsp;
+          <FontAwesomeIcon
             icon={secondIcon}
             style={{ color: "var(--primary-accent)" }}
           />
@@ -43,8 +41,8 @@ export default () => {
           <span style={{ color: "var(--primary-color" }}>
             <em>magic</em>{" "}
           </span>
-            since 1999.
-          </PageTitle>
+          since 1999.
+        </PageTitle>
         <SubTitle>{paragraphs[0]}</SubTitle>
         <p>{paragraphs[1]}</p>
         <h2>Design for Access</h2>
@@ -63,7 +61,7 @@ export default () => {
         <p>{paragraphs[8]}</p>
         <h2>
           Handcrafted in <Strike>Vermont</Strike> Texas
-          </h2>
+        </h2>
         <p>{paragraphs[9]}</p>
         <Card>
           <p>{paragraphs[3]}</p>
@@ -80,13 +78,12 @@ const Strike = (props) => {
   return <span style={styles}>{props.children}</span>;
 };
 
-
 const Image = (props) => {
   const sty = css({
     borderRadius: 14,
     backgroundClip: "padding-box",
-    maxWidth: props.width
-  })
+    maxWidth: props.width,
+  });
 
   return (
     <div className={sty}>
@@ -106,9 +103,7 @@ const Card = (props) => {
   return <div style={styles}>{props.children}</div>;
 };
 
-const PageTitle = (props) => {
-  return <h1>{props.children}</h1>;
-};
+const PageTitle = (props) => <h1>{props.children}</h1>;
 const SubTitle = (props) => {
   const styles = {
     fontSize: "1.333em",

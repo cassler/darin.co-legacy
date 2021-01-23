@@ -1,12 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { meaningOfLife } from "@cassler/foo";
-import { Button } from "@cassler/components";
+import data from "../data/users-mock.json";
 
 ReactDOM.render(
-  <React.StrictMode>
-    {meaningOfLife}
-    <Button />
-  </React.StrictMode>,
+  <React.StrictMode>{JSON.stringify(data[1])}</React.StrictMode>,
   document.getElementById("root")
 );
