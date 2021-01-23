@@ -9,6 +9,8 @@ export interface ThemeI {
     darkColor: string;
     baseColor: string;
     mid: string;
+    placeholderColor: string;
+    light: string;
   };
   fonts: {
     serif: string;
@@ -30,6 +32,8 @@ export const AirTheme: ThemeI = {
     darkColor: "#333333",
     baseColor: "#666666",
     mid: "#C4C4C4",
+    light: "#E1E1E1",
+    placeholderColor: "#393939",
   },
   fonts: {
     serif: `Georgia, 'Times New Roman', Times, serif`,

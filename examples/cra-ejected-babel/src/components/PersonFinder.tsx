@@ -1,32 +1,34 @@
-import React, { ReactElement, useMemo, useState } from "react";
-import data from "../../data/users-mock.json";
-import { User } from "../types/User";
-import UserResult from "./UserResult";
+import { css } from "@emotion/css";
+import { useTheme } from "@emotion/react";
+import React, { ReactElement, useState } from "react";
+import ResultList from "./ResultList";
 
 export default function PersonFinder(): ReactElement {
-  const users: User[] = data;
   const [query, setQuery] = useState<string>("");
-  const initialList = users.slice(0, 25);
-  const queryList = useMemo(
-    () =>
-      query ? users.filter((u) => u.name.includes(query || "")) : initialList,
-    [query]
-  );
+
+  const theme = useTheme();
+  const inputStyle = css({
+    backgroundColor: theme.color.light,
+    borderRadius: 4,
+    outline: "none",
+    border: "none",
+    height: 40,
+    width: "100%",
+    padding: "0 16px",
+    fontSize: 14,
+    letterSpacing: "-0.015em",
+  });
 
   return (
     <div>
       <input
+        className={inputStyle}
         type="text"
         onChange={(evt) => setQuery(evt.target.value)}
         defaultValue={query}
         placeholder="Type a name..."
       />
-      {queryList.length}
-      <div id="results-list">
-        {queryList.slice(0, 100).map((user) => (
-          <UserResult user={user} />
-        ))}
-      </div>
+      <ResultList query={query} />
     </div>
   );
 }

@@ -25,6 +25,21 @@ export function GlobalStyles(): React.ReactElement {
           --base: ${theme.color.baseColor};
           --mid: ${theme.color.mid};
         }
+        input[type="text"] {
+          background-color: ${theme.color.light};
+          background-color: ${theme.color.light};
+          border-radius: 4px;
+          outline: none;
+          border: none;
+          height: 40px;
+          width: 100%;
+          padding: 0 16px;
+          font-size: 14px;
+          letter-spacing: -0.015em;
+        }
+        input::placeholder {
+          color: #393939;
+        }
       `}
     />
   );
