@@ -1,0 +1,292 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model accounts {
+  legal_name              String
+  dba_name                String?
+  street                  String
+  city                    String
+  state                   String
+  zip                     Int
+  country                 String
+  phone_no                String?
+  fax_no                  String?
+  user_count              Int
+  dealertrack_id          Int       @id
+  lender_dealer_id        Int
+  lender_rep_name         String?
+  lender_rep_id           String?
+  enrollment_date         String?
+  agreement_received      String?
+  enrollment_phase        String
+  enrollment_update_date  DateTime?
+  modified_date           String
+  status                  String
+  added_to_ebiz           Boolean?  @default(false)
+  dna_id                  String?
+  previous_match_dealerid Int?
+  match_change_date       String?
+}
+
+model assets {
+  dealertrackid   String
+  service_account String    @id
+  asset_name      String?
+  account_name    String?
+  install_date    DateTime?
+  status          String?
+  title           String?
+  product_name    String?
+}
+
+model feeds3 {
+  account_id_18digit         String    @id
+  immediate_parent_fusion_id String?
+  account_name               String?
+  has_website_assets_ddc     Int?
+  has_advertising_assets_ddc Int?
+  account_type_ddc           String?
+  last_modified_date         DateTime?
+  has_managed_service_assets Int?
+  ultimate_parent_fusion_id  String?
+}
+
+model flags {
+  dealertrack_id        Int      @id
+  added_to_ebiz         Boolean?
+  dna_id                String?
+  included_in_migration Boolean?
+  fusion_code           String?
+  fd_provision          Boolean?
+  live_with_smartfind   Boolean? @default(false)
+}
+
+model fusion_accounts {
+  dealertrackid               Int
+  project_id                  String   @id
+  created_date                DateTime
+  stage                       String
+  account_name                String
+  fusion_dealer_code          Int
+  service_accounts_dmkt       String?
+  project_name                String
+  service_account_external_id String?
+  product_list                String?
+}
+
+model hierarchy {
+  dealerid String @id
+}
+
+model inventory_ddc {
+  dealerid    String
+  dealer_code Int     @id
+  new         Int
+  used        Int
+  company     String?
+  address1    String
+  city        String
+  state       String
+  postalcode  String
+  country     String
+}
+
+model milestones {
+  project_id           String
+  product_deliverable  String?
+  dealertrack_id       Int?
+  partner_id           Int?
+  milestone_name       String?
+  project_stage        String?
+  project_completed_on DateTime?
+  project_start_date   DateTime?
+  last_modified_date   DateTime?
+  last_activity_date   DateTime?
+  project_stage_reason String?
+  milestone_id         String    @id
+  status               String?
+  stage_description    String?
+  project_name         String?
+}
+
+model projects {
+  project_id                        String    @id
+  partner_id                        Int?
+  dealertrack_id                    Int?
+  service_accounts_dmkt             String?
+  service_account_dmkt              String?
+  created_date                      DateTime?
+  project_name                      String?
+  account_name                      String?
+  parent_account_name               String?
+  inventory_provider                String?
+  project_status                    String?
+  stage                             String?
+  project_id_chain                  String?
+  start_date                        DateTime?
+  end_date                          String?
+  project_completed_by              String?
+  owner_name                        String?
+  stage_description                 String?
+  stage_reason                      String?
+  project_last_activity_date        DateTime?
+  project_status_notes              String?
+  count_active_product_deliverables Int?
+  product_list                      String?
+}
+
+model requests {
+  date_entered                            DateTime
+  client_manager_addendum_status          String
+  corporate_services_addendum_status      String?
+  dealer_onboarded_with_dt_status         String?
+  action_needed_by_b_of_a                 String?
+  client_manager_name                     String
+  client_manager_email_address            String
+  client_manager_phone_number             String
+  dealership_name                         String
+  dealer_magellan_                        Int      @id
+  dealer_city                             String
+  dealer_state                            String
+  dealer_contact_first_name               String
+  dealer_contact_last_name                String
+  dealer_contact_email_address            String
+  dealer_contact_telephone                String
+  dealer_inventory_provider               String
+  dealer_email_address_for_leads          String?
+  program_active_status                   String
+  date_magellan_received_correct_addendum String?
+  dealer_info_sent_to_dt                  String?
+  dealer_live_date                        String?
+  natl_account_relationship_name          String?
+  region                                  String?
+  item_type                               String?
+  path                                    String?
+}
+
+model smartfind {
+  dealer_id   Int     @id
+  name        String
+  address     String
+  city        String
+  county      String?
+  state       String
+  country     String?
+  postal_code String
+  latitude    String?
+  longitude   String?
+  phone       String?
+  fax         String?
+  email       String?
+  website     String?
+}
+
+model omni6 {
+  magellan                                Int       @id
+  pid                                     String?
+  dt                                      Int?
+  lendid                                  String?
+  new                                     Int?
+  used                                    Int?
+  is_live                                 Boolean?
+  in_dna_group                            Boolean?
+  dt_enrolled                             Boolean?
+  remapped                                Boolean?
+  group                                   String?
+  project_link                            String?
+  entered_on                              DateTime?
+  live_date_boa                           String?
+  pr_start_date                           DateTime?
+  pr_stage                                String?
+  pr_reason                               String?
+  enrollment                              String?
+  cm_status                               String?
+  cs_status                               String?
+  onboarding_status                       String?
+  bofa_action                             String?
+  dt_previous                             Int?
+  dt_remap_date                           String?
+  project_id_previous                     String?
+  stage_previous                          String?
+  project_link_previous                   String?
+  date_entered                            DateTime?
+  client_manager_addendum_status          String?
+  corporate_services_addendum_status      String?
+  dealer_onboarded_with_dt_status         String?
+  action_needed_by_b_of_a                 String?
+  client_manager_name                     String?
+  client_manager_email_address            String?
+  client_manager_phone_number             String?
+  dealership_name                         String?
+  dealer_magellan_                        Int?
+  dealer_city                             String?
+  dealer_state                            String?
+  dealer_contact_first_name               String?
+  dealer_contact_last_name                String?
+  dealer_contact_email_address            String?
+  dealer_contact_telephone                String?
+  dealer_inventory_provider               String?
+  dealer_email_address_for_leads          String?
+  program_active_status                   String?
+  date_magellan_received_correct_addendum String?
+  dealer_info_sent_to_dt                  String?
+  dealer_live_date                        String?
+  natl_account_relationship_name          String?
+  region                                  String?
+  item_type                               String?
+  path                                    String?
+  legal_name                              String?
+  dba_name                                String?
+  street                                  String?
+  city                                    String?
+  state                                   String?
+  zip                                     Int?
+  country                                 String?
+  phone_no                                String?
+  fax_no                                  String?
+  user_count                              Int?
+  dealertrack_id                          Int?
+  lender_dealer_id                        Int?
+  lender_rep_name                         String?
+  lender_rep_id                           String?
+  enrollment_date                         String?
+  agreement_received                      String?
+  enrollment_phase                        String?
+  enrollment_update_date                  DateTime?
+  modified_date                           String?
+  status                                  String?
+  added_to_ebiz                           Boolean?
+  dna_id                                  String?
+  previous_match_dealerid                 Int?
+  match_change_date                       String?
+  account_id_18digit                      String?
+  immediate_parent_fusion_id              String?
+  account_name                            String?
+  has_website_assets_ddc                  Int?
+  has_advertising_assets_ddc              Int?
+  account_type_ddc                        String?
+  last_modified_date                      DateTime?
+  has_managed_service_assets              Int?
+  ultimate_parent_fusion_id               String?
+  project_id                              String?
+  stage                                   String?
+  stage_reason                            String?
+  created_date                            DateTime?
+  project_name                            String?
+  project_last_activity_date              DateTime?
+  project_account_name                    String?
+  project_id_prev                         String?
+  project_dt_previous                     Int?
+  stage_prev                              String?
+  stage_reason_prev                       String?
+  created_date_prev                       DateTime?
+  project_name_prev                       String?
+  last_activity_prev                      DateTime?
+  project_account_name_prev               String?
+}

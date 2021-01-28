@@ -29,6 +29,7 @@ export const WorkflowForm: React.FC = () => {
 		if (partner === "HAZ") ctx.setConfig(settings.haz);
 		if (partner === "DAS") ctx.setConfig(settings.das);
 		if (partner === "CNZ") ctx.setConfig(settings.cnz);
+    if (partner === "RBD") ctx.setConfig(settings.rbd);
 	}
 
 
@@ -95,7 +96,7 @@ export const WorkflowForm: React.FC = () => {
 							extra={(
 								<>
 									<SelectPartner
-										partners={["BOA", "DRW", "CNZ", "HAZ", "DAS"] as PartnerCode[]}
+										partners={["BOA", "DRW", "CNZ", "HAZ", "DAS","RBD"] as PartnerCode[]}
 										defaultPartner={ctx.partner}
 										callback={handlePartnerSelect}
 									/>
