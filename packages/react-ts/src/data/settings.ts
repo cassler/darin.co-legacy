@@ -7,10 +7,65 @@ interface partnerSettingsList {
 
 
 export const settings: partnerSettingsList = {
+  rbd: {
+    partner: "RBD",
+    partner_name:  "Langley Federal Credit Union",
+    crm: "noreply@langleyfcu.org",
+    dealerContact: "noreply@langleyfcu.org",
+    leads: "noreply@langleyfcu.org",
+    internal_id: "Partner Dealer ID",
+    ebiz_dt_dealer_id_field: "partnerID",
+    submitted_file: "",
+    dt_report_file: "",
+    live_ids: [],
+    ebiz_profile: 7979554,
+    valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
+    reference_doc: 'https://pages.ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/',
+    generate: {
+      fd: true,
+      ebs: true,
+      ps: true,
+      info: true
+    },
+    custom_validation: (item: any) => {
+      return true
+    },
+    report_validation: (items: object[]): boolean => {
+      return items.length < 1000 && items[0]['Lender Dealer Id'].toString().length === 6
+    },
+    prodSubTemplate: {
+      subject: 'Activate Digital Service for CarNow Inc 0001148792',
+      content: [
+        "Langley Federal Credit Union (RBD)",
+        "",
+        "Please activate Digital data service for Langley Federal Credit Union SAP : 1166041",
+        "",
+        "Billing Date:  activation date",
+        "",
+        "AMOUNT: $0 monthly, they are billed manually for now",
+        "",
+       "New Method: ",
+        "",
+        "CBDSUITE ",
+        "CBDSUITEPS OTC of $75 per store",
+        "",
+        "Bill to/sold to and Payer is: Langley Federal Credit Union: SAP : 1166041",
+        "",
+        "Langley Federal Credit Union ",
+        "1055 West Mercury Blvd. 2nd flr",
+        "Hampton, Virginia 23666",
+        "United States",
+        "",
+        "Ship to Dealer(s)",
+        "",
+        "Attached"
+      ]
+    }
+  },
   cnz: {
     partner: "CNZ",
     partner_name: "CarNow",
-    crm: "noreply@carnow.com ",
+    crm: "noreply@carnow.com",
     dealerContact: "noreply@carnow.com",
     leads: "corinne@carnow.com",
     internal_id: "PID",
