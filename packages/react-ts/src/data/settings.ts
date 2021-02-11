@@ -14,7 +14,7 @@ export const settings: partnerSettingsList = {
     dealerContact: "noreply@langleyfcu.org",
     leads: "noreply@langleyfcu.org",
     internal_id: "Partner Dealer ID",
-    ebiz_dt_dealer_id_field: "partnerID",
+    ebiz_dt_dealer_id_field: "dealertrackID",
     submitted_file: "",
     dt_report_file: "",
     live_ids: [],
@@ -123,7 +123,7 @@ export const settings: partnerSettingsList = {
     dt_report_file: "/Users/darin/Code/@workflower/packages/examples/src/data/c8bf95f1-b4d8-486d-ad1b-3c4f0e6b69a6.csv",
     live_ids: sample_ebs_entries_drw,
     ebiz_profile: 7838514,
-    valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received"],
+    valid_phases: ["Password Issued", "Reactivate", "Access Agreement Received","Prospect","Not Contacted"],
     reference_doc: 'https://coxautoinc.sharepoint.com/:w:/r/sites/LendingandTier1DigitalRetailing/_layouts/15/Doc.aspx?sourcedoc=%7BDDAB5CCB-8392-4B8C-9ADF-F156603A4D22%7D&file=Instructions%20for%20Completing%20FCA%20(Carzato).docx&action=default&mobileredirect=true',
     generate: {
       fd: false,
