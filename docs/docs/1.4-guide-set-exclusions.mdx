@@ -8,27 +8,34 @@ sidebar_label: Create Exclusions
 
 This is one of the more complicated parts of the process. Here's the dilemma:
 
-- Some partners submit requests in a single list representing *all* their dealers.
-- We are only concerned with the *new* entries on that list.
+- Some partners submit requests in a single list representing _all_ their dealers.
+- We are only concerned with the _new_ entries on that list.
 
 Because Workflower focuses on **what is desired**; we're only going to be concerned with dealers that have not been through the intake processes already. We don't want to add dealers to eBiz if they're already there and we don't want to create billing assets if they already exist. Thus we need a way to tell Workflower who has billing assets or who lives in an eBiz profile.
 
 ## The Solution
 
-Depending on the case, you may want to refer to Salesforce reporting (billing assets) or the eBiz profile itself (implementation status). It is not safe to assume the Salesforce and eBiz sets will always match - in fact, they are typically slightly different at this point for a number of reasons. As such, *you may need to run the entire process twice. Once for eBiz and once for product subscription*.
+Depending on the case, you may want to refer to Salesforce reporting (billing assets) or the eBiz profile itself (implementation status). It is not safe to assume the Salesforce and eBiz sets will always match - in fact, they are typically slightly different at this point for a number of reasons. As such, _you may need to run the entire process twice. Once for eBiz and once for product subscription_.
 
-- TODO: Add links to some DT reports.
-- TODO: Add explanation of [eBiz ID scaping utility](https://ghe.coxautoinc.com/Darin-Cassler/workflower-client/blob/develop/lib/gatherEbizIds.js)
+#### Established Salesforce Reports
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
+In practice, a [report such as this which lists all assets for a partner](https://dealertrack-production.my.salesforce.com/00O0e000005kHgF) can function as an exclusion set for determining new product subscriptions (BOA in this case).
+
+#### Grabbing current eBiz Accounts
+
+This part of the workflow includes a hint to scrape existing counts from eBiz. Save the included bookmarklet to your bookmark bar, navigate to the appropriate eBiz profile, click "show dealers" and then run the bookmarklet. This will add the contents of a new CSV to your clipboard. Paste this into a new document and save it as a CSV file. You can now use this as your exclusion source.
+
+- [eBiz ID scaping utility](https://ghe.coxautoinc.com/Darin-Cassler/workflower-client/blob/develop/lib/gatherEbizIds.js)
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 ## Setting Exclusions
 
-<img alt='' src={(useBaseUrl('img/cropped-exclude.png'))} />
+<img alt="" src={useBaseUrl("img/cropped-exclude.png")} />
 
 Once you've identified a source for your exclusion list, upload it into the prompt. Workflower will analyze the file and display a dropdown menu.
 
-<img alt='' src={(useBaseUrl('img/10-exclude-col.png'))} />
+<img alt="" src={useBaseUrl("img/10-exclude-col.png")} />
 
 Select the column where partner ID or dealertrack ID of the excluded dealers lives. If you were trying to generate product subscriptions for Bank of America, you would likely provide a Salesforce report of all accounts with active assets and include Dealertrack ID. Such a report can be [found here](https://dealertrack-production.my.salesforce.com/00O0e000005kHgF).
 
