@@ -14,6 +14,7 @@ const contentStyle = {
 interface Props {
 
 }
+const DataContext = React.createContext(null)
 
 export const ReportBuilder = (props: Props) => {
 
@@ -68,12 +69,10 @@ export const ReportBuilder = (props: Props) => {
       const tables = ['requests', 'accounts', 'inventory', 'projects']
       getMany(tables).then(i => {
         i.map(v => {
-          if (!v?.meta?.fields) {
-            console.log('No data for this one')
-            return;
+          if (v?.meta?.fields) {
+            const cb = whichCB(v.meta.fields)
+            cb(v.data)
           }
-          const cb = whichCB(v.meta.fields)
-          cb(v.data)
           console.log(v)
         })
       })
@@ -105,6 +104,12 @@ export const ReportBuilder = (props: Props) => {
 
   return (
     <div style={contentStyle}>
+      <DataContext.Provider value={{
+        accounts,
+        inventory,
+        requests,
+        projects
+      }}>
       <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
       <div style={{padding: 20, display: 'flex', justifyContent: 'space-around'}}>
         <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
@@ -113,9 +118,40 @@ export const ReportBuilder = (props: Props) => {
         <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
       </div>
         {hasAllFiles && (
-          <h2>Looking good!</h2>
+          <DataHolder />
       )}
-      <button onClick={handleReset}>Reset</button>
+        <button onClick={handleReset}>Reset</button>
+        </DataContext.Provider>
       </div>
+  )
+}
+
+const DataHolder: React.FC = () => {
+  const { requests, accounts, projects, inventory } = React.useContext(DataContext)
+
+  const sample = [...requests].slice(0, 100).map(r => {
+    const magellan = r['Dealer Magellan #'];
+    const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
+    const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'])
+    const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
+    return {
+      added: r['Date Entered'],
+      addendum: r['Corporate Services Addendum Status'],
+      onboarded: r['Dealer Onboarded with DT Status'],
+      magellan: r['Dealer Magellan #'],
+      new: inv ? inv?.new : 0,
+      used: inv ? inv?.used : 0,
+      dt: acc ? acc?.['DealerTrack Id'] : null,
+      enrollment: acc ? acc?.['Enrollment Phase'] : null,
+      pr: pr ? pr?.['Project: Project ID'] : null,
+    }
+  });
+  return (
+    <div>
+      <h2>Looking good!</h2>
+      {sample.map(item => (
+        <li>{item.magellan} - {item.new} - {item.used} - {item.dt} - {item.enrollment} - {item.pr} - {item.added} - {item.addendum} - {item.onboarded}</li>
+      ))}
+    </div>
   )
 }
