@@ -15,7 +15,7 @@ type Entry = {
 export const DataHolder: React.FC = () => {
   const { requests, accounts, projects, inventory } = React.useContext(DataContext)
 
-  const newItems:any[] = requests.map(r => {
+  const newItems:any[] = [...requests].slice(0, 500).map(r => {
     const magellan = r['Dealer Magellan #'];
     const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
     const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'])
@@ -191,12 +191,13 @@ export const DataHolder: React.FC = () => {
       <h2>Looking good - {requests.length} entries!</h2>
       <Table
         size="small"
+
         dataSource={newItems}
         columns={columns as ColumnsType<Entry>}
         scroll={{ x: 1300, y: 900 }}
         title={() => (
           <PageHeader
-            title={`Weekly Reporting - ${newItems.length}`}
+            title={`Weekly Reporting - ${requests.length}`}
             subTitle={(
               <CSVLink
                   data={newItems}
@@ -222,15 +223,6 @@ export const DataHolder: React.FC = () => {
 					/>
 				)}
 			/>
-      {/* {newItems.map((item, index) => (
-        <tr style={{ border: '1px solid #ccc' }}>
-          <td>{index}</td>
-          <td>{isLive(item) ? <Tag color="green">Live</Tag> : <Tag>Pending</Tag>}</td>
-          {Object.keys(item).map(k => (
-            <td style={{padding: 3}}>{item[k]}</td>
-          ))}
-        </tr>
-      ))} */}
     </div>
   )
 }
