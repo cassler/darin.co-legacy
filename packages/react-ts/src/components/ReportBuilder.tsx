@@ -3,13 +3,13 @@ import { ReportingData } from '../types/requestItem';
 import { IParseResult } from '../context';
 import Papa from 'papaparse';
 import StyledDropzone from "./IO/StyledDropzone";
-import { get, set, entries, keys, values, clear, getMany } from 'idb-keyval';
-import { Badge } from 'antd';
+import { get, set, clear, getMany } from 'idb-keyval';
+import { Badge, Space } from 'antd';
 import DataHolder from './DataHolder';
 
 const contentStyle = {
   // marginTop: "96px",
-  padding: "96px 10vw",
+  padding: "96px 20px",
   width: "100vw",
 };
 
@@ -108,6 +108,7 @@ export const ReportBuilder = () => {
 
   return (
     <div style={contentStyle}>
+
       <DataContext.Provider value={{
         accounts,
         inventory,
@@ -117,13 +118,17 @@ export const ReportBuilder = () => {
       <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
         <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around' }}>
           <button onClick={handleReset}>Reset</button>
-        <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
-        <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
-        <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
-        <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
+
       </div>
-      {hasAllFiles && (
+      {hasAllFiles ? (
         <DataHolder />
+        ) : (
+        <Space>
+          <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
+          <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
+          <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
+          <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
+        </Space>
       )}
 
       </DataContext.Provider>

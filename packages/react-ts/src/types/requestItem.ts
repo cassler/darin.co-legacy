@@ -155,3 +155,10 @@ export interface ReportingData {
   accounts: AccountItem[];
   projects: ProjectItem[];
 }
+
+export interface ReportingPivot {
+  request: RequestItem;
+  inventory?: InventoryItem;
+  account?: AccountItem;
+  project?: ProjectItem;
+}

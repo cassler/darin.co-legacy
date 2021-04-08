@@ -25,6 +25,7 @@
     "@types/chalk": "^2.2.0",
     "boxen": "^4.2.0",
     "chalk": "^4.1.0",
+    "idb-keyval": "^5.0.4",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "react-dropzone": "^11.3.2",
