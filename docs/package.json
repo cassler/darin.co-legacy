@@ -14,9 +14,13 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.58",
     "@docusaurus/preset-classic": "^2.0.0-alpha.58",
+    "@reach/router": "^1.3.4",
     "clsx": "^1.1.1",
+    "idb-keyval": "^5.0.4",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-dropzone": "^11.3.2",
+    "react-router-dom": "^5.2.0"
   },
   "browserslist": {
     "production": [
@@ -29,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/reach__router": "^1.3.7"
   }
 }

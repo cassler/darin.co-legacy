@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/reach__router": "^1.3.7",
     "barrelsby": "^2.1.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
@@ -19,12 +20,16 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@reach/router": "^1.3.4",
     "@types/boxen": "^3.0.1",
     "@types/chalk": "^2.2.0",
     "boxen": "^4.2.0",
     "chalk": "^4.1.0",
+    "idb-keyval": "^5.0.4",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
+    "react-dropzone": "^11.3.2",
+    "react-router-dom": "^5.2.0",
     "ts-node-dev": "^1.0.0-pre.52",
     "tsc-watch": "^4.2.9"
   }

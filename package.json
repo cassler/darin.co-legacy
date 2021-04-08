@@ -20,6 +20,7 @@
     "webserver": "yarn workspace @wf/react-ts light-server -s . -p 7000",
     "docs": "yarn workspace @wf/docs run start",
     "react": "yarn workspace @wf/react-ts run start",
+    "build": "NODE_ENV=production yarn workspace @wf/react-ts run build",
     "deploy-docs": "yarn workspace @wf/docs run ghe-deploy"
   },
   "dependencies": {
