@@ -1,22 +1,26 @@
 import React from 'react'
-
+import { ReportingData } from '../types/requestItem';
 import { IParseResult } from '../context';
 import Papa from 'papaparse';
 import StyledDropzone from "./IO/StyledDropzone";
 import { get, set, entries, keys, values, clear, getMany } from 'idb-keyval';
 import { Badge } from 'antd';
+import DataHolder from './DataHolder';
 
 const contentStyle = {
   // marginTop: "96px",
   padding: "96px 10vw",
   width: "100vw",
 };
-interface Props {
 
-}
-const DataContext = React.createContext(null)
+export const DataContext = React.createContext<ReportingData>({
+  requests: [],
+  accounts: [],
+  projects: [],
+  inventory: []
+})
 
-export const ReportBuilder = (props: Props) => {
+export const ReportBuilder = () => {
 
   const [requests, setRequests] = React.useState([]);
   const [inventory, setInventory] = React.useState([]);
@@ -111,47 +115,19 @@ export const ReportBuilder = (props: Props) => {
         projects
       }}>
       <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
-      <div style={{padding: 20, display: 'flex', justifyContent: 'space-around'}}>
+        <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around' }}>
+          <button onClick={handleReset}>Reset</button>
         <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
         <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
         <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
         <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
       </div>
-        {hasAllFiles && (
-          <DataHolder />
+      {hasAllFiles && (
+        <DataHolder />
       )}
-        <button onClick={handleReset}>Reset</button>
-        </DataContext.Provider>
-      </div>
-  )
-}
 
-const DataHolder: React.FC = () => {
-  const { requests, accounts, projects, inventory } = React.useContext(DataContext)
-
-  const sample = [...requests].slice(0, 100).map(r => {
-    const magellan = r['Dealer Magellan #'];
-    const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
-    const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'])
-    const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
-    return {
-      added: r['Date Entered'],
-      addendum: r['Corporate Services Addendum Status'],
-      onboarded: r['Dealer Onboarded with DT Status'],
-      magellan: r['Dealer Magellan #'],
-      new: inv ? inv?.new : 0,
-      used: inv ? inv?.used : 0,
-      dt: acc ? acc?.['DealerTrack Id'] : null,
-      enrollment: acc ? acc?.['Enrollment Phase'] : null,
-      pr: pr ? pr?.['Project: Project ID'] : null,
-    }
-  });
-  return (
-    <div>
-      <h2>Looking good!</h2>
-      {sample.map(item => (
-        <li>{item.magellan} - {item.new} - {item.used} - {item.dt} - {item.enrollment} - {item.pr} - {item.added} - {item.addendum} - {item.onboarded}</li>
-      ))}
+      </DataContext.Provider>
     </div>
   )
 }
+
