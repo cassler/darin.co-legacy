@@ -15,7 +15,7 @@ type Entry = {
 export const DataHolder: React.FC = () => {
   const { requests, accounts, projects, inventory } = React.useContext(DataContext)
 
-  const newItems:any[] = [...requests].slice(0, 500).map(r => {
+  const newItems:any[] = [...requests].map(r => {
     const magellan = r['Dealer Magellan #'];
     const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
     const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'])
