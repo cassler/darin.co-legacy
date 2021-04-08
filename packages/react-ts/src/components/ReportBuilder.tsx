@@ -4,7 +4,7 @@ import { IParseResult } from '../context';
 import Papa from 'papaparse';
 import StyledDropzone from "./IO/StyledDropzone";
 import { get, set, clear, getMany } from 'idb-keyval';
-import { Badge, Space } from 'antd';
+import { Badge, Button, Divider, Space, message, Skeleton } from 'antd';
 import DataHolder from './DataHolder';
 
 const contentStyle = {
@@ -26,7 +26,7 @@ export const ReportBuilder = () => {
   const [inventory, setInventory] = React.useState([]);
   const [accounts, setAccounts] = React.useState([]);
   const [projects, setProjects] = React.useState([]);
-  const [extra, setExtra] = React.useState([]);
+  const [isLoading, toggleLoading] = React.useState(true);
 
   function parseFile(file: any, callback: Function) {
     Papa.parse(file, {
@@ -57,29 +57,32 @@ export const ReportBuilder = () => {
     if (fields.includes('new') && fields.includes('used')) return setInventory
     if (fields.includes('Enrollment Date')) return setAccounts
     if (fields.includes('Project: Project Name')) return setProjects
-    return setExtra
+    return () => {};
   }
 
   async function gatherResult(name: string, res: IParseResult) {
     const tableName = whichFile(res.meta.fields);
     const updater = whichCB(res.meta.fields);
+
     console.log(name, tableName, `Found ${res.data.length} items`)
     await set(tableName, res)
     updater(res.data);
+    message.info(<><b>{name}:</b> Updated with {res.data.length} items</>)
   }
 
   const restoreData = React.useCallback(
     async () => {
       const tables = ['requests', 'accounts', 'inventory', 'projects']
-      getMany(tables).then(i => {
-        i.map(v => {
-          if (v?.meta?.fields) {
-            const cb = whichCB(v.meta.fields)
-            cb(v.data)
+      getMany(tables).then(restored => {
+        restored.forEach((t) => {
+          if (t?.meta?.fields) {
+            const setter = whichCB(t?.meta?.fields)
+            setter(t.data)
+            console.log(t)
           }
-          console.log(v)
         })
-      })
+        toggleLoading(false)
+      });
     },[])
 
   React.useEffect(() => {
@@ -97,40 +100,32 @@ export const ReportBuilder = () => {
     setRequests([])
     setInventory([])
     setProjects([])
-    setExtra([])
     clear()
   }
 
-  const hasAllFiles = React.useMemo(() => {
-    return requests.length > 0 && accounts.length > 0 && projects.length > 0 && inventory.length > 0
-  }, [requests, accounts, projects, inventory])
-
-
+  const Dropper = () => (
+    <Space>
+      <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
+      <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
+      <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
+      <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
+      <Button type="ghost" onClick={handleReset}>Reset</Button>
+      <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
+    </Space>
+  )
   return (
     <div style={contentStyle}>
-
       <DataContext.Provider value={{
         accounts,
         inventory,
         requests,
         projects
       }}>
-      <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
-        <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around' }}>
-          <button onClick={handleReset}>Reset</button>
-
-      </div>
-      {hasAllFiles ? (
-        <DataHolder />
+        {isLoading ? (
+          <Skeleton active />
         ) : (
-        <Space>
-          <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
-          <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
-          <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
-          <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
-        </Space>
-      )}
-
+          <DataHolder dropper={<Dropper />} />
+        )}
       </DataContext.Provider>
     </div>
   )

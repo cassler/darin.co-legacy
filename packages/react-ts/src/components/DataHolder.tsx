@@ -1,65 +1,92 @@
-import React, { useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState, useEffect } from 'react';
 import { DataContext } from "./ReportBuilder";
-import { Tag, Table, PageHeader, Badge, Input, Button, Space } from 'antd'
-import { ReportingPivot } from '../types/requestItem';
+import { Tag, Table, PageHeader, Badge, Input, Button, Space, Skeleton, Card, BadgeProps } from 'antd'
 import { ColumnsType } from 'antd/es/table';
 import Highlighter from 'react-highlight-words';
 import { CloudDownloadOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSVLink } from 'react-csv';
+import applyReportingBucket from './useReportingBucket';
+import { ReportingPivot, RequestItem } from "../types/requestItem"
 
 type Entry = {
 	change: string
 	add: string
 }
 
-export const DataHolder: React.FC = () => {
-  const { requests, accounts, projects, inventory } = React.useContext(DataContext)
+interface Props {
+  dropper?: ReactNode
+}
 
-  const newItems:any[] = [...requests].map(r => {
-    const magellan = r['Dealer Magellan #'];
-    const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
-    const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'] || i['Dealertrack ID'] === acc?.['DealerTrack Id'])
-    const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
-    const onboardStatus = reportOnboardingStatus({ request: r, account: acc, project: pr, inventory: inv });
+export function useOmnibus() {
+  const { requests, accounts, projects, inventory } = React.useContext(DataContext)
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const [isReady, setReady] = useState<boolean>(false);
+  const [omnibus, setOmnibus] = useState<ReportingPivot[]>([])
+  const [tableData, setTableData] = useState<any[]>([])
+  const [fields, setFields] = useState([])
+  function makeTableRow(entry: ReportingPivot) {
+    const onboardStatus = applyReportingBucket(entry);
     return {
       onboarded: onboardStatus,
-      magellan: r['Dealer Magellan #'],
-      dt: acc?.['DealerTrack Id'] || null,
-      pr: pr?.['Project: Project ID'] || null,
-      lend: inv?.dealerid,
-      added: r['Date Entered'],
-      addendum: r['Corporate Services Addendum Status'],
-      program: r['Program Active Status'],
-      region: r.Region,
+      magellan: entry.request['Dealer Magellan #'],
+      dt: entry.account?.['DealerTrack Id'] || '-',
+      pr: entry.project?.['Project ID'] || '-',
+      lend: entry.inventory?.dealerid || '-',
+      dba: entry.request['Dealership Name'],
+      added: entry.request['Date Entered'],
+      program: entry.request['Program Active Status'],
       // onboarded: r['Dealer Onboarded with DT Status'],
-      new: inv?.new || 0,
-      used: inv?.used || 0,
-      enrollment: (acc?.['Enrollment Phase'] || '').slice(0 , 20),
-      stage: pr?.['Project: Stage'] || null,
+      new: entry.inventory?.new || 0,
+      used: entry.inventory?.used || 0,
+      enrollment: (entry.account?.['Enrollment Phase'] || '').slice(0 , 20),
+      stage: entry.project?.['Stage'] || '-',
+      cm: entry.request['Client Manager Name'],
+      region: entry.request.Region,
+      addendum: entry.request['Corporate Services Addendum Status'],
     }
-  });
-
-  function isLive(item: any) {
-    if (item.program !== 'Active') {
-      return false;
-    }
-    return item.stage === 'Completed' && (item?.new > 0 || item?.used > 0)
   }
 
-  function reportOnboardingStatus(entry: ReportingPivot):string {
-    if (entry.request['Program Active Status'] !== 'Active') return 'Inactive'
-    if (!entry.account) return 'Not Enrolled'
-    if (entry.account['Enrollment Phase'] === 'Not Contacted') return 'Not Enrolled'
-    let hasInventory = (parseInt(entry?.inventory?.new) > 0 || parseInt(entry?.inventory?.used) > 0)
-    if (hasInventory) {
-      if (entry.project?.['Project: Stage'] === 'Completed') return 'Live'
-      return 'Live - No Project'
-    }
-    return 'DRS Review'
-  }
+  useEffect(() => {
+    const res = requests.map(r => {
+      const magellan = r['Dealer Magellan #'];
+      const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
+      const pr = projects.find(i => i['Dealertrack ID'] === acc?.['DealerTrack Id'] || i['Dealertrack ID'] === acc?.['DealerTrack Id'])
+      const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
+      return {
+        request: r,
+        account: acc,
+        project: pr,
+        inventory: inv
+      } as ReportingPivot
+    })
+    setOmnibus(res)
+    setReady(true)
+    setLoading(false)
+  }, [requests, accounts, projects, inventory])
+
+  useEffect(() => {
+    const res = omnibus.map(entry => makeTableRow(entry))
+    // if (tableData.length > 0) {
+    //   const col = Object.keys(tableData[0])
+    //   setFields(col)
+    // }
+    setTableData(res)
+  }, [omnibus])
+
+  useEffect(() => {
+
+  })
+
+  return {isLoading, isReady, omnibus, tableData, fields }
+}
+
+export const DataHolder: React.FC<Props> = ({dropper}) => {
+  const { requests, accounts, projects, inventory } = React.useContext(DataContext)
+  const { omnibus, tableData, isLoading } = useOmnibus();
+  const newItems = tableData
+
 
   const inputEl = useRef(null);
-
   const getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
@@ -123,18 +150,26 @@ export const DataHolder: React.FC = () => {
 
   const [searchText, setSearchText] = useState<string>('')
   const [searchedColumn, setSearchColumn] = useState<string>('')
-
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchColumn(dataIndex);
   };
-
   const handleReset = clearFilters => {
     clearFilters();
     setSearchText('');
   };
 
+  function makeBadgeFromStatus(ob: string) {
+    switch(ob) {
+      case 'Live': return 'success'; break;
+      case 'In Progress': return 'processing'; break;
+      case 'Not Enrolled': return 'warning'; break;
+      case 'Project Stalled': return 'warning'; break;
+      case 'Ready to Complete': return 'success'; break;
+      default: return 'default'
+    }
+  }
   const makeTableCols = (fields: string[], first?: number, filter?: string[]) => {
 		const sample = newItems[0]
 		const columns = [
@@ -144,15 +179,18 @@ export const DataHolder: React.FC = () => {
 				dataIndex: 'change',
 				width: 10,
 				filters: [
-					{ text: 'Live', value: 'Live' },
-          { text: 'Not Enrolled', value: 'Not Enrolled' },
           { text: 'Inactive', value: 'Inactive' },
-          { text: 'Live - No Project', value: 'Live - No Project' },
+          { text: 'Not Enrolled', value: 'Not Enrolled' },
+          { text: 'On Hold', value: 'Project Stalled'},
+          { text: 'Queue', value: 'In Queue' },
+					{ text: 'In Progress', value: 'In Progress' },
+          { text: 'Ready to Complete', value: 'Ready to Complete' },
+          { text: 'Live', value: 'Live' },
           { text: 'DRS Review', value: 'DRS Review' },
 				],
         onFilter: (value, record) => record.onboarded === value,
         render: (value, record) => (
-          <Badge status={record.onboarded === 'Live' ? 'success' : 'default'} />
+          <Badge status={makeBadgeFromStatus(record.onboarded)} />
         )
       },
 			...fields.map(col => ({
@@ -173,7 +211,7 @@ export const DataHolder: React.FC = () => {
             ) : text === 'Live' ? (
               <Tag color="green">Live <b>{parseInt(record.new) + parseInt(record.used)}</b></Tag>
             ) : (
-              <Tag>{text}</Tag>
+              <Tag color={makeBadgeFromStatus(text)}><b>{text}</b></Tag>
             )}
 					</div>
 				),
@@ -183,46 +221,39 @@ export const DataHolder: React.FC = () => {
 		return first ? columns.slice(0, first) : columns
   }
 
-  const columns = makeTableCols([...Object.keys(newItems[0])]);
+  const columns = tableData.length ? makeTableCols(Object.keys(tableData[0])) : makeTableCols([]);
 
+  const SubTitle = () => (
+    <div>
+      <CSVLink data={newItems} filename={`weekly-report-boa-${new Date().toISOString()}.csv`}>
+        <Button><CloudDownloadOutlined />Download Report</Button>
+      </CSVLink>
+      <CSVLink data={omnibus} filename={`weekly-omnibus-boa-${new Date().toISOString()}.csv`}>
+        <Button><CloudDownloadOutlined />Omnibus</Button>
+      </CSVLink>
+    </div>
+  )
 
   return (
     <div>
-      <h2>Looking good - {requests.length} entries!</h2>
-      <Table
-        size="small"
+      <PageHeader
+        title={`Weekly Reporting - ${requests.length}`}
+        subTitle={<SubTitle />}
+        extra={dropper}
+      />
+      {isLoading ? (
+        <Card>
+          <Skeleton active />
+        </Card>
+      ) : (
 
-        dataSource={newItems}
-        columns={columns as ColumnsType<Entry>}
-        scroll={{ x: 1300, y: 900 }}
-        title={() => (
-          <PageHeader
-            title={`Weekly Reporting - ${requests.length}`}
-            subTitle={(
-              <CSVLink
-                  data={newItems}
-                  filename={`weekly-report-boa-${new Date().toISOString()}.csv`}
-                >
-                {/* <Popover content={tip ? tip : label}> */}
-                  <Button>
-                    <CloudDownloadOutlined />
-                    Download Report
-                  </Button>
-                {/* </Popover> */}
-              </CSVLink>
-            )}
-            extra={(
-              <Space>
-                <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
-                <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
-                <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
-                <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
-
-              </Space>
-            )}
-					/>
-				)}
-			/>
+        <Table
+          size="small"
+          dataSource={newItems}
+          columns={columns as ColumnsType<Entry>}
+          scroll={{ x: 1300, y: 2000 }}
+        />
+      )}
     </div>
   )
 }

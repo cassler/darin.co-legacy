@@ -6,7 +6,7 @@ const baseStyle:React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '20px',
+  padding: '10px',
   borderWidth: 2,
   borderRadius: 2,
   borderColor: '#eeeeee',
@@ -54,7 +54,8 @@ export default function StyledDropzone(props) {
     <div className="container">
       <div {...getRootProps({style})}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop your CSVs here. We'll figure out which is which for you automatically.</p>
+        <span>Drag 'n' drop your CSVs here. <br /><em>(We'll figure out which is which for you automatically.)</em></span>
+        {props.children}
       </div>
     </div>
   );

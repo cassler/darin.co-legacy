@@ -57,7 +57,7 @@ function App() {
     zIndex: 500,
   };
 
-  const [mode, setMode] = useState<string>('home')
+  const [mode, setMode] = useState<string>('report')
 
   function renderNav() {
     const items = [
@@ -156,21 +156,6 @@ function App() {
     )}
     </WFContext.Consumer>
   )
-
-  let Delta = (props: RouteComponentProps) => (
-    <div style={{ ...layoutStyle }}>
-      <ReportViewer />
-    </div>
-  )
-
-  let Reporting = (props: RouteComponentProps) => (
-    <div style={{ ...layoutStyle }}>
-      <ReportBuilder />
-    </div>
-  )
-
-
-
 
   return (
     <WFProvider>
