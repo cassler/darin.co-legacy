@@ -10,8 +10,9 @@ import SaveContextButton from "./components/App/SaveContextButton";
 import { WFProvider, WFContext } from "./context";
 import ResultsView from "./components/ResultsView";
 import ReportViewer from "./components/ReportViewer";
-import { Router, RouteComponentProps, Link } from "@reach/router"
+import { Router, RouteComponentProps, Link, useParams, useMatch } from "@reach/router"
 import { ReportBuilder } from "./components/ReportBuilder";
+import { ComponentProps } from "react";
 
 
 
@@ -56,23 +57,25 @@ function App() {
     zIndex: 500,
   };
 
-  const isActive = ({ isCurrent }) => {
-    return isCurrent ? { className: "ant-btn ant-btn-primary" } : { className: 'ant-btn'}
-  }
+  const [mode, setMode] = useState<string>('home')
 
+  function renderNav() {
+    const items = [
+      { slug: 'home', label: 'Workflower' },
+      { slug: 'delta', label: 'DeltaTool' },
+      { slug: 'report', label: 'ReportBuilder' },
+    ].map(i => (
+      <Button type={mode === i.slug ? 'primary' : 'ghost'} onClick={() => setMode(i.slug)}>{i.label}</Button>
+    ))
+    return items;
+  }
   const Toolbar = () => (
     <div style={toolbarStyle}>
       <h1 className="App-logo">
         Workflower <small>{defaultMode ? "Core" : "Delta"}</small>
       </h1>
       <div style={{ textAlign: "right" }}>
-        <Link getProps={isActive} to="/" className='ant-btn'>Workflower</Link>{' '}
-        <Link getProps={isActive} to="/delta" className='ant-btn'>Delta Tool</Link>{' '}
-        <Link getProps={isActive} to="/reporting" className='ant-btn'>
-        <Badge count="new" color="gold">
-            Report Builder
-        </Badge>
-          </Link>
+        {renderNav()}
         <Button
           size="small"
           type="link"
@@ -85,7 +88,7 @@ function App() {
     </div>
   )
 
-  let Home = (props: RouteComponentProps) => (
+  let Home = () => (
     <WFContext.Consumer>
     {({ ctx }) => (
       <div style={layoutStyle}>
@@ -166,15 +169,16 @@ function App() {
     </div>
   )
 
+
+
+
   return (
     <WFProvider>
       <Layout>
         <Toolbar />
-        <Router>
-          <Home path="/" />
-          <Delta path="/delta" />
-          <Reporting path="/reporting" />
-        </Router>
+        {mode === 'report' && <ReportBuilder />}
+        {mode === 'delta' && <ReportViewer />}
+        {mode === 'home' && <Home />}
       </Layout>
     </WFProvider>
   );

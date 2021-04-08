@@ -41,7 +41,7 @@ export const ReportBuilder = () => {
     if (fields.includes('Dealer Magellan #')) return 'requests'
     if (fields.includes('new') && fields.includes('used')) return 'inventory'
     if (fields.includes('Enrollment Date')) return 'accounts'
-    if (fields.includes('Project: Project ID')) return 'projects'
+    if (fields.includes('Project: Project Name')) return 'projects'
     return 'unknown'
   }
 
@@ -56,7 +56,7 @@ export const ReportBuilder = () => {
     if (fields.includes('Dealer Magellan #')) return setRequests
     if (fields.includes('new') && fields.includes('used')) return setInventory
     if (fields.includes('Enrollment Date')) return setAccounts
-    if (fields.includes('Project: Project ID')) return setProjects
+    if (fields.includes('Project: Project Name')) return setProjects
     return setExtra
   }
 

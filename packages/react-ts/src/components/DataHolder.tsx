@@ -18,7 +18,7 @@ export const DataHolder: React.FC = () => {
   const newItems:any[] = [...requests].map(r => {
     const magellan = r['Dealer Magellan #'];
     const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
-    const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'])
+    const pr = projects.find(i => i['Project: Dealertrack ID'] === acc?.['DealerTrack Id'] || i['Dealertrack ID'] === acc?.['DealerTrack Id'])
     const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
     const onboardStatus = reportOnboardingStatus({ request: r, account: acc, project: pr, inventory: inv });
     return {
