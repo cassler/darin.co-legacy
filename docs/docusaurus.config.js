@@ -1,8 +1,8 @@
 const version = require('../package.json').version;
 
 module.exports = {
-  title: 'Workflower',
-  tagline: 'A utility knife for workday life.',
+  title: 'Thanks for everything!',
+  tagline: 'Please keep this as a token of my gratitude.',
 	url: 'https://pages.ghe.coxautoinc.com',
 	baseUrl: '/Darin-Cassler/workflower-monorepo/',
   favicon: 'img/favicon.ico',
