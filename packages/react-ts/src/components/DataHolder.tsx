@@ -203,7 +203,7 @@ export const DataHolder: React.FC<Props> = ({dropper}) => {
 				ellipsis: true,
 				change: '',
         sorter: (a, b) => {
-          return ('' + a[col]).localeCompare(b[col])
+          return ('' + a[col]).localeCompare(b[col], undefined, { numeric: true, sensitivity: 'base'})
         },
 				sortDirections: ['ascend', 'descend'],
 				defaultSortOrder: ['ascend'],
