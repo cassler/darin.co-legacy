@@ -23,7 +23,7 @@ export default function applyReportingBucket(entry: ReportingPivot): string {
 
   let hasInventory = (parseInt(inventory?.new) > 0 || parseInt(inventory?.used) > 0)
 
-  let stage = project['Stage'];
+  let stage = project['Stage'] || project['Project: Stage'];
 
   if (hasInventory) {
     if (stage === 'Completed') return 'Live'

@@ -31,7 +31,7 @@ export function useOmnibus() {
       onboarded: onboardStatus,
       magellan: entry.request['Dealer Magellan #'],
       dt: entry.account?.['DealerTrack Id'] || '-',
-      pr: entry.project?.['Project ID'] || '-',
+      pr: entry.project?.['Project ID'] || entry.project?.['Project: Project ID'] || '-',
       lend: entry.inventory?.dealerid || '-',
       dba: entry.request['Dealership Name'],
       added: entry.request['Date Entered'],
@@ -40,7 +40,7 @@ export function useOmnibus() {
       new: entry.inventory?.new || 0,
       used: entry.inventory?.used || 0,
       enrollment: (entry.account?.['Enrollment Phase'] || '').slice(0 , 20),
-      stage: entry.project?.['Stage'] || '-',
+      stage: entry.project?.['Stage'] || entry.project?.['Project: Stage'] || '-',
       cm: entry.request['Client Manager Name'],
       region: entry.request.Region,
       addendum: entry.request['Corporate Services Addendum Status'],
@@ -51,7 +51,11 @@ export function useOmnibus() {
     const res = requests.map(r => {
       const magellan = r['Dealer Magellan #'];
       const acc = accounts.find(i => i['Lender Dealer Id'] === magellan)
-      const pr = projects.find(i => i['Dealertrack ID'] === acc?.['DealerTrack Id'] || i['Dealertrack ID'] === acc?.['DealerTrack Id'])
+      const pr = projects.find(i => {
+        return i['Dealertrack ID'] === acc?.['DealerTrack Id']
+          || i['Dealertrack ID'] === acc?.['DealerTrack Id']
+          || i['Project: Dealertrack ID'] === acc?.['DealerTrack Id']
+      })
       const inv = inventory.find(i => i.dealer_code === acc?.['DealerTrack Id'])
       return {
         request: r,
