@@ -72,7 +72,7 @@ function Home() {
 								'button button--fill button--secondary button--lg',
 								styles.getStarted,
 							)}
-							to={`https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/${version}/workflower-portable-${version}-dist.zip`}>
+              to={`https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/2.0/workflower-portable-2.0.0-dist.zip`}>
 							Download Workflower {version} (.zip)
             </Link>
 					</div>
