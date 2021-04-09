@@ -108,11 +108,6 @@ export const ReportBuilder = () => {
     <Space size="large">
       <Statistic
         title="Requests"
-        value={requests.length}
-        valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}}
-      />
-      <Statistic
-        title="Requests"
         value={requests.length} valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}} />
       <Statistic
         title="inventory"
