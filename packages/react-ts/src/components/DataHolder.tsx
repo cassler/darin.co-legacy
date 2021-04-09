@@ -1,12 +1,13 @@
 import React, { ReactNode, useRef, useState, useEffect } from 'react';
 import { DataContext } from "./ReportBuilder";
-import { Tag, Table, PageHeader, Badge, Input, Button, Space, Skeleton, Card, BadgeProps } from 'antd'
+import { Tag, Table, PageHeader, Badge, Input, Button, Space, Skeleton, Card, BadgeProps, Row } from 'antd'
 import { ColumnsType } from 'antd/es/table';
 import Highlighter from 'react-highlight-words';
-import { CloudDownloadOutlined, SearchOutlined } from '@ant-design/icons';
+import { CloudDownloadOutlined, SearchOutlined, ExpandAltOutlined, HistoryOutlined } from '@ant-design/icons';
 import { CSVLink } from 'react-csv';
 import applyReportingBucket from './useReportingBucket';
 import { ReportingPivot, RequestItem } from "../types/requestItem"
+import {useFullscreen, useToggle, useWindowSize} from 'react-use';
 
 type Entry = {
 	change: string
@@ -109,7 +110,7 @@ export const DataHolder: React.FC<Props> = ({dropper}) => {
             Search
           </Button>
           <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-            Reset
+            <HistoryOutlined />
           </Button>
           <Button
             type="link"
@@ -201,7 +202,9 @@ export const DataHolder: React.FC<Props> = ({dropper}) => {
 				width: Math.max(`${sample[col]}`.length * 5 + 0, 50),
 				ellipsis: true,
 				change: '',
-				sorter: (a, b) => a[col] - b[col],
+        sorter: (a, b) => {
+          return ('' + a[col]).localeCompare(b[col])
+        },
 				sortDirections: ['ascend', 'descend'],
 				defaultSortOrder: ['ascend'],
 				render: (text, record) => (
@@ -226,36 +229,61 @@ export const DataHolder: React.FC<Props> = ({dropper}) => {
   const SubTitle = () => (
     <div>
       <CSVLink data={newItems} filename={`weekly-report-boa-${new Date().toISOString()}.csv`}>
-        <Button><CloudDownloadOutlined />Download Report</Button>
+        <Button><CloudDownloadOutlined />Report</Button>
       </CSVLink>
       <CSVLink data={omnibus} filename={`weekly-omnibus-boa-${new Date().toISOString()}.csv`}>
         <Button><CloudDownloadOutlined />Omnibus</Button>
       </CSVLink>
+      <Button onClick={() => toggle()}><ExpandAltOutlined /></Button>
     </div>
   )
 
+  const { height } = useWindowSize();
+
+
+  const [theight, updateHeight] = useState(height - 400);
+
+  const ref = useRef(null)
+  const [show, toggle] = useToggle(false);
+  const isFullscreen = useFullscreen(ref, show, { onClose: () => toggle(false) });
+
+  useEffect(() => {
+    updateHeight(isFullscreen ? height - 300 : height - 400)
+  }, [height, show, isFullscreen])
+
   return (
     <div>
-      <PageHeader
-        title={`Weekly Reporting - ${requests.length}`}
-        subTitle={<SubTitle />}
-        extra={dropper}
-      />
+
       {isLoading ? (
         <Card>
+          <PageHeader
+            title={`Weekly Reporting - ${requests.length}`}
+            subTitle={<SubTitle />}
+            extra={dropper}
+          />
           <Skeleton active />
         </Card>
       ) : (
-
+        <div ref={ref}>
         <Table
           size="small"
+          title={(pd) => (
+            <PageHeader
+              title={`Weekly Reporting - ${requests.length}`}
+              subTitle={<SubTitle />}
+              extra={dropper}
+            />
+          )}
+          footer={() => <SubTitle />}
           dataSource={newItems}
           columns={columns as ColumnsType<Entry>}
-          scroll={{ x: 1300, y: 2000 }}
+          scroll={{ y: theight }}
         />
+        </div>
       )}
     </div>
   )
 }
 
 export default DataHolder;
+

@@ -4,12 +4,13 @@ import { IParseResult } from '../context';
 import Papa from 'papaparse';
 import StyledDropzone from "./IO/StyledDropzone";
 import { get, set, clear, getMany } from 'idb-keyval';
-import { Badge, Button, Divider, Space, message, Skeleton } from 'antd';
+import { Badge, Button, Divider, Space, message, Skeleton, Statistic } from 'antd';
 import DataHolder from './DataHolder';
 
-const contentStyle = {
+const contentStyle:React.CSSProperties = {
   // marginTop: "96px",
-  padding: "96px 20px",
+  boxSizing: 'border-box',
+  padding: "96px 20px 0",
   width: "100vw",
 };
 
@@ -104,11 +105,24 @@ export const ReportBuilder = () => {
   }
 
   const Dropper = () => (
-    <Space>
-      <li>Requests <Badge overflowCount={20000} count={requests.length} /></li>
-      <li>inventory <Badge overflowCount={20000} count={inventory.length} /></li>
-      <li>accounts <Badge overflowCount={20000} count={accounts.length} /></li>
-      <li>projects <Badge overflowCount={20000} count={projects.length} /></li>
+    <Space size="large">
+      <Statistic
+        title="Requests"
+        value={requests.length}
+        valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}}
+      />
+      <Statistic
+        title="Requests"
+        value={requests.length} valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}} />
+      <Statistic
+        title="inventory"
+        value={inventory.length} valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}} />
+      <Statistic
+        title="accounts"
+        value={accounts.length} valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}} />
+      <Statistic
+        title="projects"
+        value={projects.length} valueStyle={{letterSpacing: '-0.066em', fontWeight: 'bold'}} />
       <Button type="ghost" onClick={handleReset}>Reset</Button>
       <StyledDropzone cb={handleDrop} onDrop={acceptedFiles => handleDrop(acceptedFiles)} />
     </Space>
