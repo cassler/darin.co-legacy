@@ -72,12 +72,21 @@ function Home() {
 								'button button--fill button--secondary button--lg',
 								styles.getStarted,
 							)}
-              to={`https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/2.0/workflower-portable-2.0.0-dist.zip`}>
-							Download Workflower {version} (.zip)
+              to={`https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases/download/2.1/workflower-2.1.1-dist.zip`}>
+							Download Workflower 2.1.1 (.zip)
             </Link>
 					</div>
 					<br />
 					<div className={styles.buttons}>
+            <Link
+							className={clsx(
+								'button button--fill button--primary button--md',
+								styles.getStarted,
+							)}
+							to={'https://ghe.coxautoinc.com/Darin-Cassler/workflower-monorepo/releases'}>
+							Download Previous Versions
+            </Link>&nbsp;
+
 						<Link
 							className={clsx(
 								'button button--fill button--primary button--md',
