@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
 import * as React from 'react';
-import Link from 'next/link'
 import styled from "@emotion/styled";
 
 interface IHeaderProps {
@@ -24,8 +23,8 @@ const Header: React.FunctionComponent<IHeaderProps> = ({ darkMode, color }) => {
     <HeaderDiv>
       <h5>Notes from the Lab</h5>
       <nav>
-        <div><Link href="/about">About</Link></div>
-        <div><Link href="/">Base</Link></div>
+        <div><a href="/about">About</a></div>
+        <div><a href="/">Base</a></div>
         <div>{JSON.stringify(darkMode)}</div>
         <div>{JSON.stringify(color)}</div>
       </nav>

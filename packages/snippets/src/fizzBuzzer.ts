@@ -11,8 +11,15 @@
  */
 
 export type FBInterval = [number, string];
-
-export function fizzBuzzer(length: number, intervals: FBInterval[]): String[] {
+interface fbArgs {
+  length: number,
+  intervals?: FBInterval[]
+}
+const defaultArgs: FBInterval[] = [
+  [3, "fizz"],
+  [5, "buzz"],
+];
+export function fizzBuzzer({intervals = defaultArgs, length}: fbArgs): String[] {
   return Array.from(new Array(length)).map((u, i) => {
     let str = "";
     intervals.map((inter) => {
@@ -23,14 +30,3 @@ export function fizzBuzzer(length: number, intervals: FBInterval[]): String[] {
 }
 
 export default fizzBuzzer;
-
-let myIntervals: FBInterval[] = [
-  [3, "fizz"],
-  [4, "dip"],
-  [5, "buzz"],
-  [7, "went"],
-  [11, "home"],
-];
-let sample = fizzBuzzer(100, myIntervals);
-
-console.table(sample);

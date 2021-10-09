@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@cassler/eslint-config-tsx": "~9.0.0",
+    "@emotion/babel-plugin": "^11.3.0",
     "doctoc": "~2.0.0",
     "eslint": "~7.28.0",
     "eslint-config-airbnb": "^18.2.0",

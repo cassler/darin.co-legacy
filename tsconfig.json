@@ -1,27 +1,15 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "lib": [
-      "ES7",
-      "ES2015",
-      "DOM"
-    ],
+    "lib": ["ES7", "ES2015", "DOM"],
     "target": "es2017",
     "baseUrl": ".",
     "paths": {
-      "@cassler/*": [
-        "packages/*/src"
-      ]
+      "@cassler/*": ["packages/*/src"]
     },
     "jsx": "react",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": [
-      "@emotion/react"
-    ]
+    "skipLibCheck": true
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules"
-  ],
+  "exclude": ["node_modules", "**/node_modules"]
 }

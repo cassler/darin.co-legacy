@@ -1,0 +1,24 @@
+{
+  "name": "@cassler/microsweep",
+  "version": "1.0.0",
+  "main": "src/index",
+  "types": "src/index",
+  "private": false,
+  "scripts": {
+    "build": "yarn run clean && yarn run compile",
+    "clean": "rimraf -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "yarn run build",
+    "test": "yarn run build"
+  },
+  "devDependencies": {
+    "@types/react": "^16.6.0"
+  },
+  "dependencies": {
+    "@cassler/components": "^1.0.1",
+    "@emotion/react": "^11.4.1",
+    "framer-motion": "^4.1.17",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  }
+}
