@@ -11,19 +11,14 @@
     "prepublishOnly": "yarn run build",
     "test": "yarn run build"
   },
-  "peerDependencies": {
-    "react": "~17.0.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@emotion/babel-plugin": "^11.3.0",
-    "@emotion/core": "^11.0.0",
-    "@emotion/react": "^11.4.1",
-    "@types/react": "~17.0.0"
+    "@types/react": "^16.6.0"
   },
   "dependencies": {
     "@cassler/components": "^1.0.1",
     "@emotion/react": "^11.4.1",
-    "framer-motion": "^4.1.17"
+    "framer-motion": "^4.1.17",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }
