@@ -16,7 +16,7 @@
     "next": "lerna run --scope @cassler/nextjs dev"
   },
   "devDependencies": {
-    "@cassler/eslint-config-tsx": "~7.1.8",
+    "@cassler/eslint-config-tsx": "~9.0.0",
     "doctoc": "~2.0.0",
     "eslint": "~7.28.0",
     "eslint-config-airbnb": "^18.2.0",
