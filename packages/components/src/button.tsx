@@ -85,7 +85,7 @@ export const Button: React.FC<Partial<IButtonProps>> = ({
       css={styles}
       onClick={handleClick}
     >
-      <React.Fragment>{children}</React.Fragment>
+      {children}
     </button>
   );
 };
