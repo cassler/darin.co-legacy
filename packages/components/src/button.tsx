@@ -1,8 +1,7 @@
+/** @jsx jsx */
 /* eslint-disable no-alert */
 import React from "react";
-/** @jsx jsx */
-import { ClassNames, css, jsx } from "@emotion/react";
-import { colors } from "@cassler/color";
+import { css, jsx } from "@emotion/react";
 
 export type IButtonProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
@@ -54,7 +53,6 @@ export const Button: React.FC<Partial<IButtonProps>> = ({
   `;
   const ghostStyle = css`
 		background-color: transparent;
-		/* border: 1px solid ${colors.gray[4]}; */
 	`;
   const smallStyle = css`
     padding: 4px 8px;
@@ -87,7 +85,7 @@ export const Button: React.FC<Partial<IButtonProps>> = ({
       css={styles}
       onClick={handleClick}
     >
-      <>{children}</>
+      <React.Fragment>{children}</React.Fragment>
     </button>
   );
 };
