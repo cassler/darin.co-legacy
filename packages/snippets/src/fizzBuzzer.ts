@@ -10,23 +10,36 @@
  * @return String[]
  */
 
-export type FBInterval = [number, string];
+
+type FBInterval = [number, string];
+type FBReturn = string | [number,string]
 interface fbArgs {
   length: number,
-  intervals?: FBInterval[]
+  intervals?: FBInterval[],
+  valuesOnly?: boolean
 }
-const defaultArgs: FBInterval[] = [
+
+const defaultIntervals:FBInterval[] = [
   [3, "fizz"],
   [5, "buzz"],
-];
-export function fizzBuzzer({intervals = defaultArgs, length}: fbArgs): String[] {
-  return Array.from(new Array(length)).map((u, i) => {
-    let str = "";
-    intervals.map((inter) => {
-      if (i % inter[0] === 0) str += inter[1];
-    });
-    return str;
-  });
+]
+
+export function fizzBuzzer({intervals = defaultIntervals, length, valuesOnly}:fbArgs): FBReturn[] {
+  // create an array equal to length argument, indexed at 1
+  const entries = Array.from(new Array(length + 1)).slice(1)
+  // return a fizzbuzz entry as a string, or [number, string] tuple if valuesOnly is true
+  const makeEntry = (_: unknown, i: number): string|[number, string] => {
+     const str = intervals.map(([idx, val]) => (i+1) % idx === 0 ? val : '').join('');
+     return valuesOnly ? str : [i+1, str];
+  }
+  // Run makeEntry for each entry on the map, returning the result
+  return entries.map(makeEntry)
 }
 
 export default fizzBuzzer;
+
+
+export function fizzBuzzSingleton({intervals = defaultIntervals, length}: fbArgs): String[] {
+  let arr = Array.from(new Array(length))
+  return arr.map((_, i) => intervals.map(([idx, val]) => ((i+1) % idx === 0) ? val : '').join(''));
+}
