@@ -1,9 +1,12 @@
 {
   "name": "@cassler/color",
   "version": "1.0.1",
-  "main": "/src/index.ts",
-  "module": "./src/index.ts",
+  "main": "/src/index",
+  "types": "./src/index",
   "private": false,
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "clean": "rimraf -rf ./dist",
