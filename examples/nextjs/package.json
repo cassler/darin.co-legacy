@@ -15,6 +15,7 @@
     "@cassler/components": "^1.0.1",
     "@cassler/fonts": "^1.0.1",
     "@cassler/hooks": "^1.1.4",
+    "@cassler/microsweep": "^1.0.0",
     "@cassler/snippets": "^1.0.1",
     "@emotion/babel-preset-css-prop": "^11.0.0",
     "@emotion/css": "^11.1.3",
@@ -28,7 +29,7 @@
     "open-color": "^1.7.0",
     "react": "^17.0.1",
     "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.2",
     "react-perfect-scrollbar": "^1.5.8",
     "sass": "^1.26.10"
   },

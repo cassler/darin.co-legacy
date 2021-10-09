@@ -1,5 +1,5 @@
 import React from "react";
-import { MicroSweeper } from '@cassler/components';
+import { MicroSweeper } from '@cassler/microsweep';
 
 export default () => {
 
