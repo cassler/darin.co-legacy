@@ -26,10 +26,10 @@
     "@typescript-eslint/parser": "~3.10.0"
   },
   "peerDependencies": {
-    "eslint": "^7.0.0"
+    "eslint": "^8.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.0.0",
+    "eslint": "^8.0.0",
     "typescript": "^4.0.0"
   }
 }
