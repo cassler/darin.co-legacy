@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@cassler/eslint-config-base": "^6.1.8",
-    "@typescript-eslint/eslint-plugin": "~5.35.0",
-    "@typescript-eslint/parser": "~5.35.0"
+    "@typescript-eslint/eslint-plugin": "~5.36.0",
+    "@typescript-eslint/parser": "~5.36.0"
   },
   "peerDependencies": {
     "eslint": "^8.0.0"
