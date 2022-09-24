@@ -17,7 +17,7 @@
   "dependencies": {
     "@cassler/components": "^1.0.1",
     "@emotion/react": "^11.4.1",
-    "framer-motion": "^4.1.17",
+    "framer-motion": "^7.0.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
   }
