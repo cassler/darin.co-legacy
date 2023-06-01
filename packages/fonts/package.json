@@ -26,7 +26,7 @@
     "typescript": "^4.0.2",
     "url-loader": "^4.1.0",
     "webpack": "~5.74.0",
-    "webpack-cli": "~4.10.0"
+    "webpack-cli": "~5.1.0"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.0.0",
